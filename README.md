@@ -8,3 +8,10 @@ XCode currently doesn't support pure swift frameworks. You can add it as a submo
   1. Add this repo as a submodule.
   2. Drag the MathEagle folder to your XCode file list. Make sure to add it to the target.
   3. It's ready to use!
+
+#Currently Supported
+* Basic extensions and operators like power (** operator)
+* Basic functions like sign and factorial
+* Single variable function root solving
+* Single variable funciton optimization
+* Matrix and Vector math
