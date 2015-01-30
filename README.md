@@ -17,5 +17,5 @@ XCode currently doesn't support pure swift frameworks. You can add it as a submo
 * Matrix and Vector math
 
 #To Do
-[ ] Documentation
-[ ] Further General Development
+- [ ] Documentation
+- [ ] Further General Development
