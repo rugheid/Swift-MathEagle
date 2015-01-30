@@ -107,6 +107,19 @@ class Matrix <T: FullMathValue> : ArrayLiteralConvertible, Equatable, Printable,
     
     // MARK: Subscript Methods
     
+    subscript(row: Int, column: Int) -> T {
+    
+        get {
+            
+            return self.element(row, column)
+        }
+        
+        set(newElement) {
+            
+            self.setElement(atRow: row, atColumn: column, toElement: newElement)
+        }
+    }
+    
     subscript(index: Int) -> Vector<T>  {
         
         get {
