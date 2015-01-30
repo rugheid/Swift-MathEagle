@@ -1,0 +1,100 @@
+//
+//  Solver.swift
+//  SwiftMath
+//
+//  Created by Rugen Heidbuchel on 26/01/15.
+//  Copyright (c) 2015 Jorestha Solutions. All rights reserved.
+//
+
+import Foundation
+
+var SOLVER_ACCURACY = 1e-7
+var SOLVER_MAX_TIME = 10.0 // 10 seconds
+
+class Solver {
+    
+    /**
+        Returns the zero value of f with the given accuracy, starting with the given interval [a,b]. The signs of f(a) and f(b) should not be equal.
+    
+        :param: a The beginpoint of the interval.
+        :param: b The endpoint of the interval.
+        :param: f The function to find the zero of.
+        :param: accuracy The accuracy, this is standard set on 10^-7.
+        :param: maxTime The maximum time (in seconds) the solving should take, this is standard set on 10 seconds.
+    
+        :returns: The zero value of f.
+    
+        :exception: An exception will be thrown if the signs of f(a) and f(b) are equal. This means the bisection method can not known whether the interval contains a zero.
+    
+        :exception: An exception will be thrown if a > b.
+    */
+    class func bisection(a: Double, _ b: Double, _ f: (Double) -> Double, accuracy err: Double? = nil, maxTime t_m: Double? = nil) -> Double {
+        
+        if a > b {
+            
+            NSException(name: "a > b", reason: "[\(a), \(b)] is not a valid interval. a should be smaller than b.", userInfo: nil).raise()
+        }
+        
+        let start = NSDate()
+        
+        let error = err ?? SOLVER_ACCURACY
+        let t_max = t_m ?? SOLVER_MAX_TIME
+        
+        var fa = f(a), fb = f(b)
+        
+        if sign(fa) == sign(fb) {
+            
+            NSException(name: "Not shure if given interval contains zero", reason: "The signs of f(a) and f(b) are equal, which means the bisection method cannot narrow the search. You have to provide a valid interval.", userInfo: nil).raise()
+        }
+        
+        var A = a, B = b, x = (A+B)*0.5
+        
+        while NSDate().timeIntervalSinceDate(start) < t_max && abs(B-A) > 2*error {
+            
+            let fx = f(x)
+            
+            if sign(fx) == sign(fb) {
+                
+                B = x
+                fb = fx
+                
+            } else {
+                
+                A = x
+                fa = fx
+            }
+            
+            x = (A+B)*0.5
+        }
+        
+        return x
+    }
+    
+    
+    class func newton(x0: Double, f: (Double) -> Double, df: ((Double) -> Double)? = nil, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil) -> Double {
+        
+        let start = NSDate()
+        
+        let error = err ?? SOLVER_ACCURACY
+        let t_max = t_m ?? SOLVER_MAX_TIME
+        let shouldApproximateDf = (df == nil)
+        
+        var converged = false
+        var k = 1
+        var x = x0
+        
+        while k <= k_max && NSDate().timeIntervalSinceDate(start) < t_max && !converged {
+            
+            let xprev = x
+            let diff = shouldApproximateDf ? (f(x + SOLVER_ACCURACY) - f(x - SOLVER_ACCURACY))/(2 * SOLVER_ACCURACY) : df!(x)
+            
+            x = x - f(x)/diff
+            converged = abs(x - xprev) <= error
+            
+            k++
+        }
+        
+        return x
+    }
+    
+}
