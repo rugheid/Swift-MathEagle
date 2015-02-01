@@ -16,6 +16,8 @@ XCode currently doesn't support pure swift frameworks. You can add it as a submo
 * Single variable funciton optimization
 * Matrix and Vector math
 
+Take a look at the Wiki for documentation.
+
 #To Do
 - [ ] Documentation
 - [ ] Further General Development
