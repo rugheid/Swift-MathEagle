@@ -1371,10 +1371,10 @@ struct Index: ArrayLiteralConvertible {
 
 struct Dimensions: Equatable, Addable, Negatable {
     
-    let rows: Int = 0
-    let columns: Int = 0
+    let rows: Int
+    let columns: Int
     
-    init(_ rows: Int, _ columns: Int) {
+    init(_ rows: Int = 0, _ columns: Int = 0) {
         
         self.rows = rows
         self.columns = columns
