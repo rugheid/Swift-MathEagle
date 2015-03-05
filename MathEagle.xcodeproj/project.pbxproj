@@ -10,6 +10,8 @@
 		98E671721AA8C02100C88DCE /* Prime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E671711AA8C02100C88DCE /* Prime.swift */; };
 		98E671731AA8C02100C88DCE /* Prime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E671711AA8C02100C88DCE /* Prime.swift */; };
 		98E671751AA8C4B400C88DCE /* PrimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E671741AA8C4B400C88DCE /* PrimeTests.swift */; };
+		98E671771AA8F00600C88DCE /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E671761AA8F00600C88DCE /* Complex.swift */; };
+		98E671781AA8F00600C88DCE /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E671761AA8F00600C88DCE /* Complex.swift */; };
 		98F598511A7B8BD20058DF53 /* MathEagle.h in Headers */ = {isa = PBXBuildFile; fileRef = 98F598501A7B8BD20058DF53 /* MathEagle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		98F598571A7B8BD20058DF53 /* MathEagle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98F5984B1A7B8BD20058DF53 /* MathEagle.framework */; };
 		98F598701A7B8BED0058DF53 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F598671A7B8BED0058DF53 /* Math.swift */; };
@@ -55,6 +57,7 @@
 /* Begin PBXFileReference section */
 		98E671711AA8C02100C88DCE /* Prime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prime.swift; sourceTree = "<group>"; };
 		98E671741AA8C4B400C88DCE /* PrimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeTests.swift; sourceTree = "<group>"; };
+		98E671761AA8F00600C88DCE /* Complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Complex.swift; sourceTree = "<group>"; };
 		98F5984B1A7B8BD20058DF53 /* MathEagle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MathEagle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F5984F1A7B8BD20058DF53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98F598501A7B8BD20058DF53 /* MathEagle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MathEagle.h; sourceTree = "<group>"; };
@@ -125,6 +128,7 @@
 				98F598671A7B8BED0058DF53 /* Math.swift */,
 				98F598681A7B8BED0058DF53 /* Extensions.swift */,
 				98E671711AA8C02100C88DCE /* Prime.swift */,
+				98E671761AA8F00600C88DCE /* Complex.swift */,
 				98F598691A7B8BED0058DF53 /* Functions.swift */,
 				98F5986A1A7B8BED0058DF53 /* Solver.swift */,
 				98F5986B1A7B8BED0058DF53 /* Optimization.swift */,
@@ -303,6 +307,7 @@
 				98F5987E1A7B8BED0058DF53 /* MatrixVector.swift in Sources */,
 				98F598761A7B8BED0058DF53 /* Solver.swift in Sources */,
 				98E671721AA8C02100C88DCE /* Prime.swift in Sources */,
+				98E671771AA8F00600C88DCE /* Complex.swift in Sources */,
 				98F598801A7B8BED0058DF53 /* Vector.swift in Sources */,
 				98F598741A7B8BED0058DF53 /* Functions.swift in Sources */,
 			);
@@ -320,6 +325,7 @@
 				98F5989C1A7B8C2A0058DF53 /* MatrixTests.swift in Sources */,
 				98F5988E1A7B8C2A0058DF53 /* SwiftMathTests.swift in Sources */,
 				98E671731AA8C02100C88DCE /* Prime.swift in Sources */,
+				98E671781AA8F00600C88DCE /* Complex.swift in Sources */,
 				98E671751AA8C4B400C88DCE /* PrimeTests.swift in Sources */,
 				98F5987B1A7B8BED0058DF53 /* Integration.swift in Sources */,
 				98F598A01A7B8C2A0058DF53 /* Helper.swift in Sources */,
