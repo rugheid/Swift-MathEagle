@@ -21,86 +21,17 @@ func sign <X: FullMathValue> (x: X) -> Int {
 
 // MARK: Factorial
 
-func factorial(x: Int) -> Int {
+func factorial <X: BasicMathValue> (x: X) -> X {
     
     if x < 0 {
         
         NSException(name: "x < 0", reason: "The factorial does not exist for n < 0.", userInfo: nil).raise()
     }
     
-    if x <= 1 { return 1 }
-    
-    return x * factorial(x-1)
-}
-
-func factorial(x: UInt) -> UInt {
-    
-    if x < 0 {
+    if !x.isInteger() {
         
-        NSException(name: "x < 0", reason: "The factorial does not exist for n < 0.", userInfo: nil).raise()
+        NSException(name: "x not integer", reason: "The factorial only exists for integers.", userInfo: nil).raise()
     }
-    
-    if x <= 1 { return 1 }
-    
-    return x * factorial(x-1)
-}
-
-func factorial(x: UInt8) -> UInt8 {
-    
-    if x < 0 {
-        
-        NSException(name: "x < 0", reason: "The factorial does not exist for n < 0.", userInfo: nil).raise()
-    }
-    
-    if x <= 1 { return 1 }
-    
-    return x * factorial(x-1)
-}
-
-func factorial(x: UInt16) -> UInt16 {
-    
-    if x < 0 {
-        
-        NSException(name: "x < 0", reason: "The factorial does not exist for n < 0.", userInfo: nil).raise()
-    }
-    
-    if x <= 1 { return 1 }
-    
-    return x * factorial(x-1)
-}
-
-func factorial(x: UInt32) -> UInt32 {
-    
-    if x < 0 {
-        
-        NSException(name: "x < 0", reason: "The factorial does not exist for n < 0.", userInfo: nil).raise()
-    }
-    
-    if x <= 1 { return 1 }
-    
-    return x * factorial(x-1)
-}
-
-func factorial(x: UInt64) -> UInt64 {
-    
-    if x < 0 {
-        
-        NSException(name: "x < 0", reason: "The factorial does not exist for n < 0.", userInfo: nil).raise()
-    }
-    
-    if x <= 1 { return 1 }
-    
-    return x * factorial(x-1)
-}
-
-func factorial(x: Float) -> Float {
-    
-    if x < 0 {
-        
-        NSException(name: "x < 0", reason: "The factorial does not exist for n < 0.", userInfo: nil).raise()
-    }
-    
-//    if 
     
     if x <= 1 { return 1 }
     

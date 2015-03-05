@@ -99,23 +99,37 @@ func ** (left: Int64, right: Double) -> Double {
 }
 
 
+// MARK: SetCompliant Protocol
+
+protocol SetCompliant {
+    
+    func isNatural() -> Bool
+    func isInteger() -> Bool
+}
+
+
+// MARK: BasicMathValue Protocol
+
+protocol BasicMathValue: Equatable, Comparable, Addable, Substractable, Multiplicable, Dividable, SetCompliant, IntegerLiteralConvertible {}
+
+
 // MARK: FullMathValue Protocol
 
-protocol FullMathValue: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, IntegerLiteralConvertible {}
+protocol FullMathValue: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, IntegerLiteralConvertible {}
 
 
 // MARK: Basic Type Protocol Adoptions
 
-extension Int: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, FullMathValue {}
-extension Int8: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, FullMathValue {}
-extension Int16: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, FullMathValue {}
-extension Int32: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, FullMathValue {}
-extension Int64: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, FullMathValue {}
-extension UInt: Addable, Substractable, Multiplicable, Dividable {}
-extension UInt8: Addable, Substractable, Multiplicable, Dividable {}
-extension UInt16: Addable, Substractable, Multiplicable, Dividable {}
-extension UInt32: Addable, Substractable, Multiplicable, Dividable {}
-extension UInt64: Addable, Substractable, Multiplicable, Dividable {}
-extension Float: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, FullMathValue {}
-extension Double: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, FullMathValue {}
+extension Int: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, BasicMathValue, FullMathValue {}
+extension Int8: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, BasicMathValue, FullMathValue {}
+extension Int16: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, BasicMathValue, FullMathValue {}
+extension Int32: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, BasicMathValue, FullMathValue {}
+extension Int64: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, BasicMathValue, FullMathValue {}
+extension UInt: Addable, Substractable, Multiplicable, Dividable, SetCompliant, BasicMathValue {}
+extension UInt8: Addable, Substractable, Multiplicable, Dividable, SetCompliant, BasicMathValue {}
+extension UInt16: Addable, Substractable, Multiplicable, Dividable, SetCompliant, BasicMathValue {}
+extension UInt32: Addable, Substractable, Multiplicable, Dividable, SetCompliant, BasicMathValue {}
+extension UInt64: Addable, Substractable, Multiplicable, Dividable, SetCompliant, BasicMathValue {}
+extension Float: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, BasicMathValue, FullMathValue {}
+extension Double: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, BasicMathValue, FullMathValue {}
 extension String: Addable {}

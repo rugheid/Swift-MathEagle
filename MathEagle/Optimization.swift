@@ -8,8 +8,8 @@
 
 import Foundation
 
-let OPTIMIZATION_ACCURACY = 1e-7
-let OPTIMIZATION_MAX_TIME = 10.0
+var OPTIMIZATION_ACCURACY = 1e-7
+var OPTIMIZATION_MAX_TIME = 10.0
 
 class Optimization {
     
