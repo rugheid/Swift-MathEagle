@@ -9,6 +9,13 @@ XCode currently doesn't support pure swift frameworks. You can add it as a submo
   2. Drag the MathEagle folder to your XCode file list. Make sure to add it to the target.
   3. It's ready to use!
 
+#Supported Xcode Versions
+Math Eagle is fully compatible with:
+- Xcode 6.1.1 (current official version)
+- Xcode 6.2 beta
+
+Xcode 6.3 beta gives a 'segmentation fault: 11' error, this is normally an Apple bug.
+
 #Currently Supported
 * Basic extensions and operators like power (** operator)
 * Basic functions like sign and factorial
