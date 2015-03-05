@@ -13,6 +13,22 @@ import Foundation
 
 extension Double {
     
+    
+    // MARK: Basic Properties
+    
+    func isNegative() -> Bool {
+        
+        return self < 0
+    }
+    
+    func isPositive() -> Bool {
+        
+        return self >= 0
+    }
+    
+    
+    // MARK: Set Compliance
+    
     func isNatural() -> Bool {
         
         return self % 1.0 == 0.0 && self >= 0.0
@@ -30,6 +46,22 @@ extension Double {
 
 extension Float {
     
+    
+    // MARK: Basic Properties
+    
+    func isNegative() -> Bool {
+        
+        return self < 0
+    }
+    
+    func isPositive() -> Bool {
+        
+        return self >= 0
+    }
+    
+    
+    // MARK: Set Compliance
+    
     func isNatural() -> Bool {
         
         return self % 1.0 == 0.0 && self >= 0.0
@@ -38,5 +70,38 @@ extension Float {
     func isInteger() -> Bool {
         
         return self % 1.0 == 0.0
+    }
+}
+
+
+
+// MARK: Int Extensions
+
+extension Int {
+    
+    
+    // MARK: Basic Properties
+    
+    func isNegative() -> Bool {
+        
+        return self < 0
+    }
+    
+    func isPositive() -> Bool {
+        
+        return self >= 0
+    }
+    
+    
+    // MARK: Set Compliance
+    
+    func isNatural() -> Bool {
+        
+        return !self.isNegative()
+    }
+    
+    func isInteger() -> Bool {
+        
+        return true
     }
 }
