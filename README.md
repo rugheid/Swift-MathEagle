@@ -19,8 +19,9 @@ Xcode 6.3 beta gives a 'segmentation fault: 11' error, this is normally an Apple
 #Currently Supported
 * Basic extensions and operators like power (** operator)
 * Basic functions like sign and factorial
+* Prime functions
 * Single variable function root solving
-* Single variable funciton optimization
+* Single variable function optimization
 * Matrix and Vector math
 
 Take a look at the Wiki for documentation.
