@@ -42,16 +42,33 @@ struct Complex: Equatable, Addable, Negatable, Substractable, Multiplicable, Div
     
     // MARK: Basic Properties
     
+    /**
+        Returns the modulus of the complex number.
+    */
     var modulus: Double {
         
         return sqrt(self.real**2 + self.imaginary**2)
     }
     
+    /**
+        Returns the argument of the complex number.
+    */
     var argument: Double {
         
-        return atan(self.imaginary / self.real) + (self.quadrant.rawValue >= 3 ? PI : 0)
+        return (self.real == 0.0 && self.imaginary == 0.0) ? 0 : atan(self.imaginary / self.real) + (self.quadrant.rawValue >= 3 ? PI : 0)
     }
     
+    /**
+        Returns the conjugate of the complex number.
+    */
+    var conjugate: Complex {
+        
+        return Complex(self.real, -self.imaginary)
+    }
+    
+    /**
+        Returns the quadrant of the complex plane in which the complex number lies.
+    */
     var quadrant: Quadrant {
         
         if self.real >= 0 {
@@ -64,14 +81,20 @@ struct Complex: Equatable, Addable, Negatable, Substractable, Multiplicable, Div
         }
     }
     
+    /**
+        Returns a description of the complex number of the form "a ± bi"
+    */
     var description: String {
         
-        return "\(self.real) + \(self.imaginary)i"
+        return self.imaginary < 0 ? "\(self.real) - \(-self.imaginary)" : "\(self.real) + \(self.imaginary)i"
     }
     
     
     // MARK: Fuzzy Equality
     
+    /**
+        Returns true if the real and imaginary parts are equal.
+    */
     func equals(z: Complex) -> Bool {
         
         return self.real == self.real && self.imaginary == z.imaginary
@@ -89,10 +112,20 @@ struct Complex: Equatable, Addable, Negatable, Substractable, Multiplicable, Div
 
 // MARK: Function Extensions
 
+func sqrt(z: Complex) -> Complex {
+    
+    return Complex(modulus: sqrt(z.modulus), argument: z.argument / 2)
+}
+
 func exp(z: Complex) -> Complex {
     
     let c = exp(z.real)
     return Complex(c * cos(z.imaginary), c * sin(z.imaginary))
+}
+
+func log(z: Complex) -> Complex {
+    
+    return Complex(log(z.modulus), z.argument)
 }
 
 
