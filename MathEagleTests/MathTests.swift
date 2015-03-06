@@ -12,18 +12,12 @@ import XCTest
 class MathTests: XCTestCase {
     
     
-    // MARK: Basic Functions Tests
+    // MARK: Constant Tests
     
-    func testSignFunction() {
+    func testPi() {
         
-        var x = -1.2
-        XCTAssertEqual(-1, sign(x))
-        
-        x = 3.4
-        XCTAssertEqual(1, sign(x))
-        
-        x = 0
-        XCTAssertEqual(0, sign(x))
+        // Test to see if maximum accuracy in Double is reached
+        println(PI)
     }
     
 }

@@ -12,6 +12,7 @@
 		98E671751AA8C4B400C88DCE /* PrimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E671741AA8C4B400C88DCE /* PrimeTests.swift */; };
 		98E671771AA8F00600C88DCE /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E671761AA8F00600C88DCE /* Complex.swift */; };
 		98E671781AA8F00600C88DCE /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E671761AA8F00600C88DCE /* Complex.swift */; };
+		98E6717A1AA99AB500C88DCE /* ComplexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E671791AA99AB500C88DCE /* ComplexTests.swift */; };
 		98F598511A7B8BD20058DF53 /* MathEagle.h in Headers */ = {isa = PBXBuildFile; fileRef = 98F598501A7B8BD20058DF53 /* MathEagle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		98F598571A7B8BD20058DF53 /* MathEagle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98F5984B1A7B8BD20058DF53 /* MathEagle.framework */; };
 		98F598701A7B8BED0058DF53 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F598671A7B8BED0058DF53 /* Math.swift */; };
@@ -58,6 +59,7 @@
 		98E671711AA8C02100C88DCE /* Prime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prime.swift; sourceTree = "<group>"; };
 		98E671741AA8C4B400C88DCE /* PrimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeTests.swift; sourceTree = "<group>"; };
 		98E671761AA8F00600C88DCE /* Complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Complex.swift; sourceTree = "<group>"; };
+		98E671791AA99AB500C88DCE /* ComplexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexTests.swift; sourceTree = "<group>"; };
 		98F5984B1A7B8BD20058DF53 /* MathEagle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MathEagle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F5984F1A7B8BD20058DF53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98F598501A7B8BD20058DF53 /* MathEagle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MathEagle.h; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				98F598841A7B8C2A0058DF53 /* MathTests.swift */,
 				98F598851A7B8C2A0058DF53 /* ExtensionsTests.swift */,
 				98E671741AA8C4B400C88DCE /* PrimeTests.swift */,
+				98E671791AA99AB500C88DCE /* ComplexTests.swift */,
 				98F598861A7B8C2A0058DF53 /* FunctionsTests.swift */,
 				98F598871A7B8C2A0058DF53 /* SolverTests.swift */,
 				98F598881A7B8C2A0058DF53 /* OptimizationTests.swift */,
@@ -339,6 +342,7 @@
 				98F598711A7B8BED0058DF53 /* Math.swift in Sources */,
 				98F598961A7B8C2A0058DF53 /* SolverTests.swift in Sources */,
 				98F598751A7B8BED0058DF53 /* Functions.swift in Sources */,
+				98E6717A1AA99AB500C88DCE /* ComplexTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

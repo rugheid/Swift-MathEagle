@@ -12,6 +12,19 @@ import XCTest
 class FunctionsTests: XCTestCase {
     
     
+    func testSign() {
+        
+        var x = -1.2
+        XCTAssertEqual(-1, sign(x))
+        
+        x = 3.4
+        XCTAssertEqual(1, sign(x))
+        
+        x = 0
+        XCTAssertEqual(0, sign(x))
+    }
+    
+    
     func testFactorial() {
         
         let fact = Vector(length: 10, generator: factorial)

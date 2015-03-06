@@ -38,6 +38,20 @@ extension Double {
         
         return self % 1.0 == 0.0
     }
+    
+    
+    // MARK: Fuzzy Equals
+    
+    func equals(x: Double, accuracy: Double) -> Bool {
+        
+        let absSelf = abs(self)
+        let absX = abs(x)
+        let diff = abs(absSelf - absX)
+        
+        if self == x { return true }
+        
+        return diff < accuracy
+    }
 }
 
 

@@ -8,6 +8,14 @@
 
 import Foundation
 
+
+// MARK: Constants
+
+let PI = 3.14159265358979
+
+
+
+
 // MARK: Addable Protocol
 
 protocol Addable {
