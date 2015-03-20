@@ -17,9 +17,9 @@ Math Eagle is fully compatible with:
 Xcode 6.3 beta gives a 'segmentation fault: 11' error, this is normally an Apple bug.
 
 #Currently Supported
-* Basic extensions and operators like power (** operator)
-* Basic functions like sign and factorial
+* Basic extensions, operators like power (** operator) and functions like sign and factorial
 * Prime functions
+* Complex numbers
 * Single variable function root solving
 * Single variable function optimization
 * Matrix and Vector math
