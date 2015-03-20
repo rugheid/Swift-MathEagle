@@ -111,8 +111,8 @@ func ** (left: Int64, right: Double) -> Double {
 
 protocol SetCompliant {
     
-    func isNatural() -> Bool
-    func isInteger() -> Bool
+    var isNatural: Bool { get }
+    var isInteger: Bool { get }
 }
 
 

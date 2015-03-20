@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Complex: Equatable, Addable, Negatable, Substractable, Multiplicable, Dividable, IntegerLiteralConvertible, Printable {
+struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Printable {
     
     var real: Double
     var imaginary: Double
@@ -28,11 +28,11 @@ struct Complex: Equatable, Addable, Negatable, Substractable, Multiplicable, Div
         self.imaginary = modulus * sin(argument)
     }
     
-    init(integerLiteral value: IntegerLiteralType) {
-        
-        self.real = Double(value)
-        self.imaginary = 0
-    }
+//    init(integerLiteral value: IntegerLiteralType) {
+//        
+//        self.real = Double(value)
+//        self.imaginary = 0
+//    }
     
     static var imaginaryUnit: Complex {
         
@@ -86,7 +86,15 @@ struct Complex: Equatable, Addable, Negatable, Substractable, Multiplicable, Div
     */
     var description: String {
         
-        return self.imaginary < 0 ? "\(self.real) - \(-self.imaginary)" : "\(self.real) + \(self.imaginary)i"
+        return self.imaginary < 0 ? "\(self.real) - \(-self.imaginary)i" : "\(self.real) + \(self.imaginary)i"
+    }
+    
+    
+    // MARK: Set Conformance
+    
+    var isReal: Bool {
+        
+        return self.imaginary == 0;
     }
     
     
@@ -145,6 +153,20 @@ func == (left: Double, right: Complex) -> Bool {
 func == (left: Complex, right: Double) -> Bool {
     
     return right == left
+}
+
+
+
+// MARK: Comparable Protocol Conformance
+
+func < (left: Complex, right: Complex) -> Bool {
+    
+    return left.modulus < right.modulus
+}
+
+func > (left: Complex, right: Complex) -> Bool {
+    
+    return right < left
 }
 
 

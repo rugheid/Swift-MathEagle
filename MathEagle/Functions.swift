@@ -40,7 +40,7 @@ func factorial <X: BasicMathValue> (x: X) -> X {
         NSException(name: "x < 0", reason: "The factorial does not exist for n < 0.", userInfo: nil).raise()
     }
     
-    if !x.isInteger() {
+    if !x.isInteger {
         
         NSException(name: "x not integer", reason: "The factorial only exists for integers.", userInfo: nil).raise()
     }

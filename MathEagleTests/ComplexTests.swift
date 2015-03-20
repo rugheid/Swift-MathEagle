@@ -12,6 +12,31 @@ import XCTest
 class ComplexTests: XCTestCase {
     
     let ACCURACY = 10.0 ** -7
+    
+    
+    
+    // MARK: General Test
+    
+    func testGeneralComplexMath() {
+        
+        let i = Complex.imaginaryUnit
+        
+        var x = -3.0 + 4.5*i
+        var y = -5.0 + 2.8*i
+        var z = 1.0 + 2.0*i
+        
+        print("\n\n\n")
+        
+        println("x = \(x)")
+        println("y = \(y)")
+        println("z = \(z)")
+        println("x + y = \(x+y)")
+        println("x * y = \(x*y)")
+        println("e^z = \(exp(z))")
+        println("sqrt(z) = \(sqrt(z))")
+        
+        print("\n\n\n")
+    }
 
     
     // MARK: Init Tests
@@ -36,12 +61,12 @@ class ComplexTests: XCTestCase {
     }
     
     
-    func testIntegerLiteralInit() {
-        
-        var z: Complex = 2
-        XCTAssertEqual(2, z.real)
-        XCTAssertEqual(0, z.imaginary)
-    }
+//    func testIntegerLiteralInit() {
+//        
+//        var z: Complex = 2
+//        XCTAssertEqual(2, z.real)
+//        XCTAssertEqual(0, z.imaginary)
+//    }
     
     
     
@@ -95,6 +120,17 @@ class ComplexTests: XCTestCase {
         let z = Complex(1, 2)
         
         XCTAssertEqual(Complex(1, 2), z)
+    }
+    
+    
+    func testComparability() {
+        
+        let z = Complex(1, 2)
+        let x = Complex(3, -5)
+        
+        XCTAssertTrue(z < x)
+        XCTAssertTrue(x > z)
+        XCTAssertFalse(z > z)
     }
     
     
