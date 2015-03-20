@@ -25,6 +25,29 @@ func sign <X: FullMathValue> (x: X) -> Int {
 
 
 /**
+    Returns the greatest common divisor of the two given numbers.
+
+    :param: a The first number
+    :param: b The second number
+
+    :returns: The greatest common divisor of the two given numbers. When either a or b equals 0, 1 is returned.
+*/
+func gcd(var a: UInt, var b: UInt) -> UInt {
+    
+    if a == 0 || b == 0 { return 1 }
+    
+    while b != 0 {
+        
+        let temp = b
+        b = a % b
+        a = temp
+    }
+    
+    return a
+}
+
+
+/**
     Returns the factorial of the given value, aka x!
     
     :param: x The value to caculate the factorial of

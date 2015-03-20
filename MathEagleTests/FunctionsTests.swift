@@ -25,6 +25,16 @@ class FunctionsTests: XCTestCase {
     }
     
     
+    func testGCD() {
+        
+        XCTAssertEqual(1 as UInt, gcd(0, 5))
+        XCTAssertEqual(1 as UInt, gcd(13, 5))
+        XCTAssertEqual(10 as UInt, gcd(20, 10))
+        XCTAssertEqual(5 as UInt, gcd(34510, 431195))
+        XCTAssertEqual(2 as UInt, gcd(33234, 58798))
+    }
+    
+    
     func testFactorial() {
         
         let fact = Vector(length: 10, generator: factorial)
