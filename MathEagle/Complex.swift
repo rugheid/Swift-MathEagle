@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, IntegerLiteralConvertible, Printable {
+struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, FullMathValue, IntegerLiteralConvertible, Printable {
     
     var real: Double
     var imaginary: Double
@@ -112,6 +112,20 @@ struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multip
     func equals(z: Complex, accuracy: Double) -> Bool {
         
         return self.real.equals(z.real, accuracy: accuracy) && self.imaginary.equals(z.imaginary, accuracy: accuracy)
+    }
+    
+    
+    
+    // MARK: Set Compliance
+    
+    var isNatural: Bool {
+        
+        return self.real.isNatural && self.imaginary == 0.0
+    }
+    
+    var isInteger: Bool {
+        
+        return self.real.isInteger && self.imaginary == 0.0
     }
     
 }
