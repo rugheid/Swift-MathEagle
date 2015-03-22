@@ -76,23 +76,11 @@ protocol Dividable {
 
 infix operator ** {associativity left precedence 160}
 
-//protocol IntPowerable {
-//    
-//    func ** (left: Self, right: Int) -> Self
-//}
-
 protocol Powerable {
     
     typealias PowerType
-    
-//    func ** (left: Self, right: Float) -> PowerType
     func ** (left: Self, right: Double) -> PowerType
 }
-
-//protocol Powerable {
-//    
-//    func ** (left: Self, right: Self) -> Self
-//}
 
 func ** (left: Double, right: Double) -> Double {
     
