@@ -52,7 +52,7 @@ class Integration {
             
             while a + i*0.5*h < b {
                 
-                if i%3 == 0 { i += 2; continue }
+                if i%3 == 0.0 { i += 2; continue }
                 
                 S += f(a + i*0.5*h)
                 i += 2
@@ -145,7 +145,7 @@ class Integration {
         
         var h = b - a
         var S0 = f( (a+b)*0.5 )
-        var I = h/3.0 * ( f(a) + f(b) + 4*S0 )
+        var I = h/3.0 * ( f(a) + f(b) + 4.0*S0 )
         
         var converged = false
         var k = 0.0
@@ -163,7 +163,7 @@ class Integration {
                 i += 1.0
             }
             
-            let L = h/3 * (4*S0 - 2*S)
+            let L = h/3.0 * (4.0*S0 - 2.0*S)
             
             converged = abs(L - 0.5*I) < error
             
@@ -215,7 +215,7 @@ class Integration {
     private class func simpsons_rule(a: Double, _ b: Double, _ f: (Double) -> Double) -> Double {
         
         let c = (a+b)*0.5
-        let h = abs(b-a)/6
+        let h = abs(b-a)/6.0
         
         return h * (f(a) + 4*f(c) + f(b))
     }

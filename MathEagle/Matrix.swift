@@ -8,7 +8,9 @@
 
 import Foundation
 
-class Matrix <T: FullMathValue> : ArrayLiteralConvertible, Equatable, Printable, SequenceType {
+protocol MatrixCompatible: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, IntegerLiteralConvertible {}
+
+class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printable, SequenceType {
     
     
     // MARK: Basic Properties
@@ -19,7 +21,6 @@ class Matrix <T: FullMathValue> : ArrayLiteralConvertible, Equatable, Printable,
     
     // MARK: Initialisation
     
-    // Init an empty matrix
     init() {}
     
     
@@ -1001,7 +1002,7 @@ class Matrix <T: FullMathValue> : ArrayLiteralConvertible, Equatable, Printable,
 
 // MARK: Matrix Equality
 
-func == <T: FullMathValue> (left: Matrix<T>, right: Matrix<T>) -> Bool {
+func == <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Bool {
     
     if left.dimensions != right.dimensions {
         
@@ -1022,7 +1023,7 @@ func == <T: FullMathValue> (left: Matrix<T>, right: Matrix<T>) -> Bool {
 
 // MARK: Matrix Addition
 
-func + <T: FullMathValue> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
+func + <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
     
     return combine(left, right){ $0 + $1 }
 }
@@ -1030,15 +1031,15 @@ func + <T: FullMathValue> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
 
 // MARK: Matrix Negation
 
-prefix func - <T: FullMathValue> (matrix: Matrix<T>) -> Matrix<T> {
+prefix func - <T: MatrixCompatible> (matrix: Matrix<T>) -> Matrix<T> {
     
-    return map(matrix){ -$0 }
+    return mmap(matrix){ -$0 }
 }
 
 
 // MARK: Matrix Substraction
 
-func - <T: FullMathValue> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
+func - <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
     
     return combine(left, right){ $0 - $1 }
 }
@@ -1046,12 +1047,12 @@ func - <T: FullMathValue> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
 
 // MARK: Matrix Scalar Multiplication
 
-func * <T: FullMathValue> (scalar: T, matrix: Matrix<T>) -> Matrix<T> {
+func * <T: MatrixCompatible> (scalar: T, matrix: Matrix<T>) -> Matrix<T> {
     
     return Matrix(map(matrix.elements){ map($0){ scalar * $0 } })
 }
 
-func * <T: FullMathValue> (matrix: Matrix<T>, scalar: T) -> Matrix<T> {
+func * <T: MatrixCompatible> (matrix: Matrix<T>, scalar: T) -> Matrix<T> {
     
     return scalar * matrix
 }
@@ -1059,7 +1060,7 @@ func * <T: FullMathValue> (matrix: Matrix<T>, scalar: T) -> Matrix<T> {
 
 // MARK: Matrix Multiplication
 
-func * <T: FullMathValue> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
+func * <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
     
     let v = left.dimensions.columns
     
@@ -1095,14 +1096,14 @@ func * <T: FullMathValue> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
 
 // MARK: Matrix Functional Methods
 
-func map <T: FullMathValue, U: FullMathValue> (matrix: Matrix<T>, transform: T -> U) -> Matrix<U> {
+func mmap <T: MatrixCompatible, U: MatrixCompatible> (matrix: Matrix<T>, transform: T -> U) -> Matrix<U> {
     
     let matrixElements = map(matrix.elements){ map($0, transform) }
     
     return Matrix(matrixElements)
 }
 
-func reduce <T: FullMathValue, U: FullMathValue> (matrix: Matrix<T>, initial: U, combine: (U, T) -> U) -> U {
+func reduce <T: MatrixCompatible, U: MatrixCompatible> (matrix: Matrix<T>, initial: U, combine: (U, T) -> U) -> U {
     
     var reduced = initial
     
@@ -1114,7 +1115,7 @@ func reduce <T: FullMathValue, U: FullMathValue> (matrix: Matrix<T>, initial: U,
     return reduced
 }
 
-func combine <T: FullMathValue, U: FullMathValue, V: FullMathValue> (left: Matrix<T>, right: Matrix<U>, combine: (T, U) -> V) -> Matrix<V> {
+func combine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (left: Matrix<T>, right: Matrix<U>, combine: (T, U) -> V) -> Matrix<V> {
 
     if left.dimensions != right.dimensions {
         
@@ -1310,7 +1311,7 @@ func randomFloatMatrix(withSize size: Int) -> Matrix<Float> {
 
 // MARK: - MatrixGenerator
 
-struct MatrixGenerator <T: FullMathValue> : GeneratorType {
+struct MatrixGenerator <T: MatrixCompatible> : GeneratorType {
     
     let matrix: Matrix<T>
     
@@ -1369,7 +1370,7 @@ struct Index: ArrayLiteralConvertible {
 
 // MARK: - Dimensions
 
-struct Dimensions: Equatable, Addable, Negatable {
+struct Dimensions: Equatable, Addable {
     
     let rows: Int
     let columns: Int

@@ -292,7 +292,7 @@ class MatrixTests: XCTestCase {
         
         let matrix = randomIntMatrix(withSize: 3)
         
-        let negative = map(matrix){ -$0 }
+        let negative = mmap(matrix){ -$0 }
         
         let expected = -matrix
         

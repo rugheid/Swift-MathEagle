@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Printable {
+struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, IntegerLiteralConvertible, Printable {
     
     var real: Double
     var imaginary: Double
@@ -28,11 +28,11 @@ struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multip
         self.imaginary = modulus * sin(argument)
     }
     
-//    init(integerLiteral value: IntegerLiteralType) {
-//        
-//        self.real = Double(value)
-//        self.imaginary = 0
-//    }
+    init(integerLiteral value: IntegerLiteralType) {
+        
+        self.real = Double(value)
+        self.imaginary = 0
+    }
     
     static var imaginaryUnit: Complex {
         
@@ -94,7 +94,7 @@ struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multip
     
     var isReal: Bool {
         
-        return self.imaginary == 0;
+        return self.imaginary == 0.0;
     }
     
     

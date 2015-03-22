@@ -108,7 +108,7 @@ class ComplexTests: XCTestCase {
         let z = exp(Complex(1, 2))
         
         XCTAssertEqualWithAccuracy(exp(1) * cos(2), z.real, ACCURACY)
-        XCTAssertEqualWithAccuracy(exp(1) * cos(2), z.imaginary, ACCURACY)
+        XCTAssertEqualWithAccuracy(exp(1) * sin(2), z.imaginary, ACCURACY)
     }
     
     

@@ -72,3 +72,17 @@ func factorial <X: BasicMathValue> (x: X) -> X {
     
     return x * factorial(x-1)
 }
+
+
+/**
+    Returns the n'th Fibonacci number, with fib(0) = 0 and fib(1) = 1
+*/
+func fib(n: UInt) -> UInt {
+    
+    let Q = Matrix([[1, 1], [1, 0]])
+    
+    if n == 0 { return 0 }
+    if n == 1 { return 1 }
+    
+    return 0
+}

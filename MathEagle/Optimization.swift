@@ -20,7 +20,7 @@ class Optimization {
         let error = err ?? OPTIMIZATION_ACCURACY
         let t_max = t_m ?? OPTIMIZATION_MAX_TIME
         
-        let phi = (sqrt(5.0) - 1)/2
+        let phi = (sqrt(5.0) - 1.0)/2.0
         
         var a = a0, b = b0
         var v = a + phi*(b-a)

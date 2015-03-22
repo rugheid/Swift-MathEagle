@@ -43,9 +43,9 @@ class SolverTests: XCTestCase {
         
         var df = {(x: Double) -> Double in
             
-            var a = log(x+5) * x - 2*x
-            a += 5*log(x+5) + 2*sqrt(x)
-            let b = sqrt(x)*(log(x+5)**2)*(x+5)
+            var a = log(x+5.0) * x - 2.0*x
+            a += 5.0*log(x+5.0) + 2.0*sqrt(x)
+            let b = sqrt(x)*(log(x+5.0)**2.0)*(x+5.0)
             
             return -0.5*a/b
         }
@@ -55,8 +55,8 @@ class SolverTests: XCTestCase {
         
         df = {(x: Double) -> Double in
             
-            let a = -2*exp(-2*x)
-            let b = x**4 - 2*x**3 - 1
+            let a = -2.0*exp(-2.0*x)
+            let b = x**4.0 - 2.0*x**3.0 - 1.0
             
             return a*b
         }
@@ -71,13 +71,13 @@ class SolverTests: XCTestCase {
             
             let df = {(x: Double) -> Double in
                 
-                let a = -2*exp(-2*x)
-                let b = x**4 - 2*x**3 - 1
+                let a = -2.0*exp(-2.0*x)
+                let b = x**4.0 - 2.0*x**3.0 - 1.0
                 
                 return a*b
             }
             
-            return Solver.newton(-0.5, f: { ($0**4 - 1)/exp(2*$0) }, df: df)
+            return Solver.newton(-0.5, f: { ($0**4.0 - 1.0)/exp(2.0*$0) }, df: df)
         }
         
         let baseline = 3.12000513076782e-06

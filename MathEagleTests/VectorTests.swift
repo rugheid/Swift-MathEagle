@@ -97,7 +97,7 @@ class VectorTests: XCTestCase {
         
         let vector = Vector([1, 2, 3, 4])
         
-        let mapped = map(vector){ $0 * $0 }
+        let mapped = vmap(vector){ $0 * $0 }
         
         XCTAssertEqual(Vector([1, 4, 9, 16]), mapped)
     }

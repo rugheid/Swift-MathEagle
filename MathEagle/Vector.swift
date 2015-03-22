@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Vector <T: FullMathValue> : ArrayLiteralConvertible, Equatable, SequenceType, Printable {
+class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, SequenceType, Printable {
     
     var elements = [T]()
     
@@ -114,7 +114,7 @@ class Vector <T: FullMathValue> : ArrayLiteralConvertible, Equatable, SequenceTy
     /**
         Returns the 2-norm. This means sqrt(element_0^2 + element_1^2 + ... + element_n^2)
     */
-    var norm: Double {
+    var norm: T.PowerType {
         
         if self.length == 0 {
             
@@ -179,7 +179,7 @@ class Vector <T: FullMathValue> : ArrayLiteralConvertible, Equatable, SequenceTy
 
 // MARK: Vector Equality
 
-func == <T: FullMathValue> (left: Vector<T>, right: Vector<T>) -> Bool {
+func == <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Bool {
     
     if left.length != right.length {
         
@@ -197,7 +197,7 @@ func == <T: FullMathValue> (left: Vector<T>, right: Vector<T>) -> Bool {
 
 // MARK: Vector Addition
 
-func + <T: FullMathValue> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
+func + <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
     
     if left.length != right.length {
         
@@ -210,15 +210,15 @@ func + <T: FullMathValue> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
 
 // MARK: Vector Negation
 
-prefix func - <T: FullMathValue> (vector: Vector<T>) -> Vector<T> {
+prefix func - <T: MatrixCompatible> (vector: Vector<T>) -> Vector<T> {
     
-    return map(vector){ -$0 }
+    return vmap(vector){ -$0 }
 }
 
 
 // MARK: Vector Substraction
 
-func - <T: FullMathValue> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
+func - <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
     
     // To keep this implementation as general as possible, we don't use (left + -right), because T must then be Addable and Negatable.
     // User-defined structs or classes can be Substractable however without being Negatable.
@@ -235,7 +235,7 @@ func - <T: FullMathValue> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
 
 // MARK: Vector Scalar Multiplication and Division
 
-func * <T: FullMathValue> (scalar: T, vector: Vector<T>) -> Vector<T> {
+func * <T: MatrixCompatible> (scalar: T, vector: Vector<T>) -> Vector<T> {
     
     var elements = vector.elements
     
@@ -247,12 +247,12 @@ func * <T: FullMathValue> (scalar: T, vector: Vector<T>) -> Vector<T> {
     return Vector(elements)
 }
 
-func * <T: FullMathValue> (vector: Vector<T>, scalar: T) -> Vector<T> {
+func * <T: MatrixCompatible> (vector: Vector<T>, scalar: T) -> Vector<T> {
     
     return scalar * vector
 }
 
-func / <T: FullMathValue> (vector: Vector<T>, scalar: T) -> Vector<T> {
+func / <T: MatrixCompatible> (vector: Vector<T>, scalar: T) -> Vector<T> {
     
     var elements = vector.elements
     
@@ -267,7 +267,7 @@ func / <T: FullMathValue> (vector: Vector<T>, scalar: T) -> Vector<T> {
 
 // MARK: Vector Direct Product
 
-func * <T: FullMathValue> (left: Vector<T>, right: Vector<T>) -> Matrix<T> {
+func * <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Matrix<T> {
     
     return left.directProduct(right)
 }
@@ -275,17 +275,17 @@ func * <T: FullMathValue> (left: Vector<T>, right: Vector<T>) -> Matrix<T> {
 
 // MARK: Vector Functional Methods
 
-func map <T: FullMathValue, U: FullMathValue> (vector: Vector<T>, transform: T -> U) -> Vector<U> {
+func vmap <T: MatrixCompatible, U: MatrixCompatible> (vector: Vector<T>, transform: (T) -> U) -> Vector<U> {
     
     return Vector(map(vector.elements, transform))
 }
 
-func reduce <T: FullMathValue, U> (vector: Vector<T>, initial: U, combine: (U, T) -> U) -> U {
+func reduce <T: MatrixCompatible, U> (vector: Vector<T>, initial: U, combine: (U, T) -> U) -> U {
     
     return reduce(vector.elements, initial, combine)
 }
 
-func combine <T: FullMathValue, U: FullMathValue, V: FullMathValue> (left: Vector<T>, right: Vector<U>, combine: (T, U) -> V) -> Vector<V> {
+func combine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (left: Vector<T>, right: Vector<U>, combine: (T, U) -> V) -> Vector<V> {
     
     if left.length != right.length {
         
@@ -327,7 +327,7 @@ func randomDoubleVector(ofLength length: Int, #min: Double, #max: Double) -> Vec
 
 // MARK: - VectorGenerator
 
-struct VectorGenerator <T: FullMathValue> : GeneratorType {
+struct VectorGenerator <T: MatrixCompatible> : GeneratorType {
     
     let vector: Vector<T>
     
