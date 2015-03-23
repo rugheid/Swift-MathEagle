@@ -10,21 +10,21 @@ import Foundation
 
 
 /**
-    Returns true if the given integer is prime.
+    Returns true if the given unsigned integer is prime.
 
     :param: n The number to check for primality
 
-    :returns: true if the given integer is prime.
+    :returns: true if the given unsigned integer is prime.
 */
-func isPrime(n: Int) -> Bool {
+func isPrime(n: UInt) -> Bool {
     
     if n <= 3 { return n >= 2 }
     
     if n % 2 == 0 || n % 3 == 0 { return false }
     
-    var p = 5
+    var p: UInt = 5
     
-    while p <= Int(sqrt(Double(n))) {
+    while p <= UInt(sqrt(Double(n))) {
         
         if n % p == 0 || n % (p + 2) == 0 { return false }
         
@@ -36,19 +36,47 @@ func isPrime(n: Int) -> Bool {
 
 
 /**
+    Returns true if the given integer is prime.
+
+    :param: n The number to check for primality
+
+    :returns: true if the given integer is prime.
+*/
+func isPrime(n: Int) -> Bool {
+    
+    return n < 0 ? false : isPrime(UInt(n))
+}
+
+
+
+/**
+    Returns true if the given unsigned integers are coprimes. This means they have no common prime factors.
+
+    :param: a The first unsigned integer
+    :param: b The second unsigned integer
+
+    :returns: true if the given unsigned integers are coprime.
+*/
+func areCoprime(a: UInt, b: UInt) -> Bool {
+    
+    return gcd(a, b) == 1
+}
+
+
+/**
     Returns a list of all primes up to (and including) the given integer.
 
     :param: n The upper bound
 
     :returns: All primes up to (and including) the given integer.
 */
-func primesUpTo(n: Int) -> [Int] {
+func primesUpTo(n: UInt) -> [UInt] {
     
     if n <= 1 { return [] }
     
     var sieve = [Bool](count: n-1, repeatedValue: true)
     
-    for i in 2 ... Int(sqrt(Double(n))) {
+    for i: UInt in 2 ... UInt(sqrt(Double(n))) {
         
         if sieve[i-2] {
             
@@ -63,11 +91,11 @@ func primesUpTo(n: Int) -> [Int] {
         }
     }
     
-    var primes = [Int]()
+    var primes = [UInt]()
     
     for i in 0 ..< n-1 {
         
-        if sieve[i] { primes.append(i+2) }
+        if sieve[Int(i)] { primes.append(i+2) }
     }
     
     return primes
@@ -81,7 +109,7 @@ func primesUpTo(n: Int) -> [Int] {
 
     :returns: The prime factors of the given integer in ascending order.
 */
-func primeFactors(n: Int) -> [Int] {
+func primeFactors(n: UInt) -> [UInt] {
     
     if n <= 1 { return [] }
     
