@@ -27,6 +27,16 @@ class PrimeTests: XCTestCase {
     }
     
     
+    func testAreCoprime() {
+        
+        XCTAssertTrue(areCoprime(5, 7))
+        XCTAssertTrue(areCoprime(14, 15))
+        XCTAssertTrue(areCoprime(1, 6))
+        
+        XCTAssertFalse(areCoprime(14, 6))
+    }
+    
+    
     func testPrimesUpTo() {
         
         XCTAssertEqual([2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47], primesUpTo(50))

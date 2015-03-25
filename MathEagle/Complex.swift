@@ -16,6 +16,11 @@ struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multip
     
     // MARK: Initialisation
     
+    init(_ complex: Complex) {
+        self.real = complex.real
+        self.imaginary = complex.imaginary
+    }
+    
     init(_ real: Double, _ imaginary: Double) {
         
         self.real = real

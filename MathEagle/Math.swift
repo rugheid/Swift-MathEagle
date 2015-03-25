@@ -72,6 +72,14 @@ protocol Dividable {
 }
 
 
+// MARK: Modulable Protocol
+
+protocol Modulable {
+    
+    func % (left: Self, right: Self) -> Self
+}
+
+
 // MARK: Powerable Protocol
 
 infix operator ** {associativity left precedence 160}
@@ -80,6 +88,7 @@ protocol Powerable {
     
     typealias PowerType
     func ** (left: Self, right: Double) -> PowerType
+    init(PowerType)
 }
 
 func ** (left: Double, right: Double) -> Double {
@@ -165,16 +174,16 @@ protocol FullMathValue: Equatable, Comparable, Addable, Negatable, Substractable
 
 // MARK: Basic Type Protocol Adoptions
 
-extension Int: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
-extension Int8: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
-extension Int16: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
-extension Int32: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
-extension Int64: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
-extension UInt: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, BasicMathValue, MatrixCompatible {}
-extension UInt8: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, BasicMathValue, MatrixCompatible {}
-extension UInt16: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, BasicMathValue, MatrixCompatible {}
-extension UInt32: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, BasicMathValue, MatrixCompatible {}
-extension UInt64: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, BasicMathValue, MatrixCompatible {}
-extension Float: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {}
-extension Double: Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {}
+extension Int: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
+extension Int8: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
+extension Int16: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
+extension Int32: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
+extension Int64: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
+extension UInt: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, BasicMathValue, MatrixCompatible {}
+extension UInt8: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, BasicMathValue, MatrixCompatible {}
+extension UInt16: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, BasicMathValue, MatrixCompatible {}
+extension UInt32: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, BasicMathValue, MatrixCompatible {}
+extension UInt64: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, BasicMathValue, MatrixCompatible {}
+extension Float: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {}
+extension Double: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {}
 extension String: Addable {}
