@@ -10,41 +10,28 @@ import Foundation
 
 
 /**
-    Returns true if the given unsigned integer is prime.
+    Returns true if the given number is prime.
 
-    :param: n The number to check for primality
+    :param: x The number to check for primality
 
     :returns: true if the given unsigned integer is prime.
 */
-func isPrime(n: UInt) -> Bool {
+func isPrime <X: protocol<Equatable, Comparable, Addable, Modulable, Powerable, IntegerLiteralConvertible>> (x: X) -> Bool {
     
-    if n <= 3 { return n >= 2 }
+    if x <= 3 { return x >= 2 }
     
-    if n % 2 == 0 || n % 3 == 0 { return false }
+    if x % 2 == 0 || x % 3 == 0 { return false }
     
-    var p: UInt = 5
+    var p: X = 5
     
-    while p <= UInt(sqrt(Double(n))) {
+    while p <= X(x ** 0.5) {
         
-        if n % p == 0 || n % (p + 2) == 0 { return false }
+        if x % p == 0 || x % (p + 2) == 0 { return false }
         
-        p += 6
+        p = p + 6
     }
     
     return true
-}
-
-
-/**
-    Returns true if the given integer is prime.
-
-    :param: n The number to check for primality
-
-    :returns: true if the given integer is prime.
-*/
-func isPrime(n: Int) -> Bool {
-    
-    return n < 0 ? false : isPrime(UInt(n))
 }
 
 
@@ -57,7 +44,7 @@ func isPrime(n: Int) -> Bool {
 
     :returns: true if the given unsigned integers are coprime.
 */
-func areCoprime(a: UInt, b: UInt) -> Bool {
+func areCoprime <X: protocol<Equatable, Modulable, IntegerLiteralConvertible>> (a: X, b: X) -> Bool {
     
     return gcd(a, b) == 1
 }
