@@ -204,7 +204,7 @@ func + <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
         NSException(name: "Unequal lengths", reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
     }
     
-    return combine(left, right){ $0 + $1 }
+    return vcombine(left, right){ $0 + $1 }
 }
 
 
@@ -280,12 +280,12 @@ func vmap <T: MatrixCompatible, U: MatrixCompatible> (vector: Vector<T>, transfo
     return Vector(map(vector.elements, transform))
 }
 
-func reduce <T: MatrixCompatible, U> (vector: Vector<T>, initial: U, combine: (U, T) -> U) -> U {
+func vreduce <T: MatrixCompatible, U> (vector: Vector<T>, initial: U, combine: (U, T) -> U) -> U {
     
     return reduce(vector.elements, initial, combine)
 }
 
-func combine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (left: Vector<T>, right: Vector<U>, combine: (T, U) -> V) -> Vector<V> {
+func vcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (left: Vector<T>, right: Vector<U>, combine: (T, U) -> V) -> Vector<V> {
     
     if left.length != right.length {
         

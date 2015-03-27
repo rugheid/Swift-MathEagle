@@ -303,7 +303,7 @@ class MatrixTests: XCTestCase {
         
         let matrix = Matrix([[1, 2, 3], [4, 5, 6]])
         
-        let totalSum = reduce(matrix, 0){ $0 + $1 }
+        let totalSum = mreduce(matrix, 0){ $0 + $1 }
         
         XCTAssertEqual(21, totalSum)
     }
@@ -313,7 +313,7 @@ class MatrixTests: XCTestCase {
         let left = Matrix([[1, 2, 3], [4, 5, 6]])
         let right = Matrix([[7, 8, 9], [10, 11, 12]])
         
-        let combined = combine(left, right){ $0 + $1 }
+        let combined = mcombine(left, right){ $0 + $1 }
         
         let expected = left + right
         

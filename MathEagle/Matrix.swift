@@ -1025,7 +1025,7 @@ func == <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Bool {
 
 func + <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
     
-    return combine(left, right){ $0 + $1 }
+    return mcombine(left, right){ $0 + $1 }
 }
 
 
@@ -1041,7 +1041,7 @@ prefix func - <T: MatrixCompatible> (matrix: Matrix<T>) -> Matrix<T> {
 
 func - <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
     
-    return combine(left, right){ $0 - $1 }
+    return mcombine(left, right){ $0 - $1 }
 }
 
 
@@ -1103,7 +1103,7 @@ func mmap <T: MatrixCompatible, U: MatrixCompatible> (matrix: Matrix<T>, transfo
     return Matrix(matrixElements)
 }
 
-func reduce <T: MatrixCompatible, U: MatrixCompatible> (matrix: Matrix<T>, initial: U, combine: (U, T) -> U) -> U {
+func mreduce <T: MatrixCompatible, U: MatrixCompatible> (matrix: Matrix<T>, initial: U, combine: (U, T) -> U) -> U {
     
     var reduced = initial
     
@@ -1115,7 +1115,7 @@ func reduce <T: MatrixCompatible, U: MatrixCompatible> (matrix: Matrix<T>, initi
     return reduced
 }
 
-func combine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (left: Matrix<T>, right: Matrix<U>, combine: (T, U) -> V) -> Matrix<V> {
+func mcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (left: Matrix<T>, right: Matrix<U>, combine: (T, U) -> V) -> Matrix<V> {
 
     if left.dimensions != right.dimensions {
         

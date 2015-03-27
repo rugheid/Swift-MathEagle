@@ -104,10 +104,13 @@ func properDivisors <X: protocol<Equatable, Comparable, Modulable, Dividable, Po
 
     :returns: true if the given number is a perfect number.
 */
-//func isPerfect <X: protocol<>> (x: X) -> Bool {
-//    
-//    
-//}
+func isPerfect <X: protocol<Equatable, Comparable, Addable, Modulable, Dividable, Powerable, IntegerLiteralConvertible> where X.PowerType: protocol<Comparable, Addable, IntegerLiteralConvertible>> (x: X) -> Bool {
+    
+    var zero: X = 0
+    let sum = reduce(properDivisors(x), zero){ $0 + $1 }
+    
+    return sum == x
+}
 
 
 /**

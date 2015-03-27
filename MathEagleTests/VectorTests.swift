@@ -106,7 +106,7 @@ class VectorTests: XCTestCase {
         
         let vector = Vector([1, 2, 3, 4])
         
-        let reduced = reduce(vector, ""){ $0 + "\($1)" }
+        let reduced = vreduce(vector, ""){ $0 + "\($1)" }
         
         XCTAssertEqual("1234", reduced)
     }
@@ -116,7 +116,7 @@ class VectorTests: XCTestCase {
         let left = Vector([1, 2, 3, 4])
         let right = Vector([5, 6, 7, 8])
         
-        let combined = combine(left, right){ $0 + $1 }
+        let combined = vcombine(left, right){ $0 + $1 }
         
         XCTAssertEqual(left + right, combined)
     }

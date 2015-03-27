@@ -41,6 +41,19 @@ class FunctionsTests: XCTestCase {
     }
     
     
+    func testIsPerfect() {
+        
+        for i: UInt in 1 ... 60 {
+            
+            if i == 6 || i == 28 {
+                XCTAssertTrue(isPerfect(i))
+            } else {
+                XCTAssertFalse(isPerfect(i))
+            }
+        }
+    }
+    
+    
     func testGCD() {
         
         XCTAssertEqual(5, gcd(0, 5))
