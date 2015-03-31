@@ -503,10 +503,20 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     }
     
     
+    /**
+        Returns whether the matrix is diagonal. This means all elements that are not on the main diagonal are zero.
+    */
     var isDiagonal: Bool {
         
-        //TODO: Implement this method
-        return false
+        for (index, element) in enumerate(self) {
+            
+            if index / self.dimensions.rows != index % self.dimensions.rows && element != 0 {
+                
+                return false
+            }
+        }
+        
+        return true
     }
     
     

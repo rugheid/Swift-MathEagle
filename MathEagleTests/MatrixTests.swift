@@ -613,7 +613,16 @@ class MatrixTests: XCTestCase {
         XCTAssertFalse(matrix.isSquare)
     }
     
-    func testSymmetrical() {
+    func testIsDiagonal() {
+        
+        var matrix = Matrix([[2, 0], [0, 3]])
+        XCTAssertTrue(matrix.isDiagonal)
+        
+        matrix = Matrix([[0, 3], [4, 4]])
+        XCTAssertFalse(matrix.isDiagonal)
+    }
+    
+    func testIsSymmetrical() {
         
         // 2 x 3 matrix
         var matrix = Matrix([[1, 2, 3], [4, 5, 6]])
@@ -631,7 +640,7 @@ class MatrixTests: XCTestCase {
         XCTAssertTrue(matrix.isSymmetrical)
     }
     
-    func testSymmetricalPerformance() {
+    func testIsSymmetricalPerformance() {
         
         var (a, b) = getCoefficients(n0: 10, numberOfIterations: 5){
             
