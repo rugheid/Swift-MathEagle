@@ -299,6 +299,31 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(expected, negative)
     }
     
+    func testMatrixMapPerformance() {
+        
+        let (a, b) = getCoefficients(n0: 2, numberOfIterations: 5){
+            
+            let matrix = randomIntMatrix(intRange: 0 ... 10, size: $0)
+            
+            return self.timeBlock(){
+                
+                mmap(matrix){ $0 + 1 }
+            }
+        }
+        
+        println("\nb for matrix map = \(b)")
+        
+        let matrix = randomIntMatrix(intRange: 0 ... 10, size: 100)
+        
+        let time = timeBlock(){
+            
+            mmap(matrix){ $0 + 1 }
+        }
+        
+        let baseline = 0.0261270403862
+        println("Time to map 100x100 matrix = \(time) seconds\nThis is \(baseline/time) times faster than baseline.\n")
+    }
+    
     func testMatrixReduce() {
         
         let matrix = Matrix([[1, 2, 3], [4, 5, 6]])
@@ -306,6 +331,31 @@ class MatrixTests: XCTestCase {
         let totalSum = mreduce(matrix, 0){ $0 + $1 }
         
         XCTAssertEqual(21, totalSum)
+    }
+    
+    func testMatrixReducePerformance() {
+        
+        let (a, b) = getCoefficients(n0: 2, numberOfIterations: 5){
+            
+            let matrix = randomIntMatrix(intRange: -2 ... 2, size: $0)
+            
+            return self.timeBlock(){
+                
+                mreduce(matrix, 0, +)
+            }
+        }
+        
+        println("\nb for matrix reduce = \(b)")
+        
+        let matrix = randomIntMatrix(intRange: -2 ... 2, size: 100)
+        
+        let time = timeBlock(){
+            
+            mreduce(matrix, 0, +)
+        }
+        
+        let baseline = 0.0323160290718079
+        println("Time to reduce 100x100 matrix = \(time) seconds\nThis is \(baseline/time) times faster than baseline.\n")
     }
     
     func testMatrixCombine() {
@@ -318,6 +368,33 @@ class MatrixTests: XCTestCase {
         let expected = left + right
         
         XCTAssertEqual(expected, combined)
+    }
+    
+    func testMatrixCombinePerformance() {
+        
+        let (a, b) = getCoefficients(n0: 2, numberOfIterations: 5){
+            
+            let left = randomIntMatrix(intRange: 0 ... 10, size: $0)
+            let right = randomIntMatrix(intRange: -10 ... 0, size: $0)
+            
+            return self.timeBlock(){
+                
+                mcombine(left, right, +)
+            }
+        }
+        
+        println("\nb for matrix reduce = \(b)")
+        
+        let left = randomIntMatrix(intRange: 0 ... 10, size: 100)
+        let right = randomIntMatrix(intRange: -10 ... 0, size: 100)
+        
+        let time = timeBlock(){
+            
+            mcombine(left, right, +)
+        }
+        
+        let baseline = 0.222007989883423
+        println("Time to reduce 100x100 matrix = \(time) seconds\nThis is \(baseline/time) times faster than baseline.\n")
     }
     
     
