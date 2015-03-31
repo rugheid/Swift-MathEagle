@@ -282,6 +282,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     */
     var rank: Int {
         
+        //TODO: Implement this method
         return 0
     }
     
@@ -305,16 +306,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
             NSException(name: "Non square matrix", reason: "A non square matrix does not have a trace.", userInfo: nil).raise()
         }
         
-        let diagElements = self.diagonalElements
-        
-        var sum = diagElements[0]
-        
-        for i in 1 ..< diagElements.count {
-            
-            sum = sum + diagElements[i]
-        }
-        
-        return sum
+        return sum(self.diagonalElements)
     }
     
     
