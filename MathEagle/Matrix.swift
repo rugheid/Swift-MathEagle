@@ -319,6 +319,18 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     
     /**
+        Returns the determinant of the matrix. Note that this method does not check for easy structures like diagonal
+        matrices, zero matrices, ... because this would consume unnecessary time. Use product(matrix.diagonalElements)
+        if the matrix is diagonal for example.
+    */
+    var determinant: T {
+        
+        let (_, _, _, det) = LUDecomposition(pivoting: true, optimalPivoting: true)
+        return det
+    }
+    
+    
+    /**
     Returns an array with the diagonal elements of the matrix.
     
     :returns: An array with the diagonal elements of the matrix.
@@ -472,6 +484,15 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     
     /**
+        Returns whether all elements are zero.
+    */
+    var isZero: Bool {
+        
+        return mreduce(self, true){ return $0 ? $1 == 0 : false }
+    }
+    
+    
+    /**
         Returns whether the matrix is square.
     
         :returns: true if the matrix is square.
@@ -479,6 +500,13 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     var isSquare: Bool {
         
         return self.dimensions.isSquare
+    }
+    
+    
+    var isDiagonal: Bool {
+        
+        //TODO: Implement this method
+        return false
     }
     
     
@@ -936,7 +964,8 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     */
     var LUDecomposition: (Matrix<T>, Matrix<T>, Matrix<T>) {
         
-        return self.LUDecomposition()
+        let (L, U, P, _) = self.LUDecomposition()
+        return (L, U, P)
     }
     
     
@@ -945,8 +974,10 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :param: pivoting Determines whether the algorithm should use row pivoting. Note that if note pivoting is disabled, the algorithm might not find the LU decomposition.
         :param: optimalPivoting Determines whether the algorithm should use optimal row pivoting when pivoting is enabled. This means the biggest element in the current column is chosen to get more numerical stability.
+        
+        :returns: (L, U, P, det) with L being a lower triangular matrix with 1 on the diagonal, U an upper triangular matrix and P a permutation matrix. This way PA = LU. det gives the determinant of the matrix
     */
-    func LUDecomposition(pivoting: Bool = true, optimalPivoting: Bool = true) -> (Matrix<T>, Matrix<T>, Matrix<T>) {
+    func LUDecomposition(pivoting: Bool = true, optimalPivoting: Bool = true) -> (Matrix<T>, Matrix<T>, Matrix<T>, T) {
         
         if !self.isSquare {
             
@@ -958,6 +989,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         var L = Matrix(identityOfSize: n)
         var U = self.copy
         var P = Matrix(identityOfSize: n)
+        var detP: T = 1;
         
         for i in 0 ..< n {
             
@@ -970,6 +1002,8 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
                     if U[i][j] > max { max = U[i][j]; p = j }
                 }
                 
+                if p != i { detP = -detP }
+                
                 U.switchRows(p, i)
                 P.switchRows(p, i)
             }
@@ -979,7 +1013,9 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
             U[i+1 ..< n, i] = Vector(filledWith: 0, length: n-i-1)
         }
         
-        return (L, U, P)
+        let detU = product(U.diagonalElements)
+        
+        return (L, U, P, detP * detU)
     }
     
     
@@ -1126,7 +1162,7 @@ func mmap <T: MatrixCompatible, U: MatrixCompatible> (matrix: Matrix<T>, transfo
     :param: initial The element to combine with the first element of the matrix.
     :param: combine The closure to combine two values to generate a new value.
 */
-func mreduce <T: MatrixCompatible, U: MatrixCompatible> (matrix: Matrix<T>, initial: U, combine: (U, T) -> U) -> U {
+func mreduce <T: MatrixCompatible, U> (matrix: Matrix<T>, initial: U, combine: (U, T) -> U) -> U {
     
     var reduced = initial
     

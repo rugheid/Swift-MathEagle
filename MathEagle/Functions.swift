@@ -181,3 +181,28 @@ private func memoFib <X: protocol<Hashable, Addable, Substractable, IntegerLiter
     
     return answer
 }
+
+
+
+// MARK: Sequence Functions
+
+/**
+    Returns the sum of all elements in the sequence.
+
+    :param: seq The sequence to sum.
+*/
+func sum <S: SequenceType where S.Generator.Element: protocol<Addable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
+    
+    return reduce(seq, 0){ $0 + $1 }
+}
+
+
+/**
+    Returns the product of all elements in the sequence.
+    
+    :param: seq The sequence to take the product of.
+*/
+func product <S: SequenceType where S.Generator.Element: protocol<Multiplicable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
+    
+    return reduce(seq, 1){ $0 * $1 }
+}

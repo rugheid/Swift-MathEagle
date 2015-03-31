@@ -101,4 +101,37 @@ class FunctionsTests: XCTestCase {
         println()
     }
     
+    
+    // MARK: Sequence Functions Tests
+    
+    func testSum() {
+        
+        var seq1 = [1, 2, 3, 4, 5, 6]
+        XCTAssertEqual(21, sum(seq1))
+        
+        let seq2: [UInt] = [1, 2, 3, 4, 5, 6]
+        XCTAssertEqual(21 as UInt, sum(seq2))
+        
+        seq1 = []
+        XCTAssertEqual(0, sum(seq1))
+        
+        let seq3 = [1.0, -2.0, 3.0, -4.0, 5.0, -6.0]
+        XCTAssertEqual(-3.0, sum(seq3))
+    }
+    
+    func testProduct() {
+        
+        var seq1 = [1, 2, 3, 4, 5, 6]
+        XCTAssertEqual(720, product(seq1))
+        
+        let seq2: [UInt] = [1, 2, 3, 4, 5, 6]
+        XCTAssertEqual(720 as UInt, product(seq2))
+        
+        seq1 = []
+        XCTAssertEqual(1, product(seq1))
+        
+        let seq3 = [1.0, -2.0, 3.0, -4.0, 5.0, -6.0]
+        XCTAssertEqual(-720.0, product(seq3))
+    }
+    
 }

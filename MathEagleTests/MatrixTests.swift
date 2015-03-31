@@ -448,6 +448,18 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(15, matrix.trace)
     }
     
+    func testMatrixDeterminant() {
+        
+        var matrix = Matrix<Double>(identityOfSize: 10)
+        XCTAssertEqual(1.0, matrix.determinant)
+        
+        matrix = Matrix([[2.0, 4.0], [3.0, 7.0]])
+        XCTAssertEqualWithAccuracy(2.0, matrix.determinant, ACCURACY)
+        
+        matrix = Matrix<Double>([[6, 7, -3, 2], [5, -2, -2, 3], [8, 6, 5, 5], [-8, -8, 0, 3]])
+        XCTAssertEqualWithAccuracy(-2759.0, matrix.determinant, ACCURACY)
+    }
+    
     func testDiagonalElements() {
         
         // 2 x 2 matrix
@@ -576,6 +588,14 @@ class MatrixTests: XCTestCase {
         var matrix2 = Matrix<Int>()
         
         XCTAssertTrue(matrix2.isEmpty)
+    }
+    
+    func testIsZero() {
+        
+        XCTAssertTrue(Matrix<Int>().isZero)
+        XCTAssertTrue(Matrix([[0, 0], [0, 0]]).isZero)
+        
+        XCTAssertFalse(Matrix([[1, 0], [3, 4]]).isZero)
     }
     
     func testIsSquare() {
