@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		988B7CCD1ACAD2F600CDEEF7 /* MatrixVectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988B7CCB1ACAD2F600CDEEF7 /* MatrixVectorTests.swift */; };
 		98E671721AA8C02100C88DCE /* Prime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E671711AA8C02100C88DCE /* Prime.swift */; };
 		98E671731AA8C02100C88DCE /* Prime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E671711AA8C02100C88DCE /* Prime.swift */; };
 		98E671751AA8C4B400C88DCE /* PrimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E671741AA8C4B400C88DCE /* PrimeTests.swift */; };
@@ -56,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		988B7CCB1ACAD2F600CDEEF7 /* MatrixVectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixVectorTests.swift; sourceTree = "<group>"; };
 		98E671711AA8C02100C88DCE /* Prime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prime.swift; sourceTree = "<group>"; };
 		98E671741AA8C4B400C88DCE /* PrimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeTests.swift; sourceTree = "<group>"; };
 		98E671761AA8F00600C88DCE /* Complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Complex.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 			children = (
 				98F5988A1A7B8C2A0058DF53 /* MatrixTests.swift */,
 				98F5988B1A7B8C2A0058DF53 /* VectorTests.swift */,
+				988B7CCB1ACAD2F600CDEEF7 /* MatrixVectorTests.swift */,
 			);
 			name = "Linear Algebra";
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				98F5989E1A7B8C2A0058DF53 /* VectorTests.swift in Sources */,
 				98F598711A7B8BED0058DF53 /* Math.swift in Sources */,
 				98F598961A7B8C2A0058DF53 /* SolverTests.swift in Sources */,
+				988B7CCD1ACAD2F600CDEEF7 /* MatrixVectorTests.swift in Sources */,
 				98F598751A7B8BED0058DF53 /* Functions.swift in Sources */,
 				98E6717A1AA99AB500C88DCE /* ComplexTests.swift in Sources */,
 			);
