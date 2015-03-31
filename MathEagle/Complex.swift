@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, FullMathValue, IntegerLiteralConvertible, Printable {
+struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, FullMathValue, IntegerLiteralConvertible, MatrixCompatible, Printable {
     
     var real: Double
     var imaginary: Double

@@ -11,6 +11,20 @@ import XCTest
 
 class MatrixTests: XCTestCase {
     
+    var cmatrix: Matrix<Complex> = []
+    
+    override func setUp() {
+        
+        let i = Complex.imaginaryUnit
+        let a = 1.0 + 2.0 * i
+        let b = 2.0 * i
+        let c = -4.0 - 2.0 * i
+        let d = 3.0 * i
+        cmatrix = Matrix([[a, b], [c, d]])
+    }
+    
+    
+    
     // MARK: Initialisation Tests
     
     func testElementsInit() {
@@ -440,12 +454,13 @@ class MatrixTests: XCTestCase {
     func testTrace() {
         
         var matrix = Matrix<Int>(identityOfSize: 10)
-        
         XCTAssertEqual(10, matrix.trace)
         
         matrix = Matrix(filledWith: 5, size: 3)
-        
         XCTAssertEqual(15, matrix.trace)
+        
+        let i = Complex.imaginaryUnit
+        XCTAssertEqual(1.0 + 5.0 * i, cmatrix.trace)
     }
     
     func testMatrixDeterminant() {
@@ -453,11 +468,14 @@ class MatrixTests: XCTestCase {
         var matrix = Matrix<Double>(identityOfSize: 10)
         XCTAssertEqual(1.0, matrix.determinant)
         
-        matrix = Matrix([[2.0, 4.0], [3.0, 7.0]])
+        matrix = Matrix([[2, 4], [3, 7]])
         XCTAssertEqualWithAccuracy(2.0, matrix.determinant, ACCURACY)
         
-        matrix = Matrix<Double>([[6, 7, -3, 2], [5, -2, -2, 3], [8, 6, 5, 5], [-8, -8, 0, 3]])
+        matrix = Matrix([[6, 7, -3, 2], [5, -2, -2, 3], [8, 6, 5, 5], [-8, -8, 0, 3]])
         XCTAssertEqualWithAccuracy(-2759.0, matrix.determinant, ACCURACY)
+        
+        let i = Complex.imaginaryUnit
+        XCTAssertTrue((-10.0 + 11.0 * i).equals(cmatrix.determinant, accuracy: ACCURACY))
     }
     
     func testDiagonalElements() {
@@ -832,6 +850,10 @@ class MatrixTests: XCTestCase {
         let (L, U, P) = matrix.LUDecomposition
         
         XCTAssertEqual(P*matrix, L*U)
+        
+        let (cL, cU, cP) = cmatrix.LUDecomposition
+        
+        XCTAssertEqual(cP*cmatrix, cL*cU)
     }
     
     func testLUDecompositionPerformance() {
