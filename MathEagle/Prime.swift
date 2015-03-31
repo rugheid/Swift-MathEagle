@@ -90,23 +90,27 @@ func primesUpTo(n: UInt) -> [UInt] {
 
 
 /**
-    Returns the prime factors of the given integer in ascending order. Factors with higher multiplicity will appear multiple times.
+    Returns the prime factors of the given integer in ascending order. Factors with higher multiplicity will appear multiple times. An empty array will be returned for all numbers smaller than or equal to 1.
 
     :param: n The integer to factorise
 
     :returns: The prime factors of the given integer in ascending order.
 */
-func primeFactors(n: UInt) -> [UInt] {
+func primeFactors <X: protocol<Equatable, Comparable, Addable, Modulable, Dividable, IntegerLiteralConvertible>> (x: X) -> [X] {
     
-    if n <= 1 { return [] }
+    if x <= 1 { return [] }
     
-    for i in 2 ..< n {
+    var i: X = 2
+    
+    while i < x {
         
-        if n % i == 0 {
+        if x % i == 0 {
             
-            return primeFactors(i) + primeFactors(n/i)
+            return primeFactors(i) + primeFactors(x/i)
         }
+        
+        i = i + 1
     }
     
-    return [n]
+    return [x]
 }
