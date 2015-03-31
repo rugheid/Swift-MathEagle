@@ -11,8 +11,7 @@ XCode currently doesn't support pure swift frameworks. You can add it as a submo
 
 #Supported Xcode Versions
 Math Eagle is fully compatible with:
-- Xcode 6.1.1 (current official version)
-- Xcode 6.2 beta
+- Xcode 6.2 (current official version)
 
 Xcode 6.3 beta gives a 'segmentation fault: 11' error, this is normally an Apple bug.
 
