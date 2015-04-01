@@ -47,7 +47,7 @@ func timeBlock(n: Int = 1, block: Void -> Any) -> Double {
     
     var start = NSDate()
     
-    for i in 1 ... n {
+    for _ in 1 ... n {
         
         block()
     }

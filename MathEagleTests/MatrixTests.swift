@@ -588,6 +588,46 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(expected, matrix.transpose)
     }
     
+    func testConjugate() {
+        
+        var matrix = Matrix([[1, 2, 3], [4, 5, 6]])
+        XCTAssertEqual(matrix, matrix.conjugate)
+        
+        let a = cmatrix[0, 0].conjugate
+        let b = cmatrix[0, 1].conjugate
+        let c = cmatrix[1, 0].conjugate
+        let d = cmatrix[1, 1].conjugate
+        XCTAssertEqual(Matrix([[a, b], [c, d]]), cmatrix.conjugate)
+    }
+    
+    func testConjugateTranspose() {
+        
+        var matrix = Matrix([[1, 2, 3], [4, 5, 6]])
+        var expected = Matrix([[1, 4], [2, 5], [3, 6]])
+        XCTAssertEqual(expected, matrix.conjugateTranspose)
+        
+        matrix = Matrix()
+        expected = Matrix()
+        XCTAssertEqual(expected, matrix.conjugateTranspose)
+        
+        let a = cmatrix[0, 0].conjugate
+        let b = cmatrix[0, 1].conjugate
+        let c = cmatrix[1, 0].conjugate
+        let d = cmatrix[1, 1].conjugate
+        XCTAssertEqual(Matrix([[a, c], [b, d]]), cmatrix.conjugateTranspose)
+    }
+    
+    func testConjugateTransposePerformance() {
+        
+        let baseline = 0.000351011753082275
+        let time = timeBlock(){
+            
+            self.cmatrix.conjugateTranspose
+        }
+        
+        println("\nTime for conjugate transpose = \(time), this is \(baseline/time) times faster than baseline.\n")
+    }
+    
     func testIsEmpty() {
         
         // 2 x 2 matrix

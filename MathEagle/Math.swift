@@ -162,6 +162,63 @@ protocol SetCompliant {
 }
 
 
+// MARK: Conjugatable Protocol
+
+protocol Conjugatable {
+    
+    var conjugate: Self { get }
+}
+
+extension Int: Conjugatable {
+    
+    var conjugate: Int { return self }
+}
+extension Int8: Conjugatable {
+    
+    var conjugate: Int8 { return self }
+}
+extension Int16: Conjugatable {
+    
+    var conjugate: Int16 { return self }
+}
+extension Int32: Conjugatable {
+    
+    var conjugate: Int32 { return self }
+}
+extension Int64: Conjugatable {
+    
+    var conjugate: Int64 { return self }
+}
+extension UInt: Conjugatable {
+    
+    var conjugate: UInt { return self }
+}
+extension UInt8: Conjugatable {
+    
+    var conjugate: UInt8 { return self }
+}
+extension UInt16: Conjugatable {
+    
+    var conjugate: UInt16 { return self }
+}
+extension UInt32: Conjugatable {
+    
+    var conjugate: UInt32 { return self }
+}
+extension UInt64: Conjugatable {
+    
+    var conjugate: UInt64 { return self }
+}
+extension Float: Conjugatable {
+    
+    var conjugate: Float { return self }
+}
+extension Double: Conjugatable {
+    
+    var conjugate: Double { return self }
+}
+
+
 // MARK: BasicMathValue Protocol
 
 protocol BasicMathValue: Equatable, Comparable, Addable, Substractable, Multiplicable, Dividable, SetCompliant, IntegerLiteralConvertible {}

@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol MatrixCompatible: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, IntegerLiteralConvertible {}
+protocol MatrixCompatible: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, Conjugatable, IntegerLiteralConvertible {}
 
 class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printable, SequenceType {
     
@@ -461,6 +461,24 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         }
         
         return Matrix(returnElements)
+    }
+    
+    
+    /**
+        Returns the conjugate of the matrix.
+    */
+    var conjugate: Matrix<T> {
+        
+        return mmap(self){ $0.conjugate }
+    }
+    
+    
+    /**
+        Returns the conjugate transpose of the matrix. This is also called the Hermitian transpose.
+    */
+    var conjugateTranspose: Matrix<T> {
+        
+        return self.transpose.conjugate
     }
     
     
