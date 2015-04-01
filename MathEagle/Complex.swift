@@ -129,6 +129,18 @@ struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multip
         return self.real.equals(z.real, accuracy: accuracy) && self.imaginary.equals(z.imaginary, accuracy: accuracy)
     }
     
+    
+    
+    // MARK: Randomizable Conformance
+    
+    /**
+        Returns a random complex number.
+    */
+    static func random() -> Complex {
+        
+        return Complex(Double.random(), Double.random())
+    }
+    
 }
 
 

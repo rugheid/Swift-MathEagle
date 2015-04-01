@@ -1040,6 +1040,10 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     
     
+    // MARK: Random Generators
+    
+    
+    
     // MARK: Private Helper Methods
     
     private func elementsAreValid(elements: [[T]]) -> Bool {
