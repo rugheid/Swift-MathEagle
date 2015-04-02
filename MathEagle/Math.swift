@@ -363,17 +363,17 @@ extension Int8: Randomizable {
     
     static func random() -> Int8 {
         
-        return 0
+        return Int8(Int.randomInInterval(ClosedInterval(0, Int(Int8.max))))
     }
     
     static func randomInInterval(intervals: ClosedInterval<Int8>...) -> Int8 {
         
-        return 0
+        return randomInInterval(intervals)
     }
     
     static func randomInInterval(intervals: [ClosedInterval<Int8>]) -> Int8 {
         
-        return 0
+        return Int8(Int.randomInInterval(map(intervals){ ClosedInterval(Int($0.start), Int($0.end)) }))
     }
 }
 
@@ -381,17 +381,17 @@ extension Int16: Randomizable {
     
     static func random() -> Int16 {
         
-        return 0
+        return Int16(Int.randomInInterval(ClosedInterval(0, Int(Int16.max))))
     }
     
     static func randomInInterval(intervals: ClosedInterval<Int16>...) -> Int16 {
     
-        return 0
+        return randomInInterval(intervals)
     }
     
     static func randomInInterval(intervals: [ClosedInterval<Int16>]) -> Int16 {
         
-        return 0
+        return Int16(Int.randomInInterval(map(intervals){ ClosedInterval(Int($0.start), Int($0.end)) }))
     }
 }
 
@@ -399,17 +399,17 @@ extension Int32: Randomizable {
     
     static func random() -> Int32 {
         
-        return 0
+        return Int32(Int.randomInInterval(ClosedInterval(0, Int(Int32.max))))
     }
     
     static func randomInInterval(intervals: ClosedInterval<Int32>...) -> Int32 {
     
-        return 0
+        return randomInInterval(intervals)
     }
     
     static func randomInInterval(intervals: [ClosedInterval<Int32>]) -> Int32 {
         
-        return 0
+        return Int32(Int.randomInInterval(map(intervals){ ClosedInterval(Int($0.start), Int($0.end)) }))
     }
 }
 
@@ -417,17 +417,17 @@ extension Int64: Randomizable {
     
     static func random() -> Int64 {
         
-        return 0
+        return Int64(Int.random())
     }
     
     static func randomInInterval(intervals: ClosedInterval<Int64>...) -> Int64 {
     
-        return 0
+        return randomInInterval(intervals)
     }
     
     static func randomInInterval(intervals: [ClosedInterval<Int64>]) -> Int64 {
         
-        return 0
+        return Int64(Int.randomInInterval(map(intervals){ ClosedInterval(Int($0.start), Int($0.end)) }))
     }
 }
 
@@ -441,7 +441,7 @@ extension Float: Randomizable {
     
     static func randomInInterval(intervals: ClosedInterval<Float>...) -> Float {
     
-        return 0
+        return randomInInterval(intervals)
     }
     
     static func randomInInterval(intervals: [ClosedInterval<Float>]) -> Float {
@@ -460,7 +460,7 @@ extension Double: Randomizable {
     
     static func randomInInterval(intervals: ClosedInterval<Double>...) -> Double {
     
-        return 0
+        return randomInInterval(intervals)
     }
     
     static func randomInInterval(intervals: [ClosedInterval<Double>]) -> Double {
