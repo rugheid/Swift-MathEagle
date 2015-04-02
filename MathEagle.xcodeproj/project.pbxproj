@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		982B8FE61ACBE85700E633BF /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982B8FE51ACBE85700E633BF /* Random.swift */; };
-		982B8FE71ACBE85700E633BF /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982B8FE51ACBE85700E633BF /* Random.swift */; };
+		9843568F1ACC79F100B988CB /* RandomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9843568E1ACC79F100B988CB /* RandomTests.swift */; };
 		988B7CCD1ACAD2F600CDEEF7 /* MatrixVectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988B7CCB1ACAD2F600CDEEF7 /* MatrixVectorTests.swift */; };
 		98E671721AA8C02100C88DCE /* Prime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E671711AA8C02100C88DCE /* Prime.swift */; };
 		98E671731AA8C02100C88DCE /* Prime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E671711AA8C02100C88DCE /* Prime.swift */; };
@@ -59,7 +58,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		982B8FE51ACBE85700E633BF /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
+		9843568E1ACC79F100B988CB /* RandomTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomTests.swift; sourceTree = "<group>"; };
 		988B7CCB1ACAD2F600CDEEF7 /* MatrixVectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixVectorTests.swift; sourceTree = "<group>"; };
 		98E671711AA8C02100C88DCE /* Prime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prime.swift; sourceTree = "<group>"; };
 		98E671741AA8C4B400C88DCE /* PrimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeTests.swift; sourceTree = "<group>"; };
@@ -133,7 +132,6 @@
 			children = (
 				98F598501A7B8BD20058DF53 /* MathEagle.h */,
 				98F598671A7B8BED0058DF53 /* Math.swift */,
-				982B8FE51ACBE85700E633BF /* Random.swift */,
 				98F598681A7B8BED0058DF53 /* Extensions.swift */,
 				98E671711AA8C02100C88DCE /* Prime.swift */,
 				98E671761AA8F00600C88DCE /* Complex.swift */,
@@ -160,6 +158,7 @@
 			children = (
 				98F598831A7B8C2A0058DF53 /* SwiftMathTests.swift */,
 				98F598841A7B8C2A0058DF53 /* MathTests.swift */,
+				9843568E1ACC79F100B988CB /* RandomTests.swift */,
 				98F598851A7B8C2A0058DF53 /* ExtensionsTests.swift */,
 				98E671741AA8C4B400C88DCE /* PrimeTests.swift */,
 				98E671791AA99AB500C88DCE /* ComplexTests.swift */,
@@ -317,7 +316,6 @@
 				98F5987E1A7B8BED0058DF53 /* MatrixVector.swift in Sources */,
 				98F598761A7B8BED0058DF53 /* Solver.swift in Sources */,
 				98E671721AA8C02100C88DCE /* Prime.swift in Sources */,
-				982B8FE61ACBE85700E633BF /* Random.swift in Sources */,
 				98E671771AA8F00600C88DCE /* Complex.swift in Sources */,
 				98F598801A7B8BED0058DF53 /* Vector.swift in Sources */,
 				98F598741A7B8BED0058DF53 /* Functions.swift in Sources */,
@@ -338,6 +336,7 @@
 				98E671731AA8C02100C88DCE /* Prime.swift in Sources */,
 				98E671781AA8F00600C88DCE /* Complex.swift in Sources */,
 				98E671751AA8C4B400C88DCE /* PrimeTests.swift in Sources */,
+				9843568F1ACC79F100B988CB /* RandomTests.swift in Sources */,
 				98F5987B1A7B8BED0058DF53 /* Integration.swift in Sources */,
 				98F598A01A7B8C2A0058DF53 /* Helper.swift in Sources */,
 				98F5987D1A7B8BED0058DF53 /* Matrix.swift in Sources */,
@@ -350,7 +349,6 @@
 				98F598711A7B8BED0058DF53 /* Math.swift in Sources */,
 				98F598961A7B8C2A0058DF53 /* SolverTests.swift in Sources */,
 				988B7CCD1ACAD2F600CDEEF7 /* MatrixVectorTests.swift in Sources */,
-				982B8FE71ACBE85700E633BF /* Random.swift in Sources */,
 				98F598751A7B8BED0058DF53 /* Functions.swift in Sources */,
 				98E6717A1AA99AB500C88DCE /* ComplexTests.swift in Sources */,
 			);

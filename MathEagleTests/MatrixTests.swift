@@ -51,6 +51,15 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(expected, matrix)
     }
     
+    func testRandowWithDimensionsIntervalGeneratorInit() {
+        
+        let matrix = Matrix(randomWithDimensions: Dimensions(20, 30), generator: Int.randomInInterval, intervals: ClosedInterval(-10, 10))
+        
+        for element in matrix {
+            XCTAssertTrue(element <= 10 && element >= -10)
+        }
+    }
+    
     func testSymmetricalInit() {
         
         // 2 x 2 matrix
@@ -304,7 +313,7 @@ class MatrixTests: XCTestCase {
     
     func testMatrixMap() {
         
-        let matrix = randomIntMatrix(withSize: 3)
+        let matrix = Matrix(randomWithSize: 3, generator: Int.random)
         
         let negative = mmap(matrix){ -$0 }
         
@@ -317,7 +326,7 @@ class MatrixTests: XCTestCase {
         
         let (a, b) = getCoefficients(n0: 2, numberOfIterations: 5){
             
-            let matrix = randomIntMatrix(intRange: 0 ... 10, size: $0)
+            let matrix = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: 0 ... 10)
             
             return self.timeBlock(){
                 
@@ -327,7 +336,7 @@ class MatrixTests: XCTestCase {
         
         println("\nb for matrix map = \(b)")
         
-        let matrix = randomIntMatrix(intRange: 0 ... 10, size: 100)
+        let matrix = Matrix(randomWithSize: 100, generator: Int.randomInInterval, intervals: 0 ... 10)
         
         let time = timeBlock(){
             
@@ -351,7 +360,7 @@ class MatrixTests: XCTestCase {
         
         let (a, b) = getCoefficients(n0: 2, numberOfIterations: 5){
             
-            let matrix = randomIntMatrix(intRange: -2 ... 2, size: $0)
+            let matrix = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: -2 ... 2)
             
             return self.timeBlock(){
                 
@@ -361,7 +370,7 @@ class MatrixTests: XCTestCase {
         
         println("\nb for matrix reduce = \(b)")
         
-        let matrix = randomIntMatrix(intRange: -2 ... 2, size: 100)
+        let matrix = Matrix(randomWithSize: 100, generator: Int.randomInInterval, intervals: -2 ... 2)
         
         let time = timeBlock(){
             
@@ -388,8 +397,8 @@ class MatrixTests: XCTestCase {
         
         let (a, b) = getCoefficients(n0: 2, numberOfIterations: 5){
             
-            let left = randomIntMatrix(intRange: 0 ... 10, size: $0)
-            let right = randomIntMatrix(intRange: -10 ... 0, size: $0)
+            let left = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: 0 ... 10)
+            let right = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: -10 ... 0)
             
             return self.timeBlock(){
                 
@@ -399,8 +408,8 @@ class MatrixTests: XCTestCase {
         
         println("\nb for matrix reduce = \(b)")
         
-        let left = randomIntMatrix(intRange: 0 ... 10, size: 100)
-        let right = randomIntMatrix(intRange: -10 ... 0, size: 100)
+        let left = Matrix(randomWithSize: 100, generator: Int.randomInInterval, intervals: 0 ... 10)
+        let right = Matrix(randomWithSize: 100, generator: Int.randomInInterval, intervals: -10 ... 0)
         
         let time = timeBlock(){
             
@@ -541,7 +550,7 @@ class MatrixTests: XCTestCase {
         
         let (a, b) = getCoefficients(n0: 10, numberOfIterations: 5){
             
-            let matrix = randomIntMatrix(intRange: -1000...1000, size: $0)
+            let matrix = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: -1000 ... 1000)
             
             return self.timeBlock(){
                 
@@ -552,7 +561,7 @@ class MatrixTests: XCTestCase {
     
     func testMaxValueTime() {
         
-        let matrix = randomIntMatrix(intRange: -1000...1000, size: 100)
+        let matrix = Matrix(randomWithSize: 100, generator: Int.randomInInterval, intervals: -1000 ... 1000)
         
         self.measureBlock(){
             
@@ -1009,67 +1018,14 @@ class MatrixTests: XCTestCase {
         
         let (a, b) = getCoefficients(n0: 3, numberOfIterations: 3){
             
-            let left = randomIntMatrix(intRange: 0...10, size: $0)
-            let right = randomIntMatrix(intRange: 0...10, size: $0)
+            let left = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: 0 ... 10)
+            let right = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: 0 ... 10)
             
             return self.timeBlock(){
                 
                 left * right
             }
         }
-    }
-    
-    
-    // MARK: Matrix Generator Tests
-    
-    func testRandomIntMatrixWithDimensionsWithGenerator() {
-        
-        // 3 x 4 matrix filled with 6
-        var matrix = randomIntMatrix(withDimensions: Dimensions(3, 4)){ 6 }
-        
-        var expected = Matrix(filledWith: 6, dimensions: Dimensions(3, 4))
-        
-        XCTAssertEqual(expected, matrix)
-        
-        // empty matrix
-        matrix = randomIntMatrix(withDimensions: Dimensions(0, 0)){ 4 }
-        
-        XCTAssertTrue(matrix.isEmpty)
-    }
-    
-    func testRandomIntMatrixWithSizeWithGenerator() {
-        
-        //5 x 5 matrix filled with 6
-        var matrix = randomIntMatrix(withSize: 5){ 6 }
-        
-        var expected = Matrix(filledWith: 6, size: 5)
-        
-        XCTAssertEqual(expected, matrix)
-    }
-    
-    func testRandomIntMatrixWithDimensions() {
-        
-        let matrix = randomIntMatrix(withDimensions: Dimensions(2, 3))
-        
-        XCTAssertEqual(2, matrix.dimensions.rows)
-        XCTAssertEqual(3, matrix.dimensions.columns)
-    }
-    
-    func testRandomIntMatrixWithSize() {
-        
-        let matrix = randomIntMatrix(withSize: 5)
-        
-        XCTAssertEqual(5, matrix.dimensions.rows)
-        XCTAssertEqual(5, matrix.dimensions.columns)
-    }
-    
-    func testRandomIntMatrixWithRangeWithDimensions() {
-        
-        let matrix = randomIntMatrix(intRange: 0...10, dimensions: Dimensions(5, 7))
-        
-        XCTAssertEqual(5, matrix.dimensions.rows)
-        XCTAssertEqual(7, matrix.dimensions.columns)
-        XCTAssertTrue(matrix.maxElement <= 10)
     }
     
     

@@ -141,6 +141,30 @@ struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multip
         return Complex(Double.random(), Double.random())
     }
     
+    
+    /**
+        Returns a random complex number in the given interval(s). When no interval is provided, random() will be used.
+        When one interval is provided this interval will be used to restrict the real and imaginary parts.
+        When two intervals are provided the first will be used for the real part, the second for the imaginary part.
+    */
+    static func randomInInterval(intervals: ClosedInterval<Double>...) -> Complex {
+        
+        return randomInInterval(intervals)
+    }
+    
+    
+    /**
+    Returns a random complex number in the given interval(s). When no interval is provided, random() will be used.
+    When one interval is provided this interval will be used to restrict the real and imaginary parts.
+    When two intervals are provided the first will be used for the real part, the second for the imaginary part.
+    */
+    static func randomInInterval(intervals: [ClosedInterval<Double>]) -> Complex {
+        
+        if intervals.isEmpty { return self.random() }
+        if intervals.count == 1 { return Complex(Double.randomInInterval([intervals[0]]), Double.randomInInterval([intervals[0]])) }
+        return Complex(Double.randomInInterval([intervals[0]]), Double.randomInInterval([intervals[1]]))
+    }
+    
 }
 
 

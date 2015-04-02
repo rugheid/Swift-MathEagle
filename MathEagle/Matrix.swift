@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol MatrixCompatible: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, Conjugatable, IntegerLiteralConvertible {}
+protocol MatrixCompatible: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, Conjugatable, Randomizable, IntegerLiteralConvertible {}
 
 class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printable, SequenceType {
     
@@ -55,6 +55,26 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     convenience init(size: Int, generator: (Index) -> T) {
         
         self.init(dimensions: Dimensions(size, size), generator: generator)
+    }
+    
+    convenience init(randomWithDimensions dimensions: Dimensions, generator: () -> T) {
+        
+        self.init(dimensions: dimensions, generator: { i in return generator() })
+    }
+    
+    convenience init(randomWithSize size: Int, generator: () -> T) {
+        
+        self.init(randomWithDimensions: Dimensions(size, size), generator: generator)
+    }
+    
+    convenience init(randomWithDimensions dimensions: Dimensions, generator: ([ClosedInterval<T.RandomIntervalType>]) -> T, intervals: ClosedInterval<T.RandomIntervalType>...) {
+        
+        self.init(dimensions: dimensions, generator: { i in return generator(intervals) })
+    }
+    
+    convenience init(randomWithSize size: Int, generator: ([ClosedInterval<T.RandomIntervalType>]) -> T, intervals: ClosedInterval<T.RandomIntervalType>...) {
+        
+        self.init(dimensions: Dimensions(size, size), generator: { i in return generator(intervals) })
     }
     
     convenience init(symmetrical elements: [T]) {
@@ -1040,10 +1060,6 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     
     
-    // MARK: Random Generators
-    
-    
-    
     // MARK: Private Helper Methods
     
     private func elementsAreValid(elements: [[T]]) -> Bool {
@@ -1233,172 +1249,6 @@ func mcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (l
 
 
 
-// MARK: - Matrix Generators
-
-// MARK: Int Matrices
-
-/**
-    Returns a random Int type matrix with the given dimensions. The elements are generated using the generator.
-
-    :param: dimensions The dimensions of the matrix.
-    :param: generator The generator used to generate the elements.
-
-    :returns: A random Matrix<Int> with the given dimensions. The elements are generated using the generator.
-*/
-func randomIntMatrix(withDimensions dimensions: Dimensions, #generator: () -> Int) -> Matrix<Int> {
-    
-    var matrixElements = [[Int]]()
-    
-    for row in 0 ..< dimensions.rows {
-        
-        var rowElements = [Int]()
-        
-        for column in 0 ..< dimensions.columns {
-            
-            rowElements.append(generator())
-        }
-        
-        matrixElements.append(rowElements)
-    }
-    
-    return Matrix(matrixElements)
-}
-
-/**
-    Returns a random Int matrix with the given size. the elements are generated using the generator.
-
-    :param: size The size of the matrix.
-    :param: generator The generator used to generate the elements.
-
-    :returns: A random Matrix<Int> with the given size. The elements are generated using the generator.
-*/
-func randomIntMatrix(withSize size: Int, #generator: () -> Int) -> Matrix<Int> {
-    
-    return randomIntMatrix(withDimensions: Dimensions(size, size), generator: generator)
-}
-
-/**
-    Returns a random Int matrix with the given dimensions.
-
-    :param: dimensions The dimensions of the matrix.
-
-    :returns: A random Matrix<Int> with the given dimensions.
-
-    :warning: The elements can become very large, since the max value is UINT32_MAX.
-*/
-func randomIntMatrix(withDimensions dimensions: Dimensions) -> Matrix<Int> {
-    
-    return randomIntMatrix(withDimensions: dimensions){ Int(arc4random()) }
-}
-
-/**
-    Returns a random square Int matrix with the given size.
-
-    :param: size The size of the matrix.
-
-    :returns: A random Matrix<Int> with the given dimensions.
-
-    :warning: The elements can become very large, since the max value is UINT32_MAX.
-*/
-func randomIntMatrix(withSize size: Int) -> Matrix<Int> {
-    
-    return randomIntMatrix(withDimensions: Dimensions(size, size))
-}
-
-/**
-    Returns a random Int matrix with the given dimensions. The elements lie within the given Int range.
-
-    :param: range The range in which the elements may lie.
-    :param: dimensions The dimensions of the matrix.
-
-    :returns: A random Matrix<Int> with the given dimensions. The elements lie within the given Int range.
-*/
-func randomIntMatrix(intRange range: Range<Int>, #dimensions: Dimensions) -> Matrix<Int> {
-    
-    return randomIntMatrix(withDimensions: dimensions){
-        
-        range.startIndex + Int(arc4random_uniform(UInt32(range.endIndex - range.startIndex)))
-    }
-}
-
-func randomIntMatrix(intRange range: Range<Int>, #size: Int) -> Matrix<Int> {
-    
-    return randomIntMatrix(intRange: range, dimensions: Dimensions(size, size))
-}
-
-
-// MARK: Float Matrices
-
-/**
-Returns a random Float type matrix with the given dimensions. The elements are generated using the generator.
-
-:param: dimensions The dimensions of the matrix.
-:param: generator The generator used to generate the elements.
-
-:returns: A random Matrix<Float> with the given dimensions. The elements are generated using the generator.
-*/
-func randomFloatMatrix(withDimensions dimensions: Dimensions, #generator: () -> Float) -> Matrix<Float> {
-    
-    var matrixElements = [[Float]]()
-    
-    for row in 0 ..< dimensions.rows {
-        
-        var rowElements = [Float]()
-        
-        for column in 0 ..< dimensions.columns {
-            
-            rowElements.append(generator())
-        }
-        
-        matrixElements.append(rowElements)
-    }
-    
-    return Matrix(matrixElements)
-}
-
-/**
-Returns a random Int matrix with the given size. the elements are generated using the generator.
-
-:param: size The size of the matrix.
-:param: generator The generator used to generate the elements.
-
-:returns: A random Matrix<Int> with the given size. The elements are generated using the generator.
-*/
-func randomFloatMatrix(withSize size: Int, #generator: () -> Float) -> Matrix<Float> {
-    
-    return randomFloatMatrix(withDimensions: Dimensions(size, size), generator: generator)
-}
-
-/**
-Returns a random Float matrix with the given dimensions.
-
-:param: dimensions The dimensions of the matrix.
-
-:returns: A random Matrix<Float> with the given dimensions.
-
-:warning: The elements can become very large.
-*/
-func randomFloatMatrix(withDimensions dimensions: Dimensions) -> Matrix<Float> {
-    
-    return randomFloatMatrix(withDimensions: dimensions){ Float(arc4random()) }
-}
-
-/**
-Returns a random square Float matrix with the given size.
-
-:param: size The size of the matrix.
-
-:returns: A random Matrix<Float> with the given dimensions.
-
-:warning: The elements can become very large.
-*/
-func randomFloatMatrix(withSize size: Int) -> Matrix<Float> {
-    
-    return randomFloatMatrix(withDimensions: Dimensions(size, size))
-}
-
-
-
 // MARK: - Additional Structs
 
 // MARK: - MatrixGenerator
@@ -1551,6 +1401,3 @@ func - (left: Dimensions, right: Dimensions) -> Dimensions {
     
     return left + -right
 }
-
-
-

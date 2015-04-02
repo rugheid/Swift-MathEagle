@@ -219,6 +219,254 @@ extension Double: Conjugatable {
 }
 
 
+
+
+// MARK: Randomizable Protocol
+// This protocol had it's own file, but this gave duplicate symbol errors...
+
+protocol Randomizable {
+    
+    typealias RandomIntervalType: Comparable
+    class func random() -> Self
+    class func randomInInterval(intervals: ClosedInterval<RandomIntervalType>...) -> Self
+    class func randomInInterval(intervals: [ClosedInterval<RandomIntervalType>]) -> Self
+}
+
+extension UInt: Randomizable {
+    
+    static func random() -> UInt {
+        
+        let mult = UInt(arc4random())
+        return UInt(arc4random()) + mult * UInt(UInt32.max)
+    }
+    
+    static func randomInInterval(intervals: ClosedInterval<UInt>...) -> UInt {
+    
+        return self.randomInInterval(intervals)
+    }
+    
+    static func randomInInterval(intervals: [ClosedInterval<UInt>]) -> UInt {
+        
+        let interval = intervals[0]
+        let length = interval.end - interval.start
+        var random: UInt
+        if length >= UInt(UInt32.max) {
+            let half = UInt(arc4random_uniform(2))
+            random = UInt(arc4random_uniform(UInt32(length/2 + 1))) + half * length/2
+        } else {
+            random = UInt(arc4random_uniform(UInt32(length + 1)))
+        }
+        return interval.start + random
+    }
+}
+
+extension UInt8: Randomizable {
+    
+    static func random() -> UInt8 {
+        
+        return 0
+    }
+    
+    static func randomInInterval(intervals: ClosedInterval<UInt8>...) -> UInt8 {
+    
+        return 0
+    }
+    
+    static func randomInInterval(intervals: [ClosedInterval<UInt8>]) -> UInt8 {
+        
+        return 0
+    }
+}
+
+extension UInt16: Randomizable {
+    
+    static func random() -> UInt16 {
+        
+        return 0
+    }
+    
+    static func randomInInterval(intervals: ClosedInterval<UInt16>...) -> UInt16 {
+    
+        return 0
+    }
+    
+    static func randomInInterval(intervals: [ClosedInterval<UInt16>]) -> UInt16 {
+        
+        return 0
+    }
+}
+
+extension UInt32: Randomizable {
+    
+    static func random() -> UInt32 {
+        
+        return 0
+    }
+    
+    static func randomInInterval(intervals: ClosedInterval<UInt32>...) -> UInt32 {
+    
+        return 0
+    }
+    
+    static func randomInInterval(intervals: [ClosedInterval<UInt32>]) -> UInt32 {
+        
+        return 0
+    }
+}
+
+extension UInt64: Randomizable {
+    
+    static func random() -> UInt64 {
+        
+        return 0
+    }
+    
+    static func randomInInterval(intervals: ClosedInterval<UInt64>...) -> UInt64 {
+    
+        return 0
+    }
+    
+    static func randomInInterval(intervals: [ClosedInterval<UInt64>]) -> UInt64 {
+        
+        return 0
+    }
+}
+
+extension Int: Randomizable {
+    
+    static func random() -> Int {
+        
+        return Int(bitPattern: UInt.random())
+    }
+    
+    static func randomInInterval(intervals: ClosedInterval<Int>...) -> Int {
+    
+        let interval = intervals[0]
+        let length = interval.end - interval.start
+        return Int(UInt.randomInInterval(ClosedInterval<UInt>(0, UInt(length))))
+    }
+    
+    static func randomInInterval(intervals: [ClosedInterval<Int>]) -> Int {
+        
+        let interval = intervals[0]
+        let length = interval.end - interval.start
+        return interval.start + Int(UInt.randomInInterval(ClosedInterval<UInt>(0, UInt(length))))
+    }
+}
+
+extension Int8: Randomizable {
+    
+    static func random() -> Int8 {
+        
+        return 0
+    }
+    
+    static func randomInInterval(intervals: ClosedInterval<Int8>...) -> Int8 {
+        
+        return 0
+    }
+    
+    static func randomInInterval(intervals: [ClosedInterval<Int8>]) -> Int8 {
+        
+        return 0
+    }
+}
+
+extension Int16: Randomizable {
+    
+    static func random() -> Int16 {
+        
+        return 0
+    }
+    
+    static func randomInInterval(intervals: ClosedInterval<Int16>...) -> Int16 {
+    
+        return 0
+    }
+    
+    static func randomInInterval(intervals: [ClosedInterval<Int16>]) -> Int16 {
+        
+        return 0
+    }
+}
+
+extension Int32: Randomizable {
+    
+    static func random() -> Int32 {
+        
+        return 0
+    }
+    
+    static func randomInInterval(intervals: ClosedInterval<Int32>...) -> Int32 {
+    
+        return 0
+    }
+    
+    static func randomInInterval(intervals: [ClosedInterval<Int32>]) -> Int32 {
+        
+        return 0
+    }
+}
+
+extension Int64: Randomizable {
+    
+    static func random() -> Int64 {
+        
+        return 0
+    }
+    
+    static func randomInInterval(intervals: ClosedInterval<Int64>...) -> Int64 {
+    
+        return 0
+    }
+    
+    static func randomInInterval(intervals: [ClosedInterval<Int64>]) -> Int64 {
+        
+        return 0
+    }
+}
+
+extension Float: Randomizable {
+    
+    static func random() -> Float {
+        
+        let sign: Float = arc4random_uniform(2) == 0 ? 1 : -1
+        return Float(arc4random()) * sign
+    }
+    
+    static func randomInInterval(intervals: ClosedInterval<Float>...) -> Float {
+    
+        return 0
+    }
+    
+    static func randomInInterval(intervals: [ClosedInterval<Float>]) -> Float {
+        
+        return 0
+    }
+}
+
+extension Double: Randomizable {
+    
+    static func random() -> Double {
+        
+        let sign: Double = arc4random_uniform(2) == 0 ? 1 : -1
+        return Double(arc4random()) * sign
+    }
+    
+    static func randomInInterval(intervals: ClosedInterval<Double>...) -> Double {
+    
+        return 0
+    }
+    
+    static func randomInInterval(intervals: [ClosedInterval<Double>]) -> Double {
+        
+        return 0
+    }
+}
+
+
+
+
 // MARK: BasicMathValue Protocol
 
 protocol BasicMathValue: Equatable, Comparable, Addable, Substractable, Multiplicable, Dividable, SetCompliant, IntegerLiteralConvertible {}
@@ -244,3 +492,4 @@ extension UInt64: Addable, Negatable, Substractable, Multiplicable, Dividable, M
 extension Float: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {}
 extension Double: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {}
 extension String: Addable {}
+
