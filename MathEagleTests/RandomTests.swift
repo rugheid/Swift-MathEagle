@@ -11,10 +11,12 @@ import XCTest
 
 class RandomTests: XCTestCase {
 
-    func testUIntRandom() {
+    func testUIntRandomInInterval() {
         
-        for _ in 1 ... 10_000 {
-            UInt.random()
+        for _ in 1 ... 1000 {
+            
+            var rand = UInt.randomInInterval(0...10)
+            XCTAssertTrue(rand >= 0 && rand <= 10)
         }
     }
 

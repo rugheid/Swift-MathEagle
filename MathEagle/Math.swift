@@ -237,7 +237,7 @@ extension UInt: Randomizable {
     static func random() -> UInt {
         
         let mult = UInt(arc4random())
-        return UInt(arc4random()) + mult * UInt(UInt32.max)
+        return UInt(arc4random_uniform(UInt32.max)) + mult * UInt(UInt32.max)
     }
     
     static func randomInInterval(intervals: ClosedInterval<UInt>...) -> UInt {
@@ -252,7 +252,7 @@ extension UInt: Randomizable {
         var random: UInt
         if length >= UInt(UInt32.max) {
             let half = UInt(arc4random_uniform(2))
-            random = UInt(arc4random_uniform(UInt32(length/2 + 1))) + half * length/2
+            random = UInt(arc4random_uniform(UInt32(length/2))) + half * length/2
         } else {
             random = UInt(arc4random_uniform(UInt32(length + 1)))
         }
@@ -264,17 +264,20 @@ extension UInt8: Randomizable {
     
     static func random() -> UInt8 {
         
-        return 0
+        return UInt8(arc4random_uniform(UInt32(UInt8.max)+1))
     }
     
     static func randomInInterval(intervals: ClosedInterval<UInt8>...) -> UInt8 {
     
-        return 0
+        return randomInInterval(intervals)
     }
     
     static func randomInInterval(intervals: [ClosedInterval<UInt8>]) -> UInt8 {
         
-        return 0
+        let interval = intervals[0]
+        let length = interval.end - interval.start
+        let rand = UInt8(arc4random_uniform(UInt32(length)+1))
+        return interval.start + rand
     }
 }
 
@@ -282,12 +285,12 @@ extension UInt16: Randomizable {
     
     static func random() -> UInt16 {
         
-        return 0
+        return UInt16(arc4random_uniform(UInt32(UInt16.max)+1))
     }
     
     static func randomInInterval(intervals: ClosedInterval<UInt16>...) -> UInt16 {
     
-        return 0
+        return randomInInterval(intervals)
     }
     
     static func randomInInterval(intervals: [ClosedInterval<UInt16>]) -> UInt16 {
@@ -300,17 +303,19 @@ extension UInt32: Randomizable {
     
     static func random() -> UInt32 {
         
-        return 0
+        return arc4random()
     }
     
     static func randomInInterval(intervals: ClosedInterval<UInt32>...) -> UInt32 {
     
-        return 0
+        return randomInInterval(intervals)
     }
     
     static func randomInInterval(intervals: [ClosedInterval<UInt32>]) -> UInt32 {
         
-        return 0
+        let interval = intervals[0]
+        let length = interval.end - interval.start
+        return interval.start + arc4random_uniform(length + 1)
     }
 }
 
@@ -318,17 +323,17 @@ extension UInt64: Randomizable {
     
     static func random() -> UInt64 {
         
-        return 0
+        return UInt64(UInt.random())
     }
     
     static func randomInInterval(intervals: ClosedInterval<UInt64>...) -> UInt64 {
     
-        return 0
+        return randomInInterval(intervals)
     }
     
     static func randomInInterval(intervals: [ClosedInterval<UInt64>]) -> UInt64 {
         
-        return 0
+        return UInt64(UInt.randomInInterval(map(intervals){ ClosedInterval(UInt($0.start), UInt($0.end)) }))
     }
 }
 
