@@ -393,7 +393,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         :exception: An exception will be raised if the diagonal at the given index does not exist.
                     This means -n > the number of rows or n > the number of columns.
     */
-    func diagonalElements(_ n:Int = 0) -> [T] {
+    func diagonalElements(_ n: Int = 0) -> [T] {
         
         if -n > self.dimensions.rows || n > self.dimensions.columns {
             
@@ -413,6 +413,56 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         }
         
         return returnElements
+    }
+    
+    
+    /**
+        Returns the upper triangle part of the matrix. This is the part of above the diagonal with the given index.
+        The diagonal itself is also included. The part below the diagonal contains zero.
+        0 represents the main diagonal.
+        -1 means the first subdiagonal, this is the one below the main diagonal.
+        Other negative numbers represent lower subdiagonals.
+        1 means the first superdiagonal, this is the one above the main diagonal.
+        Other positive numbers represent higher superdiagonals.
+    
+        :param: n The diagonal's index.
+    
+        :returns: A matrix where all elements under the diagonal with the given index are zero.
+    
+        :exception: An exception will be raised if the diagonal at the given index does not exist.
+                    This means -n > the number of rows or n > the number of columns.
+    */
+    func upperTriangle(_ n: Int = 0) -> Matrix<T> {
+        
+        //TODO: Check whether it's faster to fill in zeros instead of values, or maybe do different methods for positive and negative n.
+        
+        if -n > self.dimensions.rows || n > self.dimensions.columns {
+            
+            NSException(name: "Index out the bounds.", reason: "The given index is out of bounds.", userInfo: nil).raise()
+        }
+        
+        var elements = [[T]](count: self.dimensions.rows, repeatedValue: [T](count: self.dimensions.columns, repeatedValue: 0))
+        
+        var row = max(-n, 0)
+        var col = max(n, 0)
+        
+        for r in 0 ..< row {
+            
+            elements[r] = self.elements[r]
+        }
+        
+        while row < self.dimensions.rows && col < self.dimensions.columns {
+            
+            for c in col ..< self.dimensions.columns {
+                
+                elements[row][c] = self[row][c]
+            }
+            
+            row++
+            col++
+        }
+        
+        return Matrix(elements)
     }
     
     

@@ -544,6 +544,15 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual([3], matrix.diagonalElements(2))
     }
     
+    func testGetUpperTriangleFunction() {
+        
+        var matrix = Matrix([[1, 2, 3], [4, 5, 6]])
+        XCTAssertEqual(Matrix([[1, 2, 3], [0, 5, 6]]), matrix.upperTriangle())
+        XCTAssertEqual(Matrix([[1, 2, 3], [4, 5, 6]]), matrix.upperTriangle(-1))
+        XCTAssertEqual(Matrix([[0, 2, 3], [0, 0, 6]]), matrix.upperTriangle(1))
+        XCTAssertEqual(Matrix([[0, 0, 3], [0, 0, 0]]), matrix.upperTriangle(2))
+    }
+    
     func testMaxValue() {
         
         var matrix = Matrix([[1, 2, 3], [6, 5, 4]])
