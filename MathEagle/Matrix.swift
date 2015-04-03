@@ -247,7 +247,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     }
     
 
-    // MARK: Computed Properties
+    // MARK: Basic Properties
     
     /**
         Returns a textual representation of the matrix. This conforms to the array literal.
@@ -375,6 +375,44 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
                 self.elements[i][i] = elements[i]
             }
         }
+    }
+    
+    
+    /**
+        Returns the elements of the diagonal at the given index.
+        0 represents the main diagonal.
+        -1 means the first subdiagonal, this is the one below the main diagonal.
+        Other negative numbers represent lower subdiagonals.
+        1 means the first superdiagonal, this is the one above the main diagonal.
+        Other positive numbers represent higher superdiagonals.
+    
+        :param: n The diagonal's index.
+    
+        :returns: An array representing the diagonal elements from top left to bottom right in the matrix.
+    
+        :exception: An exception will be raised if the diagonal at the given index does not exist.
+                    This means -n > the number of rows or n > the number of columns.
+    */
+    func diagonalElements(_ n:Int = 0) -> [T] {
+        
+        if -n > self.dimensions.rows || n > self.dimensions.columns {
+            
+            NSException(name: "Index out the bounds.", reason: "The given index is out of bounds.", userInfo: nil).raise()
+        }
+        
+        var returnElements = [T]()
+        
+        var row = max(-n, 0)
+        var col = max(n, 0)
+        
+        while row < self.dimensions.rows && col < self.dimensions.columns {
+            
+            returnElements.append(self[row][col])
+            row++
+            col++
+        }
+        
+        return returnElements
     }
     
     
@@ -565,23 +603,17 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         // If the size is not bigger than 1, it's always symmetrical
         if size <= 1 { return true }
         
-        let nrOfSecondDiagonals = 2 * size - 1
+        let nrOfSecondDiagonals = 2 * self.dimensions.rows - 1
         
         for i in 1 ..< nrOfSecondDiagonals - 1 {
             
-            var (row, column) = (i < size ? i : size - 1, i > size ? i - size : 0)
-            
-            let value = self.elements[row][column]
-            
-            while row > 0 && column < size - 1 {
+            var k = i/2 + 1
+            let d = min(i, size-1)
+            while k <= d {
                 
-                row--
-                column++
-                
-                if self.elements[row][column] != value {
-                    
-                    return false
-                }
+                let j = i - k
+                if self[k][j] != self[j][k] { return false }
+                k++
             }
         }
         

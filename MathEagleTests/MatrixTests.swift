@@ -487,7 +487,7 @@ class MatrixTests: XCTestCase {
         XCTAssertTrue((-10.0 + 11.0 * i).equals(cmatrix.determinant, accuracy: ACCURACY))
     }
     
-    func testDiagonalElements() {
+    func testGetDiagonalElements() {
         
         // 2 x 2 matrix
         var initElements = [[1, 2], [3, 4]]
@@ -533,6 +533,15 @@ class MatrixTests: XCTestCase {
         matrix.diagonalElements = [7, 8]
         
         XCTAssertEqual([[7, 2, 3], [4, 8, 6]], matrix.elements)
+    }
+    
+    func testGetDiagonalElementsFunction() {
+        
+        var matrix = Matrix([[1, 2, 3], [4, 5, 6]])
+        XCTAssertEqual([1, 5], matrix.diagonalElements())
+        XCTAssertEqual([4], matrix.diagonalElements(-1))
+        XCTAssertEqual([2, 6], matrix.diagonalElements(1))
+        XCTAssertEqual([3], matrix.diagonalElements(2))
     }
     
     func testMaxValue() {
@@ -693,17 +702,18 @@ class MatrixTests: XCTestCase {
         
         // 2 x 3 matrix
         var matrix = Matrix([[1, 2, 3], [4, 5, 6]])
-        
         XCTAssertFalse(matrix.isSymmetrical)
         
         // 3 x 3 matrix, not symmetrical
         matrix = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-        
         XCTAssertFalse(matrix.isSymmetrical)
         
         // 3 x 3 matrix, symmetrical
         matrix = Matrix([[1, 2, 3], [2, 3, 4], [3, 4, 5]])
+        XCTAssertTrue(matrix.isSymmetrical)
         
+        // 3 x 3 matrix, symmetrical
+        matrix = [[1, 2, 3], [2, 4, 5], [3, 5, 6]]
         XCTAssertTrue(matrix.isSymmetrical)
     }
     
