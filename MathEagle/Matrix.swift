@@ -13,7 +13,7 @@ protocol MatrixCompatible: Equatable, Comparable, Addable, Negatable, Substracta
 class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printable, SequenceType {
     
     
-    // MARK: Basic Properties
+    // MARK: Internal Elements
     
     var elements: [[T]] = [[]]
     
