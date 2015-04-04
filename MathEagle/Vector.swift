@@ -96,7 +96,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     
     
     
-    // MARK: Computed Properties
+    // MARK: Basic Properties
     
     var description: String {
         
@@ -138,6 +138,29 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
 //        
 //        
 //    }
+    
+    
+    /**
+        Returns whether the vector is empty. This means it doesn't contain any elements, so it's length equals zero.
+    */
+    var isEmpty: Bool {
+        
+        return self.length == 0
+    }
+    
+    
+    /**
+        Returns whether the vector contains only zeros.
+    */
+    var isZero: Bool {
+        
+        for element in self {
+            
+            if element != 0 { return false }
+        }
+        
+        return true
+    }
     
     
     // MARK: Operator Functions

@@ -544,6 +544,15 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual([3], matrix.diagonalElements(2))
     }
     
+    func testGetUpperTriangle() {
+        
+        var matrix = Matrix([[1, 2, 3], [4, 5, 6]])
+        XCTAssertEqual(Matrix([[1, 2, 3], [0, 5, 6]]), matrix.upperTriangle)
+        
+        matrix = []
+        XCTAssertEqual(Matrix<Int>(), matrix.upperTriangle)
+    }
+    
     func testGetUpperTriangleFunction() {
         
         var matrix = Matrix([[1, 2, 3], [4, 5, 6]])
@@ -551,6 +560,9 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(Matrix([[1, 2, 3], [4, 5, 6]]), matrix.upperTriangle(-1))
         XCTAssertEqual(Matrix([[0, 2, 3], [0, 0, 6]]), matrix.upperTriangle(1))
         XCTAssertEqual(Matrix([[0, 0, 3], [0, 0, 0]]), matrix.upperTriangle(2))
+        
+        matrix = []
+        XCTAssertEqual(Matrix<Int>(), matrix.upperTriangle())
     }
     
     func testMaxValue() {
@@ -741,6 +753,57 @@ class MatrixTests: XCTestCase {
         }
         
         println("Symmetrical performance \n b = \(b)")
+    }
+    
+    func testIsUpperTriangular() {
+        
+        // non square -> false
+        var matrix = Matrix([[1, 2, 3], [4, 5, 6]])
+        XCTAssertFalse(matrix.isUpperTriangular)
+        
+        // square, but not upper triangular -> false
+        matrix = [[1, 2], [3, 4]]
+        XCTAssertFalse(matrix.isUpperTriangular)
+        
+        // square and upper triangular -> true
+        matrix = [[1, 2], [0, 3]]
+        XCTAssertTrue(matrix.isUpperTriangular)
+    }
+    
+    func testIsUpperTriangularFunction() {
+        
+        // non square -> false
+        var matrix = Matrix([[1, 2, 3], [4, 5, 6]])
+        XCTAssertFalse(matrix.isUpperTriangular())
+        
+        // square, but not upper triangular -> false
+        matrix = [[1, 2], [3, 4]]
+        XCTAssertFalse(matrix.isUpperTriangular())
+        
+        // square and upper triangular -> true
+        matrix = [[1, 2], [0, 3]]
+        XCTAssertTrue(matrix.isUpperTriangular())
+        
+        // square, upper triangular for index 2 -> true for all indexes less than or equal to 2
+        matrix = [[0, 0, 1, 2], [0, 0, 0, 3], [0, 0, 0, 0], [0, 0, 0, 0]]
+        XCTAssertTrue(matrix.isUpperTriangular())
+        XCTAssertTrue(matrix.isUpperTriangular(-1))
+        XCTAssertTrue(matrix.isUpperTriangular(-2))
+        XCTAssertTrue(matrix.isUpperTriangular(-3))
+        XCTAssertTrue(matrix.isUpperTriangular(1))
+        XCTAssertTrue(matrix.isUpperTriangular(2))
+        XCTAssertFalse(matrix.isUpperTriangular(3))
+        
+        // non square, upper triangular, mustBeSquare false -> true
+        matrix = [[1, 2, 3], [0, 4, 5]]
+        XCTAssertTrue(matrix.isUpperTriangular(mustBeSquare: false))
+        
+        // non square, upper triangular for index 1, mustBeSquare false -> true for indexes less than or equal to 1
+        matrix = [[0, 1, 2], [0, 0, 3]]
+        XCTAssertTrue(matrix.isUpperTriangular(mustBeSquare: false))
+        XCTAssertTrue(matrix.isUpperTriangular(-1, mustBeSquare: false))
+        XCTAssertTrue(matrix.isUpperTriangular(1, mustBeSquare: false))
+        XCTAssertFalse(matrix.isUpperTriangular(2, mustBeSquare: false))
     }
     
     

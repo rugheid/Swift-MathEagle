@@ -32,7 +32,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     required init(arrayLiteral elements: [T]...) {
         
-        self.elements = elements
+        self.elements = elements.count == 0 ? [[]] : elements
     }
     
     init(dimensions: Dimensions, generator: (Index) -> T) {
@@ -417,6 +417,16 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     
     /**
+        Returns a copy of the matrix with all elements under the main diagonal set to zero.
+        This also applies to non-square matrices.
+    */
+    var upperTriangle: Matrix<T> {
+        
+        return upperTriangle()
+    }
+    
+    
+    /**
         Returns the upper triangle part of the matrix. This is the part of above the diagonal with the given index.
         The diagonal itself is also included. The part below the diagonal contains zero.
         0 represents the main diagonal.
@@ -424,6 +434,9 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         Other negative numbers represent lower subdiagonals.
         1 means the first superdiagonal, this is the one above the main diagonal.
         Other positive numbers represent higher superdiagonals.
+    
+        :note: Note that this method also works for non-square matrices, but the returned matrix will thus be
+                not upper triangular because only square matrices are upper triangular.
     
         :param: n The diagonal's index.
     
@@ -665,6 +678,57 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
                 if self[k][j] != self[j][k] { return false }
                 k++
             }
+        }
+        
+        return true
+    }
+    
+    
+    /**
+        Returns whether the matrix is upper triangular.
+        This means the matrix is square and all elements below the main diagonal are zero.
+    */
+    var isUpperTriangular: Bool {
+        
+        return isUpperTriangular()
+    }
+    
+    
+    /**
+        Returns whether the matrix is upper triangular according to the given diagonal index.
+        This means all elements below the diagonal at the given index n must be zero.
+        When mustBeSquare is set to true the matrix must be square.
+    
+        :param: n The diagonal's index.
+        :param: mustBeSquare Whether the matrix must be square to be upper triangular.
+    */
+    func isUpperTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
+        
+        // A non-square matrix can't be upper triangular
+        if mustBeSquare && !self.isSquare { return false }
+        
+        if self.dimensions.rows <= 1 { return true }
+        
+        var row = max(-n, 0)
+        var col = max(n, 0)
+        
+        for c in 0 ..< col {
+            
+            for r in 0 ..< self.dimensions.rows {
+                
+                if self[r][c] != 0 { return false }
+            }
+        }
+        
+        while row + 1 < self.dimensions.rows && col + 1 < self.dimensions.columns {
+            
+            for r in row + 1 ..< self.dimensions.rows {
+                
+                if self[r][col] != 0 { return false }
+            }
+            
+            row++
+            col++
         }
         
         return true
