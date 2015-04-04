@@ -447,35 +447,104 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     */
     func upperTriangle(_ n: Int = 0) -> Matrix<T> {
         
-        //TODO: Check whether it's faster to fill in zeros instead of values, or maybe do different methods for positive and negative n.
+        if -n > self.dimensions.rows || n > self.dimensions.columns {
+            
+            NSException(name: "Index out the bounds.", reason: "The given index is out of bounds.", userInfo: nil).raise()
+        }
+        
+        var row = max(-n, 0)
+        var col = max(n, 0)
+        
+        if n > 0 {
+            
+            var elements = [[T]](count: self.dimensions.rows, repeatedValue: [T](count: self.dimensions.columns, repeatedValue: 0))
+            
+            while row < self.dimensions.rows && col < self.dimensions.columns {
+                
+                for c in col ..< self.dimensions.columns {
+                    
+                    elements[row][c] = self[row][c]
+                }
+                
+                row++
+                col++
+            }
+            
+            return Matrix(elements)
+            
+        } else {
+            
+            var elements = Array(self.elements)
+            
+            while row + 1 < self.dimensions.rows && col < self.dimensions.columns {
+                
+                for r in row + 1 ..< self.dimensions.rows {
+                    
+                    elements[r][col] = 0
+                }
+                
+                row++
+                col++
+            }
+            
+            return Matrix(elements)
+        }
+    }
+    
+    
+    var lowerTriangle: Matrix<T> {
+        
+        get {
+            
+            return lowerTriangle()
+        }
+    }
+    
+    
+    func lowerTriangle(_ n: Int = 0) -> Matrix<T> {
         
         if -n > self.dimensions.rows || n > self.dimensions.columns {
             
             NSException(name: "Index out the bounds.", reason: "The given index is out of bounds.", userInfo: nil).raise()
         }
         
-        var elements = [[T]](count: self.dimensions.rows, repeatedValue: [T](count: self.dimensions.columns, repeatedValue: 0))
-        
         var row = max(-n, 0)
         var col = max(n, 0)
         
-        for r in 0 ..< row {
+        if n >= 0 {
             
-            elements[r] = self.elements[r]
-        }
-        
-        while row < self.dimensions.rows && col < self.dimensions.columns {
+            var elements = Array(self.elements)
             
-            for c in col ..< self.dimensions.columns {
+            while row < self.dimensions.rows && col + 1 < self.dimensions.columns {
                 
-                elements[row][c] = self[row][c]
+                for c in col + 1 ..< self.dimensions.columns {
+                    
+                    elements[row][c] = 0
+                }
+                
+                row++
+                col++
             }
             
-            row++
-            col++
+            return Matrix(elements)
+            
+        } else {
+            
+            var elements = [[T]](count: self.dimensions.rows, repeatedValue: [T](count: self.dimensions.columns, repeatedValue: 0))
+            
+            while row < self.dimensions.rows && col < self.dimensions.columns {
+                
+                for r in row ..< self.dimensions.rows {
+                    
+                    elements[r][col] = self[r][col]
+                }
+                
+                row++
+                col++
+            }
+            
+            return Matrix(elements)
         }
-        
-        return Matrix(elements)
     }
     
     

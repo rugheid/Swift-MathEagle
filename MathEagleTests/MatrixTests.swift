@@ -565,6 +565,85 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(Matrix<Int>(), matrix.upperTriangle())
     }
     
+    func testGetUpperTriangleFunctionPerformance() {
+        
+        let matrix = Matrix(randomWithSize: 100, generator: Int.randomInInterval, intervals: -10...10)
+        
+        let diagonalBaseline = 0.0876189470291138
+        let diagonalTime = timeBlock(){
+            
+            matrix.upperTriangle()
+        }
+        
+        println("\nDiagonal time = \(diagonalTime), this is \(diagonalBaseline/diagonalTime) times faster than baseline.")
+        
+        let superDiagonalBaseline = 0.0738120079040527
+        let superDiagonalTime = timeBlock(){
+            
+            matrix.upperTriangle(25)
+        }
+        
+        println("\nSuper diagonal time = \(superDiagonalTime), this is \(superDiagonalBaseline/superDiagonalTime) times faster than baseline.")
+        
+        let subDiagonalBaseline = 0.0500759482383728
+        let subDiagonalTime = timeBlock(){
+            
+            matrix.upperTriangle(-25)
+        }
+        
+        println("\nSub diagonal time = \(subDiagonalTime), this is \(subDiagonalBaseline/subDiagonalTime) times faster than baseline.\n")
+    }
+    
+    func testGetLowerTriangle() {
+        
+        var matrix = Matrix([[1, 2, 3], [4, 5, 6]])
+        XCTAssertEqual(Matrix([[1, 0, 0], [4, 5, 0]]), matrix.lowerTriangle)
+        
+        matrix = []
+        XCTAssertEqual(Matrix<Int>(), matrix.lowerTriangle)
+    }
+    
+    func testGetLowerTriangleFunction() {
+        
+        var matrix = Matrix([[1, 2, 3], [4, 5, 6]])
+        XCTAssertEqual(Matrix([[1, 0, 0], [4, 5, 0]]), matrix.lowerTriangle())
+        XCTAssertEqual(Matrix([[0, 0, 0], [4, 0, 0]]), matrix.lowerTriangle(-1))
+        XCTAssertEqual(Matrix([[1, 2, 0], [4, 5, 6]]), matrix.lowerTriangle(1))
+        XCTAssertEqual(Matrix([[1, 2, 3], [4, 5, 6]]), matrix.lowerTriangle(2))
+        
+        matrix = []
+        XCTAssertEqual(Matrix<Int>(), matrix.lowerTriangle())
+    }
+    
+    func testGetLowerTriangleFunctionPerformance() {
+        
+        let matrix = Matrix(randomWithSize: 100, generator: Int.randomInInterval, intervals: -10...10)
+        
+        let diagonalBaseline = 0.0876189470291138
+        let diagonalTime = timeBlock(){
+            
+            matrix.lowerTriangle()
+        }
+        
+        println("\nDiagonal time = \(diagonalTime), this is \(diagonalBaseline/diagonalTime) times faster than baseline.")
+        
+        let superDiagonalBaseline = 0.0545989871025085
+        let superDiagonalTime = timeBlock(){
+            
+            matrix.lowerTriangle(25)
+        }
+        
+        println("\nSuper diagonal time = \(superDiagonalTime), this is \(superDiagonalBaseline/superDiagonalTime) times faster than baseline.")
+        
+        let subDiagonalBaseline = 0.076259970664978
+        let subDiagonalTime = timeBlock(){
+            
+            matrix.lowerTriangle(-25)
+        }
+        
+        println("\nSub diagonal time = \(subDiagonalTime), this is \(subDiagonalBaseline/subDiagonalTime) times faster than baseline.\n")
+    }
+    
     func testMaxValue() {
         
         var matrix = Matrix([[1, 2, 3], [6, 5, 4]])
