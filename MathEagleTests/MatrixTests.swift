@@ -885,6 +885,21 @@ class MatrixTests: XCTestCase {
         XCTAssertFalse(matrix.isUpperTriangular(2, mustBeSquare: false))
     }
     
+    func testIsUpperHessenberg() {
+        
+        // square, not upper Hessenberg -> false
+        var matrix = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        XCTAssertFalse(matrix.isUpperHessenberg)
+        
+        // square, upper Hessenberg -> true
+        matrix = [[1, 2, 3], [4, 5, 6], [0, 7, 8]]
+        XCTAssertTrue(matrix.isUpperHessenberg)
+        
+        // non-square -> false
+        matrix = [[1, 2, 3], [4, 5, 6]]
+        XCTAssertFalse(matrix.isUpperHessenberg)
+    }
+    
     func testIsLowerTriangular() {
         
         // non square -> false
@@ -934,6 +949,21 @@ class MatrixTests: XCTestCase {
         XCTAssertFalse(matrix.isLowerTriangular(-1, mustBeSquare: false))
         XCTAssertTrue(matrix.isLowerTriangular(1, mustBeSquare: false))
         XCTAssertTrue(matrix.isLowerTriangular(2, mustBeSquare: false))
+    }
+    
+    func testIsLowerHessenberg() {
+        
+        // square, not lower Hessenberg -> false
+        var matrix = Matrix([[1, 2, 3] ,[4, 5, 6], [7, 8, 9]])
+        XCTAssertFalse(matrix.isLowerHessenberg)
+        
+        // square, lower Hessenberg -> true
+        matrix = [[1, 2, 0], [3, 4, 5], [6, 7, 8]]
+        XCTAssertTrue(matrix.isLowerHessenberg)
+        
+        // non-square -> false
+        matrix = [[1, 2, 0], [3, 4, 5]]
+        XCTAssertFalse(matrix.isLowerHessenberg)
     }
     
     
