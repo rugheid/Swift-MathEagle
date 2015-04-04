@@ -834,8 +834,6 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     */
     func isLowerTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
         
-        //TODO: Implement this method, still upperTriangle method
-        
         // A non-square matrix can't be upper triangular
         if mustBeSquare && !self.isSquare { return false }
         
@@ -874,6 +872,16 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     var isLowerHessenberg: Bool {
         
         return isLowerTriangular(1)
+    }
+    
+    
+    /**
+        Returns whether the matrix is Hermitian.
+        This means the matrix is equal to it's own conjugate transpose.
+    */
+    var isHermitian: Bool {
+        
+        return self == self.conjugateTranspose
     }
     
     
