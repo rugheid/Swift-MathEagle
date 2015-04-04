@@ -885,6 +885,57 @@ class MatrixTests: XCTestCase {
         XCTAssertFalse(matrix.isUpperTriangular(2, mustBeSquare: false))
     }
     
+    func testIsLowerTriangular() {
+        
+        // non square -> false
+        var matrix = Matrix([[1, 2, 3], [4, 5, 6]])
+        XCTAssertFalse(matrix.isLowerTriangular)
+        
+        // square, but not lower triangular -> false
+        matrix = [[1, 2], [3, 4]]
+        XCTAssertFalse(matrix.isLowerTriangular)
+        
+        // square and lower triangular -> true
+        matrix = [[1, 0], [2, 3]]
+        XCTAssertTrue(matrix.isLowerTriangular)
+    }
+    
+    func testIsLowerTriangularFunction() {
+        
+        // non square -> false
+        var matrix = Matrix([[1, 2, 3], [4, 5, 6]])
+        XCTAssertFalse(matrix.isLowerTriangular())
+        
+        // square, but not lower triangular -> false
+        matrix = [[1, 2], [3, 4]]
+        XCTAssertFalse(matrix.isLowerTriangular())
+        
+        // square and lower triangular -> true
+        matrix = [[1, 0], [2, 3]]
+        XCTAssertTrue(matrix.isLowerTriangular())
+        
+        // square, lower triangular for index -2 -> true for all indexes higher than or equal to -2
+        matrix = [[0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 0], [2, 3, 0, 0]]
+        XCTAssertTrue(matrix.isLowerTriangular())
+        XCTAssertTrue(matrix.isLowerTriangular(-1))
+        XCTAssertTrue(matrix.isLowerTriangular(-2))
+        XCTAssertFalse(matrix.isLowerTriangular(-3))
+        XCTAssertTrue(matrix.isLowerTriangular(1))
+        XCTAssertTrue(matrix.isLowerTriangular(2))
+        XCTAssertTrue(matrix.isLowerTriangular(3))
+        
+        // non square, lower triangular, mustBeSquare false -> true
+        matrix = [[1, 0, 0], [3, 4, 0]]
+        XCTAssertTrue(matrix.isLowerTriangular(mustBeSquare: false))
+        
+        // non square, upper triangular, mustBeSquare false -> true for indexes higher than or equal to 0
+        matrix = [[1, 0, 0], [2, 3, 0]]
+        XCTAssertTrue(matrix.isLowerTriangular(mustBeSquare: false))
+        XCTAssertFalse(matrix.isLowerTriangular(-1, mustBeSquare: false))
+        XCTAssertTrue(matrix.isLowerTriangular(1, mustBeSquare: false))
+        XCTAssertTrue(matrix.isLowerTriangular(2, mustBeSquare: false))
+    }
+    
     
     
     // MARK: Method tests

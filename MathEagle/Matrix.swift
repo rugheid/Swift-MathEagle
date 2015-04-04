@@ -804,6 +804,79 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     }
     
     
+    /**
+        Returns whether the matrix is upper Hessenberg.
+        This means all elements below the first subdiagonal are zero.
+    */
+    var isUpperHessenberg: Bool {
+        
+        return isUpperTriangular(-1)
+    }
+    
+    
+    /**
+    Returns whether the matrix is lower triangular.
+    This means the matrix is square and all elements above the main diagonal are zero.
+    */
+    var isLowerTriangular: Bool {
+        
+        return isLowerTriangular()
+    }
+    
+    
+    /**
+    Returns whether the matrix is lower triangular according to the given diagonal index.
+    This means all elements above the diagonal at the given index n must be zero.
+    When mustBeSquare is set to true the matrix must be square.
+    
+    :param: n The diagonal's index.
+    :param: mustBeSquare Whether the matrix must be square to be lower triangular.
+    */
+    func isLowerTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
+        
+        //TODO: Implement this method, still upperTriangle method
+        
+        // A non-square matrix can't be upper triangular
+        if mustBeSquare && !self.isSquare { return false }
+        
+        if self.dimensions.rows <= 1 { return true }
+        
+        var row = max(-n, 0)
+        var col = max(n, 0)
+        
+        for r in 0 ..< row {
+            
+            for c in 0 ..< self.dimensions.columns {
+                
+                if self[r][c] != 0 { return false }
+            }
+        }
+        
+        while row + 1 < self.dimensions.rows && col + 1 < self.dimensions.columns {
+            
+            for c in col + 1 ..< self.dimensions.columns {
+                
+                if self[row][c] != 0 { return false }
+            }
+            
+            row++
+            col++
+        }
+        
+        return true
+    }
+    
+    
+    /**
+        Returns whether the matrix is a lower Hessenberg matrix.
+        This means all elements above the first superdiagonal are zero.
+    */
+    var isLowerHessenberg: Bool {
+        
+        return isLowerTriangular(1)
+    }
+    
+    
     
     // MARK: Element Methods
     
