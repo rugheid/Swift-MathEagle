@@ -172,6 +172,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     }
     
     
+    
     // MARK: Operator Functions
     
     /**
