@@ -134,6 +134,15 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     }
     
     
+    /**
+        Returns the conjugate of the vector.
+    */
+    var conjugate: Vector<T> {
+        
+        return vmap(self){ $0.conjugate }
+    }
+    
+    
 //    var maxElement: T {
 //        
 //        
