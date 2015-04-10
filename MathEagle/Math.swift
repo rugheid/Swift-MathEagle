@@ -446,7 +446,10 @@ extension Float: Randomizable {
     
     static func randomInInterval(intervals: [ClosedInterval<Float>]) -> Float {
         
-        return 0
+        let interval = intervals[0]
+        let length = interval.end - interval.start
+        
+        return interval.start + abs(random() % length)
     }
 }
 

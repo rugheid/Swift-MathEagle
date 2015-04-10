@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Accelerate
 
 class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, SequenceType, Printable {
     
@@ -97,6 +98,11 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     
     
     // MARK: Basic Properties
+    
+    var copy: Vector<T> {
+        
+        return Vector(self.elements)
+    }
     
     var description: String {
         
@@ -240,6 +246,82 @@ func + <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
     return vcombine(left, right){ $0 + $1 }
 }
 
+func + (left: Vector<Float>, right: Vector<Float>) -> Vector<Float> {
+    
+    // vDSP_vadd turned out to be the fastest option
+    //                  ~ 280 times faster than without accelerate
+    // Also tried:
+    // cblas_saxpy      ~ 202 times faster than without accelerate
+    // catlas_saxbpy     ~ 217 times faster than without accelerate
+    
+    if left.length != right.length {
+        
+        NSException(name: "Unequal lengths", reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
+    }
+    
+    var elements = [Float](count: left.length, repeatedValue: 0)
+    
+    vDSP_vadd(left.elements, 1, right.elements, 1, &elements, 1, vDSP_Length(left.length))
+    
+    return Vector(elements)
+    
+//    var elements = right.elements
+//    
+//    cblas_saxpy(Int32(left.length), 1.0, left.elements, 1, &elements, 1)
+//    
+//    return Vector(elements)
+    
+//    var elements = right.elements
+//    
+//    catlas_saxpby(Int32(left.length), 1.0, left.elements, 1, 1.0, &elements, 1)
+//    
+//    return Vector(elements)
+}
+
+func + (left: Vector<Double>, right: Vector<Double>) -> Vector<Double> {
+    
+    // vDSP_vaddD turned out to be the fastest option
+    //                  ~ 250 times faster than without accelerate
+    // Also tried:
+    // cblas_daxpy      ~ 200 times faster than without accelerate
+    // catlas_daxbpy     ~ 213 times faster than without accelerate
+    
+    if left.length != right.length {
+        
+        NSException(name: "Unequal lengths", reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
+    }
+    
+    var elements = [Double](count: left.length, repeatedValue: 0)
+    
+    vDSP_vaddD(left.elements, 1, right.elements, 1, &elements, 1, vDSP_Length(left.length))
+    
+    return Vector(elements)
+    
+//    var elements = right.elements
+//    
+//    cblas_daxpy(Int32(left.length), 1.0, left.elements, 1, &elements, 1)
+//    
+//    return Vector(elements)
+    
+//    var elements = right.elements
+//    
+//    catlas_daxpby(Int32(left.length), 1.0, left.elements, 1, 1.0, &elements, 1)
+//    
+//    return Vector(elements)
+}
+
+//func + (left: Vector<Complex>, right: Vector<Complex>) -> Vector<Complex> {
+//    
+//    var elements = map(Array(count: left.length, repeatedValue: Complex(0, 0))){ DSPDoubleSplitComplex($0) }
+//    
+//    let l = map(left.elements){ $0.DSPDoubleSplitComplexValue }
+//    let r = map(right.elements){ $0.DSPDoubleSplitComplexValue }
+//    
+//    vDSP_zvaddD(l, 1, r, 1, &elements, 1, vDSP_Length(left.length))
+//    
+//    return Vector(map(elements){ Complex($0) })
+//}
+
 
 // MARK: Vector Negation
 
@@ -247,6 +329,56 @@ prefix func - <T: MatrixCompatible> (vector: Vector<T>) -> Vector<T> {
     
     return vmap(vector){ -$0 }
 }
+
+prefix func - (vector: Vector<Float>) -> Vector<Float> {
+    
+    // vDSP_vneg turned out to be the fastest option
+    //                  ~ 67 times faster
+    // Also tried:
+    // cblas_sscal      ~ 53 times faster
+    
+    var elements = [Float](count: vector.length, repeatedValue: 0)
+    
+    vDSP_vneg(vector.elements, 1, &elements, 1, vDSP_Length(vector.length))
+    
+    return Vector(elements)
+    
+//    let returnVector = vector.copy
+//    
+//    cblas_sscal(Int32(vector.length), -1.0, &(returnVector.elements), 1)
+//    
+//    return returnVector
+}
+
+prefix func - (vector: Vector<Double>) -> Vector<Double> {
+    
+    // vDSP_vnegD turned out to be the fastest option
+    //                  ~ 68 times faster
+    // Also tried:
+    // cblas_dscal      ~ 48 times faster
+    
+    var elements = [Double](count: vector.length, repeatedValue: 0)
+    
+    vDSP_vnegD(vector.elements, 1, &elements, 1, vDSP_Length(vector.length))
+    
+    return Vector(elements)
+    
+//    let returnVector = vector.copy
+//    
+//    cblas_dscal(Int32(vector.length), -1.0, &(returnVector.elements), 1)
+//    
+//    return returnVector
+}
+
+//prefix func - (vector: Vector<Complex>) -> Vector<Complex> {
+//    
+//    var elements = map(Array(count: vector.length, repeatedValue: Complex(0, 0))){ DSPDoubleSplitComplex($0) }
+//    let v = map(vector.elements){ $0.DSPDoubleSplitComplexValue }
+//    
+//    vDSP_zvnegD(v, 1, &elements, 1, vDSP_Length(vector.length))
+//    
+//    return Vector(map(elements){ Complex($0) })
+//}
 
 
 // MARK: Vector Substraction
@@ -262,7 +394,71 @@ func - <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
         NSException(name: "Unequal lengths", reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
     }
     
-    return left + -right
+    return vcombine(left, right){ $0 - $1 }
+}
+
+func - (left: Vector<Float>, right: Vector<Float>) -> Vector<Float> {
+    
+    // vDSP_vsub turned out to be the fastest option
+    //                  ~ 280 times faster than without accelerate
+    // Also tried:
+    // cblas_saxpy      ~ 206 times faster than without accelerate
+    // catlas_saxbpy     ~ 201 times faster than without accelerate
+    
+    if left.length != right.length {
+        
+        NSException(name: "Unequal lengths", reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
+    }
+    
+    var elements = [Float](count: left.length, repeatedValue: 0)
+    
+    vDSP_vsub(right.elements, 1, left.elements, 1, &elements, 1, vDSP_Length(left.length))
+    
+    return Vector(elements)
+    
+//    var elements = left.elements
+//    
+//    cblas_saxpy(Int32(left.length), -1.0, right.elements, 1, &elements, 1)
+//    
+//    return Vector(elements)
+    
+//    var elements = right.elements
+//    
+//    catlas_saxpby(Int32(left.length), 1.0, left.elements, 1, -1.0, &elements, 1)
+//    
+//    return Vector(elements)
+}
+
+func - (left: Vector<Double>, right: Vector<Double>) -> Vector<Double> {
+    
+    // vDSP_vsubD turned out to be the fastest option
+    //                  ~ 251 times faster than without accelerate
+    // Also tried:
+    // cblas_daxpy      ~ 199 times faster than without accelerate
+    // catlas_daxbpy     ~ 205 times faster than without accelerate
+    
+    if left.length != right.length {
+        
+        NSException(name: "Unequal lengths", reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
+    }
+    
+    var elements = [Double](count: left.length, repeatedValue: 0)
+    
+    vDSP_vsubD(right.elements, 1, left.elements, 1, &elements, 1, vDSP_Length(left.length))
+    
+    return Vector(elements)
+    
+//    var elements = left.elements
+//    
+//    cblas_daxpy(Int32(left.length), -1.0, right.elements, 1, &elements, 1)
+//    
+//    return Vector(elements)
+    
+//    var elements = right.elements
+//    
+//    catlas_daxpby(Int32(left.length), 1.0, left.elements, 1, -1.0, &elements, 1)
+//    
+//    return Vector(elements)
 }
 
 
