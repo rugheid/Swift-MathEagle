@@ -438,6 +438,28 @@ class VectorTests: XCTestCase {
         println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
     
+    func testVectorScalarMultiplicationDouble() {
+        
+        let vector = Vector<Double>([1, 2, 3, 4])
+        
+        XCTAssertEqual(Vector<Double>([2, 4, 6, 8]), vector*2)
+        XCTAssertEqual(Vector<Double>([2, 4, 6, 8]), 2*vector)
+    }
+    
+    func testVectorScalarMultiplicationDoublePerformance() {
+        
+        let vector = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
+        let scalar = Double.randomInInterval(-10...10)
+        
+        let timeWithoutAccelerate = 0.00379452049732208
+        let time = timeBlock(n: 100){
+            
+            scalar * vector
+        }
+        
+        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+    }
+    
     func testVectorScalarDivision() {
         
         let vector = Vector([2, 4, 6, 8])
