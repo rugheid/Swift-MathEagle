@@ -6,12 +6,26 @@
 //  Copyright (c) 2015 Jorestha Solutions. All rights reserved.
 //
 
-import Foundation
+import Accelerate
 
-struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, Conjugatable, FullMathValue, IntegerLiteralConvertible, MatrixCompatible, Printable {
+struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, Conjugatable, FullMathValue, IntegerLiteralConvertible, FloatLiteralConvertible, MatrixCompatible, Printable {
     
     var real: Double
     var imaginary: Double
+    
+    var DSPDoubleComplexValue: DSPDoubleComplex {
+        
+        return DSPDoubleComplex(real: real, imag: imaginary)
+    }
+    
+    var DSPDoubleSplitComplexValue: DSPDoubleSplitComplex {
+        
+        var r = UnsafeMutablePointer<Double>.alloc(1)
+        r[0] = real
+        var i = UnsafeMutablePointer<Double>.alloc(1)
+        i[0] = imaginary
+        return DSPDoubleSplitComplex(realp: r, imagp: i)
+    }
     
     
     // MARK: Initialisation
@@ -38,6 +52,18 @@ struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multip
         self.real = Double(value)
         self.imaginary = 0
     }
+    
+    init(floatLiteral value: FloatLiteralType) {
+        self.real = Double(value)
+        self.imaginary = 0
+    }
+    
+    init(_ DSPDoubleSplitComplexValue: DSPDoubleSplitComplex) {
+        
+        self.real = DSPDoubleSplitComplexValue.realp[0]
+        self.imaginary = DSPDoubleSplitComplexValue.imagp[0]
+    }
+    
     
     static var imaginaryUnit: Complex {
         
@@ -334,4 +360,21 @@ func ** (left: Complex, right: Double) -> Complex {
 
 enum Quadrant: Int {
     case First = 1, Second, Third, Fourth
+}
+
+
+
+
+// MARK: DSPDoubleSplitComplex extension
+
+extension DSPDoubleSplitComplex {
+    
+    init(_ complex: Complex) {
+        
+        self.realp = UnsafeMutablePointer<Double>.alloc(1)
+        self.realp[0] = complex.real
+        
+        self.imagp = UnsafeMutablePointer<Double>.alloc(1)
+        self.imagp[0] = complex.imaginary
+    }
 }

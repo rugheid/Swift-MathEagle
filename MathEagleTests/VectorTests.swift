@@ -184,6 +184,9 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(vector, test3)
     }
     
+    
+    // MARK: Addition Tests
+    
     func testVectorAddition() {
         
         let left = Vector([1, 2, 3])
@@ -192,6 +195,84 @@ class VectorTests: XCTestCase {
         let expected = Vector([5, 7, 9])
         
         XCTAssertEqual(expected, left + right)
+    }
+    
+    func testVectorAdditionFloat() {
+        
+        let left = Vector<Float>([1, 2, 3, 4, 5])
+        let right = Vector<Float>([6, 7, 8, 9, 10])
+        
+        XCTAssertEqual(Vector<Float>([7, 9, 11, 13, 15]), left + right)
+    }
+    
+    func testVectorAdditionFloatPerformance() {
+        
+        let left = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
+        let right = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
+        
+        let timeWithoutAccelerate = 0.0103263401985168
+        let time = timeBlock(n: 100){
+            
+            left + right
+        }
+        
+        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+    }
+    
+    func testVectorAdditionDouble() {
+        
+        let left = Vector<Double>([1, 2, 3, 4, 5])
+        let right = Vector<Double>([6, 7, 8, 9, 10])
+        
+        XCTAssertEqual(Vector<Double>([7, 9, 11, 13, 15]), left + right)
+    }
+    
+    func testVectorAdditionDoublePerformance() {
+        
+        let left = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
+        let right = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
+        
+        let timeWithoutAccelerate = 0.0100698000192642
+        let time = timeBlock(n: 100){
+            
+            left + right
+        }
+        
+        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+    }
+    
+    func testVectorAdditionComplex() {
+        
+        let i = Complex.imaginaryUnit
+        
+        let l1 = 1.0 + 2.0*i
+        let l2 = 3.0*i
+        let l3 = -5.0*i
+        let l4: Complex = 4.0
+        let left = Vector<Complex>([l1, l2, l3, l4])
+        
+        let r1: Complex = -3.0
+        let r2 = 2.0 + 2.0*i
+        let r3 = 2.0*i
+        let r4 = -4.0 + 5.0*i
+        let right = Vector<Complex>([r1, r2, r3, r4])
+        
+        let expected = Vector<Complex>([l1 + r1, l2 + r2, l3 + r3, l4 + r4])
+        XCTAssertEqual(expected, left + right)
+    }
+    
+    func testVectorAdditionComplexPerformance() {
+        
+        let left = Vector(length: 1000, generator: {i in Complex.randomInInterval(-10...10)})
+        let right = Vector(length: 1000, generator: {i in Complex.randomInInterval(-10...10)})
+        
+        let timeWithoutAccelerate = 0.0100342969894409
+        let time = timeBlock(n: 100){
+            
+            left + right
+        }
+        
+        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
     
     func testVectorNegation() {
@@ -203,14 +284,128 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(expected, -vector)
     }
     
+    func testVectorNegationFloat() {
+        
+        let vector = Vector<Float>([1, 2, 3])
+        
+        let expected = Vector<Float>([-1, -2, -3])
+        
+        XCTAssertEqual(expected, -vector)
+    }
+    
+    func testVectorNegationFloatPerformance() {
+        
+        let left = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
+        
+        let timeWithoutAccelerate = 0.00241095960140228
+        let time = timeBlock(n: 100){
+            
+            -left
+        }
+        
+        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+    }
+    
+    func testVectorNegationDouble() {
+        
+        let vector = Vector<Double>([1, 2, 3])
+        
+        let expected = Vector<Double>([-1, -2, -3])
+        
+        XCTAssertEqual(expected, -vector)
+    }
+    
+    func testVectorNegationDoublePerformance() {
+        
+        let left = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
+        
+        let timeWithoutAccelerate = 0.00239505052566528
+        let time = timeBlock(n: 100){
+            
+            -left
+        }
+        
+        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+    }
+    
+    func testVectorNegationComplex() {
+        
+        let vector = Vector<Complex>([1, 2, 3])
+        
+        let expected = Vector<Complex>([-1, -2, -3])
+        
+        XCTAssertEqual(expected, -vector)
+    }
+    
+    func testVectorNegationComplexPerformance() {
+        
+        let left = Vector(length: 1000, generator: {i in Complex.randomInInterval(-10...10)})
+        
+        let timeWithoutAccelerate = 0.00233272016048431
+        let time = timeBlock(n: 100){
+            
+            -left
+        }
+        
+        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+    }
+    
     func testVectorSubstraction() {
         
         let left = Vector([1, 2, 3, 4])
-        let right = Vector([5, 6, 7, 8])
+        let right = Vector([5, 7, 9, 11])
         
-        let expected = Vector([-4, -4, -4, -4])
+        let expected = Vector([-4, -5, -6, -7])
         
         XCTAssertEqual(expected, left - right)
+    }
+    
+    func testVectorSubstractionFloat() {
+        
+        let left = Vector<Float>([1, 2, 3, 4])
+        let right = Vector<Float>([5, 7, 9, 11])
+        
+        let expected = Vector<Float>([-4, -5, -6, -7])
+        
+        XCTAssertEqual(expected, left - right)
+    }
+    
+    func testVectorSubstractionFloatPerformance() {
+        
+        let left = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
+        let right = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
+        
+        let timeWithoutAccelerate = 0.0102450299263
+        let time = timeBlock(n: 100){
+            
+            left - right
+        }
+        
+        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+    }
+    
+    func testVectorSubstractionDouble() {
+        
+        let left = Vector<Double>([1, 2, 3, 4])
+        let right = Vector<Double>([5, 7, 9, 11])
+        
+        let expected = Vector<Double>([-4, -5, -6, -7])
+        
+        XCTAssertEqual(expected, left - right)
+    }
+    
+    func testVectorSubstractionDoublePerformance() {
+        
+        let left = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
+        let right = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
+        
+        let timeWithoutAccelerate = 0.00998317956924438
+        let time = timeBlock(n: 100){
+            
+            left - right
+        }
+        
+        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
     
     func testVectorScalarMultiplication() {
