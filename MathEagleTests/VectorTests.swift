@@ -416,6 +416,28 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(Vector([2, 4, 6, 8]), 2*vector)
     }
     
+    func testVectorScalarMultiplicationFloat() {
+        
+        let vector = Vector<Float>([1, 2, 3, 4])
+        
+        XCTAssertEqual(Vector<Float>([2, 4, 6, 8]), vector*2)
+        XCTAssertEqual(Vector<Float>([2, 4, 6, 8]), 2*vector)
+    }
+    
+    func testVectorScalarMultiplicationFloatPerformance() {
+        
+        let vector = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
+        let scalar = Float.randomInInterval(-10...10)
+        
+        let timeWithoutAccelerate = 0.00380656003952026
+        let time = timeBlock(n: 100){
+            
+            scalar * vector
+        }
+        
+        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+    }
+    
     func testVectorScalarDivision() {
         
         let vector = Vector([2, 4, 6, 8])

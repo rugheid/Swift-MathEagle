@@ -333,9 +333,9 @@ prefix func - <T: MatrixCompatible> (vector: Vector<T>) -> Vector<T> {
 prefix func - (vector: Vector<Float>) -> Vector<Float> {
     
     // vDSP_vneg turned out to be the fastest option
-    //                  ~ 67 times faster
+    //                  ~ 67 times faster than without accelerate
     // Also tried:
-    // cblas_sscal      ~ 53 times faster
+    // cblas_sscal      ~ 53 times faster than without accelerate
     
     var elements = [Float](count: vector.length, repeatedValue: 0)
     
@@ -353,9 +353,9 @@ prefix func - (vector: Vector<Float>) -> Vector<Float> {
 prefix func - (vector: Vector<Double>) -> Vector<Double> {
     
     // vDSP_vnegD turned out to be the fastest option
-    //                  ~ 68 times faster
+    //                  ~ 68 times faster than without accelerate
     // Also tried:
-    // cblas_dscal      ~ 48 times faster
+    // cblas_dscal      ~ 48 times faster than without accelerate
     
     var elements = [Double](count: vector.length, repeatedValue: 0)
     
@@ -474,6 +474,26 @@ func * <T: MatrixCompatible> (scalar: T, vector: Vector<T>) -> Vector<T> {
     }
     
     return Vector(elements)
+}
+
+func * (scalar: Float, vector: Vector<Float>) -> Vector<Float> {
+    
+    // vDSP_vsmul turned out to be the fastest option
+    //                  ~ 87 times faster than without accelerate
+    // Also tried:
+    // cblas_sscal      ~ 73 times faster than without accelerate
+    
+    var elements = [Float](count: vector.length, repeatedValue: 0)
+    
+    vDSP_vsmul(vector.elements, 1, [scalar], &elements, 1, vDSP_Length(vector.length))
+    
+    return Vector(elements)
+    
+//    var elements = vector.copy.elements
+//    
+//    cblas_sscal(Int32(vector.length), scalar, &elements, 1)
+//    
+//    return Vector(elements)
 }
 
 func * <T: MatrixCompatible> (vector: Vector<T>, scalar: T) -> Vector<T> {
