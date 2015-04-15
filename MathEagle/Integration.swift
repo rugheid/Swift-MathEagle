@@ -30,7 +30,7 @@ class Integration {
     
         :returns: The integral of f in the interval [a,b] with the given accuracy.
     */
-    class func midpoint(a: Double, _ b: Double, _ f: (Double) -> Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil) -> Double {
+    class func midpoint(a: Double, _ b: Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
         
         let start = NSDate()
         
@@ -83,7 +83,7 @@ class Integration {
     
     :returns: The integral of f in the interval [a,b] with the given accuracy.
     */
-    class func trapezoid(a: Double, _ b: Double, _ f: (Double) -> Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil) -> Double {
+    class func trapezoid(a: Double, _ b: Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
         
         let start = NSDate()
         
@@ -136,7 +136,7 @@ class Integration {
     
     :returns: The integral of f in the interval [a,b] with the given accuracy.
     */
-    class func simpson(a: Double, _ b: Double, _ f: (Double) -> Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil) -> Double {
+    class func simpson(a: Double, _ b: Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
         
         let start = NSDate()
         
@@ -190,7 +190,7 @@ class Integration {
     
     :returns: The integral of f in the interval [a,b] with the given accuracy.
     */
-    class func adaptiveSimpson(a: Double, _ b: Double, _ f: (Double) -> Double, error err: Double? = nil) -> Double {
+    class func adaptiveSimpson(a: Double, _ b: Double, error err: Double? = nil, _ f: (Double) -> Double) -> Double {
         
         let error = err ?? INTEGRATION_ACCURACY
         

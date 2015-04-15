@@ -35,6 +35,51 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         self.elements = elements.count == 0 ? [[]] : elements
     }
     
+    
+    init(elementsList: [T], rows: Int) {
+        
+        if (elementsList.count % rows != 0) {
+            NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not a multiple of rows.", userInfo: nil).raise()
+        }
+        
+        self.elements = [[T]]()
+        
+        for r in 0 ..< rows {
+            
+            var rowElements = [T]()
+            
+            for c in 0 ..< (elementsList.count / rows) {
+                
+                rowElements.append(elementsList[r + elementsList.count * c])
+            }
+            
+            elements.append(rowElements)
+        }
+    }
+    
+    
+    init(elementsList: [T], columns: Int) {
+        
+        if (elementsList.count % columns != 0) {
+            NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not a multiple of columns.", userInfo: nil).raise()
+        }
+        
+        self.elements = [[T]]()
+        
+        for r in 0 ..< (elementsList.count / columns) {
+            
+            var rowElements = [T]()
+            
+            for c in 0 ..< columns {
+                
+                rowElements.append(elementsList[r + elementsList.count * c])
+            }
+            
+            elements.append(rowElements)
+        }
+    }
+    
+    
     init(dimensions: Dimensions, generator: (Index) -> T) {
         
         self.elements = []
@@ -52,30 +97,36 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         }
     }
     
+    
     convenience init(size: Int, generator: (Index) -> T) {
         
         self.init(dimensions: Dimensions(size, size), generator: generator)
     }
+    
     
     convenience init(randomWithDimensions dimensions: Dimensions, generator: () -> T) {
         
         self.init(dimensions: dimensions, generator: { i in return generator() })
     }
     
+    
     convenience init(randomWithSize size: Int, generator: () -> T) {
         
         self.init(randomWithDimensions: Dimensions(size, size), generator: generator)
     }
+    
     
     convenience init(randomWithDimensions dimensions: Dimensions, generator: ([ClosedInterval<T.RandomIntervalType>]) -> T, intervals: ClosedInterval<T.RandomIntervalType>...) {
         
         self.init(dimensions: dimensions, generator: { i in return generator(intervals) })
     }
     
+    
     convenience init(randomWithSize size: Int, generator: ([ClosedInterval<T.RandomIntervalType>]) -> T, intervals: ClosedInterval<T.RandomIntervalType>...) {
         
         self.init(dimensions: Dimensions(size, size), generator: { i in return generator(intervals) })
     }
+    
     
     convenience init(symmetrical elements: [T]) {
         
@@ -98,10 +149,12 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         self.init(matrixElements)
     }
     
+    
     convenience init(filledWith element: T, size: Int) {
         
         self.init(filledWith: element, dimensions: Dimensions(size: size))
     }
+    
     
     convenience init(filledWith element: T, dimensions: Dimensions) {
         
@@ -110,12 +163,14 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         self.init([[T]](count: dimensions.rows, repeatedValue: rowElements))
     }
     
+    
     convenience init(identityOfSize size: Int) {
         
         self.init(filledWith: 0, size: size)
         
         self.fillDiagonal(1)
     }
+    
     
     convenience init(diagonal: [T]) {
         

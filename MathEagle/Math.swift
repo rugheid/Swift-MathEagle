@@ -227,9 +227,9 @@ extension Double: Conjugatable {
 protocol Randomizable {
     
     typealias RandomIntervalType: Comparable
-    class func random() -> Self
-    class func randomInInterval(intervals: ClosedInterval<RandomIntervalType>...) -> Self
-    class func randomInInterval(intervals: [ClosedInterval<RandomIntervalType>]) -> Self
+    static func random() -> Self
+    static func randomInInterval(intervals: ClosedInterval<RandomIntervalType>...) -> Self
+    static func randomInInterval(intervals: [ClosedInterval<RandomIntervalType>]) -> Self
 }
 
 extension UInt: Randomizable {

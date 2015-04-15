@@ -205,12 +205,41 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     */
     func directProduct(vector: Vector<T>) -> Matrix<T> {
         
-        if self.length != vector.length {
+        return Vector.directProduct(self, vector)
+    }
+    
+    
+    /**
+        Returns the direct product of the two given vectors. Here left is taken as a column vector and right as a row vector.
+        The two vectors need to have the same length.
+    
+        :param: left The left vector (column vector)
+        :param: right The right vector (row vector)
+    
+        :return: A square matrix with size equal to the vector's length.
+    */
+    class func directProduct(left: Vector<T>, _ right: Vector<T>) -> Matrix<T> {
+        
+        if left.length != right.length {
             
             NSException(name: "Unequal lengths", reason: "The lengths of the two vectors are not equal.", userInfo: nil).raise()
         }
         
-        return Matrix([self.elements]).transpose * Matrix([vector.elements])
+        return Matrix([left.elements]).transpose * Matrix([right.elements])
+    }
+    
+    class func directProduct(left: Vector<Float>, _ right: Vector<Float>) -> Matrix<Float> {
+        
+        if left.length != right.length {
+            
+            NSException(name: "Unequal lengths", reason: "The lengths of the two vectors are not equal.", userInfo: nil).raise()
+        }
+        
+        var elements = [Float](count: left.length, repeatedValue: 0)
+        
+        vDSP_mmul(left.elements, 1, right.elements, 1, &elements, 1, vDSP_Length(left.length), vDSP_Length(right.length), vDSP_Length(1))
+        
+        return Matrix(elementsList: elements, rows: left.length)
     }
     
 }
@@ -531,6 +560,46 @@ func / <T: MatrixCompatible> (vector: Vector<T>, scalar: T) -> Vector<T> {
     }
     
     return Vector(elements)
+}
+
+func / (vector: Vector<Float>, scalar: Float) -> Vector<Float> {
+    
+    // vDSP_vsdiv turned out to be the fastest option
+    //                  ~ 90 times faster than without accelerate
+    // Also tried:
+    // cblas_sscal      ~ 82 times faster than without accelerate, but less accurate
+    
+    var elements = [Float](count: vector.length, repeatedValue: 0)
+    
+    vDSP_vsdiv(vector.elements, 1, [scalar], &elements, 1, vDSP_Length(vector.length))
+    
+    return Vector(elements)
+    
+//    var elements = vector.copy.elements
+//    
+//    cblas_sscal(Int32(vector.length), 1/scalar, &elements, 1)
+//    
+//    return Vector(elements)
+}
+
+func / (vector: Vector<Double>, scalar: Double) -> Vector<Double> {
+    
+    // vDSP_vsdivD turned out to be the fastest option
+    //                  ~ 86 times faster than without accelerate
+    // Also tried:
+    // cblas_dscal      ~ 81 times faster than without accelerate, but less accurate
+    
+    var elements = [Double](count: vector.length, repeatedValue: 0)
+    
+    vDSP_vsdivD(vector.elements, 1, [scalar], &elements, 1, vDSP_Length(vector.length))
+    
+    return Vector(elements)
+    
+//    var elements = vector.copy.elements
+//    
+//    cblas_dscal(Int32(vector.length), 1/scalar, &elements, 1)
+//    
+//    return Vector(elements)
 }
 
 

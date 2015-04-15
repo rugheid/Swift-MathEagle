@@ -467,6 +467,48 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(Vector([1, 2, 3, 4]), vector/2)
     }
     
+    func testVectorScalarDivisionFloat() {
+        
+        let vector = Vector<Float>([2, 4, 6, 8])
+        
+        XCTAssertEqual(Vector<Float>([1, 2, 3, 4]), vector/2)
+    }
+    
+    func testVectorScalarDivisionFloatPerformance() {
+        
+        let vector = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
+        let scalar = Float.randomInInterval(-10...10)
+        
+        let timeWithoutAccelerate = 0.00381205022335052
+        let time = timeBlock(n: 100){
+            
+            vector / scalar
+        }
+        
+        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+    }
+    
+    func testVectorScalarDivisionDouble() {
+        
+        let vector = Vector<Double>([2, 4, 6, 8])
+        
+        XCTAssertEqual(Vector<Double>([1, 2, 3, 4]), vector/2)
+    }
+    
+    func testVectorScalarDivisionDoublePerformance() {
+        
+        let vector = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
+        let scalar = Double.randomInInterval(-10...10)
+        
+        let timeWithoutAccelerate = 0.00373631000518799
+        let time = timeBlock(n: 100){
+            
+            vector / scalar
+        }
+        
+        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+    }
+    
     func testVectorDirectProduct() {
         
         var left = Vector([1, 2, 3])
@@ -475,6 +517,8 @@ class VectorTests: XCTestCase {
         var expected = Matrix([[4, 5, 6], [8, 10, 12], [12, 15, 18]])
         
         XCTAssertEqual(expected, left*right)
+        XCTAssertEqual(expected, left.directProduct(right))
+        XCTAssertEqual(expected, Vector.directProduct(left, right))
         
         
         left = Vector()
@@ -483,6 +527,8 @@ class VectorTests: XCTestCase {
         expected = Matrix()
         
         XCTAssertEqual(expected, left*right)
+        XCTAssertEqual(expected, left.directProduct(right))
+        XCTAssertEqual(expected, Vector.directProduct(left, right))
     }
     
     

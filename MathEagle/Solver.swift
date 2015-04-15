@@ -28,7 +28,7 @@ class Solver {
     
         :exception: An exception will be thrown if a > b.
     */
-    class func bisection(a: Double, _ b: Double, _ f: (Double) -> Double, accuracy err: Double? = nil, maxTime t_m: Double? = nil) -> Double {
+    class func bisection(a: Double, _ b: Double, accuracy err: Double? = nil, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
         
         if a > b {
             
@@ -71,7 +71,7 @@ class Solver {
     }
     
     
-    class func newton(x0: Double, f: (Double) -> Double, df: ((Double) -> Double)? = nil, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil) -> Double {
+    class func newton(x0: Double, df: ((Double) -> Double)? = nil, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, f: (Double) -> Double) -> Double {
         
         let start = NSDate()
         

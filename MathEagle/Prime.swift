@@ -61,17 +61,17 @@ func primesUpTo(n: UInt) -> [UInt] {
     
     if n <= 1 { return [] }
     
-    var sieve = [Bool](count: n-1, repeatedValue: true)
+    var sieve = [Bool](count: Int(n - 1), repeatedValue: true)
     
     for i: UInt in 2 ... UInt(sqrt(Double(n))) {
         
-        if sieve[i-2] {
+        if sieve[Int(i)-2] {
             
             var j = i*i
             
             while j <= n {
                 
-                sieve[j-2] = false
+                sieve[Int(j)-2] = false
                 
                 j += i
             }

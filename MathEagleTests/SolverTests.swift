@@ -38,7 +38,7 @@ class SolverTests: XCTestCase {
     
     func testNewtonWithExactDf() {
         
-        var x = Solver.newton(1.0, f: { $0 }, df: { (x) -> Double in 1.0 })
+        var x = Solver.newton(1.0, df: { (x) -> Double in 1.0 }, f: { $0 })
         XCTAssertEqualWithAccuracy(0.0, x, ACCURACY)
         
         var df = {(x: Double) -> Double in
@@ -50,7 +50,7 @@ class SolverTests: XCTestCase {
             return -0.5*a/b
         }
         
-        x = Solver.newton(0.5, f: { (1 - sqrt($0))/log($0 + 5) }, df: df)
+        x = Solver.newton(0.5, df: df, f: { (1 - sqrt($0))/log($0 + 5) })
         XCTAssertEqualWithAccuracy(1.0, x, ACCURACY)
         
         df = {(x: Double) -> Double in
@@ -61,7 +61,7 @@ class SolverTests: XCTestCase {
             return a*b
         }
         
-        x = Solver.newton(-0.5, f: { ($0**4 - 1)/exp(2*$0) }, df: df)
+        x = Solver.newton(-0.5, df: df, f: { ($0**4 - 1)/exp(2*$0) })
         XCTAssertEqualWithAccuracy(1.0, x, ACCURACY)
     }
     
@@ -77,7 +77,7 @@ class SolverTests: XCTestCase {
                 return a*b
             }
             
-            return Solver.newton(-0.5, f: { ($0**4.0 - 1.0)/exp(2.0*$0) }, df: df)
+            return Solver.newton(-0.5, df: df, f: { ($0**4.0 - 1.0)/exp(2.0*$0) })
         }
         
         let baseline = 3.12000513076782e-06

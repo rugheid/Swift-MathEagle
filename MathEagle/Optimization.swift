@@ -13,7 +13,7 @@ var OPTIMIZATION_MAX_TIME = 10.0
 
 class Optimization {
     
-    class func goldenSection(a0: Double, _ b0: Double, _ f: (Double) -> Double, k_max: Int = 100, error err: Double? = nil, maxTime t_m: Double? = nil) -> Double {
+    class func goldenSection(a0: Double, _ b0: Double, k_max: Int = 100, error err: Double? = nil, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
         
         let start = NSDate()
         
