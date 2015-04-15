@@ -23,7 +23,7 @@ class VectorTests: XCTestCase {
         
         XCTAssertEqual([Int](), vector2.elements)
     }
-    
+
     func testArrayLiteralInit() {
         
         var vector: Vector<Int> = [1, 2, 3, 4]
@@ -226,7 +226,7 @@ class VectorTests: XCTestCase {
         
         XCTAssertEqual(Vector<Double>([7, 9, 11, 13, 15]), left + right)
     }
-    
+
     func testVectorAdditionDoublePerformance() {
         
         let left = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
@@ -240,7 +240,7 @@ class VectorTests: XCTestCase {
         
         println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
-    
+
     func testVectorAdditionComplex() {
         
         let i = Complex.imaginaryUnit
@@ -274,7 +274,7 @@ class VectorTests: XCTestCase {
         
         println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
-    
+
     func testVectorNegation() {
         
         let vector = Vector([1, 2, 3])
@@ -466,7 +466,7 @@ class VectorTests: XCTestCase {
         
         XCTAssertEqual(Vector([1, 2, 3, 4]), vector/2)
     }
-    
+
     func testVectorScalarDivisionFloat() {
         
         let vector = Vector<Float>([2, 4, 6, 8])

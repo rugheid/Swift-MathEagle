@@ -29,12 +29,12 @@ class MatrixTests: XCTestCase {
     
     func testElementsInit() {
         
-        let initElements = [[1, 2], [3, 4]]
+        let initElements: [[UInt]] = [[1, 2], [3, 4]]
         var matrix = Matrix(initElements)
         
         XCTAssertEqual(initElements, matrix.elements)
     }
-    
+
     func testArrayLiterableInit() {
         
         var matrix: Matrix = [[1, 2], [3, 4]]
@@ -328,7 +328,7 @@ class MatrixTests: XCTestCase {
             
             let matrix = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: 0 ... 10)
             
-            return self.timeBlock(){
+            return timeBlock(){
                 
                 mmap(matrix){ $0 + 1 }
             }
@@ -362,7 +362,7 @@ class MatrixTests: XCTestCase {
             
             let matrix = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: -2 ... 2)
             
-            return self.timeBlock(){
+            return timeBlock(){
                 
                 mreduce(matrix, 0, +)
             }
@@ -400,7 +400,7 @@ class MatrixTests: XCTestCase {
             let left = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: 0 ... 10)
             let right = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: -10 ... 0)
             
-            return self.timeBlock(){
+            return timeBlock(){
                 
                 mcombine(left, right, +)
             }
@@ -486,7 +486,7 @@ class MatrixTests: XCTestCase {
         let i = Complex.imaginaryUnit
         XCTAssertTrue((-10.0 + 11.0 * i).equals(cmatrix.determinant, accuracy: ACCURACY))
     }
-    
+
     func testGetDiagonalElements() {
         
         // 2 x 2 matrix
@@ -661,7 +661,7 @@ class MatrixTests: XCTestCase {
             
             let matrix = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: -1000 ... 1000)
             
-            return self.timeBlock(){
+            return timeBlock(){
                 
                 matrix.maxElement
             }
@@ -825,7 +825,7 @@ class MatrixTests: XCTestCase {
             
             let matrix = Matrix(symmetrical: matrixElements)
             
-            return self.timeBlock(){
+            return timeBlock(){
                 
                 matrix.isSymmetrical
             }
@@ -1263,7 +1263,7 @@ class MatrixTests: XCTestCase {
             let left = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: 0 ... 10)
             let right = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: 0 ... 10)
             
-            return self.timeBlock(){
+            return timeBlock(){
                 
                 left * right
             }
@@ -1364,48 +1364,6 @@ class MatrixTests: XCTestCase {
         var result = firstDimensions - secondDimensions
         
         XCTAssertEqual(expected, result)
-    }
-    
-    
-    
-    // MARK: - Helper Timing Methods
-    
-    func getCoefficients(#n0: Int, numberOfIterations k: Int, timeBlock: Int -> Double) -> (Double, Double) {
-        
-        var prev: Double = 0
-        var a: Double = 0, b: Double = 0
-        
-        for i in 0 ... k {
-            
-            let n = n0 * Int(pow(2, Double(i)))
-            
-            let time = timeBlock(n)
-            
-            if i > 0 {
-                
-                let ratio = time/prev
-                
-                b = log2(ratio)
-                a = time / pow(Double(n), b)
-                
-                println("a = \(a), b = \(b) ->  \(a) * n ^ \(b)")
-            }
-            
-            prev = time
-        }
-        
-        return (a, b)
-    }
-    
-    func timeBlock(block: Void -> Any) -> Double {
-        
-        var start = NSDate()
-        
-        block()
-        
-        var end = NSDate()
-        
-        return end.timeIntervalSinceDate(start)
     }
     
 }
