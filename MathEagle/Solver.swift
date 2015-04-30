@@ -8,10 +8,12 @@
 
 import Foundation
 
-var SOLVER_ACCURACY = 1e-7
-var SOLVER_MAX_TIME = 10.0 // 10 seconds
-
 class Solver {
+    
+    //MARK: Parameters
+    static var accuracy = 1e-7
+    static var maxTime = 10.0
+    
     
     /**
         Returns the zero value of f with the given accuracy, starting with the given interval [a,b] and using the bisection rule. The signs of f(a) and f(b) should not be equal.
@@ -37,8 +39,8 @@ class Solver {
         
         let start = NSDate()
         
-        let error = err ?? SOLVER_ACCURACY
-        let t_max = t_m ?? SOLVER_MAX_TIME
+        let error = err ?? accuracy
+        let t_max = t_m ?? maxTime
         
         var fa = f(a), fb = f(b)
         
@@ -86,8 +88,8 @@ class Solver {
         
         let start = NSDate()
         
-        let error = err ?? SOLVER_ACCURACY
-        let t_max = t_m ?? SOLVER_MAX_TIME
+        let error = err ?? accuracy
+        let t_max = t_m ?? maxTime
         let shouldApproximateDf = (df == nil)
         
         var converged = false
@@ -97,7 +99,7 @@ class Solver {
         while k <= k_max && NSDate().timeIntervalSinceDate(start) < t_max && !converged {
             
             let xprev = x
-            let diff = shouldApproximateDf ? (f(x + SOLVER_ACCURACY) - f(x - SOLVER_ACCURACY))/(2 * SOLVER_ACCURACY) : df!(x)
+            let diff = shouldApproximateDf ? (f(x + accuracy) - f(x - accuracy))/(2 * accuracy) : df!(x)
             
             x = x - f(x)/diff
             converged = abs(x - xprev) <= error
