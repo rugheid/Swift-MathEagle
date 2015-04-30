@@ -205,41 +205,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     */
     func directProduct(vector: Vector<T>) -> Matrix<T> {
         
-        return Vector.directProduct(self, vector)
-    }
-    
-    
-    /**
-        Returns the direct product of the two given vectors. Here left is taken as a column vector and right as a row vector.
-        The two vectors need to have the same length.
-    
-        :param: left The left vector (column vector)
-        :param: right The right vector (row vector)
-    
-        :return: A square matrix with size equal to the vector's length.
-    */
-    class func directProduct(left: Vector<T>, _ right: Vector<T>) -> Matrix<T> {
-        
-        if left.length != right.length {
-            
-            NSException(name: "Unequal lengths", reason: "The lengths of the two vectors are not equal.", userInfo: nil).raise()
-        }
-        
-        return Matrix([left.elements]).transpose * Matrix([right.elements])
-    }
-    
-    class func directProduct(left: Vector<Float>, _ right: Vector<Float>) -> Matrix<Float> {
-        
-        if left.length != right.length {
-            
-            NSException(name: "Unequal lengths", reason: "The lengths of the two vectors are not equal.", userInfo: nil).raise()
-        }
-        
-        var elements = [Float](count: left.length, repeatedValue: 0)
-        
-        vDSP_mmul(left.elements, 1, right.elements, 1, &elements, 1, vDSP_Length(left.length), vDSP_Length(right.length), vDSP_Length(1))
-        
-        return Matrix(elementsList: elements, rows: left.length)
+        return vectorDirectProduct(self, vector)
     }
     
 }
@@ -607,7 +573,45 @@ func / (vector: Vector<Double>, scalar: Double) -> Vector<Double> {
 
 func * <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Matrix<T> {
     
-    return left.directProduct(right)
+    return vectorDirectProduct(left, right)
+}
+
+func * (left: Vector<Float>, right: Vector<Float>) -> Matrix<Float> {
+    
+    return vectorDirectProduct(left, right)
+}
+
+/**
+Returns the direct product of the two given vectors. Here left is taken as a column vector and right as a row vector.
+The two vectors need to have the same length.
+
+:param: left The left vector (column vector)
+:param: right The right vector (row vector)
+
+:return: A square matrix with size equal to the vector's length.
+*/
+func vectorDirectProduct <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Matrix<T> {
+    
+    if left.length != right.length {
+        
+        NSException(name: "Unequal lengths", reason: "The lengths of the two vectors are not equal.", userInfo: nil).raise()
+    }
+    
+    return Matrix([left.elements]).transpose * Matrix([right.elements])
+}
+
+func vectorDirectProduct(left: Vector<Float>, right: Vector<Float>) -> Matrix<Float> {
+    
+    if left.length != right.length {
+        
+        NSException(name: "Unequal lengths", reason: "The lengths of the two vectors are not equal.", userInfo: nil).raise()
+    }
+    
+    var elements = [Float](count: left.length, repeatedValue: 0)
+    
+    vDSP_mmul(left.elements, 1, right.elements, 1, &elements, 1, vDSP_Length(left.length), vDSP_Length(right.length), vDSP_Length(1))
+    
+    return Matrix(elementsList: elements, rows: left.length)
 }
 
 
