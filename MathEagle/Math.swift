@@ -12,6 +12,7 @@ import Foundation
 // MARK: Constants
 
 let PI = 3.14159265358979
+let PHI = (sqrt(5.0) - 1.0)/2.0
 
 
 
