@@ -509,63 +509,63 @@ class VectorTests: XCTestCase {
         println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
     
-//    func testVectorDirectProduct() {
-//        
-//        var left = Vector([1, 2, 3])
-//        var right = Vector([4, 5, 6])
-//        
-//        var expected = Matrix([[4, 5, 6], [8, 10, 12], [12, 15, 18]])
-//        
-//        XCTAssertEqual(expected, left*right)
-//        XCTAssertEqual(expected, left.directProduct(right))
-//        XCTAssertEqual(expected, vectorDirectProduct(left, right))
-//        
-//        
-//        left = Vector()
-//        right = Vector()
-//        
-//        expected = Matrix()
-//        
-//        XCTAssertEqual(expected, left*right)
-//        XCTAssertEqual(expected, left.directProduct(right))
-//        XCTAssertEqual(expected, vectorDirectProduct(left, right))
-//    }
-//    
-//    func testVectorDirectProductFloat() {
-//        
-//        var left = Vector<Float>([1, 2, 3])
-//        var right = Vector<Float>([4, 5, 6])
-//        
-//        var expected = Matrix<Float>([[4, 5, 6], [8, 10, 12], [12, 15, 18]])
-//        
-//        XCTAssertEqual(expected, left*right)
-//        XCTAssertEqual(expected, left.directProduct(right))
-//        XCTAssertEqual(expected, vectorDirectProduct(left, right))
-//        
-//        
-//        left = Vector()
-//        right = Vector()
-//        
-//        expected = Matrix()
-//        
-//        XCTAssertEqual(expected, left*right)
-//        XCTAssertEqual(expected, left.directProduct(right))
-//        XCTAssertEqual(expected, vectorDirectProduct(left, right))
-//    }
-//    
-//    func testVectorDirectProductFloatPerformance() {
-//        
-//        let left = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
-//        let right = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
-//        
-//        let timeWithoutAccelerate = 2.49061799049377
-//        let time = timeBlock(n: 1){
-//            
-//            vectorDirectProduct(left, right)
-//        }
-//        
-//        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
-//    }
+    func testVectorDirectProduct() {
+        
+        var left = Vector([1, 2, 3])
+        var right = Vector([4, 5, 6])
+        
+        var expected = Matrix([[4, 5, 6], [8, 10, 12], [12, 15, 18]])
+        
+        XCTAssertEqual(expected, left*right)
+        XCTAssertEqual(expected, left.directProduct(right))
+        XCTAssertEqual(expected, vectorDirectProduct(left, right))
+        
+        
+        left = Vector()
+        right = Vector()
+        
+        expected = Matrix()
+        
+        XCTAssertEqual(expected, left*right)
+        XCTAssertEqual(expected, left.directProduct(right))
+        XCTAssertEqual(expected, vectorDirectProduct(left, right))
+    }
+    
+    func testVectorDirectProductFloat() {
+        
+        var left = Vector<Float>([1, 2, 3])
+        var right = Vector<Float>([4, 5, 6])
+        
+        var expected = Matrix<Float>([[4, 5, 6], [8, 10, 12], [12, 15, 18]])
+        
+        XCTAssertEqual(expected, left*right)
+        XCTAssertEqual(expected, left.directProduct(right))
+        XCTAssertEqual(expected, vectorDirectProduct(left, right))
+        
+        
+        left = Vector()
+        right = Vector()
+        
+        expected = Matrix()
+        
+        XCTAssertEqual(expected, left*right)
+        XCTAssertEqual(expected, left.directProduct(right))
+        XCTAssertEqual(expected, vectorDirectProduct(left, right))
+    }
+    
+    func testVectorDirectProductFloatPerformance() {
+        
+        let left = Vector(length: 10000, generator: {i in Float.randomInInterval(-10...10)})
+        let right = Vector(length: 10000, generator: {i in Float.randomInInterval(-10...10)})
+        
+        let timeWithoutAccelerate = 2.53886300325394
+        let time = timeBlock(n: 1){
+            
+            vectorDirectProduct(left, right)
+        }
+        
+        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+    }
     
     
     // MARK: Generator Tests

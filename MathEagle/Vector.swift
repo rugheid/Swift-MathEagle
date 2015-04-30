@@ -607,9 +607,13 @@ func vectorDirectProduct(left: Vector<Float>, right: Vector<Float>) -> Matrix<Fl
         NSException(name: "Unequal lengths", reason: "The lengths of the two vectors are not equal.", userInfo: nil).raise()
     }
     
-    var elements = [Float](count: left.length, repeatedValue: 0)
+    if left.length == 0 {
+        return Matrix<Float>()
+    }
     
-    vDSP_mmul(left.elements, 1, right.elements, 1, &elements, 1, vDSP_Length(left.length), vDSP_Length(right.length), vDSP_Length(1))
+    var elements = [Float](count: left.length*left.length, repeatedValue: 0)
+    
+    cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(left.length), Int32(left.length), 1, 1, left.elements, 1, right.elements, Int32(left.length), 1, &elements, Int32(left.length))
     
     return Matrix(elementsList: elements, rows: left.length)
 }

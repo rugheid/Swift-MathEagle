@@ -43,14 +43,15 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         }
         
         self.elements = [[T]]()
+        let columns = elementsList.count / rows
         
         for r in 0 ..< rows {
             
             var rowElements = [T]()
             
-            for c in 0 ..< (elementsList.count / rows) {
+            for c in 0 ..< columns {
                 
-                rowElements.append(elementsList[r + elementsList.count * c])
+                rowElements.append(elementsList[r * columns + c])
             }
             
             elements.append(rowElements)
