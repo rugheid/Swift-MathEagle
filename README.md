@@ -4,10 +4,7 @@ Math Eagle is named after the golden eagle, since this is the fastest bird in th
 This project is meant to make math easy in swift. The syntax is designed to be as simple as possible. Contributors are always welcome, the more the merrier!
 
 #Installation
-XCode currently doesn't support pure swift frameworks. You can add it as a submodule:
-  1. Add this repo as a submodule.
-  2. Drag the MathEagle folder to your XCode file list. Make sure to add it to the target.
-  3. It's ready to use!
+The fastest way to add MathEagle to your project is to download it as a zip file and drag all files in the MathEagle folder (except Info.plist and MathEagle.h) to your project. Make sure to add them to your target.
 
 #Supported Xcode Versions
 Math Eagle is fully compatible with:
