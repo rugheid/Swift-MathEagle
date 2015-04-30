@@ -24,7 +24,7 @@ class Optimization {
         let t_max = t_m ?? maxTime
         
         var a = a0, b = b0
-        var v = a + PHI*(b-a)
+        var v = a + INVERSE_GOLDEN_RATIO*(b-a)
         var fv = f(v)
         var u = a + b - v
         var fu = f(u)

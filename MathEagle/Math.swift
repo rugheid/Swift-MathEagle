@@ -11,9 +11,40 @@ import Foundation
 
 // MARK: Constants
 
+/**
+    π: The ratio of a circle's circumference to it's diameter. =~ 3.14159
+*/
 let PI = 3.1415926535897932384626433832795028841971693993751
-let PHI = (sqrt(5.0) - 1.0)/2.0
+
+/**
+    Φ: The golden ratio. =~ 1.618
+*/
+let GOLDEN_RATIO = (sqrt(5.0) + 1.0)/2.0
+
+/**
+    φ: The inverse golden ratio. =~ 0.618
+*/
+let INVERSE_GOLDEN_RATIO = (sqrt(5.0) - 1.0)/2.0
+
+/**
+    e: Euler's number, base of the natural logarithm. =~ 2.71828
+*/
 let E = 2.71828182845904523536028747135266249775724709369995
+
+/**
+    𝛾: Euler-Mascheroni constant. =~ 0.57721
+*/
+let EULER_MASCHERONI = 0.57721566490153286060651209008240243104215933593992
+
+/**
+    e^π: Gelfond's constant. Also (-1)^(-i), where i is the imaginary unit. =~ 23.14
+*/
+let GELFOND = 23.140692632779269005729086
+
+/**
+    2^√2: Gelfond-Schneider constant, also called Hilbert number. =~ 2.665
+*/
+let GELFOND_SCHNEIDER = 2.665144142690225188650297
 
 
 
