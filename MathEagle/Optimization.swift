@@ -8,17 +8,20 @@
 
 import Foundation
 
-var OPTIMIZATION_ACCURACY = 1e-7
-var OPTIMIZATION_MAX_TIME = 10.0
-
 class Optimization {
+    
+    
+    //MARK: Parameters
+    static var accuracy = 1e-7
+    static var maxTime = 10.0
+    
     
     class func goldenSection(a0: Double, _ b0: Double, k_max: Int = 100, error err: Double? = nil, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
         
         let start = NSDate()
         
-        let error = err ?? OPTIMIZATION_ACCURACY
-        let t_max = t_m ?? OPTIMIZATION_MAX_TIME
+        let error = err ?? accuracy
+        let t_max = t_m ?? maxTime
         
         let phi = (sqrt(5.0) - 1.0)/2.0
         

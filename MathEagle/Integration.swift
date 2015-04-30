@@ -8,12 +8,12 @@
 
 import Foundation
 
-var INTEGRATION_ACCURACY = 1e-7
-var INTEGRATION_MAX_TIME = 10.0 // 10 seconds
-
 class Integration {
     
-    init() {}
+    
+    // MARK: Parameters
+    static var accuracy = 1e-7
+    static var maxTime = 10.0
     
     
     // MARK: single integrals
@@ -34,8 +34,8 @@ class Integration {
         
         let start = NSDate()
         
-        let error = err ?? INTEGRATION_ACCURACY
-        let t_max = t_m ?? INTEGRATION_MAX_TIME
+        let error = err ?? accuracy
+        let t_max = t_m ?? maxTime
         
         var h = b - a
         var I = h * f( (a + b) * 0.5 )
@@ -63,8 +63,6 @@ class Integration {
             I = I/3 + h*S
             
             k++
-            
-//            println("\(Int(k)): \(I)")
         }
         
         return I
@@ -87,8 +85,8 @@ class Integration {
         
         let start = NSDate()
         
-        let error = err ?? INTEGRATION_ACCURACY
-        let t_max = t_m ?? INTEGRATION_MAX_TIME
+        let error = err ?? accuracy
+        let t_max = t_m ?? maxTime
         
         var h = b - a
         var I = 0.5 * h * (f(a) + f(b))
@@ -116,8 +114,6 @@ class Integration {
             I = 0.5 * I + L
             
             k += 1.0
-            
-//            println("\(Int(k)): \(I)")
         }
         
         return I
@@ -140,8 +136,8 @@ class Integration {
         
         let start = NSDate()
         
-        let error = err ?? INTEGRATION_ACCURACY
-        let t_max = t_m ?? INTEGRATION_MAX_TIME
+        let error = err ?? accuracy
+        let t_max = t_m ?? maxTime
         
         var h = b - a
         var S0 = f( (a+b)*0.5 )
@@ -170,8 +166,6 @@ class Integration {
             I = 0.5*I + L
             
             k += 1.0
-            
-//            println("\(Int(k)): \(I)")
         }
         
         return I
@@ -192,7 +186,7 @@ class Integration {
     */
     class func adaptiveSimpson(a: Double, _ b: Double, error err: Double? = nil, _ f: (Double) -> Double) -> Double {
         
-        let error = err ?? INTEGRATION_ACCURACY
+        let error = err ?? accuracy
         
         return adaptiveSimpson(a, b, f, error: error, whole: simpsons_rule(a, b, f))
     }
