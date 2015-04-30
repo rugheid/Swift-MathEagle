@@ -8,9 +8,7 @@ The fastest way to add MathEagle to your project is to download it as a zip file
 
 #Supported Xcode Versions
 Math Eagle is fully compatible with:
-- Xcode 6.2 (current official version)
-
-Xcode 6.3 beta gives a 'segmentation fault: 11' error, this is normally an Apple bug.
+- Xcode 6.3 (current official version)
 
 #Currently Supported
 * Basic extensions, operators like power (** operator) and functions like sign and factorial
@@ -20,8 +18,11 @@ Xcode 6.3 beta gives a 'segmentation fault: 11' error, this is normally an Apple
 * Single variable function optimization
 * Matrix and Vector math
 
+MathEagle is fully generic, so almost all classes and functions work with any type (even types you define). MathEagle vectors for example can also be of type Int, while the Float and Double type vectors use Accelerate in the background for speed.
+
 Take a look at the Wiki for documentation.
 
 #To Do
 - [ ] Documentation
 - [ ] Further General Development
+- [ ] Incorporate Accelerate for all applications
