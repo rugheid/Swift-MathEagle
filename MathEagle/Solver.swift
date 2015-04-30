@@ -14,7 +14,7 @@ var SOLVER_MAX_TIME = 10.0 // 10 seconds
 class Solver {
     
     /**
-        Returns the zero value of f with the given accuracy, starting with the given interval [a,b]. The signs of f(a) and f(b) should not be equal.
+        Returns the zero value of f with the given accuracy, starting with the given interval [a,b] and using the bisection rule. The signs of f(a) and f(b) should not be equal.
     
         :param: a The beginpoint of the interval.
         :param: b The endpoint of the interval.
@@ -71,7 +71,18 @@ class Solver {
     }
     
     
-    class func newton(x0: Double, df: ((Double) -> Double)? = nil, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, f: (Double) -> Double) -> Double {
+    /**
+        Returns a zero value of f with the given accuracy, starting with x0 and using Newton's method. You can explicitley pass the derivative as well, otherwise the derivative will be approximated.
+    
+        :param: x0 The starting point for the iteration.
+        :param: f The function to find the zero of.
+        :param: accuracy The accuracy, this is standard set on 10^-7.
+        :param: k_max The maximum allowed number of iterations.
+        :param: maxTime The maximum time (in seconds) the solving should take, this is standard set on 10 seconds.
+    
+        :returns: The zero value of f.
+    */
+    class func newton(x0: Double, df: ((Double) -> Double)? = nil, accuracy err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, f: (Double) -> Double) -> Double {
         
         let start = NSDate()
         
