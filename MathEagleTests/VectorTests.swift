@@ -555,8 +555,8 @@ class VectorTests: XCTestCase {
     
     func testVectorDirectProductFloatPerformance() {
         
-        let left = Vector(length: 10000, generator: {i in Float.randomInInterval(-10...10)})
-        let right = Vector(length: 10000, generator: {i in Float.randomInInterval(-10...10)})
+        let left = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
+        let right = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
         
         let timeWithoutAccelerate = 2.53886300325394
         let time = timeBlock(n: 1){
