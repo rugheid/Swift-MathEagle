@@ -165,25 +165,18 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     }
     
     
-    convenience init(symmetrical elements: [T]) {
+    init(symmetrical elements: [T]) {
         
-        var matrixElements = [[T]]()
+        self.elementsList = [T]()
         
         let size = (elements.count + 1) / 2
+        self.dimensions = Dimensions(size, size)
         
         for row in 0 ..< size {
-            
-            var rowElements = [T]()
-            
             for column in 0 ..< size {
-                
-                rowElements.append(elements[row + column])
+                elementsList.append(elements[row + column])
             }
-            
-            matrixElements.append(rowElements)
         }
-        
-        self.init(matrixElements)
     }
     
     
