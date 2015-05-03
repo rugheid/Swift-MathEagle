@@ -15,7 +15,60 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     // MARK: Internal Elements
     
-    var elements: [[T]] = [[]]
+    /**
+        Returns a row major ordered list of all elements in the array.
+    */
+    var elementsList: [T] = []
+    
+    /**
+        Returns the dimensions of matrix.
+    */
+    var dimensions: Dimensions = Dimensions(0, 0)
+    
+    /**
+        Returns or sets a 2 dimensional array containing the elements of the matrix.
+        The array contains array's that represent rows.
+    
+        :performance: This method scales O(size^2), so elementsList should be used for
+                        high performance applications.
+    */
+    var elements: [[T]] {
+        
+        get {
+            var elements = [[T]]()
+            
+            for r in 0 ..< self.dimensions.rows {
+                
+                var rowElements = [T]()
+                
+                for c in 0 ..< self.dimensions.columns {
+                    rowElements.append(elementsList[r * self.dimensions.columns + c])
+                }
+                
+                elements.append(rowElements)
+            }
+            
+            if elements.count == 0 {
+                elements.append([])
+            }
+            
+            return elements
+        }
+        
+        set(newElements) {
+            elementsList = []
+            
+            for row in newElements {
+                elementsList.extend(row)
+            }
+            
+            if newElements.count == 0 || newElements[0].count == 0 {
+                self.dimensions = Dimensions()
+            } else {
+                self.dimensions = Dimensions(newElements.count, newElements[0].count)
+            }
+        }
+    }
     
     
     
@@ -26,76 +79,58 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     init(_ elements: [[T]]) {
     
-        self.elements = elements.count == 0 ? [[]] : elements
+        self.elements = elements
     }
     
     
     required init(arrayLiteral elements: [T]...) {
         
-        self.elements = elements.count == 0 ? [[]] : elements
+        self.elements = elements
     }
     
     
     init(elementsList: [T], rows: Int) {
         
-        if (elementsList.count % rows != 0) {
+        if elementsList.count % rows != 0 {
             NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not a multiple of rows.", userInfo: nil).raise()
         }
         
-        self.elements = [[T]]()
-        let columns = elementsList.count / rows
-        
-        for r in 0 ..< rows {
-            
-            var rowElements = [T]()
-            
-            for c in 0 ..< columns {
-                
-                rowElements.append(elementsList[r * columns + c])
-            }
-            
-            elements.append(rowElements)
-        }
+        self.dimensions = Dimensions(rows, elementsList.count / rows)
+        self.elementsList = elementsList
     }
     
     
     init(elementsList: [T], columns: Int) {
         
-        if (elementsList.count % columns != 0) {
+        if elementsList.count % columns != 0 {
             NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not a multiple of columns.", userInfo: nil).raise()
         }
         
-        self.elements = [[T]]()
-        let rows = elementsList.count / columns
+        self.dimensions = Dimensions(elementsList.count / columns, columns)
+        self.elementsList = elementsList
+    }
+    
+    
+    init(elementsList: [T], dimensions: Dimensions) {
         
-        for r in 0 ..< rows {
-            
-            var rowElements = [T]()
-            
-            for c in 0 ..< columns {
-                
-                rowElements.append(elementsList[r * columns + c])
-            }
-            
-            elements.append(rowElements)
+        if elementsList.count % dimensions.rows != 0 && elementsList.count / dimensions.rows != 0 {
+            NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not a multiple of columns.", userInfo: nil).raise()
         }
+        
+        self.dimensions = dimensions
+        self.elementsList = elementsList
     }
     
     
     init(dimensions: Dimensions, generator: (Index) -> T) {
         
-        self.elements = []
+        self.elementsList = []
+        self.dimensions = dimensions
         
         for row in 0 ..< dimensions.rows {
-            
-            var rowElements = [T]()
-            
-            for column in 0 ..< dimensions.columns {
-                
-                rowElements.append(generator([row, column]))
+            for col in 0 ..< dimensions.columns {
+                self.elementsList.append(generator([row, col]))
             }
-            
-            elements.append(rowElements)
         }
     }
     
@@ -158,18 +193,16 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     }
     
     
-    convenience init(filledWith element: T, dimensions: Dimensions) {
+    init(filledWith element: T, dimensions: Dimensions) {
         
-        var rowElements = [T](count: dimensions.columns, repeatedValue: element)
-        
-        self.init([[T]](count: dimensions.rows, repeatedValue: rowElements))
+        self.dimensions = dimensions
+        self.elementsList = [T](count: dimensions.rows * dimensions.columns, repeatedValue: element)
     }
     
     
     convenience init(identityOfSize size: Int) {
         
         self.init(filledWith: 0, size: size)
-        
         self.fillDiagonal(1)
     }
     
@@ -177,7 +210,6 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     convenience init(diagonal: [T]) {
         
         self.init(filledWith: 0, size: diagonal.count)
-        
         self.diagonalElements = diagonal
     }
     
@@ -314,23 +346,6 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     var description: String {
         
         return self.elements.description
-    }
-    
-    
-    /**
-        Returns the dimensions of matrix.
-    
-        :returns: The dimensions of the matrix.
-    */
-    var dimensions: Dimensions {
-        
-        var dimensions = Dimensions(elements.count, elements[0].count)
-        
-        if dimensions == Dimensions(1, 0) {
-            dimensions = Dimensions(0, 0)
-        }
-        
-        return dimensions
     }
     
     
