@@ -860,7 +860,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
             
             for c in 0 ..< self.dimensions.columns {
                 
-                if self[r][c] != 0 { return false }
+                if self.element(r, c) != 0 { return false }
             }
         }
         
@@ -868,7 +868,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
             
             for c in col + 1 ..< self.dimensions.columns {
                 
-                if self[row][c] != 0 { return false }
+                if self.element(row, c) != 0 { return false }
             }
             
             row++
