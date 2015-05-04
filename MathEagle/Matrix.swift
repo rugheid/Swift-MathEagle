@@ -702,7 +702,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     */
     var isZero: Bool {
         
-        return mreduce(self, true){ return $0 ? $1 == 0 : false }
+        return mreduce(self, true){ $0 ? $1 == 0 : false }
     }
     
     
@@ -758,7 +758,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
             while k <= d {
                 
                 let j = i - k
-                if self[k][j] != self[j][k] { return false }
+                if self.element(k, j) != self.element(j, k) { return false }
                 k++
             }
         }
