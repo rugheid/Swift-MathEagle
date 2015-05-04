@@ -682,11 +682,11 @@ class MatrixTests: XCTestCase {
         
         var matrix = Matrix([[1, 2, 3], [6, 5, 4]])
         
-        XCTAssertEqual(1, matrix.minElement)
+        XCTAssertEqual(1, matrix.minElement!)
         
         matrix = Matrix(filledWith: 5, dimensions: Dimensions(5, 8))
         
-        XCTAssertEqual(5, matrix.minElement)
+        XCTAssertEqual(5, matrix.minElement!)
     }
     
     func testTranspose() {

@@ -605,14 +605,15 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     
     /**
-        Returns the maximum element in the matrix.
-    
-        :returns: The maximum element in the matrix.
+        Returns the maximum element in the matrix if the matrix is not empty,
+        otherwise it returns nil.
     */
     var maxElement: T? {
         
         if self.isEmpty {
+            
             return nil
+            
         } else {
             
             var max = self.elementsList[0]
@@ -627,35 +628,25 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     
     /**
-        Returns the minimum element in the matrix.
-    
-        :returns: The minimum element in the matrix.
+        Returns the minimum element in the matrix if the matrix is not empty,
+        otherwise it returns nil.
     */
-    var minElement: T {
+    var minElement: T? {
         
         if self.isEmpty {
             
-            NSException(name: "Empty matrix", reason: "An empty matrix does not have a minimum value", userInfo: nil).raise()
-        }
-        
-        var min: T = self[0][0]
-        
-        for row in 0 ..< self.dimensions.rows {
+            return nil
             
-            for column in 0 ..< self.dimensions.columns {
-                
-                if row == 0 && column == 0 { continue }
-                
-                let value = self[row][column]
-                
-                if value < min {
-                    
-                    min = value
+        } else {
+            
+            var min = self.elementsList[0]
+            for element in self.elementsList {
+                if element < min {
+                    min = element
                 }
             }
+            return min
         }
-        
-        return min
     }
     
     
