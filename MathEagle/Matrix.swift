@@ -91,22 +91,22 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     init(elementsList: [T], rows: Int) {
         
-        if elementsList.count % rows != 0 {
+        if elementsList.count != 0 && elementsList.count % rows != 0 {
             NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not a multiple of rows.", userInfo: nil).raise()
         }
         
-        self.dimensions = Dimensions(rows, elementsList.count / rows)
+        self.dimensions = Dimensions(rows, rows == 0 ? 0 : elementsList.count / rows)
         self.elementsList = elementsList
     }
     
     
     init(elementsList: [T], columns: Int) {
         
-        if elementsList.count % columns != 0 {
+        if elementsList.count != 0 && elementsList.count % columns != 0 {
             NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not a multiple of columns.", userInfo: nil).raise()
         }
         
-        self.dimensions = Dimensions(elementsList.count / columns, columns)
+        self.dimensions = Dimensions(columns == 0 ? 0 : elementsList.count / columns, columns)
         self.elementsList = elementsList
     }
     
@@ -655,21 +655,16 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     */
     var transpose: Matrix<T> {
         
-        var returnElements = [[T]]()
+        var elementsList = [T]()
         
         for col in 0 ..< self.dimensions.columns {
-            
-            var rowElements = [T]()
-            
             for row in 0 ..< self.dimensions.rows {
                 
-                rowElements.append(self[row][col])
+                elementsList.append(self.element(row, col))
             }
-            
-            returnElements.append(rowElements)
         }
         
-        return Matrix(returnElements)
+        return Matrix(elementsList: elementsList, rows: self.dimensions.columns)
     }
     
     
