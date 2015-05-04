@@ -609,48 +609,20 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :returns: The maximum element in the matrix.
     */
-    var maxElement: T {
+    var maxElement: T? {
         
         if self.isEmpty {
+            return nil
+        } else {
             
-            NSException(name: "Empty matrix", reason: "An empty matrix does not have a maximum value", userInfo: nil).raise()
-        }
-        
-        var max: T = self[0][0]
-        
-        for row in 0 ..< self.dimensions.rows {
-            
-            for column in 0 ..< self.dimensions.columns {
-                
-                if row == 0 && column == 0 { continue }
-                
-                let value = self[row][column]
-                
-                if value > max {
-                    
-                    max = value
+            var max = self.elementsList[0]
+            for element in self.elementsList {
+                if element > max {
+                    max = element
                 }
             }
+            return max
         }
-        
-        return max
-        
-        // This method seems to be two times slower...
-        
-//        if self.isEmpty {
-//            
-//            NSException(name: "Empty matrix", reason: "An empty matrix does not have a maximum value", userInfo: nil).raise()
-//        }
-//        
-//        return reduce(self, nil){ (prev: T?, curr: T) -> T? in
-//            
-//            if let val = prev {
-//                
-//                return val < curr ? curr : val
-//            }
-//            
-//            return curr
-//        }!
     }
     
     

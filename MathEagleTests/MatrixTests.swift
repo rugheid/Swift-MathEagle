@@ -648,11 +648,11 @@ class MatrixTests: XCTestCase {
         
         var matrix = Matrix([[1, 2, 3], [6, 5, 4]])
         
-        XCTAssertEqual(6, matrix.maxElement)
+        XCTAssertEqual(6, matrix.maxElement!)
         
         matrix = Matrix(filledWith: 5, dimensions: Dimensions(5, 8))
         
-        XCTAssertEqual(5, matrix.maxElement)
+        XCTAssertEqual(5, matrix.maxElement!)
     }
     
     func testMaxValuePerformance() {
