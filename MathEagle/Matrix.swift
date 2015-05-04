@@ -113,7 +113,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     init(elementsList: [T], dimensions: Dimensions) {
         
-        if elementsList.count % dimensions.rows != 0 && elementsList.count / dimensions.rows != 0 {
+        if elementsList.count != dimensions.product {
             NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not a multiple of columns.", userInfo: nil).raise()
         }
         
@@ -325,7 +325,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     */
     var copy: Matrix<T> {
         
-        return Matrix(self.elements)
+        return Matrix(elementsList: self.elementsList, dimensions: self.dimensions)
     }
     
 
@@ -347,16 +347,8 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :returns: The size of the matrix if the matrix is square.
     */
-    var size: Int {
-        
-        let n = self.dimensions.rows
-        
-        if n != self.dimensions.columns {
-            
-            NSException(name: "Not square", reason: "The matrix is not square, so the size can not be computed. Use dimensions instead.", userInfo: nil).raise()
-        }
-        
-        return n
+    var size: Int? {
+        return self.dimensions.size
     }
     
     
@@ -420,7 +412,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
             
             for i in 0 ..< self.dimensions.minimum {
                 
-                returnElements.append(self.elements[i][i])
+                returnElements.append(self.element(i, i))
             }
             
             return returnElements
@@ -437,7 +429,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
             
             for i in 0 ..< nrOfDiagonals {
                 
-                self.elements[i][i] = elements[i]
+                self.setElement(atRow: i, atColumn: i, toElement: elements[i])
             }
         }
     }
@@ -472,7 +464,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         
         while row < self.dimensions.rows && col < self.dimensions.columns {
             
-            returnElements.append(self[row][col])
+            returnElements.append(self.element(row, col))
             row++
             col++
         }
@@ -522,37 +514,37 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         
         if n > 0 {
             
-            var elements = [[T]](count: self.dimensions.rows, repeatedValue: [T](count: self.dimensions.columns, repeatedValue: 0))
+            var elementsList = [T](count: self.dimensions.product, repeatedValue: 0)
             
             while row < self.dimensions.rows && col < self.dimensions.columns {
                 
                 for c in col ..< self.dimensions.columns {
                     
-                    elements[row][c] = self[row][c]
+                    elementsList[row * self.dimensions.columns + c] = self.element(row, c)
                 }
                 
                 row++
                 col++
             }
             
-            return Matrix(elements)
+            return Matrix(elementsList: elementsList, dimensions: self.dimensions)
             
         } else {
             
-            var elements = Array(self.elements)
+            var elementsList = Array(self.elementsList)
             
             while row + 1 < self.dimensions.rows && col < self.dimensions.columns {
                 
                 for r in row + 1 ..< self.dimensions.rows {
                     
-                    elements[r][col] = 0
+                    elementsList[r * self.dimensions.columns + col] = 0
                 }
                 
                 row++
                 col++
             }
             
-            return Matrix(elements)
+            return Matrix(elementsList: elementsList, dimensions: self.dimensions)
         }
     }
     
@@ -560,7 +552,6 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     var lowerTriangle: Matrix<T> {
         
         get {
-            
             return lowerTriangle()
         }
     }
@@ -578,37 +569,37 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         
         if n >= 0 {
             
-            var elements = Array(self.elements)
+            var elementsList = Array(self.elementsList)
             
             while row < self.dimensions.rows && col + 1 < self.dimensions.columns {
                 
                 for c in col + 1 ..< self.dimensions.columns {
                     
-                    elements[row][c] = 0
+                    elementsList[row * self.dimensions.columns + c] = 0
                 }
                 
                 row++
                 col++
             }
             
-            return Matrix(elements)
+            return Matrix(elementsList: elementsList, dimensions: dimensions)
             
         } else {
             
-            var elements = [[T]](count: self.dimensions.rows, repeatedValue: [T](count: self.dimensions.columns, repeatedValue: 0))
+            var elementsList = [T](count: self.dimensions.product, repeatedValue: 0)
             
             while row < self.dimensions.rows && col < self.dimensions.columns {
                 
                 for r in row ..< self.dimensions.rows {
                     
-                    elements[r][col] = self[r][col]
+                    elementsList[r * self.dimensions.columns + col] = self.element(r, col)
                 }
                 
                 row++
                 col++
             }
             
-            return Matrix(elements)
+            return Matrix(elementsList: elementsList, dimensions: self.dimensions)
         }
     }
     
@@ -965,15 +956,15 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         
         if row < 0 || row >= self.dimensions.rows {
             
-            NSException(name: "Row index out of bounds", reason: "The requested element's row index is out of bounds.", userInfo: nil)
+            NSException(name: "Row index out of bounds", reason: "The requested element's row index is out of bounds.", userInfo: nil).raise()
         }
         
         if column < 0 || column >= self.dimensions.columns {
             
-            NSException(name: "Column index out of bounds", reason: "The requested element's column index is out of bounds.", userInfo: nil)
+            NSException(name: "Column index out of bounds", reason: "The requested element's column index is out of bounds.", userInfo: nil).raise()
         }
         
-        return self.elements[row][column]
+        return self.elementsList[row * self.dimensions.columns + column]
     }
     
     
@@ -996,7 +987,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
             NSException(name: "Column index out of bounds", reason: "The column index at which the element should be set is out of bounds.", userInfo: nil)
         }
         
-        self.elements[row][column] = element
+        self.elementsList[row * self.dimensions.columns + column] = element
     }
     
     
@@ -1385,7 +1376,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
             NSException(name: "Not square", reason: "A non-square matrix does not have a LU decomposition.", userInfo: nil).raise()
         }
         
-        let n = self.size
+        let n = self.size!
         
         var L = Matrix(identityOfSize: n)
         var U = self.copy
@@ -1691,12 +1682,25 @@ struct Dimensions: Equatable, Addable {
     
     /**
         Returns the minimal value of both dimension values (rows, columns).
-    
-        :returns: The minimal value of both dimension values (rows, columns).
     */
     var minimum: Int {
         
         return self.rows < self.columns ? self.rows : self.columns
+    }
+    
+    /**
+        Returns the size of these dimensions. Returns nil if the rows and columns
+        dimensions values are not equal.
+    */
+    var size: Int? {
+        return self.rows == self.columns ? self.rows : nil
+    }
+    
+    /**
+        Returns the product of the two dimension values: rows * columns
+    */
+    var product: Int {
+        return self.rows * self.columns
     }
     
     /**
@@ -1710,6 +1714,10 @@ struct Dimensions: Equatable, Addable {
         return self.rows == self.columns
     }
     
+    /**
+        Returns the rows dimension value when index == 0, otherwise the columns dimension
+        value is returned.
+    */
     subscript(index: Int) -> Int {
     
         return index == 0 ? self.rows : self.columns

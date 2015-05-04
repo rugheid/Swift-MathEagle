@@ -569,7 +569,7 @@ class MatrixTests: XCTestCase {
         
         let matrix = Matrix(randomWithSize: 100, generator: Int.randomInInterval, intervals: -10...10)
         
-        let diagonalBaseline = 0.0876189470291138
+        let diagonalBaseline = 0.00145101547241211
         let diagonalTime = timeBlock(){
             
             matrix.upperTriangle()
@@ -577,7 +577,7 @@ class MatrixTests: XCTestCase {
         
         println("\nDiagonal time = \(diagonalTime), this is \(diagonalBaseline/diagonalTime) times faster than baseline.")
         
-        let superDiagonalBaseline = 0.0738120079040527
+        let superDiagonalBaseline = 0.00230699777603149
         let superDiagonalTime = timeBlock(){
             
             matrix.upperTriangle(25)
@@ -585,7 +585,7 @@ class MatrixTests: XCTestCase {
         
         println("\nSuper diagonal time = \(superDiagonalTime), this is \(superDiagonalBaseline/superDiagonalTime) times faster than baseline.")
         
-        let subDiagonalBaseline = 0.0500759482383728
+        let subDiagonalBaseline = 0.000886976718902588
         let subDiagonalTime = timeBlock(){
             
             matrix.upperTriangle(-25)
@@ -619,7 +619,7 @@ class MatrixTests: XCTestCase {
         
         let matrix = Matrix(randomWithSize: 100, generator: Int.randomInInterval, intervals: -10...10)
         
-        let diagonalBaseline = 0.0876189470291138
+        let diagonalBaseline = 0.001708984375
         let diagonalTime = timeBlock(){
             
             matrix.lowerTriangle()
@@ -627,7 +627,7 @@ class MatrixTests: XCTestCase {
         
         println("\nDiagonal time = \(diagonalTime), this is \(diagonalBaseline/diagonalTime) times faster than baseline.")
         
-        let superDiagonalBaseline = 0.0545989871025085
+        let superDiagonalBaseline = 0.00111198425292969
         let superDiagonalTime = timeBlock(){
             
             matrix.lowerTriangle(25)
@@ -635,7 +635,7 @@ class MatrixTests: XCTestCase {
         
         println("\nSuper diagonal time = \(superDiagonalTime), this is \(superDiagonalBaseline/superDiagonalTime) times faster than baseline.")
         
-        let subDiagonalBaseline = 0.076259970664978
+        let subDiagonalBaseline = 0.00196701288223267
         let subDiagonalTime = timeBlock(){
             
             matrix.lowerTriangle(-25)
