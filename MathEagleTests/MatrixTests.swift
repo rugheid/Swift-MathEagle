@@ -1198,6 +1198,21 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(matrix5, matrix6)
     }
     
+    func testMatrixEqualtiyPerformance() {
+        
+        let A = Matrix(randomWithSize: 1000, generator: Int.random)
+        let B = Matrix(randomWithSize: 1000, generator: Int.random)
+        
+        let time = timeBlock(n: 100){
+            
+            A == B
+        }
+        
+        let baseline = 0.000926479697227478
+        
+        println("\n\nBaseline: \(baseline)\nTime: \(time)\nTimes better: \(baseline/time)\n\n")
+    }
+    
     func testMatrixAddition() {
         
         var left = Matrix([[1, 2], [3, 4]])

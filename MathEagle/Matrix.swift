@@ -1402,14 +1402,12 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
 func == <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Bool {
     
     if left.dimensions != right.dimensions {
-        
         return false
     }
     
-    for i in 0 ..< left.dimensions.rows {
+    for i in 0 ..< left.dimensions.product {
         
-        if left[i] != right[i] {
-            
+        if left.elementsList[i] != right.elementsList[i] {
             return false
         }
     }
