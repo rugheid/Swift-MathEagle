@@ -1514,14 +1514,7 @@ func mmap <T: MatrixCompatible, U: MatrixCompatible> (matrix: Matrix<T>, transfo
 */
 func mreduce <T: MatrixCompatible, U> (matrix: Matrix<T>, initial: U, combine: (U, T) -> U) -> U {
     
-    var reduced = initial
-    
-    for row in matrix.elements {
-        
-        reduced = reduce(row, reduced, combine)
-    }
-    
-    return reduced
+    return reduce(matrix.elementsList, initial, combine)
 }
 
 /**
