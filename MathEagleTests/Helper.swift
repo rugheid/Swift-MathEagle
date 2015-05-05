@@ -56,3 +56,20 @@ func timeBlock(n: Int = 1, block: Void -> Any) -> Double {
     
     return Double(end.timeIntervalSinceDate(start)) / Double(n)
 }
+
+func compareBaseline(baseline: Double, title: String = "", n: Int = 1, block: Void -> Any) {
+    
+    let time = timeBlock(n: n, block)
+    
+    println()
+    println()
+    if !title.isEmpty {
+        println(title)
+        println(String(count: count(title), repeatedValue: Character("-")))
+    }
+    println("Baseline:\t\t\t\t\t\(baseline)")
+    println("Time:\t\t\t\t\t\t\(time)")
+    println("Times faster than baseline:\t\(baseline/time)")
+    println()
+    println()
+}

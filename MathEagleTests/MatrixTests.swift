@@ -338,13 +338,10 @@ class MatrixTests: XCTestCase {
         
         let matrix = Matrix(randomWithSize: 100, generator: Int.randomInInterval, intervals: 0 ... 10)
         
-        let time = timeBlock(){
+        compareBaseline(0.0023840069770813, title: "Mapping 100x100 matrix", n: 10){
             
             mmap(matrix){ $0 + 1 }
         }
-        
-        let baseline = 0.0023840069770813
-        println("Time to map 100x100 matrix = \(time) seconds\nThis is \(baseline/time) times faster than baseline.\n")
     }
     
     func testMatrixReduce() {
@@ -372,13 +369,10 @@ class MatrixTests: XCTestCase {
         
         let matrix = Matrix(randomWithSize: 100, generator: Int.randomInInterval, intervals: -2 ... 2)
         
-        let time = timeBlock(){
+        compareBaseline(0.00280898809432983, title: "Reducing 100x100 matrix using +", n: 10){
             
             mreduce(matrix, 0, +)
         }
-        
-        let baseline = 0.00280898809432983
-        println("Time to reduce 100x100 matrix = \(time) seconds\nThis is \(baseline/time) times faster than baseline.\n")
     }
     
     func testMatrixCombine() {
@@ -411,13 +405,10 @@ class MatrixTests: XCTestCase {
         let left = Matrix(randomWithSize: 100, generator: Int.randomInInterval, intervals: 0 ... 10)
         let right = Matrix(randomWithSize: 100, generator: Int.randomInInterval, intervals: -10 ... 0)
         
-        let time = timeBlock(){
+        compareBaseline(0.00611197948455811, title: "Combining 2 100x100 matrices using +", n: 10){
             
             mcombine(left, right, +)
         }
-        
-        let baseline = 0.00611197948455811
-        println("Time to reduce 100x100 matrix = \(time) seconds\nThis is \(baseline/time) times faster than baseline.\n")
     }
     
     
