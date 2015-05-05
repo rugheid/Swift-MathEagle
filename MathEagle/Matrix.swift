@@ -1329,6 +1329,8 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     */
     func LUDecomposition(pivoting: Bool = true, optimalPivoting: Bool = true) -> (Matrix<T>, Matrix<T>, Matrix<T>, T) {
         
+        //TODO: Try to bridge from Objective-C to Swift using LAPACK: getrf_ function
+        
         if !self.isSquare {
             
             NSException(name: "Not square", reason: "A non-square matrix does not have a LU decomposition.", userInfo: nil).raise()
@@ -1349,7 +1351,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
                 
                 for j in i ..< n {
                     
-                    if U[i][j] > max { max = U[i][j]; p = j }
+                    if U[i, j] > max { max = U[i, j]; p = j }
                 }
                 
                 if p != i { detP = -detP }
@@ -1358,7 +1360,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
                 P.switchRows(p, i)
             }
             
-            L[i+1 ..< n, i] = U[i+1 ..< n, i]/U[i][i]
+            L[i+1 ..< n, i] = U[i+1 ..< n, i]/U[i, i]
             U[i+1 ..< n, i+1 ..< n] = U[i+1 ..< n, i+1 ..< n] - L[i+1 ..< n, i].directProduct(U[i, i+1 ..< n])
             U[i+1 ..< n, i] = Vector(filledWith: 0, length: n-i-1)
         }
