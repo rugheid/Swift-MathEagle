@@ -581,6 +581,11 @@ func * (left: Vector<Float>, right: Vector<Float>) -> Matrix<Float> {
     return vectorDirectProduct(left, right)
 }
 
+func * (left: Vector<Double>, right: Vector<Double>) -> Matrix<Double> {
+    
+    return vectorDirectProduct(left, right)
+}
+
 /**
 Returns the direct product of the two given vectors. Here left is taken as a column vector and right as a row vector.
 The two vectors need to have the same length.
