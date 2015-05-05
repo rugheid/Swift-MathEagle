@@ -597,7 +597,7 @@ func vectorDirectProduct <T: MatrixCompatible> (left: Vector<T>, right: Vector<T
         NSException(name: "Unequal lengths", reason: "The lengths of the two vectors are not equal.", userInfo: nil).raise()
     }
     
-    return Matrix([left.elements]).transpose * Matrix([right.elements])
+    return Matrix(elementsList: left.elements, columns: 1) * Matrix(elementsList: right.elements, rows: 1)
 }
 
 func vectorDirectProduct(left: Vector<Float>, right: Vector<Float>) -> Matrix<Float> {
@@ -614,6 +614,24 @@ func vectorDirectProduct(left: Vector<Float>, right: Vector<Float>) -> Matrix<Fl
     var elements = [Float](count: left.length*left.length, repeatedValue: 0)
     
     cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(left.length), Int32(left.length), 1, 1, left.elements, 1, right.elements, Int32(left.length), 1, &elements, Int32(left.length))
+    
+    return Matrix(elementsList: elements, rows: left.length)
+}
+
+func vectorDirectProduct(left: Vector<Double>, right: Vector<Double>) -> Matrix<Double> {
+    
+    if left.length != right.length {
+        
+        NSException(name: "Unequal lengths", reason: "The lengths of the two vectors are not equal.", userInfo: nil).raise()
+    }
+    
+    if left.length == 0 {
+        return Matrix<Double>()
+    }
+    
+    var elements = [Double](count: left.length*left.length, repeatedValue: 0)
+    
+    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(left.length), Int32(left.length), 1, 1, left.elements, 1, right.elements, Int32(left.length), 1, &elements, Int32(left.length))
     
     return Matrix(elementsList: elements, rows: left.length)
 }
