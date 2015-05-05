@@ -343,7 +343,7 @@ class MatrixTests: XCTestCase {
             mmap(matrix){ $0 + 1 }
         }
         
-        let baseline = 0.0261270403862
+        let baseline = 0.0023840069770813
         println("Time to map 100x100 matrix = \(time) seconds\nThis is \(baseline/time) times faster than baseline.\n")
     }
     
@@ -377,7 +377,7 @@ class MatrixTests: XCTestCase {
             mreduce(matrix, 0, +)
         }
         
-        let baseline = 0.0323160290718079
+        let baseline = 0.00280898809432983
         println("Time to reduce 100x100 matrix = \(time) seconds\nThis is \(baseline/time) times faster than baseline.\n")
     }
     
@@ -416,7 +416,7 @@ class MatrixTests: XCTestCase {
             mcombine(left, right, +)
         }
         
-        let baseline = 0.222007989883423
+        let baseline = 0.00611197948455811
         println("Time to reduce 100x100 matrix = \(time) seconds\nThis is \(baseline/time) times faster than baseline.\n")
     }
     
