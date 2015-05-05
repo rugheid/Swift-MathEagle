@@ -1299,7 +1299,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         
         for i in 0 ..< self.dimensions.minimum {
             
-            self.elements[i][i] = value
+            self.setElement(atRow: i, atColumn: i, toElement: value)
         }
     }
     
