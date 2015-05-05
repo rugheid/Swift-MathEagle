@@ -190,9 +190,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     */
     func dotProduct(vector: Vector<T>) -> T {
         
-        let product = Matrix([self.elements]) * Matrix([vector.elements]).transpose
-        
-        return product[0][0]
+        return vectorDotProduct(self, vector)
     }
     
     
@@ -566,6 +564,23 @@ func / (vector: Vector<Double>, scalar: Double) -> Vector<Double> {
 //    cblas_dscal(Int32(vector.length), 1/scalar, &elements, 1)
 //    
 //    return Vector(elements)
+}
+
+
+// MARK: Vector Dot Product
+
+func vectorDotProduct <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> T {
+    
+    return sum(vcombine(left, right){ $0 * $1 })
+}
+
+func vectorDotProduct(left: Vector<Float>, right: Vector<Float>) -> Float {
+    
+    var result: Float = 0
+    
+    vDSP_dotpr(left.elements, 1, right.elements, 1, &result, vDSP_Length(left.length))
+    
+    return result
 }
 
 

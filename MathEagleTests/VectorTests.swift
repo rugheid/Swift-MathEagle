@@ -149,19 +149,6 @@ class VectorTests: XCTestCase {
     }
     
     
-    // MARK: Operator Function Tests
-    
-    func testDotProduct() {
-        
-        let left = Vector([1, 2, 3])
-        let right = Vector([4, 5, 6])
-        
-        let expected = 32
-        
-        XCTAssertEqual(32, left.dotProduct(right))
-    }
-    
-    
     // MARK: Operator Tests
     
     func testVectorEquality() {
@@ -507,6 +494,39 @@ class VectorTests: XCTestCase {
         }
         
         println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+    }
+    
+    func testDotProduct() {
+        
+        let left = Vector([1, 2, 3])
+        let right = Vector([4, 5, 6])
+        
+        let expected = 32
+        
+        XCTAssertEqual(expected, left.dotProduct(right))
+        XCTAssertEqual(expected, vectorDotProduct(left, right))
+    }
+    
+    func testDotProductFloat() {
+        
+        let left = Vector<Float>([1, 2, 3])
+        let right = Vector<Float>([4, 5, 6])
+        
+        let expected: Float = 32
+        
+        XCTAssertEqual(expected, left.dotProduct(right))
+        XCTAssertEqual(expected, vectorDotProduct(left, right))
+    }
+    
+    func testVectorDotProductFloatPerformance() {
+        
+        let left = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
+        let right = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
+        
+        compareBaseline(1.01983547210693e-06, title: "Vector dot product of 2 1000 element vectors (Float)", n: 100){
+            
+            vectorDotProduct(left, right)
+        }
     }
     
     func testVectorDirectProduct() {
