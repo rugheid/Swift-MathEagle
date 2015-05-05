@@ -1186,7 +1186,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         
         for row in rowRange {
             
-            vectorElements.append(self.elements[row][column])
+            vectorElements.append(self.element(row, column))
         }
         
         return Vector(vectorElements)
@@ -1221,7 +1221,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         
         for row in rowRange {
             
-            self.elements[row][column] = vector[row - rowRange.startIndex]
+            self.setElement(atRow: row, atColumn: column, toElement: vector[row - rowRange.startIndex])
         }
     }
     
@@ -1250,7 +1250,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         
         for column in columnRange {
             
-            vectorElements.append(self.elements[row][column])
+            vectorElements.append(self.element(row, column))
         }
         
         return Vector(vectorElements)
@@ -1285,7 +1285,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         
         for column in columnRange {
             
-            self.elements[row][column] = vector[column - columnRange.startIndex]
+            self.setElement(atRow: row, atColumn: column, toElement: vector[column - columnRange.startIndex])
         }
     }
     
