@@ -975,7 +975,13 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
             NSException(name: "Row index out of bounds", reason: "The requested row's index is out of bounds.", userInfo: nil).raise()
         }
         
-        return Vector(self.elements[index])
+        var elementsList = [T]()
+        
+        for i in index * self.dimensions.columns ..< (index + 1) * self.dimensions.columns {
+            elementsList.append(self.elementsList[i])
+        }
+        
+        return Vector(elementsList)
     }
     
     
@@ -999,7 +1005,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
             NSException(name: "New row wrong length", reason: "The new row's length is not equal to the matrix's number of columns.", userInfo: nil).raise()
         }
         
-        self.elements[index] = newRow.elements
+        self.elementsList.replaceRange(index * self.dimensions.columns ..< (index + 1) * self.dimensions.columns, with: newRow.elements)
     }
     
     
@@ -1039,7 +1045,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         
         for i in 0 ..< self.dimensions.rows {
             
-            column.append(self.elements[i][index])
+            column.append(self.elementsList[i * self.dimensions.columns + index])
         }
         
         return Vector(column)
@@ -1068,7 +1074,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         
         for i in 0 ..< self.dimensions.rows {
             
-            self.elements[i][index] = newColumn[i]
+            self.elementsList[i * self.dimensions.columns + index] = newColumn[i]
         }
     }
     
@@ -1108,21 +1114,16 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
             NSException(name: "Column index out of bound", reason: "The column index range is out of bounds. Range \(columnRange) given, but matrix column range is \(0..<self.dimensions.columns) .", userInfo: nil).raise()
         }
         
-        var matrixElements = [[T]]()
+        var elementsList = [T]()
         
         for row in rowRange {
-            
-            var rowElements = [T]()
-            
             for column in columnRange {
                 
-                rowElements.append(self[row][column])
+                elementsList.append(self.element(row, column))
             }
-            
-            matrixElements.append(rowElements)
         }
         
-        return Matrix(matrixElements)
+        return Matrix(elementsList: elementsList, rows: rowRange.endIndex - rowRange.startIndex)
     }
     
     
@@ -1153,10 +1154,9 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         }
         
         for row in rowRange {
-            
             for column in columnRange {
                 
-                self.elements[row][column] = matrix[row - rowRange.startIndex][column - columnRange.startIndex]
+                self.setElement(atRow: row, atColumn: column, toElement: matrix.element(row - rowRange.startIndex, column - columnRange.startIndex))
             }
         }
     }
