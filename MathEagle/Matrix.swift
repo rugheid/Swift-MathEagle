@@ -1533,21 +1533,13 @@ func mcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (l
         NSException(name: "Unequal dimensions", reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
     }
     
-    var matrixElements = [[V]]()
+    var elementsList = [V]()
     
-    for row in 0 ..< left.dimensions.rows {
-        
-        var rowElements = [V]()
-        
-        for column in 0 ..< left.dimensions.columns {
-            
-            rowElements.append(combine(left[row][column], right[row][column]))
-        }
-        
-        matrixElements.append(rowElements)
+    for i in 0 ..< left.dimensions.product {
+        elementsList.append(combine(left.elementsList[i], right.elementsList[i]))
     }
     
-    return Matrix(matrixElements)
+    return Matrix(elementsList: elementsList, dimensions: left.dimensions)
 }
 
 
