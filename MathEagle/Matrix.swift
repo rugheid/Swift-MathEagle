@@ -1472,11 +1472,11 @@ func * <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
         
         for column in 0 ..< right.dimensions.columns {
             
-            var element:T = left[row][0] * right[0][column]
+            var element:T = left[row, 0] * right[0][column]
             
             for i in 1 ..< v {
                 
-                element = element + left[row][i] * right[i][column]
+                element = element + left[row, i] * right[i, column]
             }
             
             rowElements.append(element)
@@ -1499,9 +1499,9 @@ func * <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
 */
 func mmap <T: MatrixCompatible, U: MatrixCompatible> (matrix: Matrix<T>, transform: T -> U) -> Matrix<U> {
     
-    let matrixElements = map(matrix.elements){ map($0, transform) }
+    let elementsList = map(matrix.elementsList, transform)
     
-    return Matrix(matrixElements)
+    return Matrix(elementsList: elementsList, dimensions: matrix.dimensions)
 }
 
 /**
