@@ -698,26 +698,14 @@ func randomDoubleVector(ofLength length: Int, #min: Double, #max: Double) -> Vec
 
 struct VectorGenerator <T: MatrixCompatible> : GeneratorType {
     
-    let vector: Vector<T>
-    
-    var index = 0
+    var generator: IndexingGenerator<Array<T>>
     
     init(vector: Vector<T>) {
         
-        self.vector = vector
+        self.generator = vector.elements.generate()
     }
     
     mutating func next() -> T? {
-        
-        if index >= vector.length {
-            
-            return nil
-        }
-        
-        let element = vector[index]
-        
-        index++
-        
-        return element
+        return self.generator.next()
     }
 }
