@@ -1550,33 +1550,15 @@ func mcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (l
 
 struct MatrixGenerator <T: MatrixCompatible> : GeneratorType {
     
-    let matrix: Matrix<T>
-    
-    var row = 0, column = 0
+    var generator: IndexingGenerator<Array<T>>
     
     init(matrix: Matrix<T>) {
         
-        self.matrix = matrix
+        self.generator = matrix.elementsList.generate()
     }
     
     mutating func next() -> T? {
-        
-        if column >= matrix.dimensions.columns {
-            
-            column = 0
-            row++
-        }
-        
-        if row >= matrix.dimensions.rows {
-            
-            return nil
-        }
-        
-        let element = matrix[row][column]
-        
-        column++
-        
-        return element
+        return self.generator.next()
     }
 }
 
