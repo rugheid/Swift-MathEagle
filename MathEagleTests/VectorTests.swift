@@ -51,6 +51,23 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(Vector([5, 5, 5, 5]), vector)
     }
     
+    func testRandomWithLengthGeneratorInit() {
+        
+        let a = Vector(randomWithLength: 100, generator: Int.random)
+        let b = Vector(randomWithLength: 100, generator: Int.random)
+        
+        XCTAssertNotEqual(a, b)
+    }
+    
+    func testRandomWithLengthGeneratorIntervalsInit() {
+        
+        let a = Vector(randomWithLength: 1000, generator: Int.randomInInterval, intervals: -10...10)
+        
+        for element in a {
+            XCTAssertTrue(element >= -10 && element <= 10)
+        }
+    }
+    
     
     // MARK: Subscript Tests
     

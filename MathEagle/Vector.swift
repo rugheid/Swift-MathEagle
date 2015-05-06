@@ -39,6 +39,16 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
         self.init(length: length, generator: { (i) -> T in element })
     }
     
+    convenience init(randomWithLength length: Int, generator: () -> T) {
+        
+        self.init(length: length, generator: { i in generator() })
+    }
+    
+    convenience init(randomWithLength length: Int, generator: ([ClosedInterval<T.RandomIntervalType>]) -> T, intervals: ClosedInterval<T.RandomIntervalType>...) {
+        
+        self.init(length: length, generator: { i in generator(intervals) })
+    }
+    
     
     // MARK: Subscript Methods
     
