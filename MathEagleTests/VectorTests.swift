@@ -51,17 +51,17 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(Vector([5, 5, 5, 5]), vector)
     }
     
-    func testRandomWithLengthGeneratorInit() {
+    func testRandomWithLength() {
         
-        let a = Vector(randomWithLength: 100, generator: Int.random)
-        let b = Vector(randomWithLength: 100, generator: Int.random)
+        let a = Vector<Int>(randomWithLength: 1000)
+        let b = Vector<Int>(randomWithLength: 1000)
         
         XCTAssertNotEqual(a, b)
     }
     
-    func testRandomWithLengthGeneratorIntervalsInit() {
+    func testRandomWithLengthIntervals() {
         
-        let a = Vector(randomWithLength: 1000, generator: Int.randomInInterval, intervals: -10...10)
+        let a = Vector<Int>(randomWithLength: 1000, intervals: -10...10)
         
         for element in a {
             XCTAssertTrue(element >= -10 && element <= 10)
@@ -170,7 +170,7 @@ class VectorTests: XCTestCase {
     
     func testNormPerformace() {
         
-        let vector = Vector(randomWithLength: 1000, generator: Double.randomInInterval, intervals: -2...2)
+        let vector = Vector<Double>(randomWithLength: 1000, intervals: -2...2)
         
         self.measureBlock(){
             

@@ -39,14 +39,14 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
         self.init(length: length, generator: { (i) -> T in element })
     }
     
-    convenience init(randomWithLength length: Int, generator: () -> T) {
+    convenience init(randomWithLength length: Int) {
         
-        self.init(length: length, generator: { i in generator() })
+        self.init(length: length, generator: { i in T.random() })
     }
     
-    convenience init(randomWithLength length: Int, generator: ([ClosedInterval<T.RandomIntervalType>]) -> T, intervals: ClosedInterval<T.RandomIntervalType>...) {
+    convenience init(randomWithLength length: Int, intervals: ClosedInterval<T.RandomIntervalType>...) {
         
-        self.init(length: length, generator: { i in generator(intervals) })
+        self.init(length: length, generator: { i in T.randomInInterval(intervals) })
     }
     
     
