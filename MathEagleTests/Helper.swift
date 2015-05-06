@@ -73,3 +73,22 @@ func compareBaseline(baseline: Double, title: String = "", n: Int = 1, block: Vo
     println()
     println()
 }
+
+func calculateBenchmarkingTimes(base: Int, maxPower k: Int, title: String = "", timeBlock: (Int) -> Double) {
+    
+    println()
+    println()
+    if !title.isEmpty {
+        println(title)
+        println(String(count: count(title), repeatedValue: Character("-")))
+    }
+    
+    for i in 1 ... k {
+        
+        let n = Int(base ** Double(i))
+        println(timeBlock(n))
+    }
+    
+    println()
+    println()
+}

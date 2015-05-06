@@ -1194,14 +1194,10 @@ class MatrixTests: XCTestCase {
         let A = Matrix<Int>(randomWithSize: 1000)
         let B = Matrix<Int>(randomWithSize: 1000)
         
-        let time = timeBlock(n: 100){
+        compareBaseline(0.000926479697227478, title: "Testing equality of 2 1000x1000 matrices (Int)", n: 100){
             
             A == B
         }
-        
-        let baseline = 0.000926479697227478
-        
-        println("\n\nBaseline: \(baseline)\nTime: \(time)\nTimes better: \(baseline/time)\n\n")
     }
     
     func testMatrixAddition() {
@@ -1212,6 +1208,41 @@ class MatrixTests: XCTestCase {
         var expected = Matrix([[6, 8], [10, 12]])
         
         XCTAssertEqual(expected, left + right)
+    }
+    
+    func testMatrixAdditionFloat() {
+        
+        var left = Matrix<Float>([[1, 2], [3, 4]])
+        var right = Matrix<Float>([[5, 6], [7, 8]])
+        
+        var expected = Matrix<Float>([[6, 8], [10, 12]])
+        
+        XCTAssertEqual(expected, left + right)
+    }
+    
+    func testMatrixAdditionFloatPerformance() {
+        
+        let left = Matrix<Float>(randomWithSize: 1000)
+        let right = Matrix<Float>(randomWithSize: 1000)
+        
+        compareBaseline(0.616482019424438, title: "Adding 2 1000x1000 matrices (Float)", n: 1){
+            
+            left + right
+        }
+    }
+    
+    func testMatrixAdditionFloatBenchmarking() {
+        
+        calculateBenchmarkingTimes(10, maxPower: 6){
+            
+            let left = Matrix<Float>(randomWithSize: $0)
+            let right = Matrix<Float>(randomWithSize: $0)
+            
+            return timeBlock(n: $0 <= 1000 ? 10 : 1){
+                
+                left + right
+            }
+        }
     }
     
     func testMatrixNegation() {

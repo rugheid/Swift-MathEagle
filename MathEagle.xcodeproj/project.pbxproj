@@ -64,6 +64,7 @@
 		98E671741AA8C4B400C88DCE /* PrimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeTests.swift; sourceTree = "<group>"; };
 		98E671761AA8F00600C88DCE /* Complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Complex.swift; sourceTree = "<group>"; };
 		98E671791AA99AB500C88DCE /* ComplexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexTests.swift; sourceTree = "<group>"; };
+		98F361161AFA9B1A0088D065 /* Matrix Benchmarking.numbers */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Matrix Benchmarking.numbers"; sourceTree = "<group>"; };
 		98F5984B1A7B8BD20058DF53 /* MathEagle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MathEagle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F5984F1A7B8BD20058DF53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98F598501A7B8BD20058DF53 /* MathEagle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MathEagle.h; sourceTree = "<group>"; };
@@ -195,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				98F5988A1A7B8C2A0058DF53 /* MatrixTests.swift */,
+				98F361161AFA9B1A0088D065 /* Matrix Benchmarking.numbers */,
 				98F5988B1A7B8C2A0058DF53 /* VectorTests.swift */,
 				988B7CCB1ACAD2F600CDEEF7 /* MatrixVectorTests.swift */,
 			);

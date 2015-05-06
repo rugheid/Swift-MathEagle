@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Accelerate
 
 protocol MatrixCompatible: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, Conjugatable, Randomizable, IntegerLiteralConvertible {}
 
@@ -1420,7 +1421,36 @@ func == <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Bool {
 
 func + <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
     
+    if left.dimensions != right.dimensions {
+        NSException(name: "Unequal dimensions", reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
+    }
+    
     return mcombine(left, right){ $0 + $1 }
+}
+
+func + (left: Matrix<Float>, right: Matrix<Float>) -> Matrix<Float> {
+    
+    if left.dimensions != right.dimensions {
+        NSException(name: "Unequal dimensions", reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
+    }
+    
+//    var elementsList = [Float](count: left.dimensions.product, repeatedValue: 0)
+//    
+//    vDSP_vadd(left.elementsList, 1, right.elementsList, 1, &elementsList, 1, vDSP_Length(left.dimensions.product))
+//    
+//    return Matrix(elementsList: elementsList, dimensions: left.dimensions)
+    
+//    var elementsList = Array(right.elementsList)
+//    
+//    cblas_saxpy(Int32(left.dimensions.product), 1.0, left.elementsList, 1, &elementsList, 1)
+//    
+//    return Matrix(elementsList: elementsList, dimensions: left.dimensions)
+    
+    var elementsList = Array(right.elementsList)
+    
+    catlas_saxpby(Int32(left.dimensions.product), 1.0, left.elementsList, 1, 1.0, &elementsList, 1)
+    
+    return Matrix(elementsList: elementsList, dimensions: left.dimensions)
 }
 
 
