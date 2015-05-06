@@ -122,6 +122,19 @@ class VectorTests: XCTestCase {
     }
     
     
+    // MARK: Sort Tests
+    
+    func testVectorSort() {
+        
+        var vector = Vector([1, 8, 7, 3, 2, 4, 10, 6, 5, 9])
+        vsort(&vector)
+        
+        let expected = Vector([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        
+        XCTAssertEqual(expected, vector)
+    }
+    
+    
     // MARK: Computed Properties Tests
     
     func testLength() {
@@ -170,9 +183,6 @@ class VectorTests: XCTestCase {
         
         XCTAssertEqual(vector, test3)
     }
-    
-    
-    // MARK: Addition Tests
     
     func testVectorAddition() {
         

@@ -696,6 +696,15 @@ func vcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (l
 }
 
 
+
+// MARK: Vector Sorting
+
+func vsort <T: MatrixCompatible> (inout vector: Vector<T>, ascending: Bool = true) {
+    
+    vector.elements.sort(){ ascending ? $0 < $1 : $0 > $1 }
+}
+
+
 // MARK: - Vector Generators
 
 // MARK: Double Generators
