@@ -583,6 +583,15 @@ func vectorDotProduct(left: Vector<Float>, right: Vector<Float>) -> Float {
     return result
 }
 
+func vectorDotProduct(left: Vector<Double>, right: Vector<Double>) -> Double {
+    
+    var result: Double = 0
+    
+    vDSP_dotprD(left.elements, 1, right.elements, 1, &result, vDSP_Length(left.length))
+    
+    return result
+}
+
 
 // MARK: Vector Direct Product
 

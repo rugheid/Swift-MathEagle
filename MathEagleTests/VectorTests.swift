@@ -529,6 +529,28 @@ class VectorTests: XCTestCase {
         }
     }
     
+    func testDotProductDouble() {
+        
+        let left = Vector<Double>([1, 2, 3])
+        let right = Vector<Double>([4, 5, 6])
+        
+        let expected: Double = 32
+        
+        XCTAssertEqual(expected, left.dotProduct(right))
+        XCTAssertEqual(expected, vectorDotProduct(left, right))
+    }
+    
+    func testVectorDotProductDoublePerformance() {
+        
+        let left = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
+        let right = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
+        
+        compareBaseline(1.11997127532959e-06, title: "Vector dot product of 2 1000 element vectors (Double)", n: 100){
+            
+            vectorDotProduct(left, right)
+        }
+    }
+    
     func testVectorDirectProduct() {
         
         var left = Vector([1, 2, 3])
