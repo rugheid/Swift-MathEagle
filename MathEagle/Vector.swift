@@ -715,24 +715,6 @@ func vsort <T: MatrixCompatible> (inout vector: Vector<T>, ascending: Bool = tru
 }
 
 
-// MARK: - Vector Generators
-
-// MARK: Double Generators
-
-func randomDoubleVector(ofLength length: Int) -> Vector<Double> {
-    
-    return Vector(length: length, generator: { (i) -> Double in
-        return Double(arc4random())/Double(UINT32_MAX)
-    })
-}
-
-func randomDoubleVector(ofLength length: Int, #min: Double, #max: Double) -> Vector<Double> {
-    
-    return Vector(length: length, generator: { (i) -> Double in
-        return min + Double(arc4random())/Double(UINT32_MAX)*(max-min)
-    })
-}
-
 
 
 // MARK: - Additional Structs

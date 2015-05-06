@@ -170,7 +170,7 @@ class VectorTests: XCTestCase {
     
     func testNormPerformace() {
         
-        let vector = randomDoubleVector(ofLength: 1000, min: -2, max: 2)
+        let vector = Vector(randomWithLength: 1000, generator: Double.randomInInterval, intervals: -2...2)
         
         self.measureBlock(){
             
@@ -670,26 +670,5 @@ class VectorTests: XCTestCase {
         }
         
         println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
-    }
-    
-    
-    // MARK: Generator Tests
-    
-    func testRandomDoubleVectorMinMax() {
-        
-        var vector = randomDoubleVector(ofLength: 10, min: -1000.0, max: 1000.0)
-        
-        for element in vector {
-            
-            XCTAssert(element >= -1000.0 && element <= 1000.0, "\(element) not in boundaries")
-        }
-        
-        
-        vector = randomDoubleVector(ofLength: 10, min: 200, max: 201)
-        
-        for element in vector {
-            
-            XCTAssert(element >= 200.0 && element <= 201.0, "\(element) not in boundaries")
-        }
     }
 }
