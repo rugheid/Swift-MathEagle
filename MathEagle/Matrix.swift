@@ -141,27 +141,27 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     }
     
     
-    convenience init(randomWithDimensions dimensions: Dimensions, generator: () -> T) {
+    convenience init(randomWithDimensions dimensions: Dimensions) {
         
-        self.init(dimensions: dimensions, generator: { i in return generator() })
+        self.init(dimensions: dimensions, generator: { i in T.random() })
     }
     
     
-    convenience init(randomWithSize size: Int, generator: () -> T) {
+    convenience init(randomWithSize size: Int) {
         
-        self.init(randomWithDimensions: Dimensions(size, size), generator: generator)
+        self.init(randomWithDimensions: Dimensions(size, size))
     }
     
     
-    convenience init(randomWithDimensions dimensions: Dimensions, generator: ([ClosedInterval<T.RandomIntervalType>]) -> T, intervals: ClosedInterval<T.RandomIntervalType>...) {
+    convenience init(randomWithDimensions dimensions: Dimensions, intervals: ClosedInterval<T.RandomIntervalType>...) {
         
-        self.init(dimensions: dimensions, generator: { i in return generator(intervals) })
+        self.init(dimensions: dimensions, generator: { i in T.randomInInterval(intervals) })
     }
     
     
-    convenience init(randomWithSize size: Int, generator: ([ClosedInterval<T.RandomIntervalType>]) -> T, intervals: ClosedInterval<T.RandomIntervalType>...) {
+    convenience init(randomWithSize size: Int, intervals: ClosedInterval<T.RandomIntervalType>...) {
         
-        self.init(dimensions: Dimensions(size, size), generator: { i in return generator(intervals) })
+        self.init(size: size, generator: { i in T.randomInInterval(intervals) })
     }
     
     

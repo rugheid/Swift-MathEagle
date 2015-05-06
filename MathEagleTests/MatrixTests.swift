@@ -53,7 +53,7 @@ class MatrixTests: XCTestCase {
     
     func testRandowWithDimensionsIntervalGeneratorInit() {
         
-        let matrix = Matrix(randomWithDimensions: Dimensions(20, 30), generator: Int.randomInInterval, intervals: ClosedInterval(-10, 10))
+        let matrix = Matrix<Int>(randomWithDimensions: Dimensions(20, 30), intervals: -10...10)
         
         for element in matrix {
             XCTAssertTrue(element <= 10 && element >= -10)
@@ -313,7 +313,7 @@ class MatrixTests: XCTestCase {
     
     func testMatrixMap() {
         
-        let matrix = Matrix(randomWithSize: 3, generator: Int.random)
+        let matrix = Matrix<Int>(randomWithSize: 3)
         
         let negative = mmap(matrix){ -$0 }
         
@@ -326,7 +326,7 @@ class MatrixTests: XCTestCase {
         
         let (a, b) = getCoefficients(n0: 2, numberOfIterations: 5){
             
-            let matrix = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: 0 ... 10)
+            let matrix = Matrix<Int>(randomWithSize: $0, intervals: 0 ... 10)
             
             return timeBlock(){
                 
@@ -336,7 +336,7 @@ class MatrixTests: XCTestCase {
         
         println("\nb for matrix map = \(b)")
         
-        let matrix = Matrix(randomWithSize: 100, generator: Int.randomInInterval, intervals: 0 ... 10)
+        let matrix = Matrix<Int>(randomWithSize: 100, intervals: 0 ... 10)
         
         compareBaseline(0.0023840069770813, title: "Mapping 100x100 matrix", n: 10){
             
@@ -357,7 +357,7 @@ class MatrixTests: XCTestCase {
         
         let (a, b) = getCoefficients(n0: 2, numberOfIterations: 5){
             
-            let matrix = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: -2 ... 2)
+            let matrix = Matrix<Int>(randomWithSize: $0, intervals: -2 ... 2)
             
             return timeBlock(){
                 
@@ -367,7 +367,7 @@ class MatrixTests: XCTestCase {
         
         println("\nb for matrix reduce = \(b)")
         
-        let matrix = Matrix(randomWithSize: 100, generator: Int.randomInInterval, intervals: -2 ... 2)
+        let matrix = Matrix<Int>(randomWithSize: 100, intervals: -2 ... 2)
         
         compareBaseline(0.00280898809432983, title: "Reducing 100x100 matrix using +", n: 10){
             
@@ -391,8 +391,8 @@ class MatrixTests: XCTestCase {
         
         let (a, b) = getCoefficients(n0: 2, numberOfIterations: 5){
             
-            let left = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: 0 ... 10)
-            let right = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: -10 ... 0)
+            let left = Matrix<Int>(randomWithSize: $0, intervals: 0 ... 10)
+            let right = Matrix<Int>(randomWithSize: $0, intervals: -10 ... 0)
             
             return timeBlock(){
                 
@@ -402,8 +402,8 @@ class MatrixTests: XCTestCase {
         
         println("\nb for matrix reduce = \(b)")
         
-        let left = Matrix(randomWithSize: 100, generator: Int.randomInInterval, intervals: 0 ... 10)
-        let right = Matrix(randomWithSize: 100, generator: Int.randomInInterval, intervals: -10 ... 0)
+        let left = Matrix<Int>(randomWithSize: 100, intervals: 0 ... 10)
+        let right = Matrix<Int>(randomWithSize: 100, intervals: -10 ... 0)
         
         compareBaseline(0.00611197948455811, title: "Combining 2 100x100 matrices using +", n: 10){
             
@@ -558,7 +558,7 @@ class MatrixTests: XCTestCase {
     
     func testGetUpperTriangleFunctionPerformance() {
         
-        let matrix = Matrix(randomWithSize: 100, generator: Int.randomInInterval, intervals: -10...10)
+        let matrix = Matrix<Int>(randomWithSize: 100, intervals: -10...10)
         
         let diagonalBaseline = 0.00145101547241211
         let diagonalTime = timeBlock(){
@@ -608,7 +608,7 @@ class MatrixTests: XCTestCase {
     
     func testGetLowerTriangleFunctionPerformance() {
         
-        let matrix = Matrix(randomWithSize: 100, generator: Int.randomInInterval, intervals: -10...10)
+        let matrix = Matrix<Int>(randomWithSize: 100, intervals: -10...10)
         
         let diagonalBaseline = 0.001708984375
         let diagonalTime = timeBlock(){
@@ -650,7 +650,7 @@ class MatrixTests: XCTestCase {
         
         let (a, b) = getCoefficients(n0: 10, numberOfIterations: 5){
             
-            let matrix = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: -1000 ... 1000)
+            let matrix = Matrix<Int>(randomWithSize: $0, intervals: -1000 ... 1000)
             
             return timeBlock(){
                 
@@ -661,7 +661,7 @@ class MatrixTests: XCTestCase {
     
     func testMaxValueTime() {
         
-        let matrix = Matrix(randomWithSize: 100, generator: Int.randomInInterval, intervals: -1000 ... 1000)
+        let matrix = Matrix<Int>(randomWithSize: 100, intervals: -1000 ... 1000)
         
         self.measureBlock(){
             
@@ -1191,8 +1191,8 @@ class MatrixTests: XCTestCase {
     
     func testMatrixEqualtiyPerformance() {
         
-        let A = Matrix(randomWithSize: 1000, generator: Int.random)
-        let B = Matrix(randomWithSize: 1000, generator: Int.random)
+        let A = Matrix<Int>(randomWithSize: 1000)
+        let B = Matrix<Int>(randomWithSize: 1000)
         
         let time = timeBlock(n: 100){
             
@@ -1266,8 +1266,8 @@ class MatrixTests: XCTestCase {
         
         let (a, b) = getCoefficients(n0: 3, numberOfIterations: 3){
             
-            let left = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: 0 ... 10)
-            let right = Matrix(randomWithSize: $0, generator: Int.randomInInterval, intervals: 0 ... 10)
+            let left = Matrix<Int>(randomWithSize: $0, intervals: 0 ... 10)
+            let right = Matrix<Int>(randomWithSize: $0, intervals: 0 ... 10)
             
             return timeBlock(){
                 
