@@ -251,28 +251,22 @@ func + <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
 
 func + (left: Vector<Float>, right: Vector<Float>) -> Vector<Float> {
     
-    // vDSP_vadd turned out to be the fastest option
-    //                  ~ 280 times faster than without accelerate
-    // Also tried:
-    // cblas_saxpy      ~ 202 times faster than without accelerate
-    // catlas_saxbpy     ~ 217 times faster than without accelerate
-    
     if left.length != right.length {
         
         NSException(name: "Unequal lengths", reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
     }
     
-    var elements = [Float](count: left.length, repeatedValue: 0)
-    
-    vDSP_vadd(left.elements, 1, right.elements, 1, &elements, 1, vDSP_Length(left.length))
-    
-    return Vector(elements)
-    
-//    var elements = right.elements
+//    var elements = [Float](count: left.length, repeatedValue: 0)
 //    
-//    cblas_saxpy(Int32(left.length), 1.0, left.elements, 1, &elements, 1)
+//    vDSP_vadd(left.elements, 1, right.elements, 1, &elements, 1, vDSP_Length(left.length))
 //    
 //    return Vector(elements)
+    
+    var elements = right.elements
+    
+    cblas_saxpy(Int32(left.length), 1.0, left.elements, 1, &elements, 1)
+    
+    return Vector(elements)
     
 //    var elements = right.elements
 //    
@@ -283,28 +277,22 @@ func + (left: Vector<Float>, right: Vector<Float>) -> Vector<Float> {
 
 func + (left: Vector<Double>, right: Vector<Double>) -> Vector<Double> {
     
-    // vDSP_vaddD turned out to be the fastest option
-    //                  ~ 250 times faster than without accelerate
-    // Also tried:
-    // cblas_daxpy      ~ 200 times faster than without accelerate
-    // catlas_daxbpy     ~ 213 times faster than without accelerate
-    
     if left.length != right.length {
         
         NSException(name: "Unequal lengths", reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
     }
     
-    var elements = [Double](count: left.length, repeatedValue: 0)
-    
-    vDSP_vaddD(left.elements, 1, right.elements, 1, &elements, 1, vDSP_Length(left.length))
-    
-    return Vector(elements)
-    
-//    var elements = right.elements
+//    var elements = [Double](count: left.length, repeatedValue: 0)
 //    
-//    cblas_daxpy(Int32(left.length), 1.0, left.elements, 1, &elements, 1)
+//    vDSP_vaddD(left.elements, 1, right.elements, 1, &elements, 1, vDSP_Length(left.length))
 //    
 //    return Vector(elements)
+    
+    var elements = right.elements
+    
+    cblas_daxpy(Int32(left.length), 1.0, left.elements, 1, &elements, 1)
+    
+    return Vector(elements)
     
 //    var elements = right.elements
 //    
@@ -335,42 +323,32 @@ prefix func - <T: MatrixCompatible> (vector: Vector<T>) -> Vector<T> {
 
 prefix func - (vector: Vector<Float>) -> Vector<Float> {
     
-    // vDSP_vneg turned out to be the fastest option
-    //                  ~ 67 times faster than without accelerate
-    // Also tried:
-    // cblas_sscal      ~ 53 times faster than without accelerate
-    
-    var elements = [Float](count: vector.length, repeatedValue: 0)
-    
-    vDSP_vneg(vector.elements, 1, &elements, 1, vDSP_Length(vector.length))
-    
-    return Vector(elements)
-    
-//    let returnVector = vector.copy
+//    var elements = [Float](count: vector.length, repeatedValue: 0)
 //    
-//    cblas_sscal(Int32(vector.length), -1.0, &(returnVector.elements), 1)
+//    vDSP_vneg(vector.elements, 1, &elements, 1, vDSP_Length(vector.length))
 //    
-//    return returnVector
+//    return Vector(elements)
+    
+    let returnVector = vector.copy
+    
+    cblas_sscal(Int32(vector.length), -1.0, &(returnVector.elements), 1)
+    
+    return returnVector
 }
 
 prefix func - (vector: Vector<Double>) -> Vector<Double> {
     
-    // vDSP_vnegD turned out to be the fastest option
-    //                  ~ 68 times faster than without accelerate
-    // Also tried:
-    // cblas_dscal      ~ 48 times faster than without accelerate
-    
-    var elements = [Double](count: vector.length, repeatedValue: 0)
-    
-    vDSP_vnegD(vector.elements, 1, &elements, 1, vDSP_Length(vector.length))
-    
-    return Vector(elements)
-    
-//    let returnVector = vector.copy
+//    var elements = [Double](count: vector.length, repeatedValue: 0)
 //    
-//    cblas_dscal(Int32(vector.length), -1.0, &(returnVector.elements), 1)
+//    vDSP_vnegD(vector.elements, 1, &elements, 1, vDSP_Length(vector.length))
 //    
-//    return returnVector
+//    return Vector(elements)
+    
+    let returnVector = vector.copy
+    
+    cblas_dscal(Int32(vector.length), -1.0, &(returnVector.elements), 1)
+    
+    return returnVector
 }
 
 //prefix func - (vector: Vector<Complex>) -> Vector<Complex> {

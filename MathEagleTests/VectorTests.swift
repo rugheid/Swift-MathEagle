@@ -237,10 +237,10 @@ class VectorTests: XCTestCase {
         
         calculateBenchmarkingTimes(10, maxPower: 7, title: "Vector Float Addition Benchmarking"){
             
-            let left = Vector<Int>(randomWithLength: $0, intervals: -10...10)
-            let right = Vector<Int>(randomWithLength: $0, intervals: -10...10)
+            let left = Vector<Float>(randomWithLength: $0, intervals: -10...10)
+            let right = Vector<Float>(randomWithLength: $0, intervals: -10...10)
             
-            return timeBlock(n: 1){
+            return timeBlock(n: $0 <= 10_000 ? 10 : 1){
                 
                 left + right
             }
@@ -267,6 +267,20 @@ class VectorTests: XCTestCase {
         }
         
         println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+    }
+    
+    func testVectorAdditionDoubleBenchmarking() {
+        
+        calculateBenchmarkingTimes(10, maxPower: 7, title: "Vector Float Addition Benchmarking"){
+            
+            let left = Vector<Double>(randomWithLength: $0, intervals: -10...10)
+            let right = Vector<Double>(randomWithLength: $0, intervals: -10...10)
+            
+            return timeBlock(n: $0 <= 10_000 ? 10 : 1){
+                
+                left + right
+            }
+        }
     }
 
     func testVectorAdditionComplex() {
@@ -334,6 +348,19 @@ class VectorTests: XCTestCase {
         println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
     
+    func testVectorNegationFloatBenchmarking() {
+        
+        calculateBenchmarkingTimes(10, maxPower: 8, title: "Vector Float Negation Benchmarking"){
+            
+            let vector = Vector<Float>(randomWithLength: $0)
+            
+            return timeBlock(n: $0 <= 100_000 ? 10 : 1){
+                
+                -vector
+            }
+        }
+    }
+    
     func testVectorNegationDouble() {
         
         let vector = Vector<Double>([1, 2, 3])
@@ -354,6 +381,19 @@ class VectorTests: XCTestCase {
         }
         
         println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+    }
+    
+    func testVectorNegationDoubleBenchmarking() {
+        
+        calculateBenchmarkingTimes(10, maxPower: 8, title: "Vector Double Negation Benchmarking"){
+            
+            let vector = Vector<Double>(randomWithLength: $0)
+            
+            return timeBlock(n: $0 <= 100_000 ? 10 : 1){
+                
+                -vector
+            }
+        }
     }
     
     func testVectorNegationComplex() {
