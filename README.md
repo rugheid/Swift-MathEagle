@@ -22,6 +22,13 @@ MathEagle is fully generic, so almost all classes and functions work with any ty
 
 Take a look at the Wiki for documentation.
 
+#Benchmarking
+First benchmarking tests show that MathEagle is as fast as Python's famous numpy. You can check the "Benchmarking Files" folder in MathEagle's tests.
+
+Here are some plots for Vector addition:
+![Vector Addition Float Benchmarking](/MathEagleTests/Benchmarking Files/Plot Images/VectorAdditionFloat.png)
+![Vector Addition Double Benchmarking](/MathEagleTests/Benchmarking Files/Plot Images/VectorAdditionDouble.png)
+
 #To Do
 - [ ] Documentation
 - [ ] Further General Development
