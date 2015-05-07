@@ -221,10 +221,14 @@ class VectorTests: XCTestCase {
     
     func testVectorAdditionFloat() {
         
-        let left = Vector<Float>([1, 2, 3, 4, 5])
-        let right = Vector<Float>([6, 7, 8, 9, 10])
+        var left = Vector<Float>([1, 2, 3, 4, 5])
+        let oldLeft = left.copy
+        var right = Vector<Float>([6, 7, 8, 9, 10])
+        let oldRight = right.copy
         
         XCTAssertEqual(Vector<Float>([7, 9, 11, 13, 15]), left + right)
+        XCTAssertEqual(oldLeft, left)
+        XCTAssertEqual(oldRight, right)
     }
     
     func testVectorAdditionFloatPerformance() {

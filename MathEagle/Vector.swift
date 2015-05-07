@@ -515,7 +515,7 @@ func - (left: Vector<Float>, right: Vector<Float>) -> Vector<Float> {
 //    
 //    return Vector(elements)
     
-    var elements = Array(left.elements)
+    var elements = left.elements
     
     cblas_saxpy(Int32(left.length), -1.0, right.elements, 1, &elements, 1)
     
@@ -595,7 +595,7 @@ func * (scalar: Float, vector: Vector<Float>) -> Vector<Float> {
 //    
 //    return Vector(elements)
     
-    var elements = vector.copy.elements
+    var elements = vector.elements
     
     cblas_sscal(Int32(vector.length), scalar, &elements, 1)
     
@@ -616,7 +616,7 @@ func * (scalar: Double, vector: Vector<Double>) -> Vector<Double> {
 //    
 //    return Vector(elements)
     
-    var elements = vector.copy.elements
+    var elements = vector.elements
     
     cblas_dscal(Int32(vector.length), scalar, &elements, 1)
     
