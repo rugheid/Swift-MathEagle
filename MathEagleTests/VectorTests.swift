@@ -534,6 +534,20 @@ class VectorTests: XCTestCase {
         println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
     
+    func testVectorScalarMultiplicationFloatBenchmarking() {
+        
+        calculateBenchmarkingTimes(10, maxPower: 7, title: "Vector Float Scalar Multiplication Benchmarking"){
+            
+            let vector = Vector<Float>(randomWithLength: $0, intervals: -10...10)
+            let scalar = Float.randomInInterval(-10...10)
+            
+            return timeBlock(n: $0 <= 10_000 ? 10 : 1){
+                
+                scalar * vector
+            }
+        }
+    }
+    
     func testVectorScalarMultiplicationDouble() {
         
         let vector = Vector<Double>([1, 2, 3, 4])
@@ -554,6 +568,20 @@ class VectorTests: XCTestCase {
         }
         
         println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+    }
+    
+    func testVectorScalarMultiplicationDoubleBenchmarking() {
+        
+        calculateBenchmarkingTimes(10, maxPower: 7, title: "Vector Double Scalar Multiplication Benchmarking"){
+            
+            let vector = Vector<Double>(randomWithLength: $0, intervals: -10...10)
+            let scalar = Double.randomInInterval(-10...10)
+            
+            return timeBlock(n: $0 <= 10_000 ? 10 : 1){
+                
+                scalar * vector
+            }
+        }
     }
     
     func testVectorScalarDivision() {

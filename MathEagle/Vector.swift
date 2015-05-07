@@ -464,17 +464,17 @@ func * (scalar: Float, vector: Vector<Float>) -> Vector<Float> {
     // Also tried:
     // cblas_sscal      ~ 73 times faster than without accelerate
     
-    var elements = [Float](count: vector.length, repeatedValue: 0)
-    
-    vDSP_vsmul(vector.elements, 1, [scalar], &elements, 1, vDSP_Length(vector.length))
-    
-    return Vector(elements)
-    
-//    var elements = vector.copy.elements
+//    var elements = [Float](count: vector.length, repeatedValue: 0)
 //    
-//    cblas_sscal(Int32(vector.length), scalar, &elements, 1)
+//    vDSP_vsmul(vector.elements, 1, [scalar], &elements, 1, vDSP_Length(vector.length))
 //    
 //    return Vector(elements)
+    
+    var elements = vector.copy.elements
+    
+    cblas_sscal(Int32(vector.length), scalar, &elements, 1)
+    
+    return Vector(elements)
 }
 
 func * (scalar: Double, vector: Vector<Double>) -> Vector<Double> {
@@ -484,17 +484,17 @@ func * (scalar: Double, vector: Vector<Double>) -> Vector<Double> {
     // Also tried:
     // cblas_dscal      ~ 81 times faster than without accelerate
     
-    var elements = [Double](count: vector.length, repeatedValue: 0)
-    
-    vDSP_vsmulD(vector.elements, 1, [scalar], &elements, 1, vDSP_Length(vector.length))
-    
-    return Vector(elements)
-    
-//    var elements = vector.copy.elements
+//    var elements = [Double](count: vector.length, repeatedValue: 0)
 //    
-//    cblas_dscal(Int32(vector.length), scalar, &elements, 1)
+//    vDSP_vsmulD(vector.elements, 1, [scalar], &elements, 1, vDSP_Length(vector.length))
 //    
 //    return Vector(elements)
+    
+    var elements = vector.copy.elements
+    
+    cblas_dscal(Int32(vector.length), scalar, &elements, 1)
+    
+    return Vector(elements)
 }
 
 func * <T: MatrixCompatible> (vector: Vector<T>, scalar: T) -> Vector<T> {
