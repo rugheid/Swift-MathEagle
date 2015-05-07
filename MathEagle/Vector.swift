@@ -9,46 +9,106 @@
 import Foundation
 import Accelerate
 
+/**
+    A generic class representing a vector with the given type.
+*/
 class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, SequenceType, Printable {
     
+    /**
+        Returns a list of all elements of the vector.
+    */
     var elements = [T]()
     
-    // empty init
+    /**
+        Creates an empty vector. elements will be [], length will be 0.
+    */
     init() {}
     
+    
+    /**
+        Creates a vector with the given elements.
+    
+        :param: elements An array containing the elements of the vector.
+    */
     init(_ elements: [T]) {
         
         self.elements = elements
     }
     
+    
+    /**
+        Creates a vector from an array literal.
+    */
     required init(arrayLiteral elements: T...) {
         
         self.elements = elements
     }
     
+    
+    /**
+        Creates a vector with the given length using the
+        given generator. The generator takes an Int representing
+        the index of the element. These indices start at 0 and
+        go to length - 1.
+    
+        :param: length The number of elements the vector should have.
+        :param: generator The generator used to generate the elements.
+    */
     init(length: Int, generator: (Int) -> T) {
         
         self.elements = map(0..<length){ generator($0) }
     }
     
+    
+    /**
+        Creates a vector of the given length filled with the
+        given element.
+    
+        :param: element The element to fill the vector with.
+    */
     convenience init(filledWith element: T, length: Int) {
         
-        self.init(length: length, generator: { (i) -> T in element })
+        self.init(length: length, generator: { _ in element })
     }
     
+    
+    /**
+        Creates a random vector with the given length.
+        The elements in the vector are generated with
+        the random function of the vector's type T.
+    
+        :param: length The number of elements the vector should have.
+    */
     convenience init(randomWithLength length: Int) {
         
-        self.init(length: length, generator: { i in T.random() })
+        self.init(length: length, generator: { _ in T.random() })
     }
     
+    
+    /**
+        Creates a random vector with the given length.
+        The elements in the vector are generated with
+        the randomInInterval function of the vector's
+        type T. This means the generated values will
+        lie within the given interval(s).
+    
+        :param: length The number of elements the vector should have.
+        :param: intervals The intervals in which the random generated
+                    elements may lie.
+    */
     convenience init(randomWithLength length: Int, intervals: ClosedInterval<T.RandomIntervalType>...) {
         
-        self.init(length: length, generator: { i in T.randomInInterval(intervals) })
+        self.init(length: length, generator: { _ in T.randomInInterval(intervals) })
     }
     
     
     // MARK: Subscript Methods
     
+    /**
+        Returns or sets the element at the given index.
+    
+        :param: index The index of the element to get/set.
+    */
     subscript(index: Int) -> T {
         
         get {
@@ -72,6 +132,12 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
         }
     }
     
+    /**
+        Returns the subvector at the given index range.
+    
+        :param: indexRange A range representing the indices
+                    of the subvector.
+    */
     subscript(indexRange: Range<Int>) -> Vector<T> {
         
         if indexRange.startIndex < 0 {
@@ -97,6 +163,9 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     
     // MARK: Sequence Type Adoption
     
+    /**
+        Returns a generator for the vector.
+    */
     func generate() -> VectorGenerator<T> {
         
         return VectorGenerator(vector: self)
@@ -106,11 +175,19 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     
     // MARK: Basic Properties
     
+    /**
+        Returns a copy of the vector.
+    */
     var copy: Vector<T> {
         
         return Vector(self.elements)
     }
     
+    /**
+        Returns a description of the vector.
+    
+        :example: [1, 2, 3]
+    */
     var description: String {
         
         return self.elements.description
@@ -125,7 +202,8 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     }
     
     /**
-        Returns the 2-norm. This means sqrt(element_0^2 + element_1^2 + ... + element_n^2)
+        Returns the 2-norm. This means
+        sqrt(element_0^2 + element_1^2 + ... + element_n^2).
     */
     var norm: T.PowerType {
         
@@ -148,7 +226,10 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     
     
     /**
-        Returns the conjugate of the vector.
+        Returns the conjugate of the vector. This means
+        every complex value a + bi is replaced by its
+        conjugate a - bi. Non-complex values are left
+        untouched.
     */
     var conjugate: Vector<T> {
         
@@ -163,7 +244,8 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     
     
     /**
-        Returns whether the vector is empty. This means it doesn't contain any elements, so it's length equals zero.
+        Returns whether the vector is empty. This means
+        it doesn't contain any elements, so it's length equals zero.
     */
     var isEmpty: Bool {
         
@@ -189,7 +271,9 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     // MARK: Operator Functions
     
     /**
-        Returns the dot product with the given vector. This is the product of self as a row vector with the given vector as a column vector. The given vector has to be of the same type and length.
+        Returns the dot product with the given vector. This is the product
+        of self as a row vector with the given vector as a column vector.
+        The given vector has to be of the same type and length.
     
         :param: vector The vector to multiply with.
     
@@ -202,11 +286,14 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     
     
     /**
-        Returns the direct product with the given vector. This product is the product of self as a column vector with the given vector as a row vector. The two vectors need to be of the same type and length.
+        Returns the direct product with the given vector. This product is
+        the product of self as a column vector with the given vector as a
+        row vector. The two vectors need to be of the same type and length.
     
         :param: vector The vector to multiply with.
     
-        :returns: A square matrix of the same type as the two vectors with size equal to the vector's length.
+        :returns: A square matrix of the same type as the two vectors with
+                    size equal to the vector's length.
     */
     func directProduct(vector: Vector<T>) -> Matrix<T> {
         
@@ -218,6 +305,11 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
 
 // MARK: Vector Equality
 
+/**
+    Returns whether two vectors are equal. This means the vector's
+    are of the same length and all elements at corresponding indices
+    are equal.
+*/
 func == <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Bool {
     
     if left.length != right.length {
@@ -236,6 +328,11 @@ func == <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Bool {
 
 // MARK: Vector Addition
 
+/**
+    Returns the sum of the two given vectors. Both given vectors are left untouched.
+
+    :exception: An exception is thrown when the two vectors are not of equal length.
+*/
 func + <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
     
     if left.length != right.length {
@@ -246,6 +343,11 @@ func + <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
     return vcombine(left, right){ $0 + $1 }
 }
 
+/**
+    Returns the sum of the two given vectors. Both given vectors are left untouched.
+
+    :exception: An exception is thrown when the two vectors are not of equal length.
+*/
 func + (left: Vector<Float>, right: Vector<Float>) -> Vector<Float> {
     
     if left.length != right.length {
@@ -272,6 +374,11 @@ func + (left: Vector<Float>, right: Vector<Float>) -> Vector<Float> {
 //    return Vector(elements)
 }
 
+/**
+    Returns the sum of the two given vectors. Both given vectors are left untouched.
+
+    :exception: An exception is thrown when the two vectors are not of equal length.
+*/
 func + (left: Vector<Double>, right: Vector<Double>) -> Vector<Double> {
     
     if left.length != right.length {
@@ -313,11 +420,19 @@ func + (left: Vector<Double>, right: Vector<Double>) -> Vector<Double> {
 
 // MARK: Vector Negation
 
+/**
+    Returns the negation of the given vector. The given vector
+    is left untouched.
+*/
 prefix func - <T: MatrixCompatible> (vector: Vector<T>) -> Vector<T> {
     
     return vmap(vector){ -$0 }
 }
 
+/**
+    Returns the negation of the given vector. The given vector
+    is left untouched.
+*/
 prefix func - (vector: Vector<Float>) -> Vector<Float> {
     
 //    var elements = [Float](count: vector.length, repeatedValue: 0)
@@ -333,6 +448,10 @@ prefix func - (vector: Vector<Float>) -> Vector<Float> {
     return returnVector
 }
 
+/**
+    Returns the negation of the given vector. The given vector
+    is left untouched.
+*/
 prefix func - (vector: Vector<Double>) -> Vector<Double> {
     
 //    var elements = [Double](count: vector.length, repeatedValue: 0)
@@ -361,11 +480,13 @@ prefix func - (vector: Vector<Double>) -> Vector<Double> {
 
 // MARK: Vector Subtraction
 
-func - <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
+/**
+    Returns the difference of the two given vectors.
     
-    // To keep this implementation as general as possible, we don't use (left + -right), because T must then be Addable and Negatable.
-    // User-defined structs or classes can be Substractable however without being Negatable.
-    // You could for example make String Substractable, without making it Negatable.
+    :exception: An exception is thrown when the two vectors
+                    are not of equal length.
+*/
+func - <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
     
     if left.length != right.length {
         
@@ -375,13 +496,13 @@ func - <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
     return vcombine(left, right){ $0 - $1 }
 }
 
+/**
+    Returns the difference of the two given vectors.
+
+    :exception: An exception is thrown when the two vectors
+    are not of equal length.
+*/
 func - (left: Vector<Float>, right: Vector<Float>) -> Vector<Float> {
-    
-    // vDSP_vsub turned out to be the fastest option
-    //                  ~ 280 times faster than without accelerate
-    // Also tried:
-    // cblas_saxpy      ~ 206 times faster than without accelerate
-    // catlas_saxbpy     ~ 201 times faster than without accelerate
     
     if left.length != right.length {
         
@@ -407,13 +528,13 @@ func - (left: Vector<Float>, right: Vector<Float>) -> Vector<Float> {
 //    return Vector(elements)
 }
 
+/**
+    Returns the difference of the two given vectors.
+
+    :exception: An exception is thrown when the two vectors
+    are not of equal length.
+*/
 func - (left: Vector<Double>, right: Vector<Double>) -> Vector<Double> {
-    
-    // vDSP_vsubD turned out to be the fastest option
-    //                  ~ 251 times faster than without accelerate
-    // Also tried:
-    // cblas_daxpy      ~ 199 times faster than without accelerate
-    // catlas_daxbpy     ~ 205 times faster than without accelerate
     
     if left.length != right.length {
         
@@ -442,6 +563,12 @@ func - (left: Vector<Double>, right: Vector<Double>) -> Vector<Double> {
 
 // MARK: Vector Scalar Multiplication and Division
 
+/**
+    Returns the product of the given scalar and the
+    given vector. This means every element in the given
+    vector is multiplied with the given scalar.
+    The given vector is left untouched.
+*/
 func * <T: MatrixCompatible> (scalar: T, vector: Vector<T>) -> Vector<T> {
     
     var elements = vector.elements
@@ -454,12 +581,13 @@ func * <T: MatrixCompatible> (scalar: T, vector: Vector<T>) -> Vector<T> {
     return Vector(elements)
 }
 
+/**
+    Returns the product of the given scalar and the
+    given vector. This means every element in the given
+    vector is multiplied with the given scalar.
+    The given vector is left untouched.
+*/
 func * (scalar: Float, vector: Vector<Float>) -> Vector<Float> {
-    
-    // vDSP_vsmul turned out to be the fastest option
-    //                  ~ 87 times faster than without accelerate
-    // Also tried:
-    // cblas_sscal      ~ 73 times faster than without accelerate
     
 //    var elements = [Float](count: vector.length, repeatedValue: 0)
 //    
@@ -474,12 +602,13 @@ func * (scalar: Float, vector: Vector<Float>) -> Vector<Float> {
     return Vector(elements)
 }
 
+/**
+    Returns the product of the given scalar and the
+    given vector. This means every element in the given
+    vector is multiplied with the given scalar.
+    The given vector is left untouched.
+*/
 func * (scalar: Double, vector: Vector<Double>) -> Vector<Double> {
-    
-    // vDSP_vsmulD turned out to be the fastest option
-    //                  ~ 89 times faster than without accelerate
-    // Also tried:
-    // cblas_dscal      ~ 81 times faster than without accelerate
     
 //    var elements = [Double](count: vector.length, repeatedValue: 0)
 //    
@@ -494,11 +623,47 @@ func * (scalar: Double, vector: Vector<Double>) -> Vector<Double> {
     return Vector(elements)
 }
 
+/**
+    Returns the product of the given scalar and the
+    given vector. This means every element in the given
+    vector is multiplied with the given scalar.
+    The given vector is left untouched.
+*/
 func * <T: MatrixCompatible> (vector: Vector<T>, scalar: T) -> Vector<T> {
     
     return scalar * vector
 }
 
+/**
+    Returns the product of the given scalar and the
+    given vector. This means every element in the given
+    vector is multiplied with the given scalar.
+    The given vector is left untouched.
+*/
+func * (vector: Vector<Float>, scalar: Float) -> Vector<Float> {
+    
+    return scalar * vector
+}
+
+/**
+    Returns the product of the given scalar and the
+    given vector. This means every element in the given
+    vector is multiplied with the given scalar.
+    The given vector is left untouched.
+*/
+func * (vector: Vector<Double>, scalar: Double) -> Vector<Double> {
+    
+    return scalar * vector
+}
+
+
+
+/**
+    Returns the division of the given vector by the
+    given scalar. This means every element in the given
+    vector is divided by the given scalar.
+    The given vector is left untouched.
+*/
 func / <T: MatrixCompatible> (vector: Vector<T>, scalar: T) -> Vector<T> {
     
     var elements = vector.elements
@@ -511,12 +676,13 @@ func / <T: MatrixCompatible> (vector: Vector<T>, scalar: T) -> Vector<T> {
     return Vector(elements)
 }
 
+/**
+    Returns the division of the given vector by the
+    given scalar. This means every element in the given
+    vector is divided by the given scalar.
+    The given vector is left untouched.
+*/
 func / (vector: Vector<Float>, scalar: Float) -> Vector<Float> {
-    
-    // vDSP_vsdiv turned out to be the fastest option
-    //                  ~ 90 times faster than without accelerate
-    // Also tried:
-    // cblas_sscal      ~ 82 times faster than without accelerate, but less accurate
     
     var elements = [Float](count: vector.length, repeatedValue: 0)
     
@@ -531,12 +697,13 @@ func / (vector: Vector<Float>, scalar: Float) -> Vector<Float> {
 //    return Vector(elements)
 }
 
+/**
+    Returns the division of the given vector by the
+    given scalar. This means every element in the given
+    vector is divided by the given scalar.
+    The given vector is left untouched.
+*/
 func / (vector: Vector<Double>, scalar: Double) -> Vector<Double> {
-    
-    // vDSP_vsdivD turned out to be the fastest option
-    //                  ~ 86 times faster than without accelerate
-    // Also tried:
-    // cblas_dscal      ~ 81 times faster than without accelerate, but less accurate
     
     var elements = [Double](count: vector.length, repeatedValue: 0)
     
@@ -554,12 +721,38 @@ func / (vector: Vector<Double>, scalar: Double) -> Vector<Double> {
 
 // MARK: Vector Dot Product
 
+/**
+    Returns the dot product of the two given vectors.
+    This is equal to left[0]*right[0] + ... + left[n]*right[n]
+    for two vectors of length n+1.
+
+    :exception: An exception will be thrown when the two vectors
+                    are not of equal length.
+*/
 func vectorDotProduct <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> T {
+    
+    if left.length != right.length {
+        
+        NSException(name: "Unequal lengths", reason: "The two given vectors have uneqaul lengths.", userInfo: nil).raise()
+    }
     
     return sum(vcombine(left, right){ $0 * $1 })
 }
 
+/**
+    Returns the dot product of the two given vectors.
+    This is equal to left[0]*right[0] + ... + left[n]*right[n]
+    for two vectors of length n+1.
+
+    :exception: An exception will be thrown when the two vectors
+                    are not of equal length.
+*/
 func vectorDotProduct(left: Vector<Float>, right: Vector<Float>) -> Float {
+    
+    if left.length != right.length {
+        
+        NSException(name: "Unequal lengths", reason: "The two given vectors have uneqaul lengths.", userInfo: nil).raise()
+    }
     
     var result: Float = 0
     
@@ -568,7 +761,20 @@ func vectorDotProduct(left: Vector<Float>, right: Vector<Float>) -> Float {
     return result
 }
 
+/**
+    Returns the dot product of the two given vectors.
+    This is equal to left[0]*right[0] + ... + left[n]*right[n]
+    for two vectors of length n+1.
+
+    :exception: An exception will be thrown when the two vectors
+                    are not of equal length.
+*/
 func vectorDotProduct(left: Vector<Double>, right: Vector<Double>) -> Double {
+    
+    if left.length != right.length {
+        
+        NSException(name: "Unequal lengths", reason: "The two given vectors have uneqaul lengths.", userInfo: nil).raise()
+    }
     
     var result: Double = 0
     
@@ -578,31 +784,59 @@ func vectorDotProduct(left: Vector<Double>, right: Vector<Double>) -> Double {
 }
 
 
+
 // MARK: Vector Direct Product
 
+/**
+    Returns the direct product of the two given vectors.
+    This is the product of left as a column vector and
+    right as a row vector. The result is a square matrix
+    with size equal to the length of the two vectors.
+
+    :exception: An exception will be thrown when the two
+                    given vectors are not of equal length.
+*/
 func * <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Matrix<T> {
     
     return vectorDirectProduct(left, right)
 }
 
+/**
+    Returns the direct product of the two given vectors.
+    This is the product of left as a column vector and
+    right as a row vector. The result is a square matrix
+    with size equal to the length of the two vectors.
+
+    :exception: An exception will be thrown when the two
+                    given vectors are not of equal length.
+*/
 func * (left: Vector<Float>, right: Vector<Float>) -> Matrix<Float> {
     
     return vectorDirectProduct(left, right)
 }
 
+/**
+    Returns the direct product of the two given vectors.
+    This is the product of left as a column vector and
+    right as a row vector. The result is a square matrix
+    with size equal to the length of the two vectors.
+
+    :exception: An exception will be thrown when the two
+                    given vectors are not of equal length.
+*/
 func * (left: Vector<Double>, right: Vector<Double>) -> Matrix<Double> {
     
     return vectorDirectProduct(left, right)
 }
 
 /**
-Returns the direct product of the two given vectors. Here left is taken as a column vector and right as a row vector.
-The two vectors need to have the same length.
+    Returns the direct product of the two given vectors.
+    This is the product of left as a column vector and
+    right as a row vector. The result is a square matrix
+    with size equal to the length of the two vectors.
 
-:param: left The left vector (column vector)
-:param: right The right vector (row vector)
-
-:return: A square matrix with size equal to the vector's length.
+    :exception: An exception will be thrown when the two
+                    given vectors are not of equal length.
 */
 func vectorDirectProduct <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Matrix<T> {
     
@@ -614,6 +848,15 @@ func vectorDirectProduct <T: MatrixCompatible> (left: Vector<T>, right: Vector<T
     return Matrix(elementsList: left.elements, columns: 1) * Matrix(elementsList: right.elements, rows: 1)
 }
 
+/**
+    Returns the direct product of the two given vectors.
+    This is the product of left as a column vector and
+    right as a row vector. The result is a square matrix
+    with size equal to the length of the two vectors.
+
+    :exception: An exception will be thrown when the two
+                    given vectors are not of equal length.
+*/
 func vectorDirectProduct(left: Vector<Float>, right: Vector<Float>) -> Matrix<Float> {
     
     if left.length != right.length {
@@ -632,6 +875,15 @@ func vectorDirectProduct(left: Vector<Float>, right: Vector<Float>) -> Matrix<Fl
     return Matrix(elementsList: elements, rows: left.length)
 }
 
+/**
+    Returns the direct product of the two given vectors.
+    This is the product of left as a column vector and
+    right as a row vector. The result is a square matrix
+    with size equal to the length of the two vectors.
+
+    :exception: An exception will be thrown when the two
+                    given vectors are not of equal length.
+*/
 func vectorDirectProduct(left: Vector<Double>, right: Vector<Double>) -> Matrix<Double> {
     
     if left.length != right.length {
@@ -651,18 +903,65 @@ func vectorDirectProduct(left: Vector<Double>, right: Vector<Double>) -> Matrix<
 }
 
 
+
 // MARK: Vector Functional Methods
 
+/**
+    Returns a new vector created by using the given
+    transform on every element of the given vector.
+
+    :param: vector The vector to map.
+    :param: transform The function used to transform
+                the elements in the given vector.
+*/
 func vmap <T: MatrixCompatible, U: MatrixCompatible> (vector: Vector<T>, transform: (T) -> U) -> Vector<U> {
     
     return Vector(map(vector.elements, transform))
 }
 
+/**
+    Returns a single value created by reducing the
+    given vector with the given combine function.
+    First the combine function is called on the
+    given initial value and the first element of
+    the given vector. The yielded value is then used
+    to combine with the second element of the given
+    vector, and so on.
+
+    :param: vector The vector to reduce.
+    :param: initial The initial vector to use in the
+                reduction proces.
+    :param: combine The function used to combine two
+                values and reduce the vector.
+*/
 func vreduce <T: MatrixCompatible, U> (vector: Vector<T>, initial: U, combine: (U, T) -> U) -> U {
     
     return reduce(vector.elements, initial, combine)
 }
 
+/**
+    Returns a new vector created by combining the
+    two given vectors element by element. This means
+    the two first elements are combined to form the
+    first element of the new vector. The two second
+    elements are combined to form the second element
+    of the new vector, and so on.
+
+    :param: left The first vector in the combination.
+                The elements from this vector will be
+                passed as first element in the combine
+                function.
+    :param: right The second vector in the combination.
+                The elements from this vector will be
+                passed as second element in the combine
+                function.
+    :param: combine The function used to combine according
+                elements from the two vectors.
+
+    :exception: An exception will be thrown when the
+                    two given vectors are not of equal
+                    length.
+*/
 func vcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (left: Vector<T>, right: Vector<U>, combine: (T, U) -> V) -> Vector<V> {
     
     if left.length != right.length {
@@ -684,6 +983,14 @@ func vcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (l
 
 // MARK: Vector Sorting
 
+/**
+    Sorts the given vector in place.
+
+    :param: vector The vector to sort in place.
+    :param: ascending True means the vector should be sorted in
+                ascending order, otherwise it's sorted in
+                descending order.
+*/
 func vsort <T: MatrixCompatible> (inout vector: Vector<T>, ascending: Bool = true) {
     
     vector.elements.sort(){ ascending ? $0 < $1 : $0 > $1 }
@@ -696,15 +1003,31 @@ func vsort <T: MatrixCompatible> (inout vector: Vector<T>, ascending: Bool = tru
 
 // MARK: - VectorGenerator
 
+/**
+    A struct representing a vector generator. This is used to
+    iterate over the vector.
+*/
 struct VectorGenerator <T: MatrixCompatible> : GeneratorType {
     
-    var generator: IndexingGenerator<Array<T>>
+    /**
+        The generator of the elements array of the vector.
+    */
+    private var generator: IndexingGenerator<Array<T>>
     
+    /**
+        Creates a new generator with the given vector.
+    
+        :param: vector The vector the generator should iterate over.
+    */
     init(vector: Vector<T>) {
         
         self.generator = vector.elements.generate()
     }
     
+    /**
+        Returns the next element in the vector if there is any.
+        Otherwise nil is returned.
+    */
     mutating func next() -> T? {
         return self.generator.next()
     }

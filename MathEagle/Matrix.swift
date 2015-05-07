@@ -18,6 +18,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     /**
         Returns a row major ordered list of all elements in the array.
+        This should be used for high performance applications.
     */
     var elementsList: [T] = []
     
@@ -30,7 +31,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         Returns or sets a 2 dimensional array containing the elements of the matrix.
         The array contains array's that represent rows.
     
-        :performance: This method scales O(size^2), so elementsList should be used for
+        :performance: This method scales O(n*m) for an nxm matrix, so elementsList should be used for
                         high performance applications.
     */
     var elements: [[T]] {
@@ -57,6 +58,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         }
         
         set(newElements) {
+            
             elementsList = []
             
             for row in newElements {
