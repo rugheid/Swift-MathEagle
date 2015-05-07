@@ -11,6 +11,9 @@ import Accelerate
 
 protocol MatrixCompatible: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, Conjugatable, Randomizable, IntegerLiteralConvertible {}
 
+/**
+    A generic class representing a 2-dimensional matrix of the given type.
+*/
 class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printable, SequenceType {
     
     
@@ -77,24 +80,54 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     // MARK: Initialisation
     
+    /**
+        Creates an empty matrix with elements [[]]. The dimensions
+        will be (0, 0).
+    */
     init() {}
     
     
+    /**
+        Creates a matrix with the given elements.
+    
+        :param: elements The elements of the matrix. Every element
+                    in this array should be an array representing
+                    a row in the matrix.
+    */
     init(_ elements: [[T]]) {
     
         self.elements = elements
     }
     
     
+    /**
+        Creates a matrix with the given array literal.
+    
+        :param: elements The elements of the matrix. Every element
+                    in this array should be an array representing
+                    a row in the matrix.
+    */
     required init(arrayLiteral elements: [T]...) {
         
         self.elements = elements
     }
     
     
+    /**
+        Creates a matrix with the given elementsList and the
+        given number of rows.
+    
+        :param: elementsList A flat row majored list of all elements in
+                    the matrix.
+        :param: rows The number of rows the matrix should have.
+    
+        :exception: An exception will be thrown when the number
+                        of elements in the elementsList is not
+                        a multiple of rows.
+    */
     init(elementsList: [T], rows: Int) {
         
-        if elementsList.count != 0 && elementsList.count % rows != 0 {
+        if elementsList.count % rows != 0 {
             NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not a multiple of rows.", userInfo: nil).raise()
         }
         
@@ -103,9 +136,21 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     }
     
     
+    /**
+        Creates a matrix with the given elementsList and the
+        given number of columns.
+    
+        :param: elementsList A flat row majored list of all elements in
+                    the matrix.
+        :param: columns The number of columns the matrix should have.
+    
+        :exception: An exception will be thrown when the number
+                        of elements in the elementsList is not
+                        a multiple of columns.
+    */
     init(elementsList: [T], columns: Int) {
         
-        if elementsList.count != 0 && elementsList.count % columns != 0 {
+        if elementsList.count % columns != 0 {
             NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not a multiple of columns.", userInfo: nil).raise()
         }
         
@@ -114,10 +159,22 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     }
     
     
+    /**
+        Creates a matrix with the given elementsList and the
+        given dimensions.
+    
+        :param: elementsList A flat row majored list of all elements in
+                    the matrix.
+        :param: dimensions The dimensions the matrix should have.
+    
+        :exception: An exception will be thrown when the number
+                        of elements in the elementsList is not
+                        equal to the product of the dimensions.
+    */
     init(elementsList: [T], dimensions: Dimensions) {
         
         if elementsList.count != dimensions.product {
-            NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not a multiple of columns.", userInfo: nil).raise()
+            NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not equal to the product of the dimensions.", userInfo: nil).raise()
         }
         
         self.dimensions = dimensions
@@ -125,6 +182,15 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     }
     
     
+    /**
+        Creates a matrix with the given dimensions using
+        the given generator.
+    
+        :param: dimensions The dimensions the matrix should have.
+        :param: generator The generator used to generate the matrix.
+                    This function is called for every element passing
+                    the index of the element.
+    */
     init(dimensions: Dimensions, generator: (Index) -> T) {
         
         self.elementsList = []
