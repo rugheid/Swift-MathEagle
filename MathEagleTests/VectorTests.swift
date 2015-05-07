@@ -490,6 +490,20 @@ class VectorTests: XCTestCase {
         println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
     
+    func testVectorSubstractionDoubleBenchmarking() {
+        
+        calculateBenchmarkingTimes(10, maxPower: 7, title: "Vector Double Subtraction Benchmarking"){
+            
+            let left = Vector<Double>(randomWithLength: $0, intervals: -10...10)
+            let right = Vector<Double>(randomWithLength: $0, intervals: -10...10)
+            
+            return timeBlock(n: $0 <= 1000 ? 10 : 1){
+                
+                left - right
+            }
+        }
+    }
+    
     func testVectorScalarMultiplication() {
         
         let vector = Vector([1, 2, 3, 4])
