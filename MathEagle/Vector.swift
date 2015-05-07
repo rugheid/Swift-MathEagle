@@ -362,7 +362,7 @@ prefix func - (vector: Vector<Double>) -> Vector<Double> {
 //}
 
 
-// MARK: Vector Substraction
+// MARK: Vector Subtraction
 
 func - <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
     
@@ -391,23 +391,23 @@ func - (left: Vector<Float>, right: Vector<Float>) -> Vector<Float> {
         NSException(name: "Unequal lengths", reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
     }
     
-    var elements = [Float](count: left.length, repeatedValue: 0)
+//    var elements = [Float](count: left.length, repeatedValue: 0)
+//    
+//    vDSP_vsub(right.elements, 1, left.elements, 1, &elements, 1, vDSP_Length(left.length))
+//    
+//    return Vector(elements)
     
-    vDSP_vsub(right.elements, 1, left.elements, 1, &elements, 1, vDSP_Length(left.length))
-    
-    return Vector(elements)
-    
-//    var elements = left.elements
+//    var elements = Array(left.elements)
 //    
 //    cblas_saxpy(Int32(left.length), -1.0, right.elements, 1, &elements, 1)
 //    
 //    return Vector(elements)
     
-//    var elements = right.elements
-//    
-//    catlas_saxpby(Int32(left.length), 1.0, left.elements, 1, -1.0, &elements, 1)
-//    
-//    return Vector(elements)
+    var elements = Array(right.elements)
+    
+    catlas_saxpby(Int32(left.length), 1.0, left.elements, 1, -1.0, &elements, 1)
+    
+    return Vector(elements)
 }
 
 func - (left: Vector<Double>, right: Vector<Double>) -> Vector<Double> {

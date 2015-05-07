@@ -1462,7 +1462,7 @@ prefix func - <T: MatrixCompatible> (matrix: Matrix<T>) -> Matrix<T> {
 }
 
 
-// MARK: Matrix Substraction
+// MARK: Matrix Subtraction
 
 func - <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
     
@@ -1720,7 +1720,7 @@ prefix func - (dimensions: Dimensions) -> Dimensions {
     return Dimensions(-dimensions[0], -dimensions[1])
 }
 
-// MARK: Dimensions Substraction
+// MARK: Dimensions Subtraction
 func - (left: Dimensions, right: Dimensions) -> Dimensions {
     
     return left + -right
