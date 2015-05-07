@@ -28,10 +28,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     
     init(length: Int, generator: (Int) -> T) {
         
-        for i in 0 ..< length {
-            
-            self.elements.append(generator(i))
-        }
+        self.elements = map(0..<length){ generator($0) }
     }
     
     convenience init(filledWith element: T, length: Int) {

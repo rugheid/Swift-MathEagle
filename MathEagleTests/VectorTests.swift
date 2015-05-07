@@ -68,6 +68,14 @@ class VectorTests: XCTestCase {
         }
     }
     
+    func testRandomWithLengthFloatPerformance() {
+        
+        compareBaseline(0.285181999206543, title: "Random 1_000_000 elements vector", n: 1){
+            
+            Vector<Float>(randomWithLength: 1_000_000)
+        }
+    }
+    
     
     // MARK: Subscript Tests
     
