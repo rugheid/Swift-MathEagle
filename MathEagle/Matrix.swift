@@ -1487,6 +1487,17 @@ func == <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Bool {
 
 // MARK: Matrix Addition
 
+/**
+    Returns the sum of the two matrices.
+
+    :param: left    The left matrix in the sum.
+    :param: right   The right matrix in the sum.
+
+    :returns: A matrix of the same dimensions as the two
+                given matrices.
+
+    :exception: Throws an exception when the dimensions of the two matrices are not equal.
+*/
 func + <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
     
     if left.dimensions != right.dimensions {
@@ -1496,6 +1507,17 @@ func + <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
     return mcombine(left, right){ $0 + $1 }
 }
 
+/**
+    Returns the sum of the two matrices.
+
+    :param: left    The left matrix in the sum.
+    :param: right   The right matrix in the sum.
+
+    :returns: A matrix of the same dimensions as the two
+                given matrices.
+
+    :exception: Throws an exception when the dimensions of the two matrices are not equal.
+*/
 func + (left: Matrix<Float>, right: Matrix<Float>) -> Matrix<Float> {
     
     if left.dimensions != right.dimensions {
@@ -1508,22 +1530,67 @@ func + (left: Matrix<Float>, right: Matrix<Float>) -> Matrix<Float> {
 //    
 //    return Matrix(elementsList: elementsList, dimensions: left.dimensions)
     
-//    var elementsList = Array(right.elementsList)
-//    
-//    cblas_saxpy(Int32(left.dimensions.product), 1.0, left.elementsList, 1, &elementsList, 1)
-//    
-//    return Matrix(elementsList: elementsList, dimensions: left.dimensions)
+    var elementsList = right.elementsList
     
-    var elementsList = Array(right.elementsList)
-    
-    catlas_saxpby(Int32(left.dimensions.product), 1.0, left.elementsList, 1, 1.0, &elementsList, 1)
+    cblas_saxpy(Int32(left.dimensions.product), 1.0, left.elementsList, 1, &elementsList, 1)
     
     return Matrix(elementsList: elementsList, dimensions: left.dimensions)
+    
+//    var elementsList = right.elementsList
+//    
+//    catlas_saxpby(Int32(left.dimensions.product), 1.0, left.elementsList, 1, 1.0, &elementsList, 1)
+//    
+//    return Matrix(elementsList: elementsList, dimensions: left.dimensions)
+}
+
+/**
+    Returns the sum of the two matrices.
+
+    :param: left    The left matrix in the sum.
+    :param: right   The right matrix in the sum.
+
+    :returns: A matrix of the same dimensions as the two
+    given matrices.
+
+    :exception: Throws an exception when the dimensions of the two matrices are not equal.
+*/
+func + (left: Matrix<Double>, right: Matrix<Double>) -> Matrix<Double> {
+    
+    if left.dimensions != right.dimensions {
+        NSException(name: "Unequal dimensions", reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
+    }
+    
+    //    var elementsList = [Float](count: left.dimensions.product, repeatedValue: 0)
+    //
+    //    vDSP_vaddD(left.elementsList, 1, right.elementsList, 1, &elementsList, 1, vDSP_Length(left.dimensions.product))
+    //
+    //    return Matrix(elementsList: elementsList, dimensions: left.dimensions)
+    
+    var elementsList = right.elementsList
+    
+    cblas_daxpy(Int32(left.dimensions.product), 1.0, left.elementsList, 1, &elementsList, 1)
+    
+    return Matrix(elementsList: elementsList, dimensions: left.dimensions)
+    
+    //    var elementsList = right.elementsList
+    //
+    //    catlas_daxpby(Int32(left.dimensions.product), 1.0, left.elementsList, 1, 1.0, &elementsList, 1)
+    //
+    //    return Matrix(elementsList: elementsList, dimensions: left.dimensions)
 }
 
 
 // MARK: Matrix Negation
 
+/**
+    Returns the negation of the given matrix.
+
+    :param: matrix  The matrix to negate.
+
+    :returns: A matrix with the given dimensions as the given matrix
+                where every element is the negation of the corresponding
+                element in the given matrix.
+*/
 prefix func - <T: MatrixCompatible> (matrix: Matrix<T>) -> Matrix<T> {
     
     return mmap(matrix){ -$0 }
@@ -1532,7 +1599,24 @@ prefix func - <T: MatrixCompatible> (matrix: Matrix<T>) -> Matrix<T> {
 
 // MARK: Matrix Subtraction
 
+/**
+    Returns the subtraction of the two given matrices.
+
+    :param: left    The left matrix in the subtraction.
+    :param: right   The right matrix in the subtraction.
+
+    :returns: A matrix with the same dimensions as the two given matrices
+                where every element is the difference of the corresponding
+                elements in the left and right matrices.
+
+    :exception: Throws an exception when the dimensions of the two given
+                    matrices are not equal.
+*/
 func - <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
+    
+    if left.dimensions != right.dimensions {
+        NSException(name: "Unequal dimensions", reason: "The dimensions of the two given matrices are not equal. Left dimensions: \(left.dimensions), right dimensions: \(right.dimensions).", userInfo: nil).raise()
+    }
     
     return mcombine(left, right){ $0 - $1 }
 }
@@ -1540,11 +1624,31 @@ func - <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
 
 // MARK: Matrix Scalar Multiplication
 
+/**
+    Returns the product of the given scalar and the given matrix.
+
+    :param: scalar  The scalar with which to multiply the given matrix.
+    :param: matrix  The matrix to multiply with the given scalar.
+
+    :returns: A matrix of the same dimensions as the given matrix where
+                every element is calculated as the product of the corresponding
+                element in the given matrix and the given scalar.
+*/
 func * <T: MatrixCompatible> (scalar: T, matrix: Matrix<T>) -> Matrix<T> {
     
     return Matrix(map(matrix.elements){ map($0){ scalar * $0 } })
 }
 
+/**
+    Returns the product of the given scalar and the given matrix.
+
+    :param: scalar  The scalar with which to multiply the given matrix.
+    :param: matrix  The matrix to multiply with the given scalar.
+
+    :returns: A matrix of the same dimensions as the given matrix where
+                every element is calculated as the product of the corresponding
+                element in the given matrix and the given scalar.
+*/
 func * <T: MatrixCompatible> (matrix: Matrix<T>, scalar: T) -> Matrix<T> {
     
     return scalar * matrix
@@ -1553,12 +1657,21 @@ func * <T: MatrixCompatible> (matrix: Matrix<T>, scalar: T) -> Matrix<T> {
 
 // MARK: Matrix Multiplication
 
+/**
+    Returns the product of the two given matrices.
+
+    :param: left    The left matrix in the multiplication.
+    :param: right   The right matrix in the multiplication.
+
+    :returns: A matrix with the same number of rows as the left matrix
+                and the same number of columns as the right matrix.
+
+    :exception: Throws an exception when the number of columns of the left
+                    matrix is not equal to the number of rows of the right matrix.
+*/
 func * <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
     
-    let v = left.dimensions.columns
-    
-    if v != right.dimensions.rows {
-        
+    if left.dimensions.columns != right.dimensions.rows {
         NSException(name: "Wrong dimensions", reason: "The left matrix's number of columns is not equal to the right matrix's rows.", userInfo: nil).raise()
     }
     
@@ -1572,7 +1685,7 @@ func * <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
             
             var element:T = left[row, 0] * right[0][column]
             
-            for i in 1 ..< v {
+            for i in 1 ..< left.dimensions.columns {
                 
                 element = element + left[row, i] * right[i, column]
             }
@@ -1646,15 +1759,29 @@ func mcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (l
 
 // MARK: - MatrixGenerator
 
+/**
+    A struct representing a generator for iterating over a matrix.
+*/
 struct MatrixGenerator <T: MatrixCompatible> : GeneratorType {
     
-    var generator: IndexingGenerator<Array<T>>
+    /**
+        The generator of the elements list of the matrix.
+    */
+    private var generator: IndexingGenerator<Array<T>>
     
+    /**
+        Creates a new matrix generator to iterator over the given matrix.
+    
+        :param: The matrix to iterate over.
+    */
     init(matrix: Matrix<T>) {
         
         self.generator = matrix.elementsList.generate()
     }
     
+    /**
+        Returns the next element in the matrix or nil if there are no elements left.
+    */
     mutating func next() -> T? {
         return self.generator.next()
     }
@@ -1687,17 +1814,39 @@ struct Index: ArrayLiteralConvertible {
 
 // MARK: - Dimensions
 
+/**
+    A struct representing the dimensions of a 2-dimensional matrix.
+*/
 struct Dimensions: Equatable, Addable {
     
+    /**
+        The number of rows in the dimensions.
+    */
     let rows: Int
+    
+    /**
+        The number of columns in the dimensions.
+    */
     let columns: Int
     
+    /**
+        Creates a new dimensions object with the given number of rows and columns.
+    
+        :param: rows    The number of rows in the dimensions.
+        :param: columns The number of columns in the dimensions.
+    */
     init(_ rows: Int = 0, _ columns: Int = 0) {
         
         self.rows = rows
         self.columns = columns
     }
     
+    /**
+        Creates a new dimensions object where the number of rows and columns are equal.
+    
+        :param: size    The size of the dimensions. This value will be used for both the
+                            number of rows and columns.
+    */
     init(size: Int) {
         
         self.init(size, size)
@@ -1720,7 +1869,7 @@ struct Dimensions: Equatable, Addable {
     }
     
     /**
-        Returns the product of the two dimension values: rows * columns
+        Returns the product of the two dimension values: rows * columns.
     */
     var product: Int {
         return self.rows * self.columns
