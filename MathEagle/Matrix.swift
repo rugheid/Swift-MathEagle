@@ -1468,6 +1468,15 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
 
 // MARK: Matrix Equality
 
+/**
+    Returns whether the two given matrices are equal. This means corresponding
+    elements are equal.
+
+    :param: left    The left matrix in the equation.
+    :param: right   The right matrix in the equation.
+
+    :returns: true if the two matrices are equal.
+*/
 func == <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Bool {
     
     if left.dimensions != right.dimensions {
