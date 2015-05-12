@@ -3,6 +3,9 @@ Math Eagle is named after the golden eagle, since this is the fastest bird in th
 
 This project is meant to make math easy in swift. The syntax is designed to be as simple as possible. Contributors are always welcome, the more the merrier!
 
+## Warning!
+MathEagle is still in its initial development phase so the syntax still changes frequently.
+
 #Installation
 The fastest way to add MathEagle to your project is to download it as a zip file and drag all files in the MathEagle folder (except Info.plist and MathEagle.h) to your project. Make sure to add them to your target.
 
