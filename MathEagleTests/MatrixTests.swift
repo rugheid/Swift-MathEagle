@@ -454,13 +454,16 @@ class MatrixTests: XCTestCase {
     func testTrace() {
         
         var matrix = Matrix<Int>(identityOfSize: 10)
-        XCTAssertEqual(10, matrix.trace)
+        XCTAssertEqual(10, matrix.trace!)
         
         matrix = Matrix(filledWith: 5, size: 3)
-        XCTAssertEqual(15, matrix.trace)
+        XCTAssertEqual(15, matrix.trace!)
         
         let i = Complex.imaginaryUnit
-        XCTAssertEqual(1.0 + 5.0 * i, cmatrix.trace)
+        XCTAssertEqual(1.0 + 5.0 * i, cmatrix.trace!)
+        
+        matrix = Matrix()
+        XCTAssertNil(matrix.trace)
     }
     
     func testMatrixDeterminant() {
