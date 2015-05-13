@@ -204,30 +204,86 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     }
     
     
+    /**
+        Creates a square matrix with the given size using the given generator.
+    
+        :param: size        The size the matrix should have.
+        :param: generator   The generator used to generate the matrix.
+                                This function is called for every element
+                                passing the index of the element.
+    */
     convenience init(size: Int, generator: (Index) -> T) {
         
         self.init(dimensions: Dimensions(size, size), generator: generator)
     }
     
     
+    /**
+        Creates a random matrix with the given dimensions. This uses
+        the `random` function of the type of the matrix. Note that for
+        this initialiser to work the type must be known to the compiler.
+        So you can either state the type of the variable explicitly or
+        call the initialiser with the specific type like Matrix<Type>(...).
+    
+        :param: dimensions  The dimensions the matrix should have.
+    */
     convenience init(randomWithDimensions dimensions: Dimensions) {
         
         self.init(dimensions: dimensions, generator: { i in T.random() })
     }
     
     
+    /**
+        Creates a random square matrix with the given size. This uses
+        the `random` function of the type of the matrix. Note that for
+        this initialiser to work the type must be known to the compiler.
+        So you can either state the type of the variable explicitly or
+        call the initialiser with the specific type like Matrix<Type>(...).
+    
+        :param: size    The size the matrix should have.
+    */
     convenience init(randomWithSize size: Int) {
         
         self.init(randomWithDimensions: Dimensions(size, size))
     }
     
     
+    /**
+        Creates a random matrix with the given dimensions. The values lie in
+        the given interval. This uses the `randomInInterval` function of the
+        type of the matrix. Note that for this initialiser to work the type must
+        be known to the compiler. So you can either state the type of the
+        variable explicitly or call the initialiser with the specific type
+        like Matrix<Type>(...).
+    
+        :param: dimensions  The dimensions the matrix should have.
+        :param: intervals   The interval in which the values can lie. You should
+                                only pass multiple intervals for Complex matrices.
+                                Here the first interval represents the interval
+                                for the real part and the second interval represents
+                                the interval for the imaginary part.
+    */
     convenience init(randomWithDimensions dimensions: Dimensions, intervals: ClosedInterval<T.RandomIntervalType>...) {
         
         self.init(dimensions: dimensions, generator: { i in T.randomInInterval(intervals) })
     }
     
     
+    /**
+        Creates a random square matrix with the given size. The values lie in
+        the given interval. This uses the `randomInInterval` function of the
+        type of the matrix. Note that for this initialiser to work the type must
+        be known to the compiler. So you can either state the type of the
+        variable explicitly or call the initialiser with the specific type
+        like Matrix<Type>(...).
+    
+        :param: size  The dimensions the matrix should have.
+        :param: intervals   The interval in which the values can lie. You should
+                                only pass multiple intervals for Complex matrices.
+                                Here the first interval represents the interval
+                                for the real part and the second interval represents
+                                the interval for the imaginary part.
+    */
     convenience init(randomWithSize size: Int, intervals: ClosedInterval<T.RandomIntervalType>...) {
         
         self.init(size: size, generator: { i in T.randomInInterval(intervals) })
@@ -249,12 +305,24 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     }
     
     
+    /**
+        Creates a matrix of the given size filled with the given element.
+    
+        :param: element The element to fill the matrix with.
+        :param: size    The size the matrix should have.
+    */
     convenience init(filledWith element: T, size: Int) {
         
         self.init(filledWith: element, dimensions: Dimensions(size: size))
     }
     
     
+    /**
+        Creates a matrix with the given dimensions filled with the given element.
+    
+        :param: element     The element to fill the matrix with.
+        :param: dimensions  The dimensions the matrix should have.
+    */
     init(filledWith element: T, dimensions: Dimensions) {
         
         self.dimensions = dimensions
@@ -262,6 +330,12 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     }
     
     
+    /**
+        Creates an identity matrix of the given size. This means all diagonal elements
+        are equal to 1 and all other elements are equal to 0.
+    
+        :param: size    The size the matrix should have.
+    */
     convenience init(identityOfSize size: Int) {
         
         self.init(filledWith: 0, size: size)
@@ -269,6 +343,12 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     }
     
     
+    /**
+        Creates a matrix filled with zeroes, but where the diagonal elements are equal
+        to the given elements.
+    
+        :param: diagonal    The diagonal elements the matrix should have.
+    */
     convenience init(diagonal: [T]) {
         
         self.init(filledWith: 0, size: diagonal.count)
@@ -279,6 +359,17 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     // MARK: Subscript Methods
     
+    /**
+        Gets or sets the element at the given row and column.
+    
+        :param: row     The row of the desired element.
+        :param: column  The column of the desired element.
+    
+        :returns: The element at the given row and column.
+    
+        :exception: An exception will be thrown when either of the indices
+                        is out of bounds.
+    */
     subscript(row: Int, column: Int) -> T {
     
         get {
@@ -292,6 +383,16 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         }
     }
     
+    /**
+        Gets or sets the row at the given element.
+    
+        :param: index   The index of the desired row.
+    
+        :returns: A vector representing the row at the given index.
+    
+        :exception: An exception will be thrown when the given index is out
+                        of bounds.
+    */
     subscript(index: Int) -> Vector<T>  {
         
         get {
@@ -337,6 +438,16 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     }
     
     
+    /**
+        Gets or sets the submatrix at the given index ranges.
+    
+        :param: rowRange    The row index range of the desired submatrix.
+        :param: columnRange The column index range of the desired submatrix.
+    
+        :returns: A matrix representing the submatrix at the given index ranges.
+    
+        :exception: Throws an exception when any of the index ranges is out of bounds.
+    */
     subscript(rowRange: Range<Int>, columnRange: Range<Int>) -> Matrix<T> {
         
         get {
@@ -351,6 +462,17 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     }
     
     
+    /**
+        Gets or sets the subvector at the given row index range at the given column.
+    
+        :param: rowRange    The row index range of the desired subvector.
+        :param: column      The column of the desired subvector.
+    
+        :returns: A vector representing the subvector at the given row index range at
+                    the given column.
+    
+        :exception: Throws an exception when any of the indices is out of bounds.
+    */
     subscript(rowRange: Range<Int>, column: Int) -> Vector<T> {
         
         get {
@@ -365,6 +487,17 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     }
     
     
+    /**
+        Gets or sets the subvector at the given row at the given column index range.
+    
+        :param: row         The row of the desired subvector.
+        :param: columnRange The column index range of the desired subvector.
+    
+        :returns: A vector representing the subvector at the given row at the given
+                    columnn index range.
+    
+        :exception: Throws an exception when any of the indices is out of bounds.
+    */
     subscript(row: Int, columnRange: Range<Int>) -> Vector<T> {
         
         get {
@@ -381,6 +514,9 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     // MARK: Sequence Type
     
+    /**
+        Returns a generator for this matrix.
+    */
     func generate() -> MatrixGenerator<T> {
         
         return MatrixGenerator(matrix: self)
@@ -412,9 +548,10 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     
     /**
-        Returns the size of the matrix if the matrix is square. If the matrix is not square, an exception will be raised.
+        Returns the size of the matrix if the matrix is square. If the matrix is not
+        square it returns nil.
     
-        :returns: The size of the matrix if the matrix is square.
+        :returns: The size of the matrix if the matrix is square or nil otherwise.
     */
     var size: Int? {
         return self.dimensions.size
