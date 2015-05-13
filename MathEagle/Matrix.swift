@@ -595,9 +595,11 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     
     /**
-    Returns an array with the diagonal elements of the matrix.
+        Gets or sets the diagonal elements of the matrix.
     
-    :returns: An array with the diagonal elements of the matrix.
+        :returns: An array with the diagonal elements of the matrix.
+    
+        :exception: Throws an exception when the given array countains too many elements.
     */
     var diagonalElements: [T] {
         
