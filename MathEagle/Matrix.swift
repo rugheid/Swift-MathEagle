@@ -571,25 +571,14 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     
     /**
-        Returns the trace of the matrix. This is the sum of the diagonal elements.
+        Returns the trace of the matrix. This is the sum of the diagonal elements. If the
+        matrix is empty nil is returned.
     
-        :returns: The trace of the matrix.
-    
-        :exceptions: Exceptions will be thrown if the matrix is empty or if the matrix is not square.
+        :returns: The trace of the matrix if the matrix is not empty, otherwise nil.
     */
-    var trace: T {
+    var trace: T? {
         
-        if self.isEmpty {
-            
-            NSException(name: "Empty matrix", reason: "An empty matrix does not have a trace.", userInfo: nil).raise()
-        }
-        
-        if !self.isSquare {
-            
-            NSException(name: "Non square matrix", reason: "A non square matrix does not have a trace.", userInfo: nil).raise()
-        }
-        
-        return sum(self.diagonalElements)
+        return self.isEmpty ? nil : sum(self.diagonalElements)
     }
     
     
