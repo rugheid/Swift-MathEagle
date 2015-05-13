@@ -207,3 +207,29 @@ func product <S: SequenceType where S.Generator.Element: protocol<Multiplicable,
     
     return reduce(seq, 1){ $0 * $1 }
 }
+
+
+/**
+    Returns the minimal element in the given sequence.
+
+    :param: seq The sequence to get the minimum of.
+*/
+func min <S: SequenceType where S.Generator.Element: protocol<Comparable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
+    
+    var generator = seq.generate()
+    let initial = generator.next()!
+    return reduce(seq, initial){ $0 < $1 ? $0 : $1 }
+}
+
+
+/**
+    Returns the maximal element in the given sequence.
+
+    :param: seq The sequence to get the maximum of.
+*/
+func max <S: SequenceType where S.Generator.Element: protocol<Comparable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
+    
+    var generator = seq.generate()
+    let initial = generator.next()!
+    return reduce(seq, initial){ $0 > $1 ? $0 : $1 }
+}

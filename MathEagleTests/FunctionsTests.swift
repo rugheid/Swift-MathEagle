@@ -157,4 +157,28 @@ class FunctionsTests: XCTestCase {
         XCTAssertEqual(-720.0, product(seq3))
     }
     
+    func testMin() {
+        
+        let seq1 = [1, 4, 3, 2, 5, 6, 9, 8, 10]
+        XCTAssertEqual(1, min(seq1))
+        
+        let seq2: [UInt] = [4, 2, 1, 7, 6, 4, 2, 3, 8, 9, 0, 3, 2, 1]
+        XCTAssertEqual(0, min(seq2))
+        
+        let vector = Vector([4, 2, 1, 7, 6, 4, 2, 3, 8, 9, 0, 3, 2, 1])
+        XCTAssertEqual(0, min(vector))
+    }
+    
+    func testMax() {
+        
+        let seq1 = [1, 4, 3, 2, 5, 6, 9, 8, 10]
+        XCTAssertEqual(10, max(seq1))
+        
+        let seq2: [UInt] = [4, 2, 1, 7, 6, 4, 2, 3, 8, 9, 0, 3, 2, 1]
+        XCTAssertEqual(9, max(seq2))
+        
+        let vector = Vector([4, 2, 1, 7, 6, 4, 2, 3, 8, 9, 0, 3, 2, 1])
+        XCTAssertEqual(9, max(vector))
+    }
+    
 }
