@@ -8,11 +8,11 @@
 
 import Foundation
 
-class Solver {
+public class Solver {
     
     //MARK: Parameters
-    static var accuracy = 1e-7
-    static var maxTime = 10.0
+    public static var accuracy = 1e-7
+    public static var maxTime = 10.0
     
     
     /**
@@ -30,7 +30,7 @@ class Solver {
     
         :exception: An exception will be thrown if a > b.
     */
-    class func bisection(a: Double, _ b: Double, accuracy err: Double? = nil, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
+    public class func bisection(a: Double, _ b: Double, accuracy err: Double? = nil, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
         
         if a > b {
             
@@ -84,7 +84,7 @@ class Solver {
     
         :returns: The zero value of f.
     */
-    class func newton(x0: Double, df: ((Double) -> Double)? = nil, accuracy err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, f: (Double) -> Double) -> Double {
+    public class func newton(x0: Double, df: ((Double) -> Double)? = nil, accuracy err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, f: (Double) -> Double) -> Double {
         
         let start = NSDate()
         

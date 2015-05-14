@@ -16,7 +16,7 @@ import Foundation
 
     :returns: true if the given unsigned integer is prime.
 */
-func isPrime <X: protocol<Equatable, Comparable, Addable, Modulable, Powerable, IntegerLiteralConvertible>> (x: X) -> Bool {
+public func isPrime <X: protocol<Equatable, Comparable, Addable, Modulable, Powerable, IntegerLiteralConvertible>> (x: X) -> Bool {
     
     if x <= 3 { return x >= 2 }
     
@@ -44,7 +44,7 @@ func isPrime <X: protocol<Equatable, Comparable, Addable, Modulable, Powerable, 
 
     :returns: true if the given unsigned integers are coprime.
 */
-func areCoprime <X: protocol<Equatable, Modulable, IntegerLiteralConvertible>> (a: X, b: X) -> Bool {
+public func areCoprime <X: protocol<Equatable, Modulable, IntegerLiteralConvertible>> (a: X, b: X) -> Bool {
     
     return gcd(a, b) == 1
 }
@@ -57,7 +57,7 @@ func areCoprime <X: protocol<Equatable, Modulable, IntegerLiteralConvertible>> (
 
     :returns: All primes up to (and including) the given integer.
 */
-func primesUpTo(n: UInt) -> [UInt] {
+public func primesUpTo(n: UInt) -> [UInt] {
     
     if n <= 1 { return [] }
     
@@ -96,7 +96,7 @@ func primesUpTo(n: UInt) -> [UInt] {
 
     :returns: The prime factors of the given integer in ascending order.
 */
-func primeFactors <X: protocol<Equatable, Comparable, Addable, Modulable, Dividable, IntegerLiteralConvertible>> (x: X) -> [X] {
+public func primeFactors <X: protocol<Equatable, Comparable, Addable, Modulable, Dividable, IntegerLiteralConvertible>> (x: X) -> [X] {
     
     if x <= 1 { return [] }
     

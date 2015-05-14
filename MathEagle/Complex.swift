@@ -8,10 +8,10 @@
 
 import Accelerate
 
-struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, Conjugatable, FullMathValue, IntegerLiteralConvertible, FloatLiteralConvertible, MatrixCompatible, Printable {
+public struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, Conjugatable, FullMathValue, IntegerLiteralConvertible, FloatLiteralConvertible, MatrixCompatible, Printable {
     
-    var real: Double
-    var imaginary: Double
+    public var real: Double
+    public var imaginary: Double
     
     var DSPDoubleComplexValue: DSPDoubleComplex {
         
@@ -30,30 +30,30 @@ struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multip
     
     // MARK: Initialisation
     
-    init(_ complex: Complex) {
+    public init(_ complex: Complex) {
         self.real = complex.real
         self.imaginary = complex.imaginary
     }
     
-    init(_ real: Double, _ imaginary: Double) {
+    public init(_ real: Double, _ imaginary: Double) {
         
         self.real = real
         self.imaginary = imaginary
     }
     
-    init(modulus: Double, argument: Double) {
+    public init(modulus: Double, argument: Double) {
         
         self.real = modulus * cos(argument)
         self.imaginary = modulus * sin(argument)
     }
     
-    init(integerLiteral value: IntegerLiteralType) {
+    public init(integerLiteral value: IntegerLiteralType) {
         
         self.real = Double(value)
         self.imaginary = 0
     }
     
-    init(floatLiteral value: FloatLiteralType) {
+    public init(floatLiteral value: FloatLiteralType) {
         self.real = Double(value)
         self.imaginary = 0
     }
@@ -65,7 +65,7 @@ struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multip
     }
     
     
-    static var imaginaryUnit: Complex {
+    public static var imaginaryUnit: Complex {
         
         return Complex(0, 1)
     }
@@ -76,7 +76,7 @@ struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multip
     /**
         Returns the modulus of the complex number.
     */
-    var modulus: Double {
+    public var modulus: Double {
         
         return sqrt(self.real**2 + self.imaginary**2)
     }
@@ -84,7 +84,7 @@ struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multip
     /**
         Returns the argument of the complex number.
     */
-    var argument: Double {
+    public var argument: Double {
         
         return (self.real == 0.0 && self.imaginary == 0.0) ? 0 : atan(self.imaginary / self.real) + (self.quadrant.rawValue >= 3 ? PI : 0)
     }
@@ -92,7 +92,7 @@ struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multip
     /**
         Returns the conjugate of the complex number.
     */
-    var conjugate: Complex {
+    public var conjugate: Complex {
         
         return Complex(self.real, -self.imaginary)
     }
@@ -100,7 +100,7 @@ struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multip
     /**
         Returns the quadrant of the complex plane in which the complex number lies.
     */
-    var quadrant: Quadrant {
+    public var quadrant: Quadrant {
         
         if self.real >= 0 {
             
@@ -115,7 +115,7 @@ struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multip
     /**
         Returns a description of the complex number of the form "a ± bi"
     */
-    var description: String {
+    public var description: String {
         
         return self.imaginary < 0 ? "\(self.real) - \(-self.imaginary)i" : "\(self.real) + \(self.imaginary)i"
     }
@@ -123,17 +123,17 @@ struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multip
     
     // MARK: Set Conformance
     
-    var isNatural: Bool {
+    public var isNatural: Bool {
         
         return self.real.isNatural && self.imaginary == 0.0
     }
     
-    var isInteger: Bool {
+    public var isInteger: Bool {
         
         return self.real.isInteger && self.imaginary == 0.0
     }
     
-    var isReal: Bool {
+    public var isReal: Bool {
         
         return self.imaginary == 0.0
     }
@@ -144,13 +144,13 @@ struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multip
     /**
         Returns true if the real and imaginary parts are equal.
     */
-    func equals(z: Complex) -> Bool {
+    public func equals(z: Complex) -> Bool {
         
         return self.real == self.real && self.imaginary == z.imaginary
     }
     
     
-    func equals(z: Complex, accuracy: Double) -> Bool {
+    public func equals(z: Complex, accuracy: Double) -> Bool {
         
         return self.real.equals(z.real, accuracy: accuracy) && self.imaginary.equals(z.imaginary, accuracy: accuracy)
     }
@@ -162,7 +162,7 @@ struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multip
     /**
         Returns a random complex number.
     */
-    static func random() -> Complex {
+    public static func random() -> Complex {
         
         return Complex(Double.random(), Double.random())
     }
@@ -173,7 +173,7 @@ struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multip
         When one interval is provided this interval will be used to restrict the real and imaginary parts.
         When two intervals are provided the first will be used for the real part, the second for the imaginary part.
     */
-    static func randomInInterval(intervals: ClosedInterval<Double>...) -> Complex {
+    public static func randomInInterval(intervals: ClosedInterval<Double>...) -> Complex {
         
         return randomInInterval(intervals)
     }
@@ -184,7 +184,7 @@ struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multip
     When one interval is provided this interval will be used to restrict the real and imaginary parts.
     When two intervals are provided the first will be used for the real part, the second for the imaginary part.
     */
-    static func randomInInterval(intervals: [ClosedInterval<Double>]) -> Complex {
+    public static func randomInInterval(intervals: [ClosedInterval<Double>]) -> Complex {
         
         if intervals.isEmpty { return self.random() }
         if intervals.count == 1 { return Complex(Double.randomInInterval([intervals[0]]), Double.randomInInterval([intervals[0]])) }
@@ -197,18 +197,18 @@ struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multip
 
 // MARK: Function Extensions
 
-func sqrt(z: Complex) -> Complex {
+public func sqrt(z: Complex) -> Complex {
     
     return Complex(modulus: sqrt(z.modulus), argument: z.argument / 2)
 }
 
-func exp(z: Complex) -> Complex {
+public func exp(z: Complex) -> Complex {
     
     let c = exp(z.real)
     return Complex(c * cos(z.imaginary), c * sin(z.imaginary))
 }
 
-func log(z: Complex) -> Complex {
+public func log(z: Complex) -> Complex {
     
     return Complex(log(z.modulus), z.argument)
 }
@@ -217,17 +217,17 @@ func log(z: Complex) -> Complex {
 
 // MARK: Equatable Protocol Conformance
 
-func == (left: Complex, right: Complex) -> Bool {
+public func == (left: Complex, right: Complex) -> Bool {
     
     return left.equals(right)
 }
 
-func == (left: Double, right: Complex) -> Bool {
+public func == (left: Double, right: Complex) -> Bool {
     
     return left == right.real && right.imaginary == 0.0
 }
 
-func == (left: Complex, right: Double) -> Bool {
+public func == (left: Complex, right: Double) -> Bool {
     
     return right == left
 }
@@ -236,12 +236,12 @@ func == (left: Complex, right: Double) -> Bool {
 
 // MARK: Comparable Protocol Conformance
 
-func < (left: Complex, right: Complex) -> Bool {
+public func < (left: Complex, right: Complex) -> Bool {
     
     return left.modulus < right.modulus
 }
 
-func > (left: Complex, right: Complex) -> Bool {
+public func > (left: Complex, right: Complex) -> Bool {
     
     return right < left
 }
@@ -250,17 +250,17 @@ func > (left: Complex, right: Complex) -> Bool {
 
 // MARK: Addable Protocol Conformance
 
-func + (left: Complex, right: Complex) -> Complex {
+public func + (left: Complex, right: Complex) -> Complex {
     
     return Complex(left.real + right.real, left.imaginary + right.imaginary)
 }
 
-func + (left: Double, right: Complex) -> Complex {
+public func + (left: Double, right: Complex) -> Complex {
     
     return Complex(left + right.real, right.imaginary)
 }
 
-func + (left: Complex, right: Double) -> Complex {
+public func + (left: Complex, right: Double) -> Complex {
     
     return right + left
 }
@@ -269,7 +269,7 @@ func + (left: Complex, right: Double) -> Complex {
 
 // MARK: Negatable Protocol Conformance
 
-prefix func - (z: Complex) -> Complex {
+public prefix func - (z: Complex) -> Complex {
     
     return Complex(-z.real, -z.imaginary)
 }
@@ -278,17 +278,17 @@ prefix func - (z: Complex) -> Complex {
 
 // MARK: Substractable Protocol Conformance
 
-func - (left: Complex, right: Complex) -> Complex {
+public func - (left: Complex, right: Complex) -> Complex {
     
     return Complex(left.real - right.real, left.imaginary - right.imaginary)
 }
 
-func - (left: Double, right: Complex) -> Complex {
+public func - (left: Double, right: Complex) -> Complex {
     
     return Complex(left - right.real, -right.imaginary)
 }
 
-func - (left: Complex, right: Double) -> Complex {
+public func - (left: Complex, right: Double) -> Complex {
     
     return Complex(left.real - right, left.imaginary)
 }
@@ -297,17 +297,17 @@ func - (left: Complex, right: Double) -> Complex {
 
 // MARK: Multiplicable Protocol Conformance
 
-func * (left: Complex, right: Complex) -> Complex {
+public func * (left: Complex, right: Complex) -> Complex {
     
     return Complex(left.real * right.real - left.imaginary * right.imaginary, left.real * right.imaginary + left.imaginary * right.real)
 }
 
-func * (left: Double, right: Complex) -> Complex {
+public func * (left: Double, right: Complex) -> Complex {
     
     return Complex(left * right.real, left * right.imaginary)
 }
 
-func * (left: Complex, right: Double) -> Complex {
+public func * (left: Complex, right: Double) -> Complex {
     
     return right * left
 }
@@ -316,19 +316,19 @@ func * (left: Complex, right: Double) -> Complex {
 
 // MARK: Dividable Protocol Conformance
 
-func / (left: Complex, right: Complex) -> Complex {
+public func / (left: Complex, right: Complex) -> Complex {
     
     let d = right.real**2 + right.imaginary**2
     return Complex((left.real * right.real + left.imaginary * right.imaginary) / d, (left.imaginary * right.real - left.real * right.imaginary) / d)
 }
 
-func / (left: Double, right: Complex) -> Complex {
+public func / (left: Double, right: Complex) -> Complex {
     
     let d = right.real**2 + right.imaginary**2
     return Complex((left * right.real) / d, (-left * right.imaginary) / d)
 }
 
-func / (left: Complex, right: Double) -> Complex {
+public func / (left: Complex, right: Double) -> Complex {
     
     return Complex(left.real / right, left.imaginary / right)
 }
@@ -337,17 +337,17 @@ func / (left: Complex, right: Double) -> Complex {
 
 // MARK: Powers
 
-func ** (left: Complex, right: Complex) -> Complex {
+public func ** (left: Complex, right: Complex) -> Complex {
     
     return Complex(0, 0)
 }
 
-func ** (left: Double, right: Complex) -> Complex {
+public func ** (left: Double, right: Complex) -> Complex {
     
     return Complex(modulus: left ** right.real, argument: log(left) * right.imaginary)
 }
 
-func ** (left: Complex, right: Double) -> Complex {
+public func ** (left: Complex, right: Double) -> Complex {
     
     return Complex(modulus: left.modulus ** right, argument: right * left.argument)
 }
@@ -358,7 +358,7 @@ func ** (left: Complex, right: Double) -> Complex {
 
 // MARK: Quadrant Enum
 
-enum Quadrant: Int {
+public enum Quadrant: Int {
     case First = 1, Second, Third, Fourth
 }
 

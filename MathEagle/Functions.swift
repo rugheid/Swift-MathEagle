@@ -17,7 +17,7 @@ import Accelerate
     
     :returns: -1 if the value is smaller than 0, 0 if the value is 0 and 1 if the value is bigger than 0
 */
-func sign <X: protocol<Equatable, Comparable, IntegerLiteralConvertible>> (x: X) -> Int {
+public func sign <X: protocol<Equatable, Comparable, IntegerLiteralConvertible>> (x: X) -> Int {
     
     if x == 0 { return 0 }
     else if x < 0 { return -1 }
@@ -36,7 +36,7 @@ func sign <X: protocol<Equatable, Comparable, IntegerLiteralConvertible>> (x: X)
 
     :example: divisors(10) returns [1, 2, 5, 10]
 */
-func divisors <X: protocol<Equatable, Comparable, Modulable, Dividable, Powerable, IntegerLiteralConvertible> where X.PowerType: protocol<Comparable, Addable, IntegerLiteralConvertible>> (x: X) -> [X] {
+public func divisors <X: protocol<Equatable, Comparable, Modulable, Dividable, Powerable, IntegerLiteralConvertible> where X.PowerType: protocol<Comparable, Addable, IntegerLiteralConvertible>> (x: X) -> [X] {
     
     if x <= 0 { return [] }
     if x == 1 { return [1] }
@@ -73,7 +73,7 @@ func divisors <X: protocol<Equatable, Comparable, Modulable, Dividable, Powerabl
 
     :example: divisors(10) returns [1, 2, 5]
 */
-func properDivisors <X: protocol<Equatable, Comparable, Modulable, Dividable, Powerable, IntegerLiteralConvertible> where X.PowerType: protocol<Comparable, Addable, IntegerLiteralConvertible>> (x: X) -> [X] {
+public func properDivisors <X: protocol<Equatable, Comparable, Modulable, Dividable, Powerable, IntegerLiteralConvertible> where X.PowerType: protocol<Comparable, Addable, IntegerLiteralConvertible>> (x: X) -> [X] {
     
     if x <= 1 { return [] }
     
@@ -105,7 +105,7 @@ func properDivisors <X: protocol<Equatable, Comparable, Modulable, Dividable, Po
 
     :returns: true if the given number is a perfect number.
 */
-func isPerfect <X: protocol<Equatable, Comparable, Addable, Modulable, Dividable, Powerable, IntegerLiteralConvertible> where X.PowerType: protocol<Comparable, Addable, IntegerLiteralConvertible>> (x: X) -> Bool {
+public func isPerfect <X: protocol<Equatable, Comparable, Addable, Modulable, Dividable, Powerable, IntegerLiteralConvertible> where X.PowerType: protocol<Comparable, Addable, IntegerLiteralConvertible>> (x: X) -> Bool {
     
     var zero: X = 0
     let sum = reduce(properDivisors(x), zero){ $0 + $1 }
@@ -122,7 +122,7 @@ func isPerfect <X: protocol<Equatable, Comparable, Addable, Modulable, Dividable
 
     :returns: The greatest common divisor of the two given numbers. When either a or b equals 0, 1 is returned.
 */
-func gcd <X: protocol<Equatable, Modulable, IntegerLiteralConvertible>> (var a: X, var b: X) -> X {
+public func gcd <X: protocol<Equatable, Modulable, IntegerLiteralConvertible>> (var a: X, var b: X) -> X {
     
     if a == 0 || b == 0 { return a == 0 ? b : a }
     
@@ -146,7 +146,7 @@ func gcd <X: protocol<Equatable, Modulable, IntegerLiteralConvertible>> (var a: 
 
     :exceptions: Throws an exception if the given value is not a natural number.
 */
-func factorial <X: protocol<Comparable, Substractable, Multiplicable, SetCompliant, IntegerLiteralConvertible>> (x: X) -> X {
+public func factorial <X: protocol<Comparable, Substractable, Multiplicable, SetCompliant, IntegerLiteralConvertible>> (x: X) -> X {
     
     if x < 0 {
         
@@ -167,7 +167,7 @@ func factorial <X: protocol<Comparable, Substractable, Multiplicable, SetComplia
 /**
     Returns the n'th Fibonacci number, with fib(0) = 0 and fib(1) = 1
 */
-func fib <X: protocol<Hashable, Addable, Substractable, IntegerLiteralConvertible>> (n: X) -> X {
+public func fib <X: protocol<Hashable, Addable, Substractable, IntegerLiteralConvertible>> (n: X) -> X {
     
     var memo: [X: X] = [0: 0, 1: 1]
     return memoFib(n, &memo)
@@ -195,7 +195,7 @@ private func memoFib <X: protocol<Hashable, Addable, Substractable, IntegerLiter
     :returns: The sum of all elements in the sequence. When the sequence is
                 empty zero is returned.
 */
-func sum <S: SequenceType where S.Generator.Element: protocol<Addable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
+public func sum <S: SequenceType where S.Generator.Element: protocol<Addable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
     
     return reduce(seq, 0){ $0 + $1 }
 }
@@ -208,7 +208,7 @@ func sum <S: SequenceType where S.Generator.Element: protocol<Addable, IntegerLi
     :returns: The sum of all elements in the array. When the array is empty
                 zero is returned.
 */
-func sum(seq: [Float]) -> Float {
+public func sum(seq: [Float]) -> Float {
     
     var result: Float = 0
     vDSP_sve(seq, 1, &result, vDSP_Length(seq.count))
@@ -223,7 +223,7 @@ func sum(seq: [Float]) -> Float {
     :returns: The sum of all elements in the vector. When the vector is empty
                 zero is returned.
 */
-func sum(vector: Vector<Float>) -> Float {
+public func sum(vector: Vector<Float>) -> Float {
     return sum(vector.elements)
 }
 
@@ -235,7 +235,7 @@ Returns the sum of all elements in the array.
 :returns: The sum of all elements in the array. When the array is empty
 zero is returned.
 */
-func sum(seq: [Double]) -> Double {
+public func sum(seq: [Double]) -> Double {
     
     var result: Double = 0
     vDSP_sveD(seq, 1, &result, vDSP_Length(seq.count))
@@ -250,7 +250,7 @@ Returns the sum of all elements in the vector.
 :returns: The sum of all elements in the vector. When the vector is empty
 zero is returned.
 */
-func sum(vector: Vector<Double>) -> Double {
+public func sum(vector: Vector<Double>) -> Double {
     return sum(vector.elements)
 }
 
@@ -260,7 +260,7 @@ func sum(vector: Vector<Double>) -> Double {
     
     :param: seq The sequence to take the product of.
 */
-func product <S: SequenceType where S.Generator.Element: protocol<Multiplicable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
+public func product <S: SequenceType where S.Generator.Element: protocol<Multiplicable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
     
     return reduce(seq, 1){ $0 * $1 }
 }
@@ -271,7 +271,7 @@ func product <S: SequenceType where S.Generator.Element: protocol<Multiplicable,
 
     :param: seq The sequence to get the minimum of.
 */
-func min <S: SequenceType where S.Generator.Element: protocol<Comparable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
+public func min <S: SequenceType where S.Generator.Element: protocol<Comparable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
     
     var generator = seq.generate()
     let initial = generator.next()!
@@ -284,7 +284,7 @@ func min <S: SequenceType where S.Generator.Element: protocol<Comparable, Intege
 
     :param: seq The sequence to get the maximum of.
 */
-func max <S: SequenceType where S.Generator.Element: protocol<Comparable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
+public func max <S: SequenceType where S.Generator.Element: protocol<Comparable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
     
     var generator = seq.generate()
     let initial = generator.next()!

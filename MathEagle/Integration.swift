@@ -8,12 +8,12 @@
 
 import Foundation
 
-class Integration {
+public class Integration {
     
     
     // MARK: Parameters
-    static var accuracy = 1e-7
-    static var maxTime = 10.0
+    public static var accuracy = 1e-7
+    public static var maxTime = 10.0
     
     
     // MARK: single integrals
@@ -30,7 +30,7 @@ class Integration {
     
         :returns: The integral of f in the interval [a,b] with the given accuracy.
     */
-    class func midpoint(a: Double, _ b: Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
+    public class func midpoint(a: Double, _ b: Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
         
         let start = NSDate()
         
@@ -81,7 +81,7 @@ class Integration {
     
     :returns: The integral of f in the interval [a,b] with the given accuracy.
     */
-    class func trapezoid(a: Double, _ b: Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
+    public class func trapezoid(a: Double, _ b: Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
         
         let start = NSDate()
         
@@ -132,7 +132,7 @@ class Integration {
     
     :returns: The integral of f in the interval [a,b] with the given accuracy.
     */
-    class func simpson(a: Double, _ b: Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
+    public class func simpson(a: Double, _ b: Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
         
         let start = NSDate()
         
@@ -184,7 +184,7 @@ class Integration {
     
     :returns: The integral of f in the interval [a,b] with the given accuracy.
     */
-    class func adaptiveSimpson(a: Double, _ b: Double, error err: Double? = nil, _ f: (Double) -> Double) -> Double {
+    public class func adaptiveSimpson(a: Double, _ b: Double, error err: Double? = nil, _ f: (Double) -> Double) -> Double {
         
         let error = err ?? accuracy
         

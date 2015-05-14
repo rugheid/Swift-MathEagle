@@ -8,15 +8,15 @@
 
 import Foundation
 
-class Optimization {
+public class Optimization {
     
     
     //MARK: Parameters
-    static var accuracy = 1e-7
-    static var maxTime = 10.0
+    public static var accuracy = 1e-7
+    public static var maxTime = 10.0
     
     
-    class func goldenSection(a0: Double, _ b0: Double, k_max: Int = 100, error err: Double? = nil, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
+    public class func goldenSection(a0: Double, _ b0: Double, k_max: Int = 100, error err: Double? = nil, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
         
         let start = NSDate()
         

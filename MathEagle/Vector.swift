@@ -12,17 +12,17 @@ import Accelerate
 /**
     A generic class representing a vector with the given type.
 */
-class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, SequenceType, Printable {
+public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, SequenceType, Printable {
     
     /**
         Returns a list of all elements of the vector.
     */
-    var elements = [T]()
+    public var elements = [T]()
     
     /**
         Creates an empty vector. elements will be [], length will be 0.
     */
-    init() {}
+    public init() {}
     
     
     /**
@@ -30,7 +30,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     
         :param: elements An array containing the elements of the vector.
     */
-    init(_ elements: [T]) {
+    public init(_ elements: [T]) {
         
         self.elements = elements
     }
@@ -39,7 +39,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     /**
         Creates a vector from an array literal.
     */
-    required init(arrayLiteral elements: T...) {
+    public required init(arrayLiteral elements: T...) {
         
         self.elements = elements
     }
@@ -54,7 +54,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
         :param: length The number of elements the vector should have.
         :param: generator The generator used to generate the elements.
     */
-    init(length: Int, generator: (Int) -> T) {
+    public init(length: Int, generator: (Int) -> T) {
         
         self.elements = map(0..<length){ generator($0) }
     }
@@ -66,7 +66,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     
         :param: element The element to fill the vector with.
     */
-    convenience init(filledWith element: T, length: Int) {
+    public convenience init(filledWith element: T, length: Int) {
         
         self.init(length: length, generator: { _ in element })
     }
@@ -79,7 +79,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     
         :param: length The number of elements the vector should have.
     */
-    convenience init(randomWithLength length: Int) {
+    public convenience init(randomWithLength length: Int) {
         
         self.init(length: length, generator: { _ in T.random() })
     }
@@ -96,7 +96,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
         :param: intervals The intervals in which the random generated
                     elements may lie.
     */
-    convenience init(randomWithLength length: Int, intervals: ClosedInterval<T.RandomIntervalType>...) {
+    public convenience init(randomWithLength length: Int, intervals: ClosedInterval<T.RandomIntervalType>...) {
         
         self.init(length: length, generator: { _ in T.randomInInterval(intervals) })
     }
@@ -109,7 +109,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     
         :param: index The index of the element to get/set.
     */
-    subscript(index: Int) -> T {
+    public subscript(index: Int) -> T {
         
         get {
             
@@ -138,7 +138,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
         :param: indexRange A range representing the indices
                     of the subvector.
     */
-    subscript(indexRange: Range<Int>) -> Vector<T> {
+    public subscript(indexRange: Range<Int>) -> Vector<T> {
         
         if indexRange.startIndex < 0 {
             
@@ -166,7 +166,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     /**
         Returns a generator for the vector.
     */
-    func generate() -> VectorGenerator<T> {
+    public func generate() -> VectorGenerator<T> {
         
         return VectorGenerator(vector: self)
     }
@@ -178,7 +178,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     /**
         Returns a copy of the vector.
     */
-    var copy: Vector<T> {
+    public var copy: Vector<T> {
         
         return Vector(self.elements)
     }
@@ -188,7 +188,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     
         :example: [1, 2, 3]
     */
-    var description: String {
+    public var description: String {
         
         return self.elements.description
     }
@@ -196,7 +196,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     /**
         Returns the length, the number of elements.
     */
-    var length: Int {
+    public var length: Int {
         
         return self.elements.count
     }
@@ -205,7 +205,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
         Returns the 2-norm. This means
         sqrt(element_0^2 + element_1^2 + ... + element_n^2).
     */
-    var norm: T.PowerType {
+    public var norm: T.PowerType {
         
         if self.length == 0 {
             
@@ -231,7 +231,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
         conjugate a - bi. Non-complex values are left
         untouched.
     */
-    var conjugate: Vector<T> {
+    public var conjugate: Vector<T> {
         
         return vmap(self){ $0.conjugate }
     }
@@ -247,7 +247,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
         Returns whether the vector is empty. This means
         it doesn't contain any elements, so it's length equals zero.
     */
-    var isEmpty: Bool {
+    public var isEmpty: Bool {
         
         return self.length == 0
     }
@@ -256,7 +256,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     /**
         Returns whether the vector contains only zeros.
     */
-    var isZero: Bool {
+    public var isZero: Bool {
         
         for element in self {
             
@@ -279,7 +279,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     
         :returns: A scalar of the same type as the two vectors.
     */
-    func dotProduct(vector: Vector<T>) -> T {
+    public func dotProduct(vector: Vector<T>) -> T {
         
         return vectorDotProduct(self, vector)
     }
@@ -295,7 +295,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
         :returns: A square matrix of the same type as the two vectors with
                     size equal to the vector's length.
     */
-    func directProduct(vector: Vector<T>) -> Matrix<T> {
+    public func directProduct(vector: Vector<T>) -> Matrix<T> {
         
         return vectorDirectProduct(self, vector)
     }
@@ -310,7 +310,7 @@ class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Sequenc
     are of the same length and all elements at corresponding indices
     are equal.
 */
-func == <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Bool {
+public func == <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Bool {
     
     if left.length != right.length {
         
@@ -333,7 +333,7 @@ func == <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Bool {
 
     :exception: An exception is thrown when the two vectors are not of equal length.
 */
-func + <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
+public func + <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
     
     if left.length != right.length {
         
@@ -348,7 +348,7 @@ func + <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
 
     :exception: An exception is thrown when the two vectors are not of equal length.
 */
-func + (left: Vector<Float>, right: Vector<Float>) -> Vector<Float> {
+public func + (left: Vector<Float>, right: Vector<Float>) -> Vector<Float> {
     
     if left.length != right.length {
         
@@ -379,7 +379,7 @@ func + (left: Vector<Float>, right: Vector<Float>) -> Vector<Float> {
 
     :exception: An exception is thrown when the two vectors are not of equal length.
 */
-func + (left: Vector<Double>, right: Vector<Double>) -> Vector<Double> {
+public func + (left: Vector<Double>, right: Vector<Double>) -> Vector<Double> {
     
     if left.length != right.length {
         
@@ -424,7 +424,7 @@ func + (left: Vector<Double>, right: Vector<Double>) -> Vector<Double> {
     Returns the negation of the given vector. The given vector
     is left untouched.
 */
-prefix func - <T: MatrixCompatible> (vector: Vector<T>) -> Vector<T> {
+public prefix func - <T: MatrixCompatible> (vector: Vector<T>) -> Vector<T> {
     
     return vmap(vector){ -$0 }
 }
@@ -433,7 +433,7 @@ prefix func - <T: MatrixCompatible> (vector: Vector<T>) -> Vector<T> {
     Returns the negation of the given vector. The given vector
     is left untouched.
 */
-prefix func - (vector: Vector<Float>) -> Vector<Float> {
+public prefix func - (vector: Vector<Float>) -> Vector<Float> {
     
 //    var elements = [Float](count: vector.length, repeatedValue: 0)
 //    
@@ -452,7 +452,7 @@ prefix func - (vector: Vector<Float>) -> Vector<Float> {
     Returns the negation of the given vector. The given vector
     is left untouched.
 */
-prefix func - (vector: Vector<Double>) -> Vector<Double> {
+public prefix func - (vector: Vector<Double>) -> Vector<Double> {
     
 //    var elements = [Double](count: vector.length, repeatedValue: 0)
 //    
@@ -486,7 +486,7 @@ prefix func - (vector: Vector<Double>) -> Vector<Double> {
     :exception: An exception is thrown when the two vectors
                     are not of equal length.
 */
-func - <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
+public func - <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
     
     if left.length != right.length {
         
@@ -502,7 +502,7 @@ func - <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Vector<T> {
     :exception: An exception is thrown when the two vectors
     are not of equal length.
 */
-func - (left: Vector<Float>, right: Vector<Float>) -> Vector<Float> {
+public func - (left: Vector<Float>, right: Vector<Float>) -> Vector<Float> {
     
     if left.length != right.length {
         
@@ -534,7 +534,7 @@ func - (left: Vector<Float>, right: Vector<Float>) -> Vector<Float> {
     :exception: An exception is thrown when the two vectors
     are not of equal length.
 */
-func - (left: Vector<Double>, right: Vector<Double>) -> Vector<Double> {
+public func - (left: Vector<Double>, right: Vector<Double>) -> Vector<Double> {
     
     if left.length != right.length {
         
@@ -569,7 +569,7 @@ func - (left: Vector<Double>, right: Vector<Double>) -> Vector<Double> {
     vector is multiplied with the given scalar.
     The given vector is left untouched.
 */
-func * <T: MatrixCompatible> (scalar: T, vector: Vector<T>) -> Vector<T> {
+public func * <T: MatrixCompatible> (scalar: T, vector: Vector<T>) -> Vector<T> {
     
     var elements = vector.elements
     
@@ -587,7 +587,7 @@ func * <T: MatrixCompatible> (scalar: T, vector: Vector<T>) -> Vector<T> {
     vector is multiplied with the given scalar.
     The given vector is left untouched.
 */
-func * (scalar: Float, vector: Vector<Float>) -> Vector<Float> {
+public func * (scalar: Float, vector: Vector<Float>) -> Vector<Float> {
     
 //    var elements = [Float](count: vector.length, repeatedValue: 0)
 //    
@@ -608,7 +608,7 @@ func * (scalar: Float, vector: Vector<Float>) -> Vector<Float> {
     vector is multiplied with the given scalar.
     The given vector is left untouched.
 */
-func * (scalar: Double, vector: Vector<Double>) -> Vector<Double> {
+public func * (scalar: Double, vector: Vector<Double>) -> Vector<Double> {
     
 //    var elements = [Double](count: vector.length, repeatedValue: 0)
 //    
@@ -629,7 +629,7 @@ func * (scalar: Double, vector: Vector<Double>) -> Vector<Double> {
     vector is multiplied with the given scalar.
     The given vector is left untouched.
 */
-func * <T: MatrixCompatible> (vector: Vector<T>, scalar: T) -> Vector<T> {
+public func * <T: MatrixCompatible> (vector: Vector<T>, scalar: T) -> Vector<T> {
     
     return scalar * vector
 }
@@ -640,7 +640,7 @@ func * <T: MatrixCompatible> (vector: Vector<T>, scalar: T) -> Vector<T> {
     vector is multiplied with the given scalar.
     The given vector is left untouched.
 */
-func * (vector: Vector<Float>, scalar: Float) -> Vector<Float> {
+public func * (vector: Vector<Float>, scalar: Float) -> Vector<Float> {
     
     return scalar * vector
 }
@@ -651,7 +651,7 @@ func * (vector: Vector<Float>, scalar: Float) -> Vector<Float> {
     vector is multiplied with the given scalar.
     The given vector is left untouched.
 */
-func * (vector: Vector<Double>, scalar: Double) -> Vector<Double> {
+public func * (vector: Vector<Double>, scalar: Double) -> Vector<Double> {
     
     return scalar * vector
 }
@@ -664,7 +664,7 @@ func * (vector: Vector<Double>, scalar: Double) -> Vector<Double> {
     vector is divided by the given scalar.
     The given vector is left untouched.
 */
-func / <T: MatrixCompatible> (vector: Vector<T>, scalar: T) -> Vector<T> {
+public func / <T: MatrixCompatible> (vector: Vector<T>, scalar: T) -> Vector<T> {
     
     var elements = vector.elements
     
@@ -682,7 +682,7 @@ func / <T: MatrixCompatible> (vector: Vector<T>, scalar: T) -> Vector<T> {
     vector is divided by the given scalar.
     The given vector is left untouched.
 */
-func / (vector: Vector<Float>, scalar: Float) -> Vector<Float> {
+public func / (vector: Vector<Float>, scalar: Float) -> Vector<Float> {
     
     var elements = [Float](count: vector.length, repeatedValue: 0)
     
@@ -703,7 +703,7 @@ func / (vector: Vector<Float>, scalar: Float) -> Vector<Float> {
     vector is divided by the given scalar.
     The given vector is left untouched.
 */
-func / (vector: Vector<Double>, scalar: Double) -> Vector<Double> {
+public func / (vector: Vector<Double>, scalar: Double) -> Vector<Double> {
     
     var elements = [Double](count: vector.length, repeatedValue: 0)
     
@@ -729,7 +729,7 @@ func / (vector: Vector<Double>, scalar: Double) -> Vector<Double> {
     :exception: An exception will be thrown when the two vectors
                     are not of equal length.
 */
-func vectorDotProduct <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> T {
+public func vectorDotProduct <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> T {
     
     if left.length != right.length {
         
@@ -747,7 +747,7 @@ func vectorDotProduct <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) 
     :exception: An exception will be thrown when the two vectors
                     are not of equal length.
 */
-func vectorDotProduct(left: Vector<Float>, right: Vector<Float>) -> Float {
+public func vectorDotProduct(left: Vector<Float>, right: Vector<Float>) -> Float {
     
     if left.length != right.length {
         
@@ -769,7 +769,7 @@ func vectorDotProduct(left: Vector<Float>, right: Vector<Float>) -> Float {
     :exception: An exception will be thrown when the two vectors
                     are not of equal length.
 */
-func vectorDotProduct(left: Vector<Double>, right: Vector<Double>) -> Double {
+public func vectorDotProduct(left: Vector<Double>, right: Vector<Double>) -> Double {
     
     if left.length != right.length {
         
@@ -796,7 +796,7 @@ func vectorDotProduct(left: Vector<Double>, right: Vector<Double>) -> Double {
     :exception: An exception will be thrown when the two
                     given vectors are not of equal length.
 */
-func * <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Matrix<T> {
+public func * <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Matrix<T> {
     
     return vectorDirectProduct(left, right)
 }
@@ -810,7 +810,7 @@ func * <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Matrix<T> {
     :exception: An exception will be thrown when the two
                     given vectors are not of equal length.
 */
-func * (left: Vector<Float>, right: Vector<Float>) -> Matrix<Float> {
+public func * (left: Vector<Float>, right: Vector<Float>) -> Matrix<Float> {
     
     return vectorDirectProduct(left, right)
 }
@@ -824,7 +824,7 @@ func * (left: Vector<Float>, right: Vector<Float>) -> Matrix<Float> {
     :exception: An exception will be thrown when the two
                     given vectors are not of equal length.
 */
-func * (left: Vector<Double>, right: Vector<Double>) -> Matrix<Double> {
+public func * (left: Vector<Double>, right: Vector<Double>) -> Matrix<Double> {
     
     return vectorDirectProduct(left, right)
 }
@@ -838,7 +838,7 @@ func * (left: Vector<Double>, right: Vector<Double>) -> Matrix<Double> {
     :exception: An exception will be thrown when the two
                     given vectors are not of equal length.
 */
-func vectorDirectProduct <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Matrix<T> {
+public func vectorDirectProduct <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Matrix<T> {
     
     if left.length != right.length {
         
@@ -857,7 +857,7 @@ func vectorDirectProduct <T: MatrixCompatible> (left: Vector<T>, right: Vector<T
     :exception: An exception will be thrown when the two
                     given vectors are not of equal length.
 */
-func vectorDirectProduct(left: Vector<Float>, right: Vector<Float>) -> Matrix<Float> {
+public func vectorDirectProduct(left: Vector<Float>, right: Vector<Float>) -> Matrix<Float> {
     
     if left.length != right.length {
         
@@ -884,7 +884,7 @@ func vectorDirectProduct(left: Vector<Float>, right: Vector<Float>) -> Matrix<Fl
     :exception: An exception will be thrown when the two
                     given vectors are not of equal length.
 */
-func vectorDirectProduct(left: Vector<Double>, right: Vector<Double>) -> Matrix<Double> {
+public func vectorDirectProduct(left: Vector<Double>, right: Vector<Double>) -> Matrix<Double> {
     
     if left.length != right.length {
         
@@ -914,7 +914,7 @@ func vectorDirectProduct(left: Vector<Double>, right: Vector<Double>) -> Matrix<
     :param: transform The function used to transform
                 the elements in the given vector.
 */
-func vmap <T: MatrixCompatible, U: MatrixCompatible> (vector: Vector<T>, transform: (T) -> U) -> Vector<U> {
+public func vmap <T: MatrixCompatible, U: MatrixCompatible> (vector: Vector<T>, transform: (T) -> U) -> Vector<U> {
     
     return Vector(map(vector.elements, transform))
 }
@@ -934,7 +934,7 @@ func vmap <T: MatrixCompatible, U: MatrixCompatible> (vector: Vector<T>, transfo
     :param: combine The function used to combine two
                 values and reduce the vector.
 */
-func vreduce <T: MatrixCompatible, U> (vector: Vector<T>, initial: U, combine: (U, T) -> U) -> U {
+public func vreduce <T: MatrixCompatible, U> (vector: Vector<T>, initial: U, combine: (U, T) -> U) -> U {
     
     return reduce(vector.elements, initial, combine)
 }
@@ -962,7 +962,7 @@ func vreduce <T: MatrixCompatible, U> (vector: Vector<T>, initial: U, combine: (
                     two given vectors are not of equal
                     length.
 */
-func vcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (left: Vector<T>, right: Vector<U>, combine: (T, U) -> V) -> Vector<V> {
+public func vcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (left: Vector<T>, right: Vector<U>, combine: (T, U) -> V) -> Vector<V> {
     
     if left.length != right.length {
         
@@ -991,7 +991,7 @@ func vcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (l
                 ascending order, otherwise it's sorted in
                 descending order.
 */
-func vsort <T: MatrixCompatible> (inout vector: Vector<T>, ascending: Bool = true) {
+public func vsort <T: MatrixCompatible> (inout vector: Vector<T>, ascending: Bool = true) {
     
     vector.elements.sort(){ ascending ? $0 < $1 : $0 > $1 }
 }
@@ -1007,7 +1007,7 @@ func vsort <T: MatrixCompatible> (inout vector: Vector<T>, ascending: Bool = tru
     A struct representing a vector generator. This is used to
     iterate over the vector.
 */
-struct VectorGenerator <T: MatrixCompatible> : GeneratorType {
+public struct VectorGenerator <T: MatrixCompatible> : GeneratorType {
     
     /**
         The generator of the elements array of the vector.
@@ -1019,7 +1019,7 @@ struct VectorGenerator <T: MatrixCompatible> : GeneratorType {
     
         :param: vector The vector the generator should iterate over.
     */
-    init(vector: Vector<T>) {
+    public init(vector: Vector<T>) {
         
         self.generator = vector.elements.generate()
     }
@@ -1028,7 +1028,7 @@ struct VectorGenerator <T: MatrixCompatible> : GeneratorType {
         Returns the next element in the vector if there is any.
         Otherwise nil is returned.
     */
-    mutating func next() -> T? {
+    public mutating func next() -> T? {
         return self.generator.next()
     }
 }

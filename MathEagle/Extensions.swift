@@ -16,12 +16,12 @@ extension Double {
     
     // MARK: Basic Properties
     
-    var isNegative: Bool {
+    public var isNegative: Bool {
         
         return self < 0
     }
     
-    var isPositive: Bool {
+    public var isPositive: Bool {
         
         return self >= 0
     }
@@ -29,12 +29,12 @@ extension Double {
     
     // MARK: Set Compliance
     
-    var isNatural: Bool {
+    public var isNatural: Bool {
         
         return self % 1.0 == 0.0 && self >= 0.0
     }
     
-    var isInteger: Bool {
+    public var isInteger: Bool {
         
         return self % 1.0 == 0.0
     }
@@ -42,7 +42,7 @@ extension Double {
     
     // MARK: Fuzzy Equals
     
-    func equals(x: Double, accuracy: Double) -> Bool {
+    public func equals(x: Double, accuracy: Double) -> Bool {
         
         let absSelf = abs(self)
         let absX = abs(x)
@@ -63,12 +63,12 @@ extension Float {
     
     // MARK: Basic Properties
     
-    var isNegative: Bool {
+    public var isNegative: Bool {
         
         return self < 0
     }
     
-    var isPositive: Bool {
+    public var isPositive: Bool {
         
         return self >= 0
     }
@@ -76,12 +76,12 @@ extension Float {
     
     // MARK: Set Compliance
     
-    var isNatural: Bool {
+    public var isNatural: Bool {
         
         return self % 1.0 == 0.0 && self >= 0.0
     }
     
-    var isInteger: Bool {
+    public var isInteger: Bool {
         
         return self % 1.0 == 0.0
     }
@@ -96,12 +96,12 @@ extension Int {
     
     // MARK: Basic Properties
     
-    var isNegative: Bool {
+    public var isNegative: Bool {
         
         return self < 0
     }
     
-    var isPositive: Bool {
+    public var isPositive: Bool {
         
         return self >= 0
     }
@@ -109,12 +109,12 @@ extension Int {
     
     // MARK: Set Compliance
     
-    var isNatural: Bool {
+    public var isNatural: Bool {
         
         return !self.isNegative
     }
     
-    var isInteger: Bool {
+    public var isInteger: Bool {
         
         return true
     }
@@ -129,12 +129,12 @@ extension Int8 {
     
     // MARK: Basic Properties
     
-    var isNegative: Bool {
+    public var isNegative: Bool {
         
         return self < 0
     }
     
-    var isPositive: Bool {
+    public var isPositive: Bool {
         
         return self >= 0
     }
@@ -142,12 +142,12 @@ extension Int8 {
     
     // MARK: Set Compliance
     
-    var isNatural: Bool {
+    public var isNatural: Bool {
         
         return !self.isNegative
     }
     
-    var isInteger: Bool {
+    public var isInteger: Bool {
         
         return true
     }
@@ -162,12 +162,12 @@ extension Int16 {
     
     // MARK: Basic Properties
     
-    var isNegative: Bool {
+    public var isNegative: Bool {
         
         return self < 0
     }
     
-    var isPositive: Bool {
+    public var isPositive: Bool {
         
         return self >= 0
     }
@@ -175,12 +175,12 @@ extension Int16 {
     
     // MARK: Set Compliance
     
-    var isNatural: Bool {
+    public var isNatural: Bool {
         
         return !self.isNegative
     }
     
-    var isInteger: Bool {
+    public var isInteger: Bool {
         
         return true
     }
@@ -195,12 +195,12 @@ extension Int32 {
     
     // MARK: Basic Properties
     
-    var isNegative: Bool {
+    public var isNegative: Bool {
         
         return self < 0
     }
     
-    var isPositive: Bool {
+    public var isPositive: Bool {
         
         return self >= 0
     }
@@ -208,12 +208,12 @@ extension Int32 {
     
     // MARK: Set Compliance
     
-    var isNatural: Bool {
+    public var isNatural: Bool {
         
         return !self.isNegative
     }
     
-    var isInteger: Bool {
+    public var isInteger: Bool {
         
         return true
     }
@@ -228,12 +228,12 @@ extension Int64 {
     
     // MARK: Basic Properties
     
-    var isNegative: Bool {
+    public var isNegative: Bool {
         
         return self < 0
     }
     
-    var isPositive: Bool {
+    public var isPositive: Bool {
         
         return self >= 0
     }
@@ -241,12 +241,12 @@ extension Int64 {
     
     // MARK: Set Compliance
     
-    var isNatural: Bool {
+    public var isNatural: Bool {
         
         return !self.isNegative
     }
     
-    var isInteger: Bool {
+    public var isInteger: Bool {
         
         return true
     }
@@ -261,12 +261,12 @@ extension UInt {
     
     // MARK: Basic Properties
     
-    var isNegative: Bool {
+    public var isNegative: Bool {
         
         return false
     }
     
-    var isPositive: Bool {
+    public var isPositive: Bool {
         
         return true
     }
@@ -274,12 +274,12 @@ extension UInt {
     
     // MARK: Set Compliance
     
-    var isNatural: Bool {
+    public var isNatural: Bool {
         
         return true
     }
     
-    var isInteger: Bool {
+    public var isInteger: Bool {
         
         return true
     }
@@ -294,12 +294,12 @@ extension UInt8 {
     
     // MARK: Basic Properties
     
-    var isNegative: Bool {
+    public var isNegative: Bool {
         
         return false
     }
     
-    var isPositive: Bool {
+    public var isPositive: Bool {
         
         return true
     }
@@ -307,12 +307,12 @@ extension UInt8 {
     
     // MARK: Set Compliance
     
-    var isNatural: Bool {
+    public var isNatural: Bool {
         
         return true
     }
     
-    var isInteger: Bool {
+    public var isInteger: Bool {
         
         return true
     }
@@ -327,12 +327,12 @@ extension UInt16 {
     
     // MARK: Basic Properties
     
-    var isNegative: Bool {
+    public var isNegative: Bool {
         
         return false
     }
     
-    var isPositive: Bool {
+    public var isPositive: Bool {
         
         return true
     }
@@ -340,12 +340,12 @@ extension UInt16 {
     
     // MARK: Set Compliance
     
-    var isNatural: Bool {
+    public var isNatural: Bool {
         
         return true
     }
     
-    var isInteger: Bool {
+    public var isInteger: Bool {
         
         return true
     }
@@ -360,12 +360,12 @@ extension UInt32 {
     
     // MARK: Basic Properties
     
-    var isNegative: Bool {
+    public var isNegative: Bool {
         
         return false
     }
     
-    var isPositive: Bool {
+    public var isPositive: Bool {
         
         return true
     }
@@ -373,12 +373,12 @@ extension UInt32 {
     
     // MARK: Set Compliance
     
-    var isNatural: Bool {
+    public var isNatural: Bool {
         
         return true
     }
     
-    var isInteger: Bool {
+    public var isInteger: Bool {
         
         return true
     }
@@ -393,12 +393,12 @@ extension UInt64 {
     
     // MARK: Basic Properties
     
-    var isNegative: Bool {
+    public var isNegative: Bool {
         
         return false
     }
     
-    var isPositive: Bool {
+    public var isPositive: Bool {
         
         return true
     }
@@ -406,12 +406,12 @@ extension UInt64 {
     
     // MARK: Set Compliance
     
-    var isNatural: Bool {
+    public var isNatural: Bool {
         
         return true
     }
     
-    var isInteger: Bool {
+    public var isInteger: Bool {
         
         return true
     }

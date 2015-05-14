@@ -51,7 +51,7 @@ let GELFOND_SCHNEIDER = 2.665144142690225188650297
 
 // MARK: Addable Protocol
 
-protocol Addable {
+public protocol Addable {
     
     func + (left: Self, right: Self) -> Self
 }
@@ -59,31 +59,31 @@ protocol Addable {
 
 // MARK: Negatable Protocol
 
-protocol Negatable {
+public protocol Negatable {
     
     prefix func - (instance: Self) -> Self
 }
 
-prefix func - (x: UInt) -> UInt {
+public prefix func - (x: UInt) -> UInt {
     return x
 }
-prefix func - (x: UInt8) -> UInt8 {
+public prefix func - (x: UInt8) -> UInt8 {
     return x
 }
-prefix func - (x: UInt16) -> UInt16 {
+public prefix func - (x: UInt16) -> UInt16 {
     return x
 }
-prefix func - (x: UInt32) -> UInt32 {
+public prefix func - (x: UInt32) -> UInt32 {
     return x
 }
-prefix func - (x: UInt64) -> UInt64 {
+public prefix func - (x: UInt64) -> UInt64 {
     return x
 }
 
 
 // MARK: Substractable Protocol
 
-protocol Substractable {
+public protocol Substractable {
     
     func - (left: Self, right: Self) -> Self
 }
@@ -91,7 +91,7 @@ protocol Substractable {
 
 // MARK: Multiplicable Protocol
 
-protocol Multiplicable {
+public protocol Multiplicable {
     
     func * (left: Self, right: Self) -> Self
 }
@@ -99,7 +99,7 @@ protocol Multiplicable {
 
 // MARK: Dividable Protocol
 
-protocol Dividable {
+public protocol Dividable {
     
     func / (left: Self, right: Self) -> Self
 }
@@ -107,7 +107,7 @@ protocol Dividable {
 
 // MARK: Modulable Protocol
 
-protocol Modulable {
+public protocol Modulable {
     
     func % (left: Self, right: Self) -> Self
 }
@@ -117,70 +117,70 @@ protocol Modulable {
 
 infix operator ** {associativity left precedence 160}
 
-protocol Powerable {
+public protocol Powerable {
     
     typealias PowerType
     func ** (left: Self, right: Double) -> PowerType
     init(PowerType)
 }
 
-func ** (left: Double, right: Double) -> Double {
+public func ** (left: Double, right: Double) -> Double {
     
     return pow(left, right)
 }
-func ** (left: Double, right: Int) -> Double {
+public func ** (left: Double, right: Int) -> Double {
     
     return pow(left, Double(right))
 }
-func ** (left: Float, right: Float) -> Float {
+public func ** (left: Float, right: Float) -> Float {
     
     return pow(left, right)
 }
-func ** (left: Float, right: Double) -> Double {
+public func ** (left: Float, right: Double) -> Double {
     
     return pow(Double(left), right)
 }
-func ** (left: Double, right: Float) -> Double {
+public func ** (left: Double, right: Float) -> Double {
     
     return pow(left, Double(right))
 }
-func ** (left: Int, right: Double) -> Double {
+public func ** (left: Int, right: Double) -> Double {
     
     return pow(Double(left), right)
 }
-func ** (left: Int8, right: Double) -> Double {
+public func ** (left: Int8, right: Double) -> Double {
     
     return pow(Double(left), right)
 }
-func ** (left: Int16, right: Double) -> Double {
+public func ** (left: Int16, right: Double) -> Double {
     
     return pow(Double(left), right)
 }
-func ** (left: Int32, right: Double) -> Double {
+public func ** (left: Int32, right: Double) -> Double {
     
     return pow(Double(left), right)
 }
-func ** (left: Int64, right: Double) -> Double {
+public func ** (left: Int64, right: Double) -> Double {
     
     return pow(Double(left), right)
 }
-func ** (left: UInt, right: Double) -> Double {
+public func ** (left: UInt, right: Double) -> Double {
     
     return pow(Double(left), right)
 }
-func ** (left: UInt8, right: Double) -> Double {
+public func ** (left: UInt8, right: Double) -> Double {
     
     return pow(Double(left), right)
 }
-func ** (left: UInt16, right: Double) -> Double {
+public func ** (left: UInt16, right: Double) -> Double {
     
     return pow(Double(left), right)
 }
-func ** (left: UInt32, right: Double) -> Double {
+public func ** (left: UInt32, right: Double) -> Double {
     
     return pow(Double(left), right)
 }
-func ** (left: UInt64, right: Double) -> Double {
+public func ** (left: UInt64, right: Double) -> Double {
     
     return pow(Double(left), right)
 }
@@ -188,7 +188,7 @@ func ** (left: UInt64, right: Double) -> Double {
 
 // MARK: SetCompliant Protocol
 
-protocol SetCompliant {
+public protocol SetCompliant {
     
     var isNatural: Bool { get }
     var isInteger: Bool { get }
@@ -197,58 +197,58 @@ protocol SetCompliant {
 
 // MARK: Conjugatable Protocol
 
-protocol Conjugatable {
+public protocol Conjugatable {
     
-    var conjugate: Self { get }
+     var conjugate: Self { get }
 }
 
-extension Int: Conjugatable {
+ extension Int: Conjugatable {
     
-    var conjugate: Int { return self }
+    public var conjugate: Int { return self }
 }
 extension Int8: Conjugatable {
     
-    var conjugate: Int8 { return self }
+    public var conjugate: Int8 { return self }
 }
 extension Int16: Conjugatable {
     
-    var conjugate: Int16 { return self }
+    public var conjugate: Int16 { return self }
 }
 extension Int32: Conjugatable {
     
-    var conjugate: Int32 { return self }
+    public var conjugate: Int32 { return self }
 }
 extension Int64: Conjugatable {
     
-    var conjugate: Int64 { return self }
+    public var conjugate: Int64 { return self }
 }
 extension UInt: Conjugatable {
     
-    var conjugate: UInt { return self }
+    public var conjugate: UInt { return self }
 }
 extension UInt8: Conjugatable {
     
-    var conjugate: UInt8 { return self }
+    public var conjugate: UInt8 { return self }
 }
 extension UInt16: Conjugatable {
     
-    var conjugate: UInt16 { return self }
+    public var conjugate: UInt16 { return self }
 }
 extension UInt32: Conjugatable {
     
-    var conjugate: UInt32 { return self }
+    public var conjugate: UInt32 { return self }
 }
 extension UInt64: Conjugatable {
     
-    var conjugate: UInt64 { return self }
+    public var conjugate: UInt64 { return self }
 }
 extension Float: Conjugatable {
     
-    var conjugate: Float { return self }
+    public var conjugate: Float { return self }
 }
 extension Double: Conjugatable {
     
-    var conjugate: Double { return self }
+    public var conjugate: Double { return self }
 }
 
 
@@ -257,7 +257,7 @@ extension Double: Conjugatable {
 // MARK: Randomizable Protocol
 // This protocol had it's own file, but this gave duplicate symbol errors...
 
-protocol Randomizable {
+public protocol Randomizable {
     
     typealias RandomIntervalType: Comparable
     static func random() -> Self
@@ -267,18 +267,18 @@ protocol Randomizable {
 
 extension UInt: Randomizable {
     
-    static func random() -> UInt {
+    public static func random() -> UInt {
         
         let mult = UInt(arc4random())
         return UInt(arc4random_uniform(UInt32.max)) + mult * UInt(UInt32.max)
     }
     
-    static func randomInInterval(intervals: ClosedInterval<UInt>...) -> UInt {
+    public static func randomInInterval(intervals: ClosedInterval<UInt>...) -> UInt {
     
         return self.randomInInterval(intervals)
     }
     
-    static func randomInInterval(intervals: [ClosedInterval<UInt>]) -> UInt {
+    public static func randomInInterval(intervals: [ClosedInterval<UInt>]) -> UInt {
         
         let interval = intervals[0]
         let length = interval.end - interval.start
@@ -295,17 +295,17 @@ extension UInt: Randomizable {
 
 extension UInt8: Randomizable {
     
-    static func random() -> UInt8 {
+    public static func random() -> UInt8 {
         
         return UInt8(arc4random_uniform(UInt32(UInt8.max)+1))
     }
     
-    static func randomInInterval(intervals: ClosedInterval<UInt8>...) -> UInt8 {
+    public static func randomInInterval(intervals: ClosedInterval<UInt8>...) -> UInt8 {
     
         return randomInInterval(intervals)
     }
     
-    static func randomInInterval(intervals: [ClosedInterval<UInt8>]) -> UInt8 {
+    public static func randomInInterval(intervals: [ClosedInterval<UInt8>]) -> UInt8 {
         
         let interval = intervals[0]
         let length = interval.end - interval.start
@@ -316,17 +316,17 @@ extension UInt8: Randomizable {
 
 extension UInt16: Randomizable {
     
-    static func random() -> UInt16 {
+    public static func random() -> UInt16 {
         
         return UInt16(arc4random_uniform(UInt32(UInt16.max)+1))
     }
     
-    static func randomInInterval(intervals: ClosedInterval<UInt16>...) -> UInt16 {
+    public static func randomInInterval(intervals: ClosedInterval<UInt16>...) -> UInt16 {
     
         return randomInInterval(intervals)
     }
     
-    static func randomInInterval(intervals: [ClosedInterval<UInt16>]) -> UInt16 {
+    public static func randomInInterval(intervals: [ClosedInterval<UInt16>]) -> UInt16 {
         
         return 0
     }
@@ -334,17 +334,17 @@ extension UInt16: Randomizable {
 
 extension UInt32: Randomizable {
     
-    static func random() -> UInt32 {
+    public static func random() -> UInt32 {
         
         return arc4random()
     }
     
-    static func randomInInterval(intervals: ClosedInterval<UInt32>...) -> UInt32 {
+    public static func randomInInterval(intervals: ClosedInterval<UInt32>...) -> UInt32 {
     
         return randomInInterval(intervals)
     }
     
-    static func randomInInterval(intervals: [ClosedInterval<UInt32>]) -> UInt32 {
+    public static func randomInInterval(intervals: [ClosedInterval<UInt32>]) -> UInt32 {
         
         let interval = intervals[0]
         let length = interval.end - interval.start
@@ -354,17 +354,17 @@ extension UInt32: Randomizable {
 
 extension UInt64: Randomizable {
     
-    static func random() -> UInt64 {
+    public static func random() -> UInt64 {
         
         return UInt64(UInt.random())
     }
     
-    static func randomInInterval(intervals: ClosedInterval<UInt64>...) -> UInt64 {
+    public static func randomInInterval(intervals: ClosedInterval<UInt64>...) -> UInt64 {
     
         return randomInInterval(intervals)
     }
     
-    static func randomInInterval(intervals: [ClosedInterval<UInt64>]) -> UInt64 {
+    public static func randomInInterval(intervals: [ClosedInterval<UInt64>]) -> UInt64 {
         
         return UInt64(UInt.randomInInterval(map(intervals){ ClosedInterval(UInt($0.start), UInt($0.end)) }))
     }
@@ -372,19 +372,19 @@ extension UInt64: Randomizable {
 
 extension Int: Randomizable {
     
-    static func random() -> Int {
+    public static func random() -> Int {
         
         return Int(bitPattern: UInt.random())
     }
     
-    static func randomInInterval(intervals: ClosedInterval<Int>...) -> Int {
+    public static func randomInInterval(intervals: ClosedInterval<Int>...) -> Int {
     
         let interval = intervals[0]
         let length = interval.end - interval.start
         return Int(UInt.randomInInterval(ClosedInterval<UInt>(0, UInt(length))))
     }
     
-    static func randomInInterval(intervals: [ClosedInterval<Int>]) -> Int {
+    public static func randomInInterval(intervals: [ClosedInterval<Int>]) -> Int {
         
         let interval = intervals[0]
         let length = interval.end - interval.start
@@ -394,17 +394,17 @@ extension Int: Randomizable {
 
 extension Int8: Randomizable {
     
-    static func random() -> Int8 {
+    public static func random() -> Int8 {
         
         return Int8(Int.randomInInterval(ClosedInterval(0, Int(Int8.max))))
     }
     
-    static func randomInInterval(intervals: ClosedInterval<Int8>...) -> Int8 {
+    public static func randomInInterval(intervals: ClosedInterval<Int8>...) -> Int8 {
         
         return randomInInterval(intervals)
     }
     
-    static func randomInInterval(intervals: [ClosedInterval<Int8>]) -> Int8 {
+    public static func randomInInterval(intervals: [ClosedInterval<Int8>]) -> Int8 {
         
         return Int8(Int.randomInInterval(map(intervals){ ClosedInterval(Int($0.start), Int($0.end)) }))
     }
@@ -412,17 +412,17 @@ extension Int8: Randomizable {
 
 extension Int16: Randomizable {
     
-    static func random() -> Int16 {
+    public static func random() -> Int16 {
         
         return Int16(Int.randomInInterval(ClosedInterval(0, Int(Int16.max))))
     }
     
-    static func randomInInterval(intervals: ClosedInterval<Int16>...) -> Int16 {
+    public static func randomInInterval(intervals: ClosedInterval<Int16>...) -> Int16 {
     
         return randomInInterval(intervals)
     }
     
-    static func randomInInterval(intervals: [ClosedInterval<Int16>]) -> Int16 {
+    public static func randomInInterval(intervals: [ClosedInterval<Int16>]) -> Int16 {
         
         return Int16(Int.randomInInterval(map(intervals){ ClosedInterval(Int($0.start), Int($0.end)) }))
     }
@@ -430,17 +430,17 @@ extension Int16: Randomizable {
 
 extension Int32: Randomizable {
     
-    static func random() -> Int32 {
+    public static func random() -> Int32 {
         
         return Int32(Int.randomInInterval(ClosedInterval(0, Int(Int32.max))))
     }
     
-    static func randomInInterval(intervals: ClosedInterval<Int32>...) -> Int32 {
+    public static func randomInInterval(intervals: ClosedInterval<Int32>...) -> Int32 {
     
         return randomInInterval(intervals)
     }
     
-    static func randomInInterval(intervals: [ClosedInterval<Int32>]) -> Int32 {
+    public static func randomInInterval(intervals: [ClosedInterval<Int32>]) -> Int32 {
         
         return Int32(Int.randomInInterval(map(intervals){ ClosedInterval(Int($0.start), Int($0.end)) }))
     }
@@ -448,17 +448,17 @@ extension Int32: Randomizable {
 
 extension Int64: Randomizable {
     
-    static func random() -> Int64 {
+    public static func random() -> Int64 {
         
         return Int64(Int.random())
     }
     
-    static func randomInInterval(intervals: ClosedInterval<Int64>...) -> Int64 {
+    public static func randomInInterval(intervals: ClosedInterval<Int64>...) -> Int64 {
     
         return randomInInterval(intervals)
     }
     
-    static func randomInInterval(intervals: [ClosedInterval<Int64>]) -> Int64 {
+    public static func randomInInterval(intervals: [ClosedInterval<Int64>]) -> Int64 {
         
         return Int64(Int.randomInInterval(map(intervals){ ClosedInterval(Int($0.start), Int($0.end)) }))
     }
@@ -466,18 +466,18 @@ extension Int64: Randomizable {
 
 extension Float: Randomizable {
     
-    static func random() -> Float {
+    public static func random() -> Float {
         
         let sign: Float = arc4random_uniform(2) == 0 ? 1 : -1
         return Float(arc4random()) * sign
     }
     
-    static func randomInInterval(intervals: ClosedInterval<Float>...) -> Float {
+    public static func randomInInterval(intervals: ClosedInterval<Float>...) -> Float {
     
         return randomInInterval(intervals)
     }
     
-    static func randomInInterval(intervals: [ClosedInterval<Float>]) -> Float {
+    public static func randomInInterval(intervals: [ClosedInterval<Float>]) -> Float {
         
         let interval = intervals[0]
         let length = interval.end - interval.start
@@ -488,18 +488,18 @@ extension Float: Randomizable {
 
 extension Double: Randomizable {
     
-    static func random() -> Double {
+    public static func random() -> Double {
         
         let sign: Double = arc4random_uniform(2) == 0 ? 1 : -1
         return Double(arc4random()) * sign
     }
     
-    static func randomInInterval(intervals: ClosedInterval<Double>...) -> Double {
+    public static func randomInInterval(intervals: ClosedInterval<Double>...) -> Double {
     
         return randomInInterval(intervals)
     }
     
-    static func randomInInterval(intervals: [ClosedInterval<Double>]) -> Double {
+    public static func randomInInterval(intervals: [ClosedInterval<Double>]) -> Double {
         
         return 0
     }
@@ -510,12 +510,12 @@ extension Double: Randomizable {
 
 // MARK: BasicMathValue Protocol
 
-protocol BasicMathValue: Equatable, Comparable, Addable, Substractable, Multiplicable, Dividable, SetCompliant, IntegerLiteralConvertible {}
+public protocol BasicMathValue: Equatable, Comparable, Addable, Substractable, Multiplicable, Dividable, SetCompliant, IntegerLiteralConvertible {}
 
 
 // MARK: FullMathValue Protocol
 
-protocol FullMathValue: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, IntegerLiteralConvertible {}
+public protocol FullMathValue: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, IntegerLiteralConvertible {}
 
 
 // MARK: Basic Type Protocol Adoptions

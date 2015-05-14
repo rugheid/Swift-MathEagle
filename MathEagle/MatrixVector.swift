@@ -11,7 +11,7 @@ import Foundation
 // MARK: Vector - Matrix Product
 
 
-func * <T: MatrixCompatible> (left: Vector<T>, right: Matrix<T>) -> Vector<T> {
+public func * <T: MatrixCompatible> (left: Vector<T>, right: Matrix<T>) -> Vector<T> {
     
     if left.length != right.dimensions.rows {
         
@@ -34,7 +34,7 @@ func * <T: MatrixCompatible> (left: Vector<T>, right: Matrix<T>) -> Vector<T> {
 }
 
 
-func * <T: MatrixCompatible> (left: Matrix<T>, right: Vector<T>) -> Vector<T> {
+public func * <T: MatrixCompatible> (left: Matrix<T>, right: Vector<T>) -> Vector<T> {
     
     if right.length != left.dimensions.columns {
         

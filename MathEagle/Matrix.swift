@@ -9,12 +9,12 @@
 import Foundation
 import Accelerate
 
-protocol MatrixCompatible: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, Conjugatable, Randomizable, IntegerLiteralConvertible {}
+public protocol MatrixCompatible: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, Conjugatable, Randomizable, IntegerLiteralConvertible {}
 
 /**
     A generic class representing a 2-dimensional matrix of the given type.
 */
-class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printable, SequenceType {
+public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printable, SequenceType {
     
     
     // MARK: Internal Elements
@@ -23,12 +23,12 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         Returns a row major ordered list of all elements in the array.
         This should be used for high performance applications.
     */
-    var elementsList: [T] = []
+    public var elementsList: [T] = []
     
     /**
         Returns the dimensions of matrix.
     */
-    var dimensions: Dimensions = Dimensions(0, 0)
+    public var dimensions: Dimensions = Dimensions(0, 0)
     
     /**
         Returns or sets a 2 dimensional array containing the elements of the matrix.
@@ -37,7 +37,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         :performance: This method scales O(n*m) for an nxm matrix, so elementsList should be used for
                         high performance applications.
     */
-    var elements: [[T]] {
+    public var elements: [[T]] {
         
         get {
             var elements = [[T]]()
@@ -84,7 +84,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         Creates an empty matrix with elements [[]]. The dimensions
         will be (0, 0).
     */
-    init() {}
+    public init() {}
     
     
     /**
@@ -94,7 +94,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
                     in this array should be an array representing
                     a row in the matrix.
     */
-    init(_ elements: [[T]]) {
+    public init(_ elements: [[T]]) {
     
         self.elements = elements
     }
@@ -107,7 +107,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
                     in this array should be an array representing
                     a row in the matrix.
     */
-    required init(arrayLiteral elements: [T]...) {
+    public required init(arrayLiteral elements: [T]...) {
         
         self.elements = elements
     }
@@ -125,7 +125,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
                         of elements in the elementsList is not
                         a multiple of rows.
     */
-    init(elementsList: [T], rows: Int) {
+    public init(elementsList: [T], rows: Int) {
         
         if elementsList.count % rows != 0 {
             NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not a multiple of rows.", userInfo: nil).raise()
@@ -148,7 +148,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
                         of elements in the elementsList is not
                         a multiple of columns.
     */
-    init(elementsList: [T], columns: Int) {
+    public init(elementsList: [T], columns: Int) {
         
         if elementsList.count % columns != 0 {
             NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not a multiple of columns.", userInfo: nil).raise()
@@ -171,7 +171,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
                         of elements in the elementsList is not
                         equal to the product of the dimensions.
     */
-    init(elementsList: [T], dimensions: Dimensions) {
+    public init(elementsList: [T], dimensions: Dimensions) {
         
         if elementsList.count != dimensions.product {
             NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not equal to the product of the dimensions.", userInfo: nil).raise()
@@ -191,7 +191,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
                     This function is called for every element passing
                     the index of the element.
     */
-    init(dimensions: Dimensions, generator: (Index) -> T) {
+    public init(dimensions: Dimensions, generator: (Index) -> T) {
         
         self.elementsList = []
         self.dimensions = dimensions
@@ -212,7 +212,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
                                 This function is called for every element
                                 passing the index of the element.
     */
-    convenience init(size: Int, generator: (Index) -> T) {
+    public convenience init(size: Int, generator: (Index) -> T) {
         
         self.init(dimensions: Dimensions(size, size), generator: generator)
     }
@@ -227,7 +227,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :param: dimensions  The dimensions the matrix should have.
     */
-    convenience init(randomWithDimensions dimensions: Dimensions) {
+    public convenience init(randomWithDimensions dimensions: Dimensions) {
         
         self.init(dimensions: dimensions, generator: { i in T.random() })
     }
@@ -242,7 +242,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :param: size    The size the matrix should have.
     */
-    convenience init(randomWithSize size: Int) {
+    public convenience init(randomWithSize size: Int) {
         
         self.init(randomWithDimensions: Dimensions(size, size))
     }
@@ -263,7 +263,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
                                 for the real part and the second interval represents
                                 the interval for the imaginary part.
     */
-    convenience init(randomWithDimensions dimensions: Dimensions, intervals: ClosedInterval<T.RandomIntervalType>...) {
+    public convenience init(randomWithDimensions dimensions: Dimensions, intervals: ClosedInterval<T.RandomIntervalType>...) {
         
         self.init(dimensions: dimensions, generator: { i in T.randomInInterval(intervals) })
     }
@@ -284,13 +284,13 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
                                 for the real part and the second interval represents
                                 the interval for the imaginary part.
     */
-    convenience init(randomWithSize size: Int, intervals: ClosedInterval<T.RandomIntervalType>...) {
+    public convenience init(randomWithSize size: Int, intervals: ClosedInterval<T.RandomIntervalType>...) {
         
         self.init(size: size, generator: { i in T.randomInInterval(intervals) })
     }
     
     
-    init(symmetrical elements: [T]) {
+    public init(symmetrical elements: [T]) {
         
         self.elementsList = [T]()
         
@@ -311,7 +311,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         :param: element The element to fill the matrix with.
         :param: size    The size the matrix should have.
     */
-    convenience init(filledWith element: T, size: Int) {
+    public convenience init(filledWith element: T, size: Int) {
         
         self.init(filledWith: element, dimensions: Dimensions(size: size))
     }
@@ -323,7 +323,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         :param: element     The element to fill the matrix with.
         :param: dimensions  The dimensions the matrix should have.
     */
-    init(filledWith element: T, dimensions: Dimensions) {
+    public init(filledWith element: T, dimensions: Dimensions) {
         
         self.dimensions = dimensions
         self.elementsList = [T](count: dimensions.rows * dimensions.columns, repeatedValue: element)
@@ -336,7 +336,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :param: size    The size the matrix should have.
     */
-    convenience init(identityOfSize size: Int) {
+    public convenience init(identityOfSize size: Int) {
         
         self.init(filledWith: 0, size: size)
         self.fillDiagonal(1)
@@ -349,7 +349,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :param: diagonal    The diagonal elements the matrix should have.
     */
-    convenience init(diagonal: [T]) {
+    public convenience init(diagonal: [T]) {
         
         self.init(filledWith: 0, size: diagonal.count)
         self.diagonalElements = diagonal
@@ -370,7 +370,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         :exception: An exception will be thrown when either of the indices
                         is out of bounds.
     */
-    subscript(row: Int, column: Int) -> T {
+    public subscript(row: Int, column: Int) -> T {
     
         get {
             
@@ -393,7 +393,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         :exception: An exception will be thrown when the given index is out
                         of bounds.
     */
-    subscript(index: Int) -> Vector<T>  {
+    public subscript(index: Int) -> Vector<T>  {
         
         get {
             
@@ -407,7 +407,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     }
     
     
-    subscript(indexRange: Range<Int>) -> Matrix<T> {
+    public subscript(indexRange: Range<Int>) -> Matrix<T> {
         
         get {
             
@@ -448,7 +448,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :exception: Throws an exception when any of the index ranges is out of bounds.
     */
-    subscript(rowRange: Range<Int>, columnRange: Range<Int>) -> Matrix<T> {
+    public subscript(rowRange: Range<Int>, columnRange: Range<Int>) -> Matrix<T> {
         
         get {
             
@@ -473,7 +473,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :exception: Throws an exception when any of the indices is out of bounds.
     */
-    subscript(rowRange: Range<Int>, column: Int) -> Vector<T> {
+    public subscript(rowRange: Range<Int>, column: Int) -> Vector<T> {
         
         get {
             
@@ -498,7 +498,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :exception: Throws an exception when any of the indices is out of bounds.
     */
-    subscript(row: Int, columnRange: Range<Int>) -> Vector<T> {
+    public subscript(row: Int, columnRange: Range<Int>) -> Vector<T> {
         
         get {
             
@@ -517,7 +517,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     /**
         Returns a generator for this matrix.
     */
-    func generate() -> MatrixGenerator<T> {
+    public func generate() -> MatrixGenerator<T> {
         
         return MatrixGenerator(matrix: self)
     }
@@ -528,7 +528,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     /**
         Returns a copy of the matrix.
     */
-    var copy: Matrix<T> {
+    public var copy: Matrix<T> {
         
         return Matrix(elementsList: self.elementsList, dimensions: self.dimensions)
     }
@@ -541,7 +541,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :example: [[1, 2], [3, 4], [5, 6]]
     */
-    var description: String {
+    public var description: String {
         
         return self.elements.description
     }
@@ -553,7 +553,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :returns: The size of the matrix if the matrix is square or nil otherwise.
     */
-    var size: Int? {
+    public var size: Int? {
         return self.dimensions.size
     }
     
@@ -563,7 +563,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :returns: The rank of the matrix.
     */
-    var rank: Int {
+    public var rank: Int {
         
         //TODO: Implement this method
         return 0
@@ -576,7 +576,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :returns: The trace of the matrix if the matrix is not empty, otherwise nil.
     */
-    var trace: T? {
+    public var trace: T? {
         
         return self.isEmpty ? nil : sum(self.diagonalElements)
     }
@@ -587,7 +587,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         matrices, zero matrices, ... because this would consume unnecessary time. Use product(matrix.diagonalElements)
         if the matrix is diagonal for example.
     */
-    var determinant: T {
+    public var determinant: T {
         
         let (_, _, _, det) = LUDecomposition(pivoting: true, optimalPivoting: true)
         return det
@@ -601,7 +601,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :exception: Throws an exception when the given array countains too many elements.
     */
-    var diagonalElements: [T] {
+    public var diagonalElements: [T] {
         
         get {
             
@@ -647,7 +647,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         :exception: An exception will be raised if the diagonal at the given index does not exist.
                     This means -n > the number of rows or n > the number of columns.
     */
-    func diagonalElements(_ n: Int = 0) -> [T] {
+    public func diagonalElements(_ n: Int = 0) -> [T] {
         
         if -n > self.dimensions.rows || n > self.dimensions.columns {
             
@@ -674,7 +674,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         Returns a copy of the matrix with all elements under the main diagonal set to zero.
         This also applies to non-square matrices.
     */
-    var upperTriangle: Matrix<T> {
+    public var upperTriangle: Matrix<T> {
         
         return upperTriangle()
     }
@@ -699,7 +699,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         :exception: An exception will be raised if the diagonal at the given index does not exist.
                     This means -n > the number of rows or n > the number of columns.
     */
-    func upperTriangle(_ n: Int = 0) -> Matrix<T> {
+    public func upperTriangle(_ n: Int = 0) -> Matrix<T> {
         
         if -n > self.dimensions.rows || n > self.dimensions.columns {
             
@@ -746,7 +746,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     }
     
     
-    var lowerTriangle: Matrix<T> {
+    public var lowerTriangle: Matrix<T> {
         
         get {
             return lowerTriangle()
@@ -754,7 +754,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     }
     
     
-    func lowerTriangle(_ n: Int = 0) -> Matrix<T> {
+    public func lowerTriangle(_ n: Int = 0) -> Matrix<T> {
         
         if -n > self.dimensions.rows || n > self.dimensions.columns {
             
@@ -805,7 +805,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         Returns the maximum element in the matrix if the matrix is not empty,
         otherwise it returns nil.
     */
-    var maxElement: T? {
+    public var maxElement: T? {
         
         if self.isEmpty {
             
@@ -828,7 +828,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         Returns the minimum element in the matrix if the matrix is not empty,
         otherwise it returns nil.
     */
-    var minElement: T? {
+    public var minElement: T? {
         
         if self.isEmpty {
             
@@ -850,7 +850,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     /**
         Returns the transpose of the matrix.
     */
-    var transpose: Matrix<T> {
+    public var transpose: Matrix<T> {
         
         var elementsList = [T]()
         
@@ -868,7 +868,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     /**
         Returns the conjugate of the matrix.
     */
-    var conjugate: Matrix<T> {
+    public var conjugate: Matrix<T> {
         
         return mmap(self){ $0.conjugate }
     }
@@ -877,7 +877,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     /**
         Returns the conjugate transpose of the matrix. This is also called the Hermitian transpose.
     */
-    var conjugateTranspose: Matrix<T> {
+    public var conjugateTranspose: Matrix<T> {
         
         return self.transpose.conjugate
     }
@@ -888,7 +888,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :returns: true if the matrix is empty.
     */
-    var isEmpty: Bool {
+    public var isEmpty: Bool {
         
         return self.dimensions.isEmpty
     }
@@ -897,7 +897,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     /**
         Returns whether all elements are zero.
     */
-    var isZero: Bool {
+    public var isZero: Bool {
         
         return mreduce(self, true){ $0 ? $1 == 0 : false }
     }
@@ -908,7 +908,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :returns: true if the matrix is square.
     */
-    var isSquare: Bool {
+    public var isSquare: Bool {
         
         return self.dimensions.isSquare
     }
@@ -917,7 +917,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     /**
         Returns whether the matrix is diagonal. This means all elements that are not on the main diagonal are zero.
     */
-    var isDiagonal: Bool {
+    public var isDiagonal: Bool {
         
         for (index, element) in enumerate(self) {
             
@@ -936,7 +936,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :returns: true if the matrix is symmetrical.
     */
-    var isSymmetrical: Bool {
+    public var isSymmetrical: Bool {
         
         // If it's not square, it's impossible to be symmetrical
         if !self.isSquare { return false }
@@ -968,7 +968,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         Returns whether the matrix is upper triangular.
         This means the matrix is square and all elements below the main diagonal are zero.
     */
-    var isUpperTriangular: Bool {
+    public var isUpperTriangular: Bool {
         
         return isUpperTriangular()
     }
@@ -982,7 +982,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         :param: n The diagonal's index.
         :param: mustBeSquare Whether the matrix must be square to be upper triangular.
     */
-    func isUpperTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
+    public func isUpperTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
         
         // A non-square matrix can't be upper triangular
         if mustBeSquare && !self.isSquare { return false }
@@ -1019,7 +1019,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         Returns whether the matrix is upper Hessenberg.
         This means all elements below the first subdiagonal are zero.
     */
-    var isUpperHessenberg: Bool {
+    public var isUpperHessenberg: Bool {
         
         return isUpperTriangular(-1)
     }
@@ -1029,7 +1029,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     Returns whether the matrix is lower triangular.
     This means the matrix is square and all elements above the main diagonal are zero.
     */
-    var isLowerTriangular: Bool {
+    public var isLowerTriangular: Bool {
         
         return isLowerTriangular()
     }
@@ -1043,7 +1043,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     :param: n The diagonal's index.
     :param: mustBeSquare Whether the matrix must be square to be lower triangular.
     */
-    func isLowerTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
+    public func isLowerTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
         
         // A non-square matrix can't be upper triangular
         if mustBeSquare && !self.isSquare { return false }
@@ -1080,7 +1080,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         Returns whether the matrix is a lower Hessenberg matrix.
         This means all elements above the first superdiagonal are zero.
     */
-    var isLowerHessenberg: Bool {
+    public var isLowerHessenberg: Bool {
         
         return isLowerTriangular(1)
     }
@@ -1090,7 +1090,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         Returns whether the matrix is Hermitian.
         This means the matrix is equal to it's own conjugate transpose.
     */
-    var isHermitian: Bool {
+    public var isHermitian: Bool {
         
         return self == self.conjugateTranspose
     }
@@ -1107,7 +1107,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :returns: The element at the given index (row, column).
     */
-    func element(row: Int, _ column: Int) -> T {
+    public func element(row: Int, _ column: Int) -> T {
         
         if row < 0 || row >= self.dimensions.rows {
             
@@ -1130,7 +1130,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         :param: column The column index of the element
         :param: element The element to set at the given indexes
     */
-    func setElement(atRow row: Int, atColumn column: Int, toElement element: T) {
+    public func setElement(atRow row: Int, atColumn column: Int, toElement element: T) {
         
         if row < 0 || row >= self.dimensions.rows {
             
@@ -1152,7 +1152,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         :param: index A tuple containing the indexes of the element (row, column)
         :param: element The element to set at the given index
     */
-    func setElement(atIndex index: (Int, Int), toElement element: T) {
+    public func setElement(atIndex index: (Int, Int), toElement element: T) {
         
         let (row, column) = index
         
@@ -1165,7 +1165,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :returns: The row at the given index.
     */
-    func row(index: Int) -> Vector<T> {
+    public func row(index: Int) -> Vector<T> {
         
         if index < 0 || index >= self.dimensions.rows {
             
@@ -1188,7 +1188,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         :param: index The index of the row to change.
         :param: newRow The row to set at the given index.
     */
-    func setRow(atIndex index: Int, toRow newRow: Vector<T>) {
+    public func setRow(atIndex index: Int, toRow newRow: Vector<T>) {
         
         // If the index is out of bounds
         if index < 0 || index >= self.dimensions.rows {
@@ -1212,7 +1212,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         :param: i The index of the first row.
         :param: j The index of the second row.
     */
-    func switchRows(i: Int, _ j: Int) {
+    public func switchRows(i: Int, _ j: Int) {
         
         if i < 0 || i >= self.dimensions.rows || j < 0 || j >= self.dimensions.rows {
             
@@ -1231,7 +1231,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :returns: The column at the given index.
     */
-    func column(index: Int) -> Vector<T> {
+    public func column(index: Int) -> Vector<T> {
         
         if index < 0 || index >= self.dimensions.columns {
             
@@ -1255,7 +1255,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         :param: index The index of the column to change.
         :param: column The column to set at the given index.
     */
-    func setColumn(atIndex index: Int, toColumn newColumn: Vector<T>) {
+    public func setColumn(atIndex index: Int, toColumn newColumn: Vector<T>) {
         
         // If the index is out of bounds
         if index < 0 || index >= self.dimensions.columns {
@@ -1282,7 +1282,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         :param: i The index of the first column.
         :param: j The index of the second column.
     */
-    func switchColumns(i: Int, _ j: Int) {
+    public func switchColumns(i: Int, _ j: Int) {
         
         var intermediate = self.column(i)
         
@@ -1299,7 +1299,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :returns: The submatrix for the given row and column ranges.
     */
-    func submatrix(rowRange: Range<Int>, _ columnRange: Range<Int>) -> Matrix<T> {
+    public func submatrix(rowRange: Range<Int>, _ columnRange: Range<Int>) -> Matrix<T> {
         
         if rowRange.startIndex < 0 || rowRange.endIndex > self.dimensions.rows {
             
@@ -1333,7 +1333,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :exceptions: Expections will be thrown if the given ranges are out of bounds or if the given matrix's dimensions don't match the given ranges' lengths.
     */
-    func setSubmatrix(rowRange: Range<Int>, _ columnRange: Range<Int>, toMatrix matrix: Matrix<T>) {
+    public func setSubmatrix(rowRange: Range<Int>, _ columnRange: Range<Int>, toMatrix matrix: Matrix<T>) {
         
         if rowRange.startIndex < 0 || rowRange.endIndex > self.dimensions.rows {
             
@@ -1367,7 +1367,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :exceptions: Exceptions will be thrown if the given row range and/or column are out of bounds.
     */
-    func subvector(rowRange: Range<Int>, _ column: Int) -> Vector<T> {
+    public func subvector(rowRange: Range<Int>, _ column: Int) -> Vector<T> {
         
         if rowRange.startIndex < 0 || rowRange.endIndex > self.dimensions.rows {
             
@@ -1399,7 +1399,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :exceptions: Exceptions will be thrown if the given row range and/or column are out of bounds or if the vector's length does not match the row range's length.
     */
-    func setSubvector(rowRange: Range<Int>, _ column: Int, toVector vector: Vector<T>) {
+    public func setSubvector(rowRange: Range<Int>, _ column: Int, toVector vector: Vector<T>) {
         
         if rowRange.startIndex < 0 || rowRange.endIndex > self.dimensions.rows {
             
@@ -1431,7 +1431,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     :exceptions: Exceptions will be thrown if the given row and/or column range are out of bounds.
     */
-    func subvector(row: Int, _ columnRange: Range<Int>) -> Vector<T> {
+    public func subvector(row: Int, _ columnRange: Range<Int>) -> Vector<T> {
         
         if row < 0 || row > self.dimensions.rows {
             
@@ -1463,7 +1463,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
     :exceptions: Exceptions will be thrown if the given row and/or column range are out of bounds or if the vector's length does not match the column range's length.
     */
-    func setSubvector(row: Int, _ columnRange: Range<Int>, toVector vector: Vector<T>) {
+    public func setSubvector(row: Int, _ columnRange: Range<Int>, toVector vector: Vector<T>) {
         
         if row < 0 || row > self.dimensions.rows {
             
@@ -1492,7 +1492,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :param: value The value to fill the diagonal with.
     */
-    func fillDiagonal(value: T) {
+    public func fillDiagonal(value: T) {
         
         for i in 0 ..< self.dimensions.minimum {
             
@@ -1509,7 +1509,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
     
         :returns: (L, U, P) with L being a lower triangular matrix with 1 on the diagonal, U an upper triangular matrix and P a permutation matrix. This way PA = LU.
     */
-    var LUDecomposition: (Matrix<T>, Matrix<T>, Matrix<T>) {
+    public var LUDecomposition: (Matrix<T>, Matrix<T>, Matrix<T>) {
         
         let (L, U, P, _) = self.LUDecomposition()
         return (L, U, P)
@@ -1524,7 +1524,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
         
         :returns: (L, U, P, det) with L being a lower triangular matrix with 1 on the diagonal, U an upper triangular matrix and P a permutation matrix. This way PA = LU. det gives the determinant of the matrix
     */
-    func LUDecomposition(pivoting: Bool = true, optimalPivoting: Bool = true) -> (Matrix<T>, Matrix<T>, Matrix<T>, T) {
+    public func LUDecomposition(pivoting: Bool = true, optimalPivoting: Bool = true) -> (Matrix<T>, Matrix<T>, Matrix<T>, T) {
         
         //TODO: Try to bridge from Objective-C to Swift using LAPACK: getrf_ function
         
@@ -1605,7 +1605,7 @@ class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printab
 
     :returns: true if the two matrices are equal.
 */
-func == <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Bool {
+public func == <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Bool {
     
     if left.dimensions != right.dimensions {
         return false
@@ -1635,7 +1635,7 @@ func == <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Bool {
 
     :exception: Throws an exception when the dimensions of the two matrices are not equal.
 */
-func + <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
+public func + <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
     
     if left.dimensions != right.dimensions {
         NSException(name: "Unequal dimensions", reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
@@ -1655,7 +1655,7 @@ func + <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
 
     :exception: Throws an exception when the dimensions of the two matrices are not equal.
 */
-func + (left: Matrix<Float>, right: Matrix<Float>) -> Matrix<Float> {
+public func + (left: Matrix<Float>, right: Matrix<Float>) -> Matrix<Float> {
     
     if left.dimensions != right.dimensions {
         NSException(name: "Unequal dimensions", reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
@@ -1691,7 +1691,7 @@ func + (left: Matrix<Float>, right: Matrix<Float>) -> Matrix<Float> {
 
     :exception: Throws an exception when the dimensions of the two matrices are not equal.
 */
-func + (left: Matrix<Double>, right: Matrix<Double>) -> Matrix<Double> {
+public func + (left: Matrix<Double>, right: Matrix<Double>) -> Matrix<Double> {
     
     if left.dimensions != right.dimensions {
         NSException(name: "Unequal dimensions", reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
@@ -1728,7 +1728,7 @@ func + (left: Matrix<Double>, right: Matrix<Double>) -> Matrix<Double> {
                 where every element is the negation of the corresponding
                 element in the given matrix.
 */
-prefix func - <T: MatrixCompatible> (matrix: Matrix<T>) -> Matrix<T> {
+public prefix func - <T: MatrixCompatible> (matrix: Matrix<T>) -> Matrix<T> {
     
     return mmap(matrix){ -$0 }
 }
@@ -1749,7 +1749,7 @@ prefix func - <T: MatrixCompatible> (matrix: Matrix<T>) -> Matrix<T> {
     :exception: Throws an exception when the dimensions of the two given
                     matrices are not equal.
 */
-func - <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
+public func - <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
     
     if left.dimensions != right.dimensions {
         NSException(name: "Unequal dimensions", reason: "The dimensions of the two given matrices are not equal. Left dimensions: \(left.dimensions), right dimensions: \(right.dimensions).", userInfo: nil).raise()
@@ -1771,7 +1771,7 @@ func - <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
                 every element is calculated as the product of the corresponding
                 element in the given matrix and the given scalar.
 */
-func * <T: MatrixCompatible> (scalar: T, matrix: Matrix<T>) -> Matrix<T> {
+public func * <T: MatrixCompatible> (scalar: T, matrix: Matrix<T>) -> Matrix<T> {
     
     return Matrix(map(matrix.elements){ map($0){ scalar * $0 } })
 }
@@ -1786,7 +1786,7 @@ func * <T: MatrixCompatible> (scalar: T, matrix: Matrix<T>) -> Matrix<T> {
                 every element is calculated as the product of the corresponding
                 element in the given matrix and the given scalar.
 */
-func * <T: MatrixCompatible> (matrix: Matrix<T>, scalar: T) -> Matrix<T> {
+public func * <T: MatrixCompatible> (matrix: Matrix<T>, scalar: T) -> Matrix<T> {
     
     return scalar * matrix
 }
@@ -1806,7 +1806,7 @@ func * <T: MatrixCompatible> (matrix: Matrix<T>, scalar: T) -> Matrix<T> {
     :exception: Throws an exception when the number of columns of the left
                     matrix is not equal to the number of rows of the right matrix.
 */
-func * <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
+public func * <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
     
     if left.dimensions.columns != right.dimensions.rows {
         NSException(name: "Wrong dimensions", reason: "The left matrix's number of columns is not equal to the right matrix's rows.", userInfo: nil).raise()
@@ -1845,7 +1845,7 @@ func * <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
     :param: matrix The matrix to map with the original elements.
     :param: transform The transform to map on the elements of matrix.
 */
-func mmap <T: MatrixCompatible, U: MatrixCompatible> (matrix: Matrix<T>, transform: T -> U) -> Matrix<U> {
+public func mmap <T: MatrixCompatible, U: MatrixCompatible> (matrix: Matrix<T>, transform: T -> U) -> Matrix<U> {
     
     let elementsList = map(matrix.elementsList, transform)
     
@@ -1860,7 +1860,7 @@ func mmap <T: MatrixCompatible, U: MatrixCompatible> (matrix: Matrix<T>, transfo
     :param: initial The element to combine with the first element of the matrix.
     :param: combine The closure to combine two values to generate a new value.
 */
-func mreduce <T: MatrixCompatible, U> (matrix: Matrix<T>, initial: U, combine: (U, T) -> U) -> U {
+public func mreduce <T: MatrixCompatible, U> (matrix: Matrix<T>, initial: U, combine: (U, T) -> U) -> U {
     
     return reduce(matrix.elementsList, initial, combine)
 }
@@ -1874,7 +1874,7 @@ func mreduce <T: MatrixCompatible, U> (matrix: Matrix<T>, initial: U, combine: (
 
     :exceptions: Throws an exception when the dimensions of the two given matrices are not equal.
 */
-func mcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (left: Matrix<T>, right: Matrix<U>, combine: (T, U) -> V) -> Matrix<V> {
+public func mcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (left: Matrix<T>, right: Matrix<U>, combine: (T, U) -> V) -> Matrix<V> {
 
     if left.dimensions != right.dimensions {
         
@@ -1899,7 +1899,7 @@ func mcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (l
 /**
     A struct representing a generator for iterating over a matrix.
 */
-struct MatrixGenerator <T: MatrixCompatible> : GeneratorType {
+public struct MatrixGenerator <T: MatrixCompatible> : GeneratorType {
     
     /**
         The generator of the elements list of the matrix.
@@ -1911,7 +1911,7 @@ struct MatrixGenerator <T: MatrixCompatible> : GeneratorType {
     
         :param: The matrix to iterate over.
     */
-    init(matrix: Matrix<T>) {
+    public init(matrix: Matrix<T>) {
         
         self.generator = matrix.elementsList.generate()
     }
@@ -1919,7 +1919,7 @@ struct MatrixGenerator <T: MatrixCompatible> : GeneratorType {
     /**
         Returns the next element in the matrix or nil if there are no elements left.
     */
-    mutating func next() -> T? {
+    public mutating func next() -> T? {
         return self.generator.next()
     }
 }
@@ -1927,11 +1927,11 @@ struct MatrixGenerator <T: MatrixCompatible> : GeneratorType {
 
 // MARK: - Index
 
-struct Index: ArrayLiteralConvertible {
+public struct Index: ArrayLiteralConvertible {
     
-    let row, column: Int
+    public let row, column: Int
     
-    init(arrayLiteral elements: Int...) {
+    public init(arrayLiteral elements: Int...) {
         
         if elements.count < 2 {
             
@@ -1954,17 +1954,17 @@ struct Index: ArrayLiteralConvertible {
 /**
     A struct representing the dimensions of a 2-dimensional matrix.
 */
-struct Dimensions: Equatable, Addable {
+public struct Dimensions: Equatable, Addable {
     
     /**
         The number of rows in the dimensions.
     */
-    let rows: Int
+    public let rows: Int
     
     /**
         The number of columns in the dimensions.
     */
-    let columns: Int
+    public let columns: Int
     
     /**
         Creates a new dimensions object with the given number of rows and columns.
@@ -1972,7 +1972,7 @@ struct Dimensions: Equatable, Addable {
         :param: rows    The number of rows in the dimensions.
         :param: columns The number of columns in the dimensions.
     */
-    init(_ rows: Int = 0, _ columns: Int = 0) {
+    public init(_ rows: Int = 0, _ columns: Int = 0) {
         
         self.rows = rows
         self.columns = columns
@@ -1984,7 +1984,7 @@ struct Dimensions: Equatable, Addable {
         :param: size    The size of the dimensions. This value will be used for both the
                             number of rows and columns.
     */
-    init(size: Int) {
+    public init(size: Int) {
         
         self.init(size, size)
     }
@@ -1992,7 +1992,7 @@ struct Dimensions: Equatable, Addable {
     /**
         Returns the minimal value of both dimension values (rows, columns).
     */
-    var minimum: Int {
+    public var minimum: Int {
         
         return self.rows < self.columns ? self.rows : self.columns
     }
@@ -2001,14 +2001,14 @@ struct Dimensions: Equatable, Addable {
         Returns the size of these dimensions. Returns nil if the rows and columns
         dimensions values are not equal.
     */
-    var size: Int? {
+    public var size: Int? {
         return self.rows == self.columns ? self.rows : nil
     }
     
     /**
         Returns the product of the two dimension values: rows * columns.
     */
-    var product: Int {
+    public var product: Int {
         return self.rows * self.columns
     }
     
@@ -2018,7 +2018,7 @@ struct Dimensions: Equatable, Addable {
     
         :returns: true if the dimensions are square.
     */
-    var isSquare: Bool {
+    public var isSquare: Bool {
         
         return self.rows == self.columns
     }
@@ -2027,7 +2027,7 @@ struct Dimensions: Equatable, Addable {
         Returns the rows dimension value when index == 0, otherwise the columns dimension
         value is returned.
     */
-    subscript(index: Int) -> Int {
+    public subscript(index: Int) -> Int {
     
         return index == 0 ? self.rows : self.columns
     }
@@ -2037,45 +2037,45 @@ struct Dimensions: Equatable, Addable {
     
         :returns: true if the dimensions are empty.
     */
-    var isEmpty: Bool {
+    public var isEmpty: Bool {
         
         return self.rows == 0 && self.columns == 0
     }
 }
 
 // MARK: Dimensions Equality
-func == (left: Dimensions, right: Dimensions) -> Bool {
+public func == (left: Dimensions, right: Dimensions) -> Bool {
     
     return left[0] == right[0] && left[1] == right[1]
 }
 
 // MARK: Dimensions Tuple Equality
-func == (left: Dimensions, right: (Int, Int)) -> Bool {
+public func == (left: Dimensions, right: (Int, Int)) -> Bool {
     
     let (n, m) = right
     
     return left[0] == n && left[1] == m
 }
 
-func == (left: (Int, Int), right: Dimensions) -> Bool {
+public func == (left: (Int, Int), right: Dimensions) -> Bool {
     
     return right == left
 }
 
 // MARK: Dimensions Summation
-func + (left: Dimensions, right: Dimensions) -> Dimensions {
+public func + (left: Dimensions, right: Dimensions) -> Dimensions {
     
     return Dimensions(left[0] + right[0], left[1] + right[1])
 }
 
 // MARK: Dimensions Negation
-prefix func - (dimensions: Dimensions) -> Dimensions {
+public prefix func - (dimensions: Dimensions) -> Dimensions {
     
     return Dimensions(-dimensions[0], -dimensions[1])
 }
 
 // MARK: Dimensions Subtraction
-func - (left: Dimensions, right: Dimensions) -> Dimensions {
+public func - (left: Dimensions, right: Dimensions) -> Dimensions {
     
     return left + -right
 }
