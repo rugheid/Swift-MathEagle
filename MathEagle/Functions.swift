@@ -191,10 +191,40 @@ private func memoFib <X: protocol<Hashable, Addable, Substractable, IntegerLiter
     Returns the sum of all elements in the sequence.
 
     :param: seq The sequence to sum.
+
+    :returns: The sum of all elements in the sequence. When the sequence is
+                empty zero is returned.
 */
 func sum <S: SequenceType where S.Generator.Element: protocol<Addable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
     
     return reduce(seq, 0){ $0 + $1 }
+}
+
+/**
+    Returns the sum of all elements in the array.
+
+    :param: seq The array to sum.
+
+    :returns: The sum of all elements in the array. When the array is empty
+                zero is returned.
+*/
+func sum(seq: [Float]) -> Float {
+    
+    var result: Float = 0
+    vDSP_sve(seq, 1, &result, vDSP_Length(seq.count))
+    return result
+}
+
+/**
+    Returns the sum of all elements in the vector.
+
+    :param: vector  The vector to sum.
+
+    :returns: The sum of all elements in the vector. When the vector is empty
+                zero is returned.
+*/
+func sum(vector: Vector<Float>) -> Float {
+    return sum(vector.elements)
 }
 
 
