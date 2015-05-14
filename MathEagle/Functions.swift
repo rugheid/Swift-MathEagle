@@ -227,6 +227,33 @@ func sum(vector: Vector<Float>) -> Float {
     return sum(vector.elements)
 }
 
+/**
+Returns the sum of all elements in the array.
+
+:param: seq The array to sum.
+
+:returns: The sum of all elements in the array. When the array is empty
+zero is returned.
+*/
+func sum(seq: [Double]) -> Double {
+    
+    var result: Double = 0
+    vDSP_sveD(seq, 1, &result, vDSP_Length(seq.count))
+    return result
+}
+
+/**
+Returns the sum of all elements in the vector.
+
+:param: vector  The vector to sum.
+
+:returns: The sum of all elements in the vector. When the vector is empty
+zero is returned.
+*/
+func sum(vector: Vector<Double>) -> Double {
+    return sum(vector.elements)
+}
+
 
 /**
     Returns the product of all elements in the sequence.

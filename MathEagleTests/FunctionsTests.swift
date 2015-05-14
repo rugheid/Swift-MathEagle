@@ -148,6 +148,35 @@ class FunctionsTests: XCTestCase {
         }
     }
     
+    func testSumDoubleVector() {
+        
+        let vector = Vector<Double>(randomWithLength: 10_000)
+        XCTAssertEqual(reduce(vector, 0, +), sum(vector))
+    }
+    
+    func testSumDoubleVectorPerformance() {
+        
+        let seq = Vector<Double>(randomWithLength: 10_000)
+        
+        compareBaseline(0.00408849716186523, title: "10_000 Sequence Sum (Float)", n: 10){
+            
+            sum(seq)
+        }
+    }
+    
+    func testSumDoubleVectorBenchmarking() {
+        
+        calculateBenchmarkingTimes(10, maxPower: 6, title: "Sequence Float Sum Benchmarking"){
+            
+            let seq = Vector<Double>(randomWithLength: $0)
+            
+            return timeBlock(n: 10){
+                
+                sum(seq)
+            }
+        }
+    }
+    
     func testProduct() {
         
         var seq1 = [1, 2, 3, 4, 5, 6]
