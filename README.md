@@ -7,7 +7,7 @@ This project is meant to make math easy in swift. The syntax is designed to be a
 MathEagle is still in its initial development phase so the syntax still changes frequently.
 
 # Installation
-The fastest way to add MathEagle to your project is to download it as a zip file and drag all files in the MathEagle folder (except Info.plist and MathEagle.h) to your project. Make sure to add them to your target.
+The fastest way to add MathEagle to your project is to download it as a zip file and drag all files in the MathEagle/Source folder to your project. Make sure to add them to your target.
 
 # Supported Xcode Versions
 Math Eagle is fully compatible with:
