@@ -29,7 +29,7 @@ Take a look at the Wiki for documentation.
 The biggest advantage about MathEagle is that it's totally generic. You can create matrices and vectors and use functions like isPrime with all numeric types. You can even create your own type (let's say Quaternion), implement the protocols and everything just works. Off course specific implementations are overloaded to maintain performance. Vector addition for Float vectors for example is overloaded to use the Accelerate framework.
 
 # Benchmarking
-First benchmarking tests show that MathEagle is as fast as Python's famous numpy. You can check the "Benchmarking Files" folder in MathEagle's tests.
+First benchmarking tests show that MathEagle is as fast as Python's famous numpy. You can check the "Benchmarking Files" folder in MathEagle's tests. (These tests were conducted on an early 2013 15-inch Retina Macbook Pro with a 2.7 GHz Intel Core i7 and 16 GB of RAM.
 
 Here are some plots for Vector addition:
 ![Vector Addition Float Benchmarking](/MathEagleTests/Benchmarking Files/Plot Images/VectorAdditionFloat.png)
