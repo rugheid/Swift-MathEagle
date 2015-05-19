@@ -120,7 +120,8 @@ public func isPerfect <X: protocol<Equatable, Comparable, Addable, Modulable, Di
     :param: a The first number
     :param: b The second number
 
-    :returns: The greatest common divisor of the two given numbers. When either a or b equals 0, 1 is returned.
+    :returns: The greatest common divisor of the two given numbers. When either a or b equals 0, the not-zero
+                number is returned.
 */
 public func gcd <X: protocol<Equatable, Modulable, IntegerLiteralConvertible>> (var a: X, var b: X) -> X {
     
@@ -134,6 +135,20 @@ public func gcd <X: protocol<Equatable, Modulable, IntegerLiteralConvertible>> (
     }
     
     return a
+}
+
+
+/**
+    Returns the least common multiple of the two given numbers.
+
+    :param: a   The first number.
+    :param: b   The second number.
+
+    :returns: The least common multiple of the two given numbers. When either a or b equals zero, zero is returned.
+*/
+public func lcm <X: protocol<Equatable, Multiplicable, Dividable, Modulable, IntegerLiteralConvertible>> (var a: X, var b: X) -> X {
+    
+    return a == 0 || b == 0 ? 0 : a * b / gcd(a, b)
 }
 
 

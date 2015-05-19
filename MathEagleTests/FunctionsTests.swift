@@ -66,6 +66,17 @@ class FunctionsTests: XCTestCase {
     }
     
     
+    func testLCM() {
+        
+        XCTAssertEqual(0, lcm(0, 0))
+        XCTAssertEqual(0, lcm(0, 5))
+        XCTAssertEqual(0, lcm(5, 0))
+        XCTAssertEqual(60, lcm(10, 12))
+        XCTAssertEqual(65, lcm(13, 5))
+        XCTAssertEqual(2_976_107_890, lcm(34510, 431195))
+    }
+    
+    
     func testFactorial() {
         
         let fact = Vector(length: 10, generator: factorial)
