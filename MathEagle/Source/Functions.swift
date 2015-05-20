@@ -117,13 +117,13 @@ public func isPerfect <X: protocol<Equatable, Comparable, Addable, Modulable, Di
 /**
     Returns the greatest common divisor of the two given numbers.
 
-    :param: a The first number
-    :param: b The second number
+    :param: a   The first number
+    :param: b   The second number
 
     :returns: The greatest common divisor of the two given numbers. When either a or b equals 0, the not-zero
                 number is returned.
 */
-public func gcd <X: protocol<Equatable, Modulable, IntegerLiteralConvertible>> (var a: X, var b: X) -> X {
+public func gcd <X: protocol<Equatable, Comparable, Negatable, Modulable, IntegerLiteralConvertible>> (var a: X, var b: X) -> X {
     
     if a == 0 || b == 0 { return a == 0 ? b : a }
     
@@ -134,7 +134,7 @@ public func gcd <X: protocol<Equatable, Modulable, IntegerLiteralConvertible>> (
         a = temp
     }
     
-    return a
+    return a < 0 ? -a : a
 }
 
 
@@ -146,16 +146,20 @@ public func gcd <X: protocol<Equatable, Modulable, IntegerLiteralConvertible>> (
 
     :returns: The least common multiple of the two given numbers. When either a or b equals zero, zero is returned.
 */
-public func lcm <X: protocol<Equatable, Multiplicable, Dividable, Modulable, IntegerLiteralConvertible>> (var a: X, var b: X) -> X {
+public func lcm <X: protocol<Equatable, Comparable, Negatable, Multiplicable, Dividable, Modulable, IntegerLiteralConvertible>> (a: X, b: X) -> X {
     
-    return a == 0 || b == 0 ? 0 : (a / gcd(a, b)) * b
+    if a == 0 || b == 0 { return 0 }
+    
+    let lcm = (a / gcd(a, b)) * b
+    
+    return lcm < 0 ? -lcm : lcm
 }
 
 
 /**
     Returns the factorial of the given value, aka x!
     
-    :param: x The value to caculate the factorial of
+    :param: x   The value to caculate the factorial of
 
     :returns: The factorial of the given value
 

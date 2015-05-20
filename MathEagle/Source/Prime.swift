@@ -44,7 +44,7 @@ public func isPrime <X: protocol<Equatable, Comparable, Addable, Modulable, Powe
 
     :returns: true if the given unsigned integers are coprime.
 */
-public func areCoprime <X: protocol<Equatable, Modulable, IntegerLiteralConvertible>> (a: X, b: X) -> Bool {
+public func areCoprime <X: protocol<Equatable, Comparable, Negatable, Modulable, IntegerLiteralConvertible>> (a: X, b: X) -> Bool {
     
     return gcd(a, b) == 1
 }

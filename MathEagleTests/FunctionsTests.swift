@@ -63,6 +63,8 @@ class FunctionsTests: XCTestCase {
         XCTAssertEqual(10, gcd(20, 10))
         XCTAssertEqual(5, gcd(34510, 431195))
         XCTAssertEqual(2, gcd(33234, 58798))
+        XCTAssertEqual(1, gcd(13, -5))
+        XCTAssertEqual(10, gcd(-20, -10))
     }
     
     
@@ -74,6 +76,9 @@ class FunctionsTests: XCTestCase {
         XCTAssertEqual(60, lcm(10, 12))
         XCTAssertEqual(65, lcm(13, 5))
         XCTAssertEqual(2_976_107_890, lcm(34510, 431195))
+        XCTAssertEqual(60, lcm(-10, 12))
+        XCTAssertEqual(65, lcm(13, -5))
+        XCTAssertEqual(2_976_107_890, lcm(-34510, -431195))
     }
     
     
