@@ -123,18 +123,20 @@ public func isPerfect <X: protocol<Equatable, Comparable, Addable, Modulable, Di
     :returns: The greatest common divisor of the two given numbers. When either a or b equals 0, the not-zero
                 number is returned.
 */
-public func gcd <X: protocol<Equatable, Comparable, Negatable, Modulable, IntegerLiteralConvertible>> (var a: X, var b: X) -> X {
+public func gcd <X: protocol<Equatable, Comparable, Negatable, Modulable, IntegerLiteralConvertible>> (a: X, b: X) -> X {
     
     if a == 0 || b == 0 { return a == 0 ? b : a }
     
-    while b != 0 {
+    var c = a, d = b
+    
+    while d != 0 {
         
-        let temp = b
-        b = a % b
-        a = temp
+        let temp = d
+        d = c % d
+        c = temp
     }
     
-    return a < 0 ? -a : a
+    return c < 0 ? -c : c
 }
 
 
