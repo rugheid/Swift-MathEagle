@@ -126,6 +126,20 @@ public func isAbundant <X: protocol<Equatable, Comparable, Addable, Modulable, D
 
 
 /**
+    Returns whether the given number is deficient. This means the sum of it's proper divisors is
+    less than the number itself.
+
+    :param: x   The number to check
+
+    :returns: true if the number is deficient.
+*/
+public func isDeficient <X: protocol<Equatable, Comparable, Addable, Modulable, Dividable, Powerable, IntegerLiteralConvertible> where X.PowerType: protocol<Comparable, Addable, IntegerLiteralConvertible>> (x: X) -> Bool {
+    
+    return sum(properDivisors(x)) < x
+}
+
+
+/**
     Returns the greatest common divisor of the two given numbers.
 
     :param: a   The first number
