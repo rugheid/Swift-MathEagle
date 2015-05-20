@@ -54,6 +54,22 @@ class FunctionsTests: XCTestCase {
     }
     
     
+    func testIsAbundant() {
+        
+        for i: UInt in 1 ... 60 {
+            
+            let abundants: [UInt] = [12, 18, 20, 24, 30, 36, 40, 42, 48, 54, 56, 60]
+            
+            if contains(abundants, i) {
+                XCTAssertTrue(isAbundant(i))
+            } else {
+                let abundant = isAbundant(i)
+                XCTAssertFalse(abundant)
+            }
+        }
+    }
+    
+    
     func testGCD() {
         
         XCTAssertEqual(5, gcd(0, 5))

@@ -88,7 +88,7 @@ public func properDivisors <X: protocol<Equatable, Comparable, Modulable, Divida
         
         if x % X(i) == 0 {
             div.append(X(i))
-            div.append(x/X(i))
+            if x/X(i) != X(i) { div.append(x/X(i)) }
         }
         
         i = i + 1
@@ -108,6 +108,20 @@ public func properDivisors <X: protocol<Equatable, Comparable, Modulable, Divida
 public func isPerfect <X: protocol<Equatable, Comparable, Addable, Modulable, Dividable, Powerable, IntegerLiteralConvertible> where X.PowerType: protocol<Comparable, Addable, IntegerLiteralConvertible>> (x: X) -> Bool {
     
     return sum(properDivisors(x)) == x
+}
+
+
+/**
+    Returns whether the given number is abundant (or excessive). This means the sum of it's proper divisors is
+    greater than the number itself.
+
+    :param: x   The number to check
+
+    :returns: true if the number is abundant.
+*/
+public func isAbundant <X: protocol<Equatable, Comparable, Addable, Modulable, Dividable, Powerable, IntegerLiteralConvertible> where X.PowerType: protocol<Comparable, Addable, IntegerLiteralConvertible>> (x: X) -> Bool {
+    
+    return sum(properDivisors(x)) > x
 }
 
 
