@@ -148,7 +148,7 @@ public func gcd <X: protocol<Equatable, Modulable, IntegerLiteralConvertible>> (
 */
 public func lcm <X: protocol<Equatable, Multiplicable, Dividable, Modulable, IntegerLiteralConvertible>> (var a: X, var b: X) -> X {
     
-    return a == 0 || b == 0 ? 0 : a * b / gcd(a, b)
+    return a == 0 || b == 0 ? 0 : (a / gcd(a, b)) * b
 }
 
 
