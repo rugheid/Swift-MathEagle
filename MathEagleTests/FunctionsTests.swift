@@ -251,6 +251,14 @@ class FunctionsTests: XCTestCase {
         XCTAssertEqual(0, min(vector))
     }
     
+    
+    func testMinFloatVector() {
+        
+        let vector = Vector<Float>([1, 4, 3, 2, 5, 6, 9, 8, 10])
+        XCTAssertEqual(1, min(vector))
+    }
+    
+    
     func testMax() {
         
         let seq1 = [1, 4, 3, 2, 5, 6, 9, 8, 10]

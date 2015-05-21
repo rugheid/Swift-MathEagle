@@ -316,6 +316,10 @@ public func product <S: SequenceType where S.Generator.Element: protocol<Multipl
     Returns the minimal element in the given sequence.
 
     :param: seq The sequence to get the minimum of.
+
+    :returns: The minimum value of the given sequence.
+
+    :exception: Throws an exception when the given sequence is empty.
 */
 public func min <S: SequenceType where S.Generator.Element: protocol<Comparable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
     
@@ -327,6 +331,40 @@ public func min <S: SequenceType where S.Generator.Element: protocol<Comparable,
         NSException(name: "Empty array", reason: "Can't compute minimum of an empty array.", userInfo: nil).raise()
         return 0
     }
+}
+
+/**
+    Returns the minimal element in the given sequence.
+
+    :param: seq The sequence to get the minimum of.
+
+    :returns: The minimum value of the given sequence.
+
+    :exception: Throws an exception when the given sequence is empty.
+*/
+public func min(seq: [Float]) -> Float {
+    
+    if seq.count == 0 {
+        NSException(name: "Empty array", reason: "Can't compute minimum of an empty array.", userInfo: nil).raise()
+    }
+    
+    var result: Float = 0
+    vDSP_minv(seq, 1, &result, vDSP_Length(seq.count))
+    return result
+}
+
+/**
+    Returns the minimal element in the given vector.
+
+    :param: vector  The vector to get the minimum of.
+
+    :returns: The minimum value of the given vector.
+
+    :exception: Throws an exception when the given vector is empty.
+*/
+public func min(vector: Vector<Float>) -> Float {
+    
+    return min(vector.elements)
 }
 
 
