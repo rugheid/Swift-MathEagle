@@ -319,9 +319,14 @@ public func product <S: SequenceType where S.Generator.Element: protocol<Multipl
 */
 public func min <S: SequenceType where S.Generator.Element: protocol<Comparable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
     
+    
     var generator = seq.generate()
-    let initial = generator.next()!
-    return reduce(seq, initial){ $0 < $1 ? $0 : $1 }
+    if let initial = generator.next() {
+        return reduce(seq, initial){ $0 < $1 ? $0 : $1 }
+    } else {
+        NSException(name: "Empty array", reason: "Can't compute minimum of an empty array.", userInfo: nil).raise()
+        return 0
+    }
 }
 
 
