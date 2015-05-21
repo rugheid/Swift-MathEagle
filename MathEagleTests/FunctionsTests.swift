@@ -210,7 +210,7 @@ class FunctionsTests: XCTestCase {
         
         let seq = Vector<Double>(randomWithLength: 10_000)
         
-        compareBaseline(0.00408849716186523, title: "10_000 Sequence Sum (Float)", n: 10){
+        compareBaseline(0.00408849716186523, title: "10_000 Sequence Sum (Double)", n: 10){
             
             sum(seq)
         }
@@ -219,7 +219,7 @@ class FunctionsTests: XCTestCase {
     
     func testSumDoubleVectorBenchmarking() {
         
-        calculateBenchmarkingTimes(10, maxPower: 6, title: "Sequence Float Sum Benchmarking"){
+        calculateBenchmarkingTimes(10, maxPower: 6, title: "Sequence Double Sum Benchmarking"){
             
             let seq = Vector<Double>(randomWithLength: $0)
             
@@ -272,6 +272,20 @@ class FunctionsTests: XCTestCase {
         let vector = Vector<Float>(randomWithLength: 10_000)
         compareBaseline(0.00356079936027527, title: "10_000 vector minimum (Float)", n: 10){
             min(vector)
+        }
+    }
+    
+    
+    func testMinFloatVectorBenchmarking() {
+        
+        calculateBenchmarkingTimes(10, maxPower: 6, title: "Sequence Float Min Benchmarking"){
+            
+            let seq = Vector<Float>(randomWithLength: $0)
+            
+            return timeBlock(n: 10){
+                
+                min(seq)
+            }
         }
     }
     
