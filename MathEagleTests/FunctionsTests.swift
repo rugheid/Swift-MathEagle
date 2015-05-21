@@ -166,11 +166,13 @@ class FunctionsTests: XCTestCase {
         XCTAssertEqual(-3.0, sum(seq3))
     }
     
+    
     func testSumFloatVector() {
         
         let vector = Vector<Float>(randomWithLength: 10_000)
         XCTAssertEqual(reduce(vector, 0, +), sum(vector))
     }
+    
     
     func testSumFloatVectorPerformance() {
         
@@ -181,6 +183,7 @@ class FunctionsTests: XCTestCase {
             sum(seq)
         }
     }
+    
     
     func testSumFloatVectorBenchmarking() {
         
@@ -195,11 +198,13 @@ class FunctionsTests: XCTestCase {
         }
     }
     
+    
     func testSumDoubleVector() {
         
         let vector = Vector<Double>(randomWithLength: 10_000)
         XCTAssertEqual(reduce(vector, 0, +), sum(vector))
     }
+    
     
     func testSumDoubleVectorPerformance() {
         
@@ -210,6 +215,7 @@ class FunctionsTests: XCTestCase {
             sum(seq)
         }
     }
+    
     
     func testSumDoubleVectorBenchmarking() {
         
@@ -223,6 +229,7 @@ class FunctionsTests: XCTestCase {
             }
         }
     }
+    
     
     func testProduct() {
         
@@ -238,6 +245,7 @@ class FunctionsTests: XCTestCase {
         let seq3 = [1.0, -2.0, 3.0, -4.0, 5.0, -6.0]
         XCTAssertEqual(-720.0, product(seq3))
     }
+    
     
     func testMin() {
         
