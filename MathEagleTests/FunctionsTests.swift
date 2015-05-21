@@ -259,6 +259,15 @@ class FunctionsTests: XCTestCase {
     }
     
     
+    func testMinFloatVectorPerformance() {
+        
+        let vector = Vector<Float>(randomWithLength: 10_000)
+        compareBaseline(0.00356079936027527, title: "10_000 vector minimum (Float)", n: 10){
+            min(vector)
+        }
+    }
+    
+    
     func testMax() {
         
         let seq1 = [1, 4, 3, 2, 5, 6, 9, 8, 10]
