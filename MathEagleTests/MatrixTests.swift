@@ -1236,7 +1236,7 @@ class MatrixTests: XCTestCase {
     
     func testMatrixAdditionFloatBenchmarking() {
         
-        calculateBenchmarkingTimes(10, maxPower: 6){
+        calculateBenchmarkingTimes(10, maxPower: 3){
             
             let left = Matrix<Float>(randomWithSize: $0)
             let right = Matrix<Float>(randomWithSize: $0)

@@ -169,8 +169,8 @@ class FunctionsTests: XCTestCase {
     
     func testSumFloatVector() {
         
-        let vector = Vector<Float>(randomWithLength: 10_000)
-        XCTAssertEqual(reduce(vector, 0, +), sum(vector))
+        let vector = Vector<Float>(randomWithLength: 10_000, intervals: -10.0...10.0)
+        XCTAssertEqualWithAccuracy(reduce(vector, 0, +), sum(vector), 1e-7)
     }
     
     

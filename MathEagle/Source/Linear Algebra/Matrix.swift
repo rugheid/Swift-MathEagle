@@ -127,7 +127,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     */
     public init(elementsList: [T], rows: Int) {
         
-        if elementsList.count % rows != 0 {
+        if elementsList.count != 0 && elementsList.count % rows != 0 {
             NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not a multiple of rows.", userInfo: nil).raise()
         }
         
