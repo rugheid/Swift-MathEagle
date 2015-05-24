@@ -8,6 +8,7 @@
 
 import Foundation
 import Accelerate
+import MathEaglePrivate
 
 public protocol MatrixCompatible: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, Conjugatable, Randomizable, IntegerLiteralConvertible {}
 

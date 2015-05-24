@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9808C8B01B110B0C00D82572 /* Matrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 9808C8AE1B110B0C00D82572 /* Matrix.m */; };
+		9808C8BA1B11FD1500D82572 /* MathEagle.private.modulemap in Sources */ = {isa = PBXBuildFile; fileRef = 9808C8B91B11FD1500D82572 /* MathEagle.private.modulemap */; };
+		9808C8BC1B11FDFB00D82572 /* Matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 9808C8AD1B110B0C00D82572 /* Matrix.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		983106261AFB628C0074FBC8 /* Numpy Times in Resources */ = {isa = PBXBuildFile; fileRef = 983106251AFB628C0074FBC8 /* Numpy Times */; };
 		983106281AFB62AE0074FBC8 /* Benchmarking Files in Resources */ = {isa = PBXBuildFile; fileRef = 983106271AFB62AE0074FBC8 /* Benchmarking Files */; };
 		9843568F1ACC79F100B988CB /* RandomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9843568E1ACC79F100B988CB /* RandomTests.swift */; };
@@ -59,6 +62,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9808C8AD1B110B0C00D82572 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
+		9808C8AE1B110B0C00D82572 /* Matrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Matrix.m; sourceTree = "<group>"; };
+		9808C8B61B1115C500D82572 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		9808C8B81B11FC8300D82572 /* MathEagle.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = MathEagle.xcconfig; path = ../MathEagle.xcconfig; sourceTree = "<group>"; };
+		9808C8B91B11FD1500D82572 /* MathEagle.private.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = MathEagle.private.modulemap; sourceTree = "<group>"; };
 		983106251AFB628C0074FBC8 /* Numpy Times */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Numpy Times"; sourceTree = "<group>"; };
 		983106271AFB62AE0074FBC8 /* Benchmarking Files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Benchmarking Files"; sourceTree = "<group>"; };
 		9843568E1ACC79F100B988CB /* RandomTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomTests.swift; sourceTree = "<group>"; };
@@ -111,6 +119,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9808C8B51B1114E700D82572 /* MathEaglePrivate */ = {
+			isa = PBXGroup;
+			children = (
+				9808C8B61B1115C500D82572 /* module.modulemap */,
+				9808C8AD1B110B0C00D82572 /* Matrix.h */,
+				9808C8AE1B110B0C00D82572 /* Matrix.m */,
+			);
+			path = MathEaglePrivate;
+			sourceTree = "<group>";
+		};
 		98F598411A7B8BD20058DF53 = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +151,8 @@
 			isa = PBXGroup;
 			children = (
 				98F598501A7B8BD20058DF53 /* MathEagle.h */,
+				9808C8B81B11FC8300D82572 /* MathEagle.xcconfig */,
+				9808C8B91B11FD1500D82572 /* MathEagle.private.modulemap */,
 				98F598671A7B8BED0058DF53 /* Math.swift */,
 				98F598681A7B8BED0058DF53 /* Extensions.swift */,
 				98E671711AA8C02100C88DCE /* Prime.swift */,
@@ -142,6 +162,7 @@
 				98F5986B1A7B8BED0058DF53 /* Optimization.swift */,
 				98F5986C1A7B8BED0058DF53 /* Integration.swift */,
 				98F598821A7B8BFB0058DF53 /* Linear Algebra */,
+				9808C8B51B1114E700D82572 /* MathEaglePrivate */,
 				98F5984E1A7B8BD20058DF53 /* Supporting Files */,
 			);
 			path = MathEagle;
@@ -212,6 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				98F598511A7B8BD20058DF53 /* MathEagle.h in Headers */,
+				9808C8BC1B11FDFB00D82572 /* Matrix.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,12 +337,14 @@
 			files = (
 				98F5987C1A7B8BED0058DF53 /* Matrix.swift in Sources */,
 				98F598701A7B8BED0058DF53 /* Math.swift in Sources */,
+				9808C8BA1B11FD1500D82572 /* MathEagle.private.modulemap in Sources */,
 				98F598721A7B8BED0058DF53 /* Extensions.swift in Sources */,
 				98F5987A1A7B8BED0058DF53 /* Integration.swift in Sources */,
 				98F598781A7B8BED0058DF53 /* Optimization.swift in Sources */,
 				98F5987E1A7B8BED0058DF53 /* MatrixVector.swift in Sources */,
 				98F598761A7B8BED0058DF53 /* Solver.swift in Sources */,
 				98E671721AA8C02100C88DCE /* Prime.swift in Sources */,
+				9808C8B01B110B0C00D82572 /* Matrix.m in Sources */,
 				98E671771AA8F00600C88DCE /* Complex.swift in Sources */,
 				98F598801A7B8BED0058DF53 /* Vector.swift in Sources */,
 				98F598741A7B8BED0058DF53 /* Functions.swift in Sources */,
@@ -371,6 +395,7 @@
 /* Begin XCBuildConfiguration section */
 		98F5985F1A7B8BD20058DF53 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9808C8B81B11FC8300D82572 /* MathEagle.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -415,6 +440,7 @@
 		};
 		98F598601A7B8BD20058DF53 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9808C8B81B11FC8300D82572 /* MathEagle.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -463,9 +489,12 @@
 				INFOPLIST_FILE = MathEagle/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MODULEMAP_PRIVATE_FILE = "$(SRCROOT)/MathEagle/MathEagle.private.modulemap";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/MathEagle";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -483,9 +512,12 @@
 				INFOPLIST_FILE = MathEagle/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MODULEMAP_PRIVATE_FILE = "$(SRCROOT)/MathEagle/MathEagle.private.modulemap";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/MathEagle";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Release;
 		};

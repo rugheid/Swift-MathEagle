@@ -1,0 +1,10 @@
+//
+//  MathEagle.xcconfig
+//  MathEagle
+//
+//  Created by Rugen Heidbuchel on 24/05/15.
+//  Copyright (c) 2015 Jorestha Solutions. All rights reserved.
+//
+
+SWIFT_INCLUDE_PATHS = $(SRCROOT)/MathEagle
+MODULEMAP_PRIVATE_FILE = $(SRCROOT)/MathEagle/MathEagle.private.modulemap

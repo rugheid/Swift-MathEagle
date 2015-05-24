@@ -1,0 +1,4 @@
+module MathEaglePrivate {
+    header "Matrix.h"
+    export *
+}
