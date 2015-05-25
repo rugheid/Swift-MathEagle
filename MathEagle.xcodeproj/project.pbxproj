@@ -65,7 +65,7 @@
 		9808C8AD1B110B0C00D82572 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
 		9808C8AE1B110B0C00D82572 /* Matrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Matrix.m; sourceTree = "<group>"; };
 		9808C8B61B1115C500D82572 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
-		9808C8B81B11FC8300D82572 /* MathEagle.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = MathEagle.xcconfig; path = ../MathEagle.xcconfig; sourceTree = "<group>"; };
+		9808C8B81B11FC8300D82572 /* MathEagle.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MathEagle.xcconfig; sourceTree = SOURCE_ROOT; };
 		9808C8B91B11FD1500D82572 /* MathEagle.private.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = MathEagle.private.modulemap; sourceTree = "<group>"; };
 		983106251AFB628C0074FBC8 /* Numpy Times */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Numpy Times"; sourceTree = "<group>"; };
 		983106271AFB62AE0074FBC8 /* Benchmarking Files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Benchmarking Files"; sourceTree = "<group>"; };
@@ -129,6 +129,16 @@
 			path = MathEaglePrivate;
 			sourceTree = "<group>";
 		};
+		9808C8BD1B13891000D82572 /* Framework Headers */ = {
+			isa = PBXGroup;
+			children = (
+				98F598501A7B8BD20058DF53 /* MathEagle.h */,
+				9808C8B81B11FC8300D82572 /* MathEagle.xcconfig */,
+				9808C8B91B11FD1500D82572 /* MathEagle.private.modulemap */,
+			);
+			name = "Framework Headers";
+			sourceTree = "<group>";
+		};
 		98F598411A7B8BD20058DF53 = {
 			isa = PBXGroup;
 			children = (
@@ -150,9 +160,7 @@
 		98F5984D1A7B8BD20058DF53 /* MathEagle */ = {
 			isa = PBXGroup;
 			children = (
-				98F598501A7B8BD20058DF53 /* MathEagle.h */,
-				9808C8B81B11FC8300D82572 /* MathEagle.xcconfig */,
-				9808C8B91B11FD1500D82572 /* MathEagle.private.modulemap */,
+				9808C8BD1B13891000D82572 /* Framework Headers */,
 				98F598671A7B8BED0058DF53 /* Math.swift */,
 				98F598681A7B8BED0058DF53 /* Extensions.swift */,
 				98E671711AA8C02100C88DCE /* Prime.swift */,

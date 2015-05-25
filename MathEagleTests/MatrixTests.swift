@@ -1311,6 +1311,41 @@ class MatrixTests: XCTestCase {
     }
     
     
+    // MARK: High Performance Function Tests
+    
+    func testTransposeFloat() {
+        
+        var A = Matrix<Float>([[1, 2, 3, 4] ,[5, 6, 7, 8] ,[9, 10, 11, 12]])
+        XCTAssertEqual(Matrix<Float>([[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]), transpose(A))
+        
+        A = Matrix()
+        XCTAssertEqual(Matrix<Float>(), transpose(A))
+    }
+    
+    func testTransposeFloatPerformance() {
+        
+        let A = Matrix<Float>(randomWithSize: 10_000)
+        
+        compareBaseline(61.5537649989128, title: "10_000x10_000 Float Matrix Tranpose Performance", n: 1){
+            
+            transpose(A)
+        }
+    }
+    
+    
+    
+    // MARK: - Objective-C Bridged Function Tests
+    
+    func testBridgedLUDecompositionFloat() {
+        
+        let matrix = Matrix<Float>([[1, 2], [3, 4]])
+        
+        let (L, U, P) = LUDecomposition(matrix)
+        
+        XCTAssertEqual(matrix, P*L*U)
+    }
+    
+    
     
     // MARK: - Dimension Tests
     

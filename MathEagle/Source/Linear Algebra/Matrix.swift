@@ -151,7 +151,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     */
     public init(elementsList: [T], columns: Int) {
         
-        if elementsList.count % columns != 0 {
+        if elementsList.count != 0 && elementsList.count % columns != 0 {
             NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not a multiple of columns.", userInfo: nil).raise()
         }
         
@@ -1889,6 +1889,43 @@ public func mcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompati
     }
     
     return Matrix(elementsList: elementsList, dimensions: left.dimensions)
+}
+
+
+
+// MARK: High Perfomance Functions
+
+/**
+    Returns the transpose of the given matrix.
+
+    :param: matrix  The matrix to transpose.
+
+    :returns: The transpose of the given matrix.
+*/
+public func transpose(matrix: Matrix<Float>) -> Matrix<Float> {
+    
+    var elementsList = [Float](count: matrix.dimensions.product, repeatedValue: 0)
+    
+    vDSP_mtrans(matrix.elementsList, 1, &elementsList, 1, vDSP_Length(matrix.dimensions.columns), vDSP_Length(matrix.dimensions.rows))
+    
+    return Matrix(elementsList: elementsList, columns: matrix.dimensions.rows)
+}
+
+
+
+// MARK: - Objective-C Bridged methods
+
+// MARK: Decompositions / Factorisations
+
+func LUDecomposition(matrix: Matrix<Float>) -> (Matrix<Float>, Matrix<Float>, Matrix<Float>) {
+    
+    var elementsList = matrix.elementsList
+    var pivotArray = [Int32](count: matrix.dimensions.minimum, repeatedValue: 0)
+    var info: Int32 = 0
+    
+    Matrix_OBJC.LUDecompositionOfMatrix(&elementsList, nrOfRows: Int32(matrix.dimensions.rows), nrOfColumns: Int32(matrix.dimensions.columns), withPivotArray: &pivotArray, withInfo: &info)
+    
+    return (Matrix(), Matrix(), Matrix())
 }
 
 

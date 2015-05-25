@@ -10,6 +10,6 @@
 
 @interface Matrix_OBJC : NSObject
 
-
++ (void) LUDecompositionOfMatrix:(float*)matrix nrOfRows:(int)rows nrOfColumns:(int)columns withPivotArray:(int*)pivotArray withInfo:(int*)info;
 
 @end

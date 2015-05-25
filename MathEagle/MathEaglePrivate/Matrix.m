@@ -7,9 +7,13 @@
 //
 
 #import "Matrix.h"
+#import <Accelerate/Accelerate.h>
 
 @implementation Matrix_OBJC
 
-
++ (void)LUDecompositionOfMatrix:(float *)matrix nrOfRows:(int)rows nrOfColumns:(int)columns withPivotArray:(int *)pivotArray withInfo:(int *)info {
+    
+    sgetrf_(&rows, &columns, matrix, &rows, pivotArray, info);
+}
 
 @end
