@@ -566,7 +566,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     */
     public var rank: Int {
         
-        //TODO: Implement this method
+        //FIXME: Implement this method!
         return 0
     }
     
@@ -1917,14 +1917,27 @@ public func transpose(matrix: Matrix<Float>) -> Matrix<Float> {
 
 // MARK: Decompositions / Factorisations
 
-func LUDecomposition(matrix: Matrix<Float>) -> (Matrix<Float>, Matrix<Float>, Matrix<Float>) {
+/**
+    Returns the LU decomposition of the given matrix.
+
+    :param: matrix  The matrix to compute the LU decomposition of.
+
+    :returns: (L, U, P) A tuple containing three matrices. The first matrix
+                is a lower triangular matrix with ones on the main diagonal.
+                The second matrix is an upper triangular matrix and the third
+                matrix is a permutations matrix. Here is A = PLU.
+*/
+func LUDecomposition(matrix: Matrix<Float>) -> (Matrix<Float>, Matrix<Float>, Matrix<Float>)? {
     
-    var elementsList = matrix.elementsList
+    var elementsList = transpose(matrix).elementsList
     var pivotArray = [Int32](count: matrix.dimensions.minimum, repeatedValue: 0)
     var info: Int32 = 0
     
     Matrix_OBJC.LUDecompositionOfMatrix(&elementsList, nrOfRows: Int32(matrix.dimensions.rows), nrOfColumns: Int32(matrix.dimensions.columns), withPivotArray: &pivotArray, withInfo: &info)
     
+    if info != 0 { return nil }
+    
+    //FIXME: This still needs to be implemented!
     return (Matrix(), Matrix(), Matrix())
 }
 
