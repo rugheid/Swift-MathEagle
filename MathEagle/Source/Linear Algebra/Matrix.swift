@@ -246,6 +246,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     */
     public convenience init(randomWithDimensions dimensions: Dimensions) {
         
+        //TODO: Improve this implementation.
         self.init(dimensions: dimensions, generator: { i in T.random() })
     }
     
@@ -282,6 +283,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     */
     public convenience init(randomWithDimensions dimensions: Dimensions, intervals: ClosedInterval<T.RandomIntervalType>...) {
         
+        //TODO: Improve this implementation.
         self.init(dimensions: dimensions, generator: { i in T.randomInInterval(intervals) })
     }
     
@@ -309,6 +311,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
     public init(symmetrical elements: [T]) {
         
+        //TODO: Remove this initialiser, move it to a SymmetricalMatrix class
         self.elementsList = [T]()
         
         let size = (elements.count + 1) / 2

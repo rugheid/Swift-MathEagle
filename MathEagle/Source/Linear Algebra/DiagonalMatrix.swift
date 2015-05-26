@@ -113,4 +113,22 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
             self.elementsStructure.append(generator([i, i]))
         }
     }
+    
+    //TODO: Check whether the super implementation of init(size: generator:) calls this class' implementation.
+    
+    //TODO: Override random initialisers once they have been made faster.
+    
+    
+    /**
+        Creates a matrix with the given dimensions filled with the given element.
+    
+        :param: element     The element to fill the matrix with.
+        :param: dimensions  The dimensions the matrix should have.
+    */
+    override public init(filledWith element: T, dimensions: Dimensions) {
+        super.init()
+        
+        self.elementsStructure = [T](count: dimensions.minimum, repeatedValue: element)
+        self.dimensions = dimensions
+    }
 }
