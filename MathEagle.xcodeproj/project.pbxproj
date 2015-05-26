@@ -221,10 +221,10 @@
 			isa = PBXGroup;
 			children = (
 				98F5986D1A7B8BED0058DF53 /* Matrix.swift */,
-				9808C8C61B1502BD00D82572 /* Dimensions.swift */,
 				9808C8C31B149B0100D82572 /* DiagonalMatrix.swift */,
 				98F5986E1A7B8BED0058DF53 /* MatrixVector.swift */,
 				98F5986F1A7B8BED0058DF53 /* Vector.swift */,
+				9808C8C61B1502BD00D82572 /* Dimensions.swift */,
 			);
 			name = "Linear Algebra";
 			sourceTree = "<group>";
