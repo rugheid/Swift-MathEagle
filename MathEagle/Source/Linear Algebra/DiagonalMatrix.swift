@@ -327,4 +327,47 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
             return Matrix(filledWith: 0, dimensions: self.dimensions)
         }
     }
+    
+    
+    /**
+        Returns the maximum element in the matrix if the matrix is not empty,
+        otherwise it returns nil.
+    */
+    override public var maxElement: T? {
+        
+        if self.isEmpty {
+            
+            return nil
+            
+        } else {
+            
+            return max(max(self.elementsStructure), 0)
+        }
+    }
+    
+    
+    /**
+        Returns the minimum element in the matrix if the matrix is not empty,
+        otherwise it returns nil.
+    */
+    override public var minElement: T? {
+        
+        if self.isEmpty {
+            
+            return nil
+            
+        } else {
+            
+            return min(min(self.elementsStructure), 0)
+        }
+    }
+    
+    
+    /**
+        Returns the transpose of the matrix.
+    */
+    override public var transpose: Matrix<T> {
+        
+        return DiagonalMatrix(diagonal: self.elementsStructure, dimensions: self.dimensions.transpose)
+    }
 }

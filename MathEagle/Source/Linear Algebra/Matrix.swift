@@ -842,13 +842,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
             
         } else {
             
-            var max = self.elementsList[0]
-            for element in self.elementsList {
-                if element > max {
-                    max = element
-                }
-            }
-            return max
+            return max(self.elementsList)
         }
     }
     
@@ -865,13 +859,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
             
         } else {
             
-            var min = self.elementsList[0]
-            for element in self.elementsList {
-                if element < min {
-                    min = element
-                }
-            }
-            return min
+            return min(self.elementsList)
         }
     }
     
@@ -2106,6 +2094,13 @@ public struct Dimensions: Equatable, Addable {
     */
     public var product: Int {
         return self.rows * self.columns
+    }
+    
+    /**
+        Returns a new Dimensions object with the two dimensions swapped.
+    */
+    public var transpose: Dimensions {
+        return Dimensions(self.columns, self.rows)
     }
     
     /**
