@@ -12,6 +12,8 @@
 		9808C8BC1B11FDFB00D82572 /* Matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 9808C8AD1B110B0C00D82572 /* Matrix.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		9808C8C41B149B0100D82572 /* DiagonalMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808C8C31B149B0100D82572 /* DiagonalMatrix.swift */; };
 		9808C8C51B149B0100D82572 /* DiagonalMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808C8C31B149B0100D82572 /* DiagonalMatrix.swift */; };
+		9808C8C71B1502BD00D82572 /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808C8C61B1502BD00D82572 /* Dimensions.swift */; };
+		9808C8C81B1502BD00D82572 /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808C8C61B1502BD00D82572 /* Dimensions.swift */; };
 		983106261AFB628C0074FBC8 /* Numpy Times in Resources */ = {isa = PBXBuildFile; fileRef = 983106251AFB628C0074FBC8 /* Numpy Times */; };
 		983106281AFB62AE0074FBC8 /* Benchmarking Files in Resources */ = {isa = PBXBuildFile; fileRef = 983106271AFB62AE0074FBC8 /* Benchmarking Files */; };
 		9843568F1ACC79F100B988CB /* RandomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9843568E1ACC79F100B988CB /* RandomTests.swift */; };
@@ -70,6 +72,7 @@
 		9808C8B81B11FC8300D82572 /* MathEagle.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MathEagle.xcconfig; sourceTree = SOURCE_ROOT; };
 		9808C8B91B11FD1500D82572 /* MathEagle.private.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = MathEagle.private.modulemap; sourceTree = "<group>"; };
 		9808C8C31B149B0100D82572 /* DiagonalMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiagonalMatrix.swift; path = "Source/Linear Algebra/DiagonalMatrix.swift"; sourceTree = "<group>"; };
+		9808C8C61B1502BD00D82572 /* Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dimensions.swift; path = "Source/Linear Algebra/Dimensions.swift"; sourceTree = "<group>"; };
 		983106251AFB628C0074FBC8 /* Numpy Times */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Numpy Times"; sourceTree = "<group>"; };
 		983106271AFB62AE0074FBC8 /* Benchmarking Files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Benchmarking Files"; sourceTree = "<group>"; };
 		9843568E1ACC79F100B988CB /* RandomTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomTests.swift; sourceTree = "<group>"; };
@@ -218,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				98F5986D1A7B8BED0058DF53 /* Matrix.swift */,
+				9808C8C61B1502BD00D82572 /* Dimensions.swift */,
 				9808C8C31B149B0100D82572 /* DiagonalMatrix.swift */,
 				98F5986E1A7B8BED0058DF53 /* MatrixVector.swift */,
 				98F5986F1A7B8BED0058DF53 /* Vector.swift */,
@@ -358,6 +362,7 @@
 				98F598761A7B8BED0058DF53 /* Solver.swift in Sources */,
 				98E671721AA8C02100C88DCE /* Prime.swift in Sources */,
 				9808C8B01B110B0C00D82572 /* Matrix.m in Sources */,
+				9808C8C71B1502BD00D82572 /* Dimensions.swift in Sources */,
 				98E671771AA8F00600C88DCE /* Complex.swift in Sources */,
 				98F598801A7B8BED0058DF53 /* Vector.swift in Sources */,
 				98F598741A7B8BED0058DF53 /* Functions.swift in Sources */,
@@ -376,6 +381,7 @@
 				98F5989C1A7B8C2A0058DF53 /* MatrixTests.swift in Sources */,
 				98E671731AA8C02100C88DCE /* Prime.swift in Sources */,
 				98E671781AA8F00600C88DCE /* Complex.swift in Sources */,
+				9808C8C81B1502BD00D82572 /* Dimensions.swift in Sources */,
 				98E671751AA8C4B400C88DCE /* PrimeTests.swift in Sources */,
 				9843568F1ACC79F100B988CB /* RandomTests.swift in Sources */,
 				98F5987B1A7B8BED0058DF53 /* Integration.swift in Sources */,
