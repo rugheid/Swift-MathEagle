@@ -523,4 +523,134 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         
         self.elementsStructure[row] = element
     }
+    
+    
+    /**
+        Returns the row at the given index. The first row has index 0.
+    
+        :returns: The row at the given index.
+    */
+    override public func row(index: Int) -> Vector<T> {
+        
+        if index < 0 || index >= self.dimensions.rows {
+            
+            NSException(name: "Row index out of bounds", reason: "The requested row's index is out of bounds.", userInfo: nil).raise()
+        }
+        
+        var elementsList = [T](count: self.dimensions.columns, repeatedValue: 0)
+        elementsList[index] = self.elementsStructure[index]
+        
+        return Vector(elementsList)
+    }
+    
+    
+    /**
+        Sets the row at the given index to the given row.
+    
+        :param: index The index of the row to change.
+        :param: newRow The row to set at the given index.
+    */
+    override public func setRow(atIndex index: Int, toRow newRow: Vector<T>) {
+        
+        // If the index is out of bounds
+        if index < 0 || index >= self.dimensions.rows {
+            
+            NSException(name: "Row index out of bounds", reason: "The index at which the row should be set is out of bounds.", userInfo: nil).raise()
+        }
+        
+        // If the row's length is not correct
+        if newRow.length != self.dimensions.columns {
+            
+            NSException(name: "New row wrong length", reason: "The new row's length is not equal to the matrix's number of columns.", userInfo: nil).raise()
+        }
+        
+        for (i, element) in enumerate(newRow) {
+            
+            if i == index {
+                
+                self.elementsStructure[i] = element
+                
+            } else if element != 0 {
+                
+                NSException(name: "Unsettable element", reason: "All elements at non-diagonal positions must be zero.", userInfo: nil).raise()
+            }
+        }
+    }
+    
+    
+    /**
+        Switches the rows at the given indexes.
+    
+        :param: i The index of the first row.
+        :param: j The index of the second row.
+    */
+    override public func switchRows(i: Int, _ j: Int) {
+        
+        NSException(name: "Can't switch rows", reason: "Rows can't be switched in a DiagonalMatrix.", userInfo: nil).raise()
+    }
+    
+    
+    /**
+        Returns the column at the given index. The first column has index 0.
+    
+        :returns: The column at the given index.
+    */
+    override public func column(index: Int) -> Vector<T> {
+        
+        if index < 0 || index >= self.dimensions.columns {
+            
+            NSException(name: "Column index out of bounds", reason: "The requested column's index is out of bounds.", userInfo: nil).raise()
+        }
+        
+        var elementsList = [T](count: self.dimensions.rows, repeatedValue: 0)
+        elementsList[index] = self.elementsStructure[index]
+        
+        return Vector(elementsList)
+    }
+    
+    
+    /**
+        Sets the column at the given index to the given column.
+    
+        :param: index The index of the column to change.
+        :param: column The column to set at the given index.
+    */
+    override public func setColumn(atIndex index: Int, toColumn newColumn: Vector<T>) {
+        
+        // If the index is out of bounds
+        if index < 0 || index >= self.dimensions.columns {
+            
+            NSException(name: "Column index out of bounds", reason: "The index at which the column should be set is out of bounds.", userInfo: nil).raise()
+        }
+        
+        // If the column's length is not correct
+        if newColumn.length != self.dimensions.rows {
+            
+            NSException(name: "New column wrong length", reason: "The new column's length is not equal to the matrix's number of rows.", userInfo: nil).raise()
+        }
+        
+        for (i, element) in enumerate(newColumn) {
+            
+            if i == index {
+                
+                self.elementsStructure[i] = element
+                
+            } else if element != 0 {
+                
+                NSException(name: "Unsettable element", reason: "All elements at non-diagonal positions must be zero.", userInfo: nil).raise()
+            }
+        }
+    }
+    
+    
+    /**
+        Switches the columns at the given indexes.
+    
+        :param: i The index of the first column.
+        :param: j The index of the second column.
+    */
+    override public func switchColumns(i: Int, _ j: Int) {
+        
+        NSException(name: "Can't switch columns", reason: "Columns can't be switched in a DiagonalMatrix.", userInfo: nil).raise()
+    }
 }
