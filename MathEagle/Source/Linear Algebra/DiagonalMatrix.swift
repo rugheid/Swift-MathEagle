@@ -468,4 +468,59 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         
         return isLowerTriangular(1)
     }
+    
+    
+    
+    // MARK: Element Methods
+    
+    /**
+        Returns the element at the given index (row, column).
+    
+        :param: row The row index of the requested element
+        :param: column The column index of the requested element
+    
+        :returns: The element at the given index (row, column).
+    */
+    override public func element(row: Int, _ column: Int) -> T {
+        
+        if row < 0 || row >= self.dimensions.rows {
+            
+            NSException(name: "Row index out of bounds", reason: "The requested element's row index is out of bounds.", userInfo: nil).raise()
+        }
+        
+        if column < 0 || column >= self.dimensions.columns {
+            
+            NSException(name: "Column index out of bounds", reason: "The requested element's column index is out of bounds.", userInfo: nil).raise()
+        }
+        
+        return row == column ? self.elementsStructure[row] : 0
+    }
+    
+    
+    /**
+        Sets the element at the given indexes.
+    
+        :param: row The row index of the element
+        :param: column The column index of the element
+        :param: element The element to set at the given indexes
+    */
+    override public func setElement(atRow row: Int, atColumn column: Int, toElement element: T) {
+        
+        if row < 0 || row >= self.dimensions.rows {
+            
+            NSException(name: "Row index out of bounds", reason: "The row index at which the element should be set is out of bounds.", userInfo: nil)
+        }
+        
+        if column < 0 || column >= self.dimensions.columns {
+            
+            NSException(name: "Column index out of bounds", reason: "The column index at which the element should be set is out of bounds.", userInfo: nil)
+        }
+        
+        if row != column {
+            
+            NSException(name: "Unsettable element", reason: "Can't set a non-diagonal element.", userInfo: nil).raise()
+        }
+        
+        self.elementsStructure[row] = element
+    }
 }
