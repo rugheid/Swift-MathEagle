@@ -358,21 +358,9 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     */
     public convenience init(identityOfSize size: Int) {
         
+        //TODO: Remove this initialiser, move it to a IdentityMatrix subclass of DiagonalMatrix.
         self.init(filledWith: 0, size: size)
         self.fillDiagonal(1)
-    }
-    
-    
-    /**
-        Creates a matrix filled with zeroes, but where the diagonal elements are equal
-        to the given elements.
-    
-        :param: diagonal    The diagonal elements the matrix should have.
-    */
-    public convenience init(diagonal: [T]) {
-        
-        self.init(filledWith: 0, size: diagonal.count)
-        self.diagonalElements = diagonal
     }
     
     

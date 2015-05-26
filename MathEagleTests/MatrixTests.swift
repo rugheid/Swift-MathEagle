@@ -143,13 +143,6 @@ class MatrixTests: XCTestCase {
         }
     }
     
-    func testDiagonalInit() {
-        
-        let matrix = Matrix(diagonal: [1, 2, 3])
-        
-        XCTAssertEqual(Matrix([[1, 0, 0], [0, 2, 0], [0, 0, 3]]), matrix)
-    }
-    
     
     // MARK: Subscript Tests
     

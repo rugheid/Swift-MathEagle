@@ -6,6 +6,9 @@
 //  Copyright (c) 2015 Jorestha Solutions. All rights reserved.
 //
 
+import Foundation
+
+
 /**
     A class representing a diagonal matrix. This matrix stores it's elements in an efficient way.
     The matrix does not have to be square, but it will only have non-zero elements on it's main diagonal.
@@ -93,6 +96,35 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     
     
     // MARK: Initialisation
+    
+    /**
+        Creates a square diagonal matrix with the given elements on it's main diagonal.
+    */
+    public init(diagonal: [T]) {
+        super.init()
+        
+        self.elementsStructure = diagonal
+        self.dimensions = Dimensions(diagonal.count, diagonal.count)
+    }
+    
+    
+    /**
+        Creates a diagonal matrix with the given dimensions and the given elements on it's main diagonal.
+    
+        :exception: Throws an exception when the number of given diagonal elements is not equal to the
+                    minimum dimension of the given dimensions.
+    */
+    public init(diagonal: [T], dimensions: Dimensions) {
+        super.init()
+        
+        if diagonal.count != dimensions.minimum {
+            NSException(name: "Wrong number of elements", reason: "The number of given diagonal elements (\(diagonal.count)) is not equal to the minimum dimension of the given dimensions (\(dimensions.minimum)).", userInfo: nil).raise()
+        }
+        
+        self.elementsStructure = diagonal
+        self.dimensions = dimensions
+    }
+    
     
     /**
         Creates a matrix with the given dimensions using
