@@ -42,4 +42,51 @@ public class DiagonalMatrix <T: MatrixCompatible> : PackedMatrix<T> {
             }
         }
     }
+    
+    
+    /**
+        Returns or sets a 2 dimensional array containing the elements of the matrix.
+        The array contains array's that represent rows.
+    
+        :performance: This method scales O(n*m) for an nxm matrix, so elementsList should be used for
+                        high performance applications.
+    */
+    override public var elements: [[T]] {
+        
+        get {
+            var elements = [[T]]()
+            
+            for r in 0 ..< self.dimensions.rows {
+                
+                var rowElements = [T]()
+                
+                for c in 0 ..< self.dimensions.columns {
+                    rowElements.append(r == c ? self.elementsStructure[r] : 0)
+                }
+                
+                elements.append(rowElements)
+            }
+            
+            if elements.count == 0 {
+                elements.append([])
+            }
+            
+            return elements
+        }
+        
+        set(newElements) {
+            
+            if newElements.count == 0 || newElements[0].count == 0 {
+                self.dimensions = Dimensions()
+            } else {
+                self.dimensions = Dimensions(newElements.count, newElements[0].count)
+            }
+            
+            self.elementsStructure = []
+            
+            for i in 0 ..< self.dimensions.minimum {
+                self.elementsStructure.append(newElements[i][i])
+            }
+        }
+    }
 }
