@@ -1912,6 +1912,23 @@ public func transpose(matrix: Matrix<Float>) -> Matrix<Float> {
 }
 
 
+/**
+    Returns the transpose of the given matrix.
+
+    :param: matrix  The matrix to transpose.
+
+    :returns: The transpose of the given matrix.
+*/
+public func transpose(matrix: Matrix<Double>) -> Matrix<Double> {
+    
+    var elementsList = [Double](count: matrix.dimensions.product, repeatedValue: 0)
+    
+    vDSP_mtransD(matrix.elementsList, 1, &elementsList, 1, vDSP_Length(matrix.dimensions.columns), vDSP_Length(matrix.dimensions.rows))
+    
+    return Matrix(elementsList: elementsList, columns: matrix.dimensions.rows)
+}
+
+
 
 // MARK: - Objective-C Bridged methods
 

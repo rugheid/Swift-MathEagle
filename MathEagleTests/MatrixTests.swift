@@ -1322,9 +1322,31 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(Matrix<Float>(), transpose(A))
     }
     
+    
     func testTransposeFloatPerformance() {
         
         let A = Matrix<Float>(randomWithSize: 10_000)
+        
+        compareBaseline(61.5537649989128, title: "10_000x10_000 Float Matrix Tranpose Performance", n: 1){
+            
+            transpose(A)
+        }
+    }
+    
+    
+    func testTransposeDouble() {
+        
+        var A = Matrix<Double>([[1, 2, 3, 4] ,[5, 6, 7, 8] ,[9, 10, 11, 12]])
+        XCTAssertEqual(Matrix<Double>([[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]), transpose(A))
+        
+        A = Matrix()
+        XCTAssertEqual(Matrix<Double>(), transpose(A))
+    }
+    
+    
+    func testTransposeDoublePerformance() {
+        
+        let A = Matrix<Double>(randomWithSize: 10_000)
         
         compareBaseline(61.5537649989128, title: "10_000x10_000 Float Matrix Tranpose Performance", n: 1){
             
@@ -1340,7 +1362,7 @@ class MatrixTests: XCTestCase {
         
         let matrix = Matrix<Float>([[1, 2], [3, 4]])
         
-        let (L, U, P) = LUDecomposition(matrix)
+        let (L, U, P) = LUDecomposition(matrix)!
         
         XCTAssertEqual(matrix, P*L*U)
     }
