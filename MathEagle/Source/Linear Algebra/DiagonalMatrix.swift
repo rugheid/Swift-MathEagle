@@ -10,7 +10,7 @@
     A class representing a diagonal matrix. This matrix stores it's elements in an efficient way.
     The matrix does not have to be square, but it will only have non-zero elements on it's main diagonal.
 */
-public class DiagonalMatrix <T: MatrixCompatible> : PackedMatrix<T> {
+public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
 
     /**
         Returns a row major ordered list of all elements in the array.
@@ -87,6 +87,30 @@ public class DiagonalMatrix <T: MatrixCompatible> : PackedMatrix<T> {
             for i in 0 ..< self.dimensions.minimum {
                 self.elementsStructure.append(newElements[i][i])
             }
+        }
+    }
+    
+    
+    
+    // MARK: Initialisation
+    
+    /**
+        Creates a matrix with the given dimensions using
+        the given generator.
+    
+        :param: dimensions  The dimensions the matrix should have.
+        :param: generator   The generator used to generate the matrix.
+                This function is called for every element passing
+                the index of the element.
+    */
+    override public init(dimensions: Dimensions, generator: (Index) -> T) {
+        super.init()
+        
+        self.elementsStructure = []
+        self.dimensions = dimensions
+        
+        for i in 0 ..< self.dimensions.minimum {
+            self.elementsStructure.append(generator([i, i]))
         }
     }
 }
