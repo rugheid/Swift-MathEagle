@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Jorestha Solutions. All rights reserved.
 //
 
-import Foundation
 import Accelerate
 import MathEaglePrivate
 
@@ -21,15 +20,32 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     // MARK: Internal Elements
     
     /**
-        Returns a row major ordered list of all elements in the array.
-        This should be used for high performance applications.
+        The variable to store the inner structure of the matrix.
     */
-    public var elementsList: [T] = []
+    public var elementsStructure: [T] = []
+    
     
     /**
         Returns the dimensions of matrix.
     */
     public var dimensions: Dimensions = Dimensions(0, 0)
+    
+    
+    /**
+        Returns a row major ordered list of all elements in the array.
+        This should be used for high performance applications.
+    */
+    public var elementsList: [T] {
+        
+        get {
+            return elementsStructure
+        }
+        
+        set (newElementsList) {
+            elementsStructure = newElementsList
+        }
+    }
+    
     
     /**
         Returns or sets a 2 dimensional array containing the elements of the matrix.
