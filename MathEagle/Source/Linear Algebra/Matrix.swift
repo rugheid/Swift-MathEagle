@@ -591,9 +591,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
     
     /**
-        Returns the determinant of the matrix. Note that this method does not check for easy structures like diagonal
-        matrices, zero matrices, ... because this would consume unnecessary time. Use product(matrix.diagonalElements)
-        if the matrix is diagonal for example.
+        Returns the determinant of the matrix.
     */
     public var determinant: T {
         
@@ -653,11 +651,11 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         :returns: An array representing the diagonal elements from top left to bottom right in the matrix.
     
         :exception: An exception will be raised if the diagonal at the given index does not exist.
-                    This means -n > the number of rows or n > the number of columns.
+                    This means -n >= the number of rows or n >= the number of columns.
     */
     public func diagonalElements(_ n: Int = 0) -> [T] {
         
-        if -n > self.dimensions.rows || n > self.dimensions.columns {
+        if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
             NSException(name: "Index out the bounds.", reason: "The given index is out of bounds.", userInfo: nil).raise()
         }
@@ -705,11 +703,11 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         :returns: A matrix where all elements under the diagonal with the given index are zero.
     
         :exception: An exception will be raised if the diagonal at the given index does not exist.
-                    This means -n > the number of rows or n > the number of columns.
+                    This means -n >= the number of rows or n >= the number of columns.
     */
     public func upperTriangle(_ n: Int = 0) -> Matrix<T> {
         
-        if -n > self.dimensions.rows || n > self.dimensions.columns {
+        if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
             NSException(name: "Index out the bounds.", reason: "The given index is out of bounds.", userInfo: nil).raise()
         }
@@ -754,6 +752,10 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     }
     
     
+    /**
+        Returns a copy of the matrix with all elements above the main diagonal set to zero.
+        This also applies to non-square matrices.
+    */
     public var lowerTriangle: Matrix<T> {
         
         get {
@@ -762,9 +764,28 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     }
     
     
+    /**
+        Returns the lower triangle part of the matrix. This is the part of below the diagonal with the given index.
+        The diagonal itself is also included. The part below the diagonal contains zero.
+        0 represents the main diagonal.
+        -1 means the first subdiagonal, this is the one below the main diagonal.
+        Other negative numbers represent lower subdiagonals.
+        1 means the first superdiagonal, this is the one above the main diagonal.
+        Other positive numbers represent higher superdiagonals.
+    
+        :note: Note that this method also works for non-square matrices, but the returned matrix will thus be
+                not lower triangular because only square matrices are lower triangular.
+    
+        :param: n   The diagonal's index.
+    
+        :returns: A matrix where all elements above the diagonal with the given index are zero.
+    
+        :exception: An exception will be raised if the diagonal at the given index does not exist.
+                    This means -n >= the number of rows or n >= the number of columns.
+    */
     public func lowerTriangle(_ n: Int = 0) -> Matrix<T> {
         
-        if -n > self.dimensions.rows || n > self.dimensions.columns {
+        if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
             NSException(name: "Index out the bounds.", reason: "The given index is out of bounds.", userInfo: nil).raise()
         }

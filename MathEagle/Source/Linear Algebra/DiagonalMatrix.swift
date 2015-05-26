@@ -183,4 +183,148 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         
         return rank
     }
+    
+    
+    /**
+        Returns the determinant of the matrix.
+    */
+    override public var determinant: T {
+        
+        return product(self.diagonalElements)
+    }
+    
+    
+    /**
+        Gets or sets the diagonal elements of the matrix.
+    
+        :returns: An array with the diagonal elements of the matrix.
+    
+        :exception: Throws an exception when the given array countains too many elements.
+    */
+    override public var diagonalElements: [T] {
+        
+        get {
+            return self.elementsStructure
+        }
+        
+        set(elements) {
+            
+            if elements.count != self.dimensions.minimum {
+                NSException(name: "Wrong number of elements", reason: "Wrong number of diagonal elements provided. Expected \(self.dimensions.minimum), but got \(elements.count).", userInfo: nil).raise()
+            }
+            
+            self.elementsStructure = elements
+        }
+    }
+    
+    
+    /**
+        Returns the elements of the diagonal at the given index.
+        0 represents the main diagonal.
+        -1 means the first subdiagonal, this is the one below the main diagonal.
+        Other negative numbers represent lower subdiagonals.
+        1 means the first superdiagonal, this is the one above the main diagonal.
+        Other positive numbers represent higher superdiagonals.
+    
+        :param: n The diagonal's index.
+    
+        :returns: An array representing the diagonal elements from top left to bottom right in the matrix.
+    
+        :exception: An exception will be raised if the diagonal at the given index does not exist.
+                    This means -n > the number of rows or n > the number of columns.
+    */
+    override public func diagonalElements(_ n: Int = 0) -> [T] {
+        
+        if -n >= self.dimensions.rows || n >= self.dimensions.columns {
+            NSException(name: "Index out the bounds.", reason: "The given index is out of bounds.", userInfo: nil).raise()
+        }
+        
+        if n == 0 {
+            return elementsStructure
+        } else {
+            let cnt = min(self.dimensions.minimum, n < 0 ? self.dimensions.rows + n : self.dimensions.columns - n)
+            return [T](count: cnt, repeatedValue: 0)
+        }
+    }
+    
+    
+    /**
+        Returns a copy of the matrix with all elements under the main diagonal set to zero.
+        This also applies to non-square matrices.
+    */
+    override public var upperTriangle: Matrix<T> {
+        
+        return self
+    }
+    
+    
+    /**
+        Returns the upper triangle part of the matrix. This is the part of above the diagonal with the given index.
+        The diagonal itself is also included. The part below the diagonal contains zero.
+        0 represents the main diagonal.
+        -1 means the first subdiagonal, this is the one below the main diagonal.
+        Other negative numbers represent lower subdiagonals.
+        1 means the first superdiagonal, this is the one above the main diagonal.
+        Other positive numbers represent higher superdiagonals.
+    
+        :note: Note that this method also works for non-square matrices, but the returned matrix will thus be
+                not upper triangular because only square matrices are upper triangular.
+    
+        :param: n The diagonal's index.
+    
+        :returns: A matrix where all elements under the diagonal with the given index are zero.
+    
+        :exception: An exception will be raised if the diagonal at the given index does not exist.
+                    This means -n > the number of rows or n > the number of columns.
+    */
+    override public func upperTriangle(_ n: Int = 0) -> Matrix<T> {
+        
+        if -n >= self.dimensions.rows || n >= self.dimensions.columns {
+            
+            NSException(name: "Index out the bounds.", reason: "The given index is out of bounds.", userInfo: nil).raise()
+        }
+        
+        var row = max(-n, 0)
+        var col = max(n, 0)
+        
+        if n == 0 {
+            return self
+        } else {
+            return Matrix(filledWith: 0, dimensions: self.dimensions)
+        }
+    }
+    
+    
+    /**
+        Returns the lower triangle part of the matrix. This is the part of below the diagonal with the given index.
+        The diagonal itself is also included. The part below the diagonal contains zero.
+        0 represents the main diagonal.
+        -1 means the first subdiagonal, this is the one below the main diagonal.
+        Other negative numbers represent lower subdiagonals.
+        1 means the first superdiagonal, this is the one above the main diagonal.
+        Other positive numbers represent higher superdiagonals.
+    
+        :note: Note that this method also works for non-square matrices, but the returned matrix will thus be
+                not lower triangular because only square matrices are lower triangular.
+    
+        :param: n   The diagonal's index.
+    
+        :returns: A matrix where all elements above the diagonal with the given index are zero.
+    
+        :exception: An exception will be raised if the diagonal at the given index does not exist.
+                    This means -n >= the number of rows or n >= the number of columns.
+    */
+    override public func lowerTriangle(_ n: Int = 0) -> Matrix<T> {
+        
+        if -n >= self.dimensions.rows || n >= self.dimensions.columns {
+            
+            NSException(name: "Index out the bounds.", reason: "The given index is out of bounds.", userInfo: nil).raise()
+        }
+        
+        if n == 0 {
+            return self
+        } else {
+            return Matrix(filledWith: 0, dimensions: self.dimensions)
+        }
+    }
 }
