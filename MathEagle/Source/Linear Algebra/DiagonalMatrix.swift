@@ -163,4 +163,24 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         self.elementsStructure = [T](count: dimensions.minimum, repeatedValue: element)
         self.dimensions = dimensions
     }
+    
+    
+    
+    // MARK: Basic Properties
+    
+    /**
+        Gives the rank of the matrix. This is not the tensor rank.
+    
+        :returns: The rank of the matrix.
+    */
+    override public var rank: Int {
+        
+        var rank = self.dimensions.minimum
+        
+        for element in self.elementsStructure {
+            if element == 0 { rank-- }
+        }
+        
+        return rank
+    }
 }
