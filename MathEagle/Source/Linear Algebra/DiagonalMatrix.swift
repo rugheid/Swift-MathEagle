@@ -370,4 +370,102 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         
         return DiagonalMatrix(diagonal: self.elementsStructure, dimensions: self.dimensions.transpose)
     }
+    
+    
+    /**
+        Returns the conjugate of the matrix.
+    */
+    override public var conjugate: Matrix<T> {
+        
+        return DiagonalMatrix(diagonal: map(self.elementsStructure){ $0.conjugate }, dimensions: self.dimensions)
+    }
+    
+    
+    /**
+        Returns the conjugate transpose of the matrix. This is also called the Hermitian transpose.
+    */
+    override public var conjugateTranspose: Matrix<T> {
+        
+        return DiagonalMatrix(diagonal: map(self.elementsStructure){ $0.conjugate }, dimensions: self.dimensions.transpose)
+    }
+    
+    
+    /**
+        Returns whether all elements are zero.
+    */
+    override public var isZero: Bool {
+        
+        //TODO: Improve this implementation
+        return reduce(self.elementsStructure, true){ $0 ? $1 == 0 : false }
+    }
+    
+    
+    /**
+        Returns whether the matrix is diagonal. This means all elements that are not on the main diagonal are zero.
+    */
+    override public var isDiagonal: Bool {
+        
+        return true
+    }
+    
+    
+    /**
+        Returns whether the matrix is symmetrical. This method works O(2n) for symmetrical (square) matrixes of size n.
+    
+        :returns: true if the matrix is symmetrical.
+    */
+    override public var isSymmetrical: Bool {
+        
+        return self.isSquare
+    }
+    
+    
+    /**
+        Returns whether the matrix is upper triangular according to the given diagonal index.
+        This means all elements below the diagonal at the given index n must be zero.
+        When mustBeSquare is set to true the matrix must be square.
+    
+        :param: n               The diagonal's index.
+        :param: mustBeSquare    Whether the matrix must be square to be upper triangular.
+    */
+    override public func isUpperTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
+        
+        //TODO: Throw exception when n is out of bounds.
+        return (!mustBeSquare || self.isSquare) && (n <= 0 || self.isZero)
+    }
+    
+    
+    /**
+        Returns whether the matrix is upper Hessenberg.
+        This means all elements below the first subdiagonal are zero.
+    */
+    override public var isUpperHessenberg: Bool {
+        
+        return self.isSquare
+    }
+    
+    
+    /**
+        Returns whether the matrix is lower triangular according to the given diagonal index.
+        This means all elements above the diagonal at the given index n must be zero.
+        When mustBeSquare is set to true the matrix must be square.
+    
+        :param: n The diagonal's index.
+        :param: mustBeSquare Whether the matrix must be square to be lower triangular.
+    */
+    override public func isLowerTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
+        
+        //TODO: Throw an exception when n is out of bounds.
+        return (!mustBeSquare || self.isSquare) && (n >= 0 || self.isZero)
+    }
+    
+    
+    /**
+        Returns whether the matrix is a lower Hessenberg matrix.
+        This means all elements above the first superdiagonal are zero.
+    */
+    override public var isLowerHessenberg: Bool {
+        
+        return isLowerTriangular(1)
+    }
 }

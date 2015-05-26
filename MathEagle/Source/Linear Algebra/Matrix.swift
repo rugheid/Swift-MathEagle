@@ -916,6 +916,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     */
     public var isZero: Bool {
         
+        //TODO: Improve this implementation.
         return mreduce(self, true){ $0 ? $1 == 0 : false }
     }
     
@@ -996,10 +997,12 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         This means all elements below the diagonal at the given index n must be zero.
         When mustBeSquare is set to true the matrix must be square.
     
-        :param: n The diagonal's index.
-        :param: mustBeSquare Whether the matrix must be square to be upper triangular.
+        :param: n               The diagonal's index.
+        :param: mustBeSquare    Whether the matrix must be square to be upper triangular.
     */
     public func isUpperTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
+        
+        //TODO: Throw an exception when n is out of bounds.
         
         // A non-square matrix can't be upper triangular
         if mustBeSquare && !self.isSquare { return false }
@@ -1043,8 +1046,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
     
     /**
-    Returns whether the matrix is lower triangular.
-    This means the matrix is square and all elements above the main diagonal are zero.
+        Returns whether the matrix is lower triangular.
+        This means the matrix is square and all elements above the main diagonal are zero.
     */
     public var isLowerTriangular: Bool {
         
@@ -1053,14 +1056,16 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
     
     /**
-    Returns whether the matrix is lower triangular according to the given diagonal index.
-    This means all elements above the diagonal at the given index n must be zero.
-    When mustBeSquare is set to true the matrix must be square.
+        Returns whether the matrix is lower triangular according to the given diagonal index.
+        This means all elements above the diagonal at the given index n must be zero.
+        When mustBeSquare is set to true the matrix must be square.
     
-    :param: n The diagonal's index.
-    :param: mustBeSquare Whether the matrix must be square to be lower triangular.
+        :param: n The diagonal's index.
+        :param: mustBeSquare Whether the matrix must be square to be lower triangular.
     */
     public func isLowerTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
+        
+        //TODO: Throw an exception when n is out of bounds.
         
         // A non-square matrix can't be upper triangular
         if mustBeSquare && !self.isSquare { return false }
