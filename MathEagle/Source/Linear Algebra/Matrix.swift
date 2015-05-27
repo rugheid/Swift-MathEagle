@@ -1589,30 +1589,6 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         return (L, U, P, detP * detU)
     }
     
-    
-    
-    // MARK: Private Helper Methods
-    
-    private func elementsAreValid(elements: [[T]]) -> Bool {
-        
-        if elements.count > 1 {
-            
-            let nrOfColumns = elements[0].count
-            
-            for i in 1 ..< elements.count {
-                
-                if elements[i].count != nrOfColumns {
-                    
-                    return false
-                }
-                
-                return true
-            }
-        }
-        
-        return true
-    }
-    
 }
 
 
