@@ -646,11 +646,22 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Switches the columns at the given indexes.
     
-        :param: i The index of the first column.
-        :param: j The index of the second column.
+        :param: i   The index of the first column.
+        :param: j   The index of the second column.
     */
     override public func switchColumns(i: Int, _ j: Int) {
         
         NSException(name: "Can't switch columns", reason: "Columns can't be switched in a DiagonalMatrix.", userInfo: nil).raise()
+    }
+    
+    
+    /**
+        Fills the diagonal with the given value.
+    
+        :param: value   The value to fill the diagonal with.
+    */
+    override public func fillDiagonal(value: T) {
+        
+        self.elementsStructure = [T](count: self.dimensions.minimum, repeatedValue: value)
     }
 }
