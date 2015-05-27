@@ -150,6 +150,23 @@ public class Permutation: Printable {
     
     
     
+    // MARK: Mutators
+    
+    /**
+        Switches the elements at the given indices.
+
+        :param: fromIndex   The index of the first element.
+        :param: toIndex     The index of the second element.
+    */
+    public func switchElements(i: Int, j: Int) {
+        
+        let temp = self[i]
+        self[i] = self[j]
+        self[j] = temp
+    }
+    
+    
+    
     // MARK: Helper Methods
     
     /**
