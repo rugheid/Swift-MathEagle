@@ -60,6 +60,29 @@ public class Permutation: Printable {
     }
     
     
+    /**
+        Creates an identity permutation of the given length.
+    
+        :param: length  The length of the permutation.
+    
+        :exception: Throws an exception when the given length is negative.
+    */
+    public init(identityOfLength length: Int) {
+        
+        if length < 0 {
+            NSException(name: "Negative Length", reason: "A permutation can not have a negative length.", userInfo: nil).raise()
+        }
+        
+        self.arrayRepresentation = []
+        
+        if length > 0 {
+            for i in 1 ... length {
+                self.arrayRepresentation.append(i)
+            }
+        }
+    }
+    
+    
     
     // MARK: Subscripts
     
