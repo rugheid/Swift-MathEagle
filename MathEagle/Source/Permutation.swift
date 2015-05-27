@@ -61,6 +61,37 @@ public class Permutation: Printable {
     
     
     
+    // MARK: Subscripts
+    
+    /**
+        Returns the element at the given index.
+        
+        :param: index   The index to take the element from.
+    */
+    public subscript(index: Int) -> Int {
+        
+        return self.arrayRepresentation[index]
+    }
+    
+    
+    /**
+        Returns the elements at the given index range:
+    
+        :param: indexRange  The indices to take the elements from.
+    */
+    public subscript(indexRange: Range<Int>) -> [Int] {
+        
+        var slice = [Int]()
+        
+        for index in indexRange {
+            slice.append(self.arrayRepresentation[index])
+        }
+        
+        return slice
+    }
+    
+    
+    
     // MARK: Properties
     
     /**
