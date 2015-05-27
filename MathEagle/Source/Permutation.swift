@@ -70,7 +70,13 @@ public class Permutation: Printable {
     */
     public subscript(index: Int) -> Int {
         
-        return self.arrayRepresentation[index]
+        get {
+            return self.arrayRepresentation[index]
+        }
+        
+        set(newElement) {
+            self.arrayRepresentation[index] = newElement
+        }
     }
     
     
@@ -81,13 +87,19 @@ public class Permutation: Printable {
     */
     public subscript(indexRange: Range<Int>) -> [Int] {
         
-        var slice = [Int]()
-        
-        for index in indexRange {
-            slice.append(self.arrayRepresentation[index])
+        get {
+            var slice = [Int]()
+            
+            for index in indexRange {
+                slice.append(self.arrayRepresentation[index])
+            }
+            
+            return slice
         }
         
-        return slice
+        set(newElements) {
+            self.arrayRepresentation.replaceRange(indexRange, with: newElements)
+        }
     }
     
     
