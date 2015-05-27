@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Accelerate
 
 
 /**
@@ -664,4 +665,96 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         
         self.elementsStructure = [T](count: self.dimensions.minimum, repeatedValue: value)
     }
+}
+
+
+// MARK: DiagonalMatrix Equality
+
+/**
+    Returns whether the two given matrices are equal. This means corresponding
+    elements are equal.
+
+    :param: left    The left matrix in the equation.
+    :param: right   The right matrix in the equation.
+
+    :returns: true if the two matrices are equal.
+*/
+public func == <T: MatrixCompatible> (left: DiagonalMatrix<T>, right: DiagonalMatrix<T>) -> Bool {
+    
+    if left.dimensions != right.dimensions {
+        return false
+    }
+    
+    return left.elementsStructure == right.elementsStructure
+}
+
+
+// MARK: Matrix Addition
+
+/**
+    Returns the sum of the two matrices.
+
+    :param: left    The left matrix in the sum.
+    :param: right   The right matrix in the sum.
+
+    :returns: A matrix of the same dimensions as the two
+                given matrices.
+
+    :exception: Throws an exception when the dimensions of the two matrices are not equal.
+*/
+public func + <T: MatrixCompatible> (left: DiagonalMatrix<T>, right: DiagonalMatrix<T>) -> DiagonalMatrix<T> {
+    
+    if left.dimensions != right.dimensions {
+        NSException(name: "Unequal dimensions", reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
+    }
+    
+    return DiagonalMatrix(diagonal: (Vector(left.elementsStructure) + Vector(right.elementsStructure)).elements, dimensions: left.dimensions)
+}
+
+/**
+    Returns the sum of the two matrices.
+
+    :param: left    The left matrix in the sum.
+    :param: right   The right matrix in the sum.
+
+    :returns: A matrix of the same dimensions as the two
+                given matrices.
+
+    :exception: Throws an exception when the dimensions of the two matrices are not equal.
+*/
+public func + (left: DiagonalMatrix<Float>, right: DiagonalMatrix<Float>) -> DiagonalMatrix<Float> {
+    
+    if left.dimensions != right.dimensions {
+        NSException(name: "Unequal dimensions", reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
+    }
+    
+    var diagonal = right.elementsStructure
+    
+    cblas_saxpy(Int32(left.dimensions.minimum), 1.0, left.elementsStructure, 1, &diagonal, 1)
+    
+    return DiagonalMatrix(diagonal: diagonal, dimensions: left.dimensions)
+}
+
+/**
+    Returns the sum of the two matrices.
+
+    :param: left    The left matrix in the sum.
+    :param: right   The right matrix in the sum.
+
+    :returns: A matrix of the same dimensions as the two
+                given matrices.
+
+    :exception: Throws an exception when the dimensions of the two matrices are not equal.
+*/
+public func + (left: DiagonalMatrix<Double>, right: DiagonalMatrix<Double>) -> DiagonalMatrix<Double> {
+    
+    if left.dimensions != right.dimensions {
+        NSException(name: "Unequal dimensions", reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
+    }
+    
+    var diagonal = right.elementsStructure
+    
+    cblas_daxpy(Int32(left.dimensions.minimum), 1.0, left.elementsStructure, 1, &diagonal, 1)
+    
+    return DiagonalMatrix(diagonal: diagonal, dimensions: left.dimensions)
 }
