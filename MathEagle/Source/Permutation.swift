@@ -64,6 +64,15 @@ public class Permutation: Printable {
     // MARK: Properties
     
     /**
+        Returns the length of the permutation.
+    */
+    public var length: Int {
+        
+        return self.arrayRepresentation.count
+    }
+    
+    
+    /**
         Returns a description of the permutation. The formatting of this description can be set
         using Permutation's `descriptionType` property.
     */
