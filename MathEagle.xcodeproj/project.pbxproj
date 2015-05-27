@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9808C8B01B110B0C00D82572 /* Matrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 9808C8AE1B110B0C00D82572 /* Matrix.m */; };
-		9808C8BA1B11FD1500D82572 /* MathEagle.private.modulemap in Sources */ = {isa = PBXBuildFile; fileRef = 9808C8B91B11FD1500D82572 /* MathEagle.private.modulemap */; };
 		9808C8BC1B11FDFB00D82572 /* Matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 9808C8AD1B110B0C00D82572 /* Matrix.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		9808C8C41B149B0100D82572 /* DiagonalMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808C8C31B149B0100D82572 /* DiagonalMatrix.swift */; };
 		9808C8C51B149B0100D82572 /* DiagonalMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808C8C31B149B0100D82572 /* DiagonalMatrix.swift */; };
@@ -361,7 +360,6 @@
 			files = (
 				98F5987C1A7B8BED0058DF53 /* Matrix.swift in Sources */,
 				98F598701A7B8BED0058DF53 /* Math.swift in Sources */,
-				9808C8BA1B11FD1500D82572 /* MathEagle.private.modulemap in Sources */,
 				98F598721A7B8BED0058DF53 /* Extensions.swift in Sources */,
 				98F5987A1A7B8BED0058DF53 /* Integration.swift in Sources */,
 				9808C8C41B149B0100D82572 /* DiagonalMatrix.swift in Sources */,
