@@ -1951,8 +1951,12 @@ func LUDecomposition(matrix: Matrix<Float>) -> (Matrix<Float>, Matrix<Float>, Ma
     
     if info != 0 { return nil }
     
-    //FIXME: This still needs to be implemented!
-    return (Matrix(), Matrix(), Matrix())
+    let result = Matrix(elementsList: elementsList, columns: matrix.dimensions.rows).transpose
+    
+    let L = result.lowerTriangle
+    L.fillDiagonal(1)
+    
+    return (L, result.upperTriangle, Matrix())
 }
 
 

@@ -1353,10 +1353,12 @@ class MatrixTests: XCTestCase {
     
     func testBridgedLUDecompositionFloat() {
         
-        let matrix = Matrix<Float>([[1, 2], [3, 4]])
+        var matrix = Matrix<Float>([[1, 2], [3, 4]])
+        var (L, U, P) = LUDecomposition(matrix)!
+        XCTAssertEqual(matrix, P*L*U)
         
-        let (L, U, P) = LUDecomposition(matrix)!
-        
+        matrix = [[1, 2, -3, 1], [2, 4, 0, 7], [-1, 3, 2, 0]]
+        (L, U, P) = LUDecomposition(matrix)!
         XCTAssertEqual(matrix, P*L*U)
     }
     
