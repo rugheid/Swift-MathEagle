@@ -274,12 +274,12 @@ public func sum(vector: Vector<Float>) -> Float {
 }
 
 /**
-Returns the sum of all elements in the array.
+    Returns the sum of all elements in the array.
 
-:param: seq The array to sum.
+    :param: seq The array to sum.
 
-:returns: The sum of all elements in the array. When the array is empty
-zero is returned.
+    :returns: The sum of all elements in the array. When the array is empty
+                zero is returned.
 */
 public func sum(seq: [Double]) -> Double {
     
@@ -289,12 +289,12 @@ public func sum(seq: [Double]) -> Double {
 }
 
 /**
-Returns the sum of all elements in the vector.
+    Returns the sum of all elements in the vector.
 
-:param: vector  The vector to sum.
+    :param: vector  The vector to sum.
 
-:returns: The sum of all elements in the vector. When the vector is empty
-zero is returned.
+    :returns: The sum of all elements in the vector. When the vector is empty
+                zero is returned.
 */
 public func sum(vector: Vector<Double>) -> Double {
     return sum(vector.elements)
@@ -322,7 +322,6 @@ public func product <S: SequenceType where S.Generator.Element: protocol<Multipl
     :exception: Throws an exception when the given sequence is empty.
 */
 public func min <S: SequenceType where S.Generator.Element: protocol<Comparable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
-    
     
     var generator = seq.generate()
     if let initial = generator.next() {
