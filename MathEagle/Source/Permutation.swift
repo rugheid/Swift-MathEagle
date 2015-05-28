@@ -93,13 +93,7 @@ public class Permutation: Printable {
     */
     public subscript(index: Int) -> Int {
         
-        get {
-            return self.arrayRepresentation[index]
-        }
-        
-        set(newElement) {
-            self.arrayRepresentation[index] = newElement
-        }
+        return self.element(index)
     }
     
     
@@ -173,6 +167,46 @@ public class Permutation: Printable {
     
     
     
+    // MARK: Element Methods
+    
+    /**
+        Returns the element at the given index. This is the element that will take
+        the index' place when the permutation is performed.
+    
+        :exception: Throws an exception when the given index is invalid. This means it's either
+                    negative or bigger than the permutation's size.
+    */
+    public func element(index: Int) -> Int {
+        
+        if index < 0 || index > self.length {
+            NSException(name: "Invalid Index", reason: "The given index is not valid.", userInfo: nil).raise()
+        }
+        
+        return self.arrayRepresentation[index]
+    }
+    
+    
+    /**
+        Returns the index of the given element. This means the given element will take
+        the returned index' place when the permutation is performed.
+    
+        :exception: Throws an exception when the given element's value is not valid.
+                    This means it's either negative or bigger than the permutation's
+                    length.
+    
+        :complexity: This method runs in O(n), where n is the size of the permutation.
+    */
+    public func indexOfElement(element: Int) -> Int {
+        
+        if element < 0 || element > self.length {
+            NSException(name: "Invalid Element", reason: "The given element is not valid.", userInfo: nil).raise()
+        }
+        
+        return find(self.arrayRepresentation, element)!
+    }
+    
+    
+    
     // MARK: Mutators
     
     /**
@@ -184,8 +218,8 @@ public class Permutation: Printable {
     public func switchElements(i: Int, _ j: Int) {
         
         let temp = self[i]
-        self[i] = self[j]
-        self[j] = temp
+        self.arrayRepresentation[i] = self[j]
+        self.arrayRepresentation[j] = temp
     }
     
     
