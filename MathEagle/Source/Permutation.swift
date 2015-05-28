@@ -31,7 +31,7 @@ public class Permutation: Printable {
         The indices start at 1. Every element represents the position
         of the element that will take it's place.
     
-        :example: [4, 2, 1, 3]
+        :example: [3, 1, 0, 4]
     */
     public var arrayRepresentation = [Int]()
     
@@ -76,7 +76,7 @@ public class Permutation: Printable {
         self.arrayRepresentation = []
         
         if length > 0 {
-            for i in 1 ... length {
+            for i in 0 ..< length {
                 self.arrayRepresentation.append(i)
             }
         }
@@ -158,7 +158,7 @@ public class Permutation: Printable {
     /**
         Returns the one-line notation or word representation of the permutation.
     
-        :example: 4 3 1 2
+        :example: 3 2 0 1
     */
     public var wordRepresentation: String {
         
@@ -178,7 +178,7 @@ public class Permutation: Printable {
     */
     public func element(index: Int) -> Int {
         
-        if index < 0 || index > self.length {
+        if index < 0 || index >= self.length {
             NSException(name: "Invalid Index", reason: "The given index is not valid.", userInfo: nil).raise()
         }
         
@@ -198,7 +198,7 @@ public class Permutation: Printable {
     */
     public func indexOfElement(element: Int) -> Int {
         
-        if element < 0 || element > self.length {
+        if element < 0 || element >= self.length {
             NSException(name: "Invalid Element", reason: "The given element is not valid.", userInfo: nil).raise()
         }
         
@@ -240,7 +240,7 @@ public class Permutation: Printable {
         
         for element in arrayRepresentation {
             
-            if element < 1 || element > n || alreadySeen.contains(element) {
+            if element < 0 || element >= n || alreadySeen.contains(element) {
                 
                 return false
                 
@@ -265,14 +265,14 @@ public class Permutation: Printable {
         /**
             Indicates an array representation type of output.
             
-            :example: [4, 3, 1, 2]
+            :example: [3, 2, 0, 1]
         */
         case ArrayRepresentation
         
         /**
             Indicates one-line notation or a word representation.
         
-            :example: 4 3 1 2
+            :example: 3 2 0 1
         */
         case WordRepresentation
         
