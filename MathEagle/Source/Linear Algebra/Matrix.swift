@@ -1114,6 +1114,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     */
     public var isHermitian: Bool {
         
+        //TODO: Rewrite this, this is not efficient
         return self == self.conjugateTranspose
     }
     
