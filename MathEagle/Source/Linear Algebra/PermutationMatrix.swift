@@ -224,6 +224,9 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     */
     override public func switchColumns(i: Int, _ j: Int) {
         
-        //TODO: Implement this
+        let indexi = self.permutation.indexOfElement(i)
+        let indexj = self.permutation.indexOfElement(j)
+        
+        self.permutation.switchElements(indexi, indexj)
     }
 }
