@@ -1956,7 +1956,13 @@ func LUDecomposition(matrix: Matrix<Float>) -> (Matrix<Float>, Matrix<Float>, Ma
     let L = result.lowerTriangle
     L.fillDiagonal(1)
     
-    return (L, result.upperTriangle, Matrix())
+    var permutation = Permutation(identityOfLength: matrix.dimensions.columns)
+    
+    for (index, element) in enumerate(pivotArray) {
+        permutation.switchElements(index, Int(element))
+    }
+    
+    return (L, result.upperTriangle, PermutationMatrix(permutation: permutation))
 }
 
 
