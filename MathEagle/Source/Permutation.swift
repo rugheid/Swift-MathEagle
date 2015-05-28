@@ -181,7 +181,7 @@ public class Permutation: Printable {
         :param: fromIndex   The index of the first element.
         :param: toIndex     The index of the second element.
     */
-    public func switchElements(i: Int, j: Int) {
+    public func switchElements(i: Int, _ j: Int) {
         
         let temp = self[i]
         self[i] = self[j]
