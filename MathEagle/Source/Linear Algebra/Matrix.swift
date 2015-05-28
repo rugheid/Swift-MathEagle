@@ -1128,6 +1128,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         :param: column  The column index of the requested element
     
         :returns: The element at the given index (row, column).
+    
+        :exception: Throws an exception when either of the given indices is out of bounds.
     */
     public func element(row: Int, _ column: Int) -> T {
         
@@ -1151,6 +1153,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         :param: row     The row index of the element
         :param: column  The column index of the element
         :param: element The element to set at the given indexes
+    
+        :exception: Throws an exception when either of the given indices is out of bounds.
     */
     public func setElement(atRow row: Int, atColumn column: Int, toElement element: T) {
         
@@ -1173,6 +1177,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         :param: index   A tuple containing the indexes of the element (row, column)
         :param: element The element to set at the given index
+    
+        :exception: Throws an exception when either of the given indices is out of bounds.
     */
     public func setElement(atIndex index: (Int, Int), toElement element: T) {
         
@@ -1186,6 +1192,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Returns the row at the given index. The first row has index 0.
     
         :returns: The row at the given index.
+    
+        :exception: Throws an exception when the given index is out of bounds.
     */
     public func row(index: Int) -> Vector<T> {
         
@@ -1209,6 +1217,9 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         :param: index The index of the row to change.
         :param: newRow The row to set at the given index.
+    
+        :exception: Throws an exception when the given index is out of bounds.
+        :exception: Throws an exception when the given vector is of the wrong length.
     */
     public func setRow(atIndex index: Int, toRow newRow: Vector<T>) {
         
@@ -1233,6 +1244,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         :param: i The index of the first row.
         :param: j The index of the second row.
+    
+        :exception: Throws an exception when the given index is out of bounds.
     */
     public func switchRows(i: Int, _ j: Int) {
         
@@ -1252,6 +1265,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Returns the column at the given index. The first column has index 0.
     
         :returns: The column at the given index.
+    
+        :exception: Throws an exception when the given index is out of bounds.
     */
     public func column(index: Int) -> Vector<T> {
         
@@ -1276,6 +1291,9 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         :param: index The index of the column to change.
         :param: column The column to set at the given index.
+    
+        :exception: Throws an exception when the given index is out of bounds.
+        :exception: Throws an exception when the given vector is of the wrong length.
     */
     public func setColumn(atIndex index: Int, toColumn newColumn: Vector<T>) {
         

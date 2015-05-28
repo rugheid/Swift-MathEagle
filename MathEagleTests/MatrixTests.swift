@@ -1038,6 +1038,17 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(Vector([4, 8, 6]), matrix[1])
     }
     
+    func testRemoveColumn() {
+        
+        var matrix = Matrix([[1, 2, 3], [4, 5, 6]])
+        matrix.removeColumn(atIndex: 1)
+        XCTAssertEqual(Matrix([[1, 3], [4, 6]]), matrix)
+        
+        matrix = [[1], [2]]
+        matrix.removeColumn(atIndex: 0)
+        XCTAssertEqual(Matrix<Int>(), matrix)
+    }
+    
     func testSwitchColumns() {
         
         // 2 x 3 matrix
