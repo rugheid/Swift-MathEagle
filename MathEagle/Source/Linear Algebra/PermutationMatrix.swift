@@ -90,7 +90,7 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     
         :returns: The size of the matrix if the matrix is square or nil otherwise.
     */
-    override public var size: Int {
+    override public var size: Int! {
         return self.permutation.length
     }
     
