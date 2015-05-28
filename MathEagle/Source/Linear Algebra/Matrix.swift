@@ -1317,6 +1317,37 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
     
     /**
+        Removes the column at the given index.
+    
+        :param: index   The index of the column to remove.
+    
+        :exception: Throws an exception when the given index is out of bounds.
+    */
+    public func removeColumn(atIndex index: Int) {
+        
+        if index < 0 || index >= self.dimensions.columns {
+            
+            NSException(name: "Column index out of bounds", reason: "The index of the column that should be removed is out of bounds.", userInfo: nil).raise()
+        }
+        
+        if self.dimensions.columns == 1 {
+            
+            self.elementsList = []
+            self.dimensions = Dimensions()
+            
+        } else {
+            
+            for r in 0 ..< self.dimensions.rows {
+                
+                self.elementsList.removeAtIndex(r * (self.dimensions.columns - 1) + index)
+            }
+            
+            self.dimensions = Dimensions(self.dimensions.rows, self.dimensions.columns - 1)
+        }
+    }
+    
+    
+    /**
         Switches the columns at the given indexes.
     
         :param: i The index of the first column.
@@ -1977,7 +2008,7 @@ func LUDecomposition(matrix: Matrix<Float>) -> (Matrix<Float>, Matrix<Float>, Ma
     var permutation = Permutation(identityOfLength: matrix.dimensions.columns)
     
     for (index, element) in enumerate(pivotArray) {
-        permutation.switchElements(index, Int(element))
+        permutation.switchElements(index, Int(element-1))
     }
     
     return (L, result.upperTriangle, PermutationMatrix(permutation: permutation))
