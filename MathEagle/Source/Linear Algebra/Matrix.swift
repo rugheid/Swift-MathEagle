@@ -1124,8 +1124,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns the element at the given index (row, column).
     
-        :param: row The row index of the requested element
-        :param: column The column index of the requested element
+        :param: row     The row index of the requested element
+        :param: column  The column index of the requested element
     
         :returns: The element at the given index (row, column).
     */
@@ -1148,8 +1148,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Sets the element at the given indexes.
     
-        :param: row The row index of the element
-        :param: column The column index of the element
+        :param: row     The row index of the element
+        :param: column  The column index of the element
         :param: element The element to set at the given indexes
     */
     public func setElement(atRow row: Int, atColumn column: Int, toElement element: T) {
@@ -1171,7 +1171,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Sets the element at the given index.
     
-        :param: index A tuple containing the indexes of the element (row, column)
+        :param: index   A tuple containing the indexes of the element (row, column)
         :param: element The element to set at the given index
     */
     public func setElement(atIndex index: (Int, Int), toElement element: T) {
