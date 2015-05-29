@@ -12,7 +12,7 @@ import Foundation
 /**
     A class representing a permutation.
 */
-public class Permutation: Printable {
+public class Permutation: ArrayLiteralConvertible, Printable {
     
     
     // MARK: Class Settings
@@ -50,13 +50,24 @@ public class Permutation: Printable {
     
         :exception: An exception is thrown when the array representation is not valid.
     */
-    public init(arrayRepresentation: [Int]) {
+    public init(_ arrayRepresentation: [Int]) {
         
         if !isValidArrayRepresentation(arrayRepresentation) {
             NSException(name: "Invalid Array Representation", reason: "The given array representation is not a valid array representation.", userInfo: nil).raise()
         }
         
         self.arrayRepresentation = arrayRepresentation
+    }
+    
+    
+    /**
+        Creates a permutation from an array literal.
+    
+        :exception: Throws an exception when the array representation is not valid.
+    */
+    public convenience required init(arrayLiteral elements: Int...) {
+        
+        self.init(elements)
     }
     
     

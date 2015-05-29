@@ -17,6 +17,7 @@
 		983106281AFB62AE0074FBC8 /* Benchmarking Files in Resources */ = {isa = PBXBuildFile; fileRef = 983106271AFB62AE0074FBC8 /* Benchmarking Files */; };
 		9843568F1ACC79F100B988CB /* RandomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9843568E1ACC79F100B988CB /* RandomTests.swift */; };
 		988B7CCD1ACAD2F600CDEEF7 /* MatrixVectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988B7CCB1ACAD2F600CDEEF7 /* MatrixVectorTests.swift */; };
+		989729431B18B0550046D951 /* PermutationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989729421B18B0550046D951 /* PermutationTest.swift */; };
 		98E671721AA8C02100C88DCE /* Prime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E671711AA8C02100C88DCE /* Prime.swift */; };
 		98E671751AA8C4B400C88DCE /* PrimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E671741AA8C4B400C88DCE /* PrimeTests.swift */; };
 		98E671771AA8F00600C88DCE /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E671761AA8F00600C88DCE /* Complex.swift */; };
@@ -64,6 +65,7 @@
 		983106271AFB62AE0074FBC8 /* Benchmarking Files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Benchmarking Files"; sourceTree = "<group>"; };
 		9843568E1ACC79F100B988CB /* RandomTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomTests.swift; sourceTree = "<group>"; };
 		988B7CCB1ACAD2F600CDEEF7 /* MatrixVectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixVectorTests.swift; sourceTree = "<group>"; };
+		989729421B18B0550046D951 /* PermutationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermutationTest.swift; sourceTree = "<group>"; };
 		98E671711AA8C02100C88DCE /* Prime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Prime.swift; path = Source/Prime.swift; sourceTree = "<group>"; };
 		98E671741AA8C4B400C88DCE /* PrimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeTests.swift; sourceTree = "<group>"; };
 		98E671761AA8F00600C88DCE /* Complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Complex.swift; path = Source/Complex.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				98F598871A7B8C2A0058DF53 /* SolverTests.swift */,
 				98F598881A7B8C2A0058DF53 /* OptimizationTests.swift */,
 				98F598891A7B8C2A0058DF53 /* IntegrationTests.swift */,
+				989729421B18B0550046D951 /* PermutationTest.swift */,
 				98F598A11A7B8C370058DF53 /* Linear Algebra */,
 				98F5988C1A7B8C2A0058DF53 /* Helper.swift */,
 				98F5985B1A7B8BD20058DF53 /* Supporting Files */,
@@ -365,6 +368,7 @@
 				98F598941A7B8C2A0058DF53 /* FunctionsTests.swift in Sources */,
 				98F5989C1A7B8C2A0058DF53 /* MatrixTests.swift in Sources */,
 				98E671751AA8C4B400C88DCE /* PrimeTests.swift in Sources */,
+				989729431B18B0550046D951 /* PermutationTest.swift in Sources */,
 				9843568F1ACC79F100B988CB /* RandomTests.swift in Sources */,
 				98F598A01A7B8C2A0058DF53 /* Helper.swift in Sources */,
 				98F5989A1A7B8C2A0058DF53 /* IntegrationTests.swift in Sources */,
