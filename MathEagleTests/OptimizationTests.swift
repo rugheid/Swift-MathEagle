@@ -8,6 +8,7 @@
 
 import Cocoa
 import XCTest
+import MathEagle
 
 class OptimizationTests: XCTestCase {
     

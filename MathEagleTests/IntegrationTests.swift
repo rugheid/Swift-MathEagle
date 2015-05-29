@@ -9,6 +9,7 @@
 import Cocoa
 import Foundation
 import XCTest
+import MathEagle
 
 class IntegrationTests: XCTestCase {
     

@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Jorestha Solutions. All rights reserved.
 //
 
+import Foundation
 import Accelerate
-import MathEaglePrivate
 
 public protocol MatrixCompatible: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, Conjugatable, Randomizable, IntegerLiteralConvertible {}
 
@@ -1991,7 +1991,7 @@ public func transpose(matrix: Matrix<Double>) -> Matrix<Double> {
                 The second matrix is an upper triangular matrix and the third
                 matrix is a permutations matrix. Here is A = PLU.
 */
-func LUDecomposition(matrix: Matrix<Float>) -> (Matrix<Float>, Matrix<Float>, Matrix<Float>)? {
+public func LUDecomposition(matrix: Matrix<Float>) -> (Matrix<Float>, Matrix<Float>, Matrix<Float>)? {
     
     var elementsList = transpose(matrix).elementsList
     var pivotArray = [Int32](count: matrix.dimensions.minimum, repeatedValue: 0)

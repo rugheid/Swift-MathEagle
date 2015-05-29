@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MathEagle
 
 
 // MARK: Constants
