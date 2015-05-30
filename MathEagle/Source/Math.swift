@@ -598,16 +598,7 @@ extension Float: Randomizable {
     
     public static func randomArrayOfLength(length: Int) -> [Float] {
         
-//        var array = [Float]()
-//        
-//        for _ in 0 ..< length {
-//            array.append(self.random())
-//        }
-//        
-//        return array
-        
         var array = [Float](count: length, repeatedValue: 0)
-//        array.reserveCapacity(length)
         
         Random_OBJC.randomFloatArrayOfLength(length, inArray: &array)
         
