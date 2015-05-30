@@ -11,6 +11,9 @@ import XCTest
 import MathEagle
 
 class RandomTests: XCTestCase {
+    
+    
+    // MARK: UInt
 
     func testUIntRandomInInterval() {
         
@@ -19,6 +22,17 @@ class RandomTests: XCTestCase {
             var rand = UInt.randomInInterval(0...10)
             XCTAssertTrue(rand >= 0 && rand <= 10)
         }
+    }
+    
+    
+    
+    // MARK: Float
+    
+    func testFloatRandomArrayOfLength() {
+        
+        let array = Float.randomArrayOfLength(10_000)
+        
+        XCTAssertNotEqual(array[0], array[1])
     }
 
 }

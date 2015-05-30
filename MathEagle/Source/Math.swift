@@ -263,6 +263,7 @@ public protocol Randomizable {
     static func random() -> Self
     static func randomInInterval(intervals: ClosedInterval<RandomIntervalType>...) -> Self
     static func randomInInterval(intervals: [ClosedInterval<RandomIntervalType>]) -> Self
+    static func randomArrayOfLength(length: Int) -> [Self]
 }
 
 extension UInt: Randomizable {
@@ -291,6 +292,17 @@ extension UInt: Randomizable {
         }
         return interval.start + random
     }
+    
+    public static func randomArrayOfLength(length: Int) -> [UInt] {
+        
+        var array = [UInt]()
+        
+        for _ in 0 ..< length {
+            array.append(self.random())
+        }
+        
+        return array
+    }
 }
 
 extension UInt8: Randomizable {
@@ -312,6 +324,17 @@ extension UInt8: Randomizable {
         let rand = UInt8(arc4random_uniform(UInt32(length)+1))
         return interval.start + rand
     }
+    
+    public static func randomArrayOfLength(length: Int) -> [UInt8] {
+        
+        var array = [UInt8]()
+        
+        for _ in 0 ..< length {
+            array.append(self.random())
+        }
+        
+        return array
+    }
 }
 
 extension UInt16: Randomizable {
@@ -329,6 +352,17 @@ extension UInt16: Randomizable {
     public static func randomInInterval(intervals: [ClosedInterval<UInt16>]) -> UInt16 {
         
         return 0
+    }
+    
+    public static func randomArrayOfLength(length: Int) -> [UInt16] {
+        
+        var array = [UInt16]()
+        
+        for _ in 0 ..< length {
+            array.append(self.random())
+        }
+        
+        return array
     }
 }
 
@@ -350,6 +384,17 @@ extension UInt32: Randomizable {
         let length = interval.end - interval.start
         return interval.start + arc4random_uniform(length + 1)
     }
+    
+    public static func randomArrayOfLength(length: Int) -> [UInt32] {
+        
+        var array = [UInt32]()
+        
+        for _ in 0 ..< length {
+            array.append(self.random())
+        }
+        
+        return array
+    }
 }
 
 extension UInt64: Randomizable {
@@ -367,6 +412,17 @@ extension UInt64: Randomizable {
     public static func randomInInterval(intervals: [ClosedInterval<UInt64>]) -> UInt64 {
         
         return UInt64(UInt.randomInInterval(map(intervals){ ClosedInterval(UInt($0.start), UInt($0.end)) }))
+    }
+    
+    public static func randomArrayOfLength(length: Int) -> [UInt64] {
+        
+        var array = [UInt64]()
+        
+        for _ in 0 ..< length {
+            array.append(self.random())
+        }
+        
+        return array
     }
 }
 
@@ -390,6 +446,17 @@ extension Int: Randomizable {
         let length = interval.end - interval.start
         return interval.start + Int(UInt.randomInInterval(ClosedInterval<UInt>(0, UInt(length))))
     }
+    
+    public static func randomArrayOfLength(length: Int) -> [Int] {
+        
+        var array = [Int]()
+        
+        for _ in 0 ..< length {
+            array.append(self.random())
+        }
+        
+        return array
+    }
 }
 
 extension Int8: Randomizable {
@@ -407,6 +474,17 @@ extension Int8: Randomizable {
     public static func randomInInterval(intervals: [ClosedInterval<Int8>]) -> Int8 {
         
         return Int8(Int.randomInInterval(map(intervals){ ClosedInterval(Int($0.start), Int($0.end)) }))
+    }
+    
+    public static func randomArrayOfLength(length: Int) -> [Int8] {
+        
+        var array = [Int8]()
+        
+        for _ in 0 ..< length {
+            array.append(self.random())
+        }
+        
+        return array
     }
 }
 
@@ -426,6 +504,17 @@ extension Int16: Randomizable {
         
         return Int16(Int.randomInInterval(map(intervals){ ClosedInterval(Int($0.start), Int($0.end)) }))
     }
+    
+    public static func randomArrayOfLength(length: Int) -> [Int16] {
+        
+        var array = [Int16]()
+        
+        for _ in 0 ..< length {
+            array.append(self.random())
+        }
+        
+        return array
+    }
 }
 
 extension Int32: Randomizable {
@@ -444,6 +533,17 @@ extension Int32: Randomizable {
         
         return Int32(Int.randomInInterval(map(intervals){ ClosedInterval(Int($0.start), Int($0.end)) }))
     }
+    
+    public static func randomArrayOfLength(length: Int) -> [Int32] {
+        
+        var array = [Int32]()
+        
+        for _ in 0 ..< length {
+            array.append(self.random())
+        }
+        
+        return array
+    }
 }
 
 extension Int64: Randomizable {
@@ -461,6 +561,17 @@ extension Int64: Randomizable {
     public static func randomInInterval(intervals: [ClosedInterval<Int64>]) -> Int64 {
         
         return Int64(Int.randomInInterval(map(intervals){ ClosedInterval(Int($0.start), Int($0.end)) }))
+    }
+    
+    public static func randomArrayOfLength(length: Int) -> [Int64] {
+        
+        var array = [Int64]()
+        
+        for _ in 0 ..< length {
+            array.append(self.random())
+        }
+        
+        return array
     }
 }
 
@@ -484,6 +595,24 @@ extension Float: Randomizable {
         
         return interval.start + abs(random() % length)
     }
+    
+    public static func randomArrayOfLength(length: Int) -> [Float] {
+        
+//        var array = [Float]()
+//        
+//        for _ in 0 ..< length {
+//            array.append(self.random())
+//        }
+//        
+//        return array
+        
+        var array = [Float](count: length, repeatedValue: 0)
+//        array.reserveCapacity(length)
+        
+        Random_OBJC.randomFloatArrayOfLength(length, inArray: &array)
+        
+        return array
+    }
 }
 
 extension Double: Randomizable {
@@ -502,6 +631,17 @@ extension Double: Randomizable {
     public static func randomInInterval(intervals: [ClosedInterval<Double>]) -> Double {
         
         return 0
+    }
+    
+    public static func randomArrayOfLength(length: Int) -> [Double] {
+        
+        var array = [Double]()
+        
+        for _ in 0 ..< length {
+            array.append(self.random())
+        }
+        
+        return array
     }
 }
 

@@ -15,3 +15,4 @@ FOUNDATION_EXPORT double MathEagleVersionNumber;
 FOUNDATION_EXPORT const unsigned char MathEagleVersionString[];
 
 #import <MathEagle/Matrix.h>
+#import <MathEagle/Random.h>

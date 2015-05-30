@@ -246,8 +246,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     */
     public convenience init(randomWithDimensions dimensions: Dimensions) {
         
-        //TODO: Improve this implementation.
-        self.init(dimensions: dimensions, generator: { i in T.random() })
+        self.init(elementsList: T.randomArrayOfLength(dimensions.product), dimensions: dimensions)
     }
     
     
