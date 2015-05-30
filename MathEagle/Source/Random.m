@@ -15,6 +15,7 @@
     for (long k = 0; k < length; k++) {
         
         int i = arc4random();
+#warning This sometimes produces NaN or inf, so this has to be rewritten
         array[k] = *(float*)&i;
     }
 }
