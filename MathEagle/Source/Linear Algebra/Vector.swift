@@ -81,7 +81,7 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     */
     public convenience init(randomWithLength length: Int) {
         
-        self.init(length: length, generator: { _ in T.random() })
+        self.init(T.randomArrayOfLength(length))
     }
     
     
