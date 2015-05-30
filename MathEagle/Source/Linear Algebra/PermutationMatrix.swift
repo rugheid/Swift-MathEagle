@@ -95,6 +95,18 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     }
     
     
+    /**
+        Returns the rank of the matrix. This is not the tensor rank.
+    
+        :returns: The rank of the matrix.
+    */
+    override public var rank: Int {
+        
+        return self.size
+    }
+    
+    
+    
     
     // MARK: Element Methods
     
