@@ -193,12 +193,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashabl
     public var cycles: Set<Cycle> {
         
         get {
-            var indices = Set<Int>()
-            
-            //TODO: Write general function to make this faster.
-            for i in 0 ..< self.length {
-                indices.insert(i)
-            }
+            var indices = Set<Int>(rampedArray(length: self.length))
             
             let arrayRepresentation = self.arrayRepresentation
             var cycles = Set<Cycle>()
