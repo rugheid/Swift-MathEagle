@@ -187,6 +187,49 @@ public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashabl
     }
     
     
+    /**
+        Returns a set containing the cycles of this permutation.
+    */
+    public var cycles: Set<Cycle> {
+        
+        get {
+            var indices = Set<Int>()
+            
+            //TODO: Write general function to make this faster.
+            for i in 0 ..< self.length {
+                indices.insert(i)
+            }
+            
+            let arrayRepresentation = self.arrayRepresentation
+            var cycles = Set<Cycle>()
+            
+            while !indices.isEmpty {
+                
+                let begin = indices.first!
+                let element = arrayRepresentation[begin]
+                if element == begin {
+                    cycles.insert(Cycle([element]))
+                }
+                
+                var cycle = [begin]
+                indices.remove(begin)
+                var index = element
+                while index != begin {
+                    cycle.append(index)
+                    indices.remove(index)
+                    index = arrayRepresentation[index]
+                }
+                
+                cycles.insert(Cycle(cycle))
+            }
+            
+            return cycles
+        }
+        
+        //TODO: Implement setter
+    }
+    
+    
     
     // MARK: Element Methods
     

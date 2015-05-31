@@ -37,14 +37,22 @@ class PermutationTest: XCTestCase {
     
     func testGetCycles() {
         
-//        var perm = Permutation(arrayRepresentation: [1, 4, 3, 2, 0])
-//        
-//        let cycle1 = Cycle(cycleRepresentation: [0, 1, 4])
-//        let cycle2 = Cycle(cycleRepresentation: [2, 3])
-//        var cycles = Set<Cycle>()
-//        cycles.insert(cycle1)
-//        cycles.insert(cycle2)
-//        
-//        XCTAssertEqual(cycles, perm.cycles)
+        var perm = Permutation(arrayRepresentation: [1, 4, 3, 2, 0])
+        
+        var cycles = Set<Cycle>()
+        cycles.insert(Cycle([0, 1, 4]))
+        cycles.insert(Cycle([2, 3]))
+        
+        XCTAssertEqual(cycles, perm.cycles)
+        
+        
+        perm = Permutation(arrayRepresentation: [3, 1, 6, 5, 4, 7, 0, 2])
+        
+        cycles = []
+        cycles.insert(Cycle([0, 3, 5, 7, 2, 6]))
+        cycles.insert(Cycle([1]))
+        cycles.insert(Cycle([4]))
+        
+        XCTAssertEqual(cycles, perm.cycles)
     }
 }
