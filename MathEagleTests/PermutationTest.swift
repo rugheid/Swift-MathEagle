@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Jorestha Solutions. All rights reserved.
 //
 
-import Cocoa
 import XCTest
 import MathEagle
 
@@ -30,5 +29,22 @@ class PermutationTest: XCTestCase {
         
         let perm = Permutation(arrayRepresentation: array)
         XCTAssertEqual(array, perm.arrayRepresentation)
+    }
+    
+    
+    
+    // MARK: Properties
+    
+    func testGetCycles() {
+        
+//        var perm = Permutation(arrayRepresentation: [1, 4, 3, 2, 0])
+//        
+//        let cycle1 = Cycle(cycleRepresentation: [0, 1, 4])
+//        let cycle2 = Cycle(cycleRepresentation: [2, 3])
+//        var cycles = Set<Cycle>()
+//        cycles.insert(cycle1)
+//        cycles.insert(cycle2)
+//        
+//        XCTAssertEqual(cycles, perm.cycles)
     }
 }

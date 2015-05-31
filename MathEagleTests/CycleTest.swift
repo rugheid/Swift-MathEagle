@@ -13,20 +13,61 @@ import MathEagle
 class CycleTest: XCTestCase {
 
     
-    // MARK: Initialisers
+    // MARK: Properties
     
-    
-    
-    // MARK: Overriden from Permutation
-    
-    func testOverridenArrayRepresentation() {
+    func testDictionaryRepresentation() {
         
-        var cycle = Cycle(cycleRepresentation: [0, 1, 2])
-        XCTAssertEqual([1, 2, 0], cycle.arrayRepresentation)
+        var cycle = Cycle([3, 4, 7])
+        XCTAssertEqual([3: 4, 4: 7, 7: 3], cycle.dictionaryRepresentation)
         
-        cycle = Cycle(cycleRepresentation: [2, 0, 1])
-        XCTAssertEqual([1, 2, 0], cycle.arrayRepresentation)
+        cycle = Cycle()
+        XCTAssertEqual([Int: Int](), cycle.dictionaryRepresentation)
+        
+        cycle = Cycle([5])
+        XCTAssertEqual([5: 5], cycle.dictionaryRepresentation)
     }
     
+    
+    func testLength() {
+        
+        var cycle = Cycle([3, 4, 7])
+        XCTAssertEqual(3, cycle.length)
+        
+        cycle = Cycle()
+        XCTAssertEqual(0, cycle.length)
+        
+        cycle = Cycle([5])
+        XCTAssertEqual(1, cycle.length)
+    }
+    
+    
+    func testDescription() {
+        
+        var cycle = Cycle([3, 4, 7])
+        XCTAssertEqual("(3 4 7)", cycle.description)
+        
+        cycle = Cycle()
+        XCTAssertEqual("()", cycle.description)
+        
+        cycle = Cycle([5])
+        XCTAssertEqual("(5)", cycle.description)
+    }
+    
+    
+    
+    // MARK: Operators
+    
+    func testEquality() {
+        
+        var a = Cycle([3, 4, 7])
+        var b = Cycle([3, 4, 7])
+        XCTAssertEqual(a, b)
+        
+        b = Cycle()
+        XCTAssertNotEqual(a, b)
+        
+        a = Cycle()
+        XCTAssertEqual(a, b)
+    }
 
 }

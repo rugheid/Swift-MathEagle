@@ -12,7 +12,7 @@ import Foundation
 /**
     A class representing a permutation.
 */
-public class Permutation: ArrayLiteralConvertible, Printable {
+public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashable {
     
     
     // MARK: Class Settings
@@ -167,6 +167,16 @@ public class Permutation: ArrayLiteralConvertible, Printable {
     
     
     /**
+        Returns a hash value for the permutation.
+    */
+    public var hashValue: Int {
+        
+        //FIXME: This is a bad implementation, think of a better one.
+        return sum(self.arrayRepresentation)
+    }
+    
+    
+    /**
         Returns the one-line notation or word representation of the permutation.
     
         :example: 3 2 0 1
@@ -289,4 +299,21 @@ public class Permutation: ArrayLiteralConvertible, Printable {
         
         //TODO: Implement cycle notation and transposition notation.
     }
+}
+
+
+
+// MARK: Equatable
+
+/**
+    Returns whether the two given permutations are equal.
+
+    :param: left    The left permutation in the equation.
+    :param: right   The right permutation in the equation.
+
+    :returns: true if the two permutations are equal.
+*/
+public func == (left: Permutation, right: Permutation) -> Bool {
+    
+    return left.arrayRepresentation == right.arrayRepresentation
 }
