@@ -19,6 +19,7 @@ class ArrayGeneratorTest: XCTestCase {
         XCTAssertEqual([2.0, 5.0, 8.0, 11.0], rampedArray(length: 4, initialValue: 2.0, increment: 3.0))
         XCTAssertEqual([10, 9, 8, 7, 6], rampedArray(length: 5, initialValue: 10, increment: -1))
         XCTAssertEqual([3, 4, 5, 6], rampedArray(length: 4, initialValue: 3))
+        XCTAssertEqual([0, 1, 2, 3], rampedArray(length: 4))
     }
     
 }
