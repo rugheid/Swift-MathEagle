@@ -42,5 +42,24 @@ class RandomTests: XCTestCase {
             Float.randomArrayOfLength(10_000)
         }
     }
+    
+    
+    
+    // MARK: Double
+    
+    func testDoubleRandomArrayOfLength() {
+        
+        let array = Double.randomArrayOfLength(10_000)
+        
+        XCTAssertNotEqual(array[0], array[1])
+    }
+    
+    func testDoubleRandomArrayOfLengthPerformance() {
+        
+        compareBaseline(0.000660339991251628, title: "Random Double Array of length 10_000", n: 3){
+            
+            Double.randomArrayOfLength(10_000)
+        }
+    }
 
 }

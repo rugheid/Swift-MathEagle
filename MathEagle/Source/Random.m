@@ -32,4 +32,31 @@ typedef union {
     }
 }
 
+
+
+typedef union {
+    double d;
+    struct {
+        int a;
+        int b;
+    } integers;
+} double_generator;
+
++ (void)randomDoubleArrayOfLength:(long)length inArray:(double*)array {
+    
+    double_generator g;
+    
+    for (long k = 0; k < length; k++) {
+        
+        g.integers.a = arc4random();
+        g.integers.b = arc4random();
+        
+        while (!isnormal(g.d)) {
+            g.integers.b = arc4random();
+        }
+        
+        array[k] = g.d;
+    }
+}
+
 @end

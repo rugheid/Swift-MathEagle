@@ -626,11 +626,9 @@ extension Double: Randomizable {
     
     public static func randomArrayOfLength(length: Int) -> [Double] {
         
-        var array = [Double]()
+        var array = [Double](count: length, repeatedValue: 0)
         
-        for _ in 0 ..< length {
-            array.append(self.random())
-        }
+        Random_OBJC.randomDoubleArrayOfLength(length, inArray: &array)
         
         return array
     }
