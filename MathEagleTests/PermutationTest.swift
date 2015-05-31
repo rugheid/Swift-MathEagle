@@ -28,7 +28,7 @@ class PermutationTest: XCTestCase {
         
         let array = [0, 3, 2, 1]
         
-        let perm = Permutation(array)
+        let perm = Permutation(arrayRepresentation: array)
         XCTAssertEqual(array, perm.arrayRepresentation)
     }
 }
