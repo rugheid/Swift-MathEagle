@@ -16,7 +16,7 @@ import Foundation
     :example: rampedArray(initialValue: 2, increment: 3, length: 4) will return
                 [2, 5, 8, 11]
 */
-public func rampedArray <T: Addable> (#initialValue: T, #increment: T, #length: Int) -> [T] {
+public func rampedArray <T: protocol<IntegerLiteralConvertible, Addable>> (#length: Int, #initialValue: T, increment: T = 1) -> [T] {
     
     var array = [T]()
     
