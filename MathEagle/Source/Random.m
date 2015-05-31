@@ -10,13 +10,25 @@
 
 @implementation Random_OBJC
 
+
+typedef union {
+    float f;
+    int i;
+} float_generator;
+
 + (void)randomFloatArrayOfLength:(long)length inArray:(float*)array {
+    
+    float_generator g;
     
     for (long k = 0; k < length; k++) {
         
-        int i = arc4random();
-#warning This sometimes produces NaN or inf, so this has to be rewritten, it's also not uniform because of the exponent's random behaviour
-        array[k] = *(float*)&i;
+        g.i = arc4random();
+        
+        while (!isnormal(g.f)) {
+            g.i = arc4random();
+        }
+        
+        array[k] = g.f;
     }
 }
 

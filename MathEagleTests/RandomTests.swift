@@ -34,5 +34,13 @@ class RandomTests: XCTestCase {
         
         XCTAssertNotEqual(array[0], array[1])
     }
+    
+    func testFloatRandomArrayOfLengthPerformance() {
+        
+        compareBaseline(0.000304659207661947, title: "Random Float Array of length 10_000", n: 3){
+            
+            Float.randomArrayOfLength(10_000)
+        }
+    }
 
 }
