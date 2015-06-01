@@ -81,4 +81,30 @@ class PermutationTest: XCTestCase {
         perm = Permutation(arrayRepresentation: [1, 4, 3, 2, 0])
         XCTAssertEqual(0, perm.numberOfFixedPoints)
     }
+    
+    
+    func testGetParity() {
+        
+        var perm = Permutation(arrayRepresentation: [3, 1, 6, 5, 4, 7, 0, 2])
+        XCTAssertEqual(.Odd, perm.parity)
+        
+        perm = Permutation()
+        XCTAssertEqual(.Even, perm.parity)
+        
+        perm = Permutation(arrayRepresentation: [1, 4, 3, 2, 0])
+        XCTAssertEqual(.Odd, perm.parity)
+    }
+    
+    
+    func testGetSign() {
+        
+        var perm = Permutation(arrayRepresentation: [3, 1, 6, 5, 4, 7, 0, 2])
+        XCTAssertEqual(-1, perm.sign)
+        
+        perm = Permutation()
+        XCTAssertEqual(1, perm.sign)
+        
+        perm = Permutation(arrayRepresentation: [1, 4, 3, 2, 0])
+        XCTAssertEqual(-1, perm.sign)
+    }
 }

@@ -193,6 +193,9 @@ public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashabl
     public var cycles: Set<Cycle> {
         
         get {
+            
+            //TODO: Save memory here by doing everything in place?
+            
             var indices = Set<Int>(rampedArray(length: self.length))
             
             let arrayRepresentation = self.arrayRepresentation
@@ -258,6 +261,26 @@ public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashabl
         }
         
         return count
+    }
+    
+    
+    /**
+        Returns the parity of the permutation. This is the number of transpositions in the transposition
+        decomposition.
+    */
+    public var parity: Parity {
+        
+        return sum(map(self.cycles){ $0.parity })
+    }
+    
+    
+    /**
+        Returns the sign (aka signature) of the permutation. This is either 1 if the permutation has an even parity
+        or -1 if the permutation has an odd parity.
+    */
+    public var sign: Int {
+        
+        return self.parity.rawValue
     }
     
     
