@@ -30,7 +30,7 @@
 		98F558841B1AFBC2009AECD5 /* Cycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F558831B1AFBC2009AECD5 /* Cycle.swift */; };
 		98F558881B1B10B8009AECD5 /* CycleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F558871B1B10B8009AECD5 /* CycleTest.swift */; };
 		98F5588D1B1B92C4009AECD5 /* ArrayGenerators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F5588C1B1B92C4009AECD5 /* ArrayGenerators.swift */; };
-		98F5588F1B1B94AE009AECD5 /* ArrayGeneratorsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F5588E1B1B94AE009AECD5 /* ArrayGeneratorsTest.swift */; };
+		98F5588F1B1B94AE009AECD5 /* ArrayGeneratorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F5588E1B1B94AE009AECD5 /* ArrayGeneratorsTests.swift */; };
 		98F598511A7B8BD20058DF53 /* MathEagle.h in Headers */ = {isa = PBXBuildFile; fileRef = 98F598501A7B8BD20058DF53 /* MathEagle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		98F598571A7B8BD20058DF53 /* MathEagle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98F5984B1A7B8BD20058DF53 /* MathEagle.framework */; };
 		98F598701A7B8BED0058DF53 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F598671A7B8BED0058DF53 /* Math.swift */; };
@@ -87,7 +87,7 @@
 		98F558831B1AFBC2009AECD5 /* Cycle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Cycle.swift; path = Source/Cycle.swift; sourceTree = "<group>"; };
 		98F558871B1B10B8009AECD5 /* CycleTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CycleTest.swift; sourceTree = "<group>"; };
 		98F5588C1B1B92C4009AECD5 /* ArrayGenerators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArrayGenerators.swift; path = Source/ArrayGenerators.swift; sourceTree = "<group>"; };
-		98F5588E1B1B94AE009AECD5 /* ArrayGeneratorsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayGeneratorsTest.swift; sourceTree = "<group>"; };
+		98F5588E1B1B94AE009AECD5 /* ArrayGeneratorsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayGeneratorsTests.swift; sourceTree = "<group>"; };
 		98F5984B1A7B8BD20058DF53 /* MathEagle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MathEagle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F5984F1A7B8BD20058DF53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98F598501A7B8BD20058DF53 /* MathEagle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MathEagle.h; sourceTree = "<group>"; };
@@ -243,7 +243,7 @@
 				98F598841A7B8C2A0058DF53 /* MathTests.swift */,
 				9843568E1ACC79F100B988CB /* RandomTests.swift */,
 				98F598851A7B8C2A0058DF53 /* ExtensionsTests.swift */,
-				98F5588E1B1B94AE009AECD5 /* ArrayGeneratorsTest.swift */,
+				98F5588E1B1B94AE009AECD5 /* ArrayGeneratorsTests.swift */,
 				98E671741AA8C4B400C88DCE /* PrimeTests.swift */,
 				98E671791AA99AB500C88DCE /* ComplexTests.swift */,
 				98F598861A7B8C2A0058DF53 /* FunctionsTests.swift */,
@@ -442,7 +442,7 @@
 				98F598921A7B8C2A0058DF53 /* ExtensionsTests.swift in Sources */,
 				98F5989E1A7B8C2A0058DF53 /* VectorTests.swift in Sources */,
 				98F598961A7B8C2A0058DF53 /* SolverTests.swift in Sources */,
-				98F5588F1B1B94AE009AECD5 /* ArrayGeneratorsTest.swift in Sources */,
+				98F5588F1B1B94AE009AECD5 /* ArrayGeneratorsTests.swift in Sources */,
 				988B7CCD1ACAD2F600CDEEF7 /* MatrixVectorTests.swift in Sources */,
 				98E6717A1AA99AB500C88DCE /* ComplexTests.swift in Sources */,
 			);
