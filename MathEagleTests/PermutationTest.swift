@@ -55,4 +55,30 @@ class PermutationTest: XCTestCase {
         
         XCTAssertEqual(cycles, perm.cycles)
     }
+    
+    
+    func testGetFixedPoints() {
+        
+        var perm = Permutation(arrayRepresentation: [3, 1, 6, 5, 4, 7, 0, 2])
+        XCTAssertEqual([1, 4], perm.fixedPoints)
+        
+        perm = Permutation()
+        XCTAssertEqual([], perm.fixedPoints)
+        
+        perm = Permutation(arrayRepresentation: [1, 4, 3, 2, 0])
+        XCTAssertEqual([], perm.fixedPoints)
+    }
+    
+    
+    func testGetNumberOfFixedPoints() {
+        
+        var perm = Permutation(arrayRepresentation: [3, 1, 6, 5, 4, 7, 0, 2])
+        XCTAssertEqual(2, perm.numberOfFixedPoints)
+        
+        perm = Permutation()
+        XCTAssertEqual(0, perm.numberOfFixedPoints)
+        
+        perm = Permutation(arrayRepresentation: [1, 4, 3, 2, 0])
+        XCTAssertEqual(0, perm.numberOfFixedPoints)
+    }
 }

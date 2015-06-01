@@ -225,6 +225,42 @@ public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashabl
     }
     
     
+    /**
+        Returns an array containing the fixed points of the permutation in ascending order.
+    
+        :example: The permutation [0, 2, 1, 3] returns [0, 3]
+    */
+    public var fixedPoints: [Int] {
+        
+        var fixedPoints = [Int]()
+        
+        for (index, element) in enumerate(self.arrayRepresentation) {
+            
+            if index == element { fixedPoints.append(index) }
+        }
+        
+        return fixedPoints
+    }
+    
+    
+    /**
+        Returns the number of fixed points of the permutation.
+    
+        :example: The permutation [0, 2, 1, 3] has 2 fixed points (0 and 3).
+    */
+    public var numberOfFixedPoints: Int {
+        
+        var count = 0
+        
+        for (index, element) in enumerate(self.arrayRepresentation) {
+            
+            if index == element { count++ }
+        }
+        
+        return count
+    }
+    
+    
     
     // MARK: Element Methods
     
