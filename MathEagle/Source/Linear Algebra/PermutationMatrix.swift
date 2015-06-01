@@ -116,6 +116,33 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     }
     
     
+    /**
+        Gets or sets the diagonal elements of the matrix.
+    
+        :returns: An array with the diagonal elements of the matrix.
+    
+        :exception: Throws an exception when you try to set the diagonal elements.
+    */
+    override public var diagonalElements: [T] {
+        
+        get {
+            
+            var returnElements = [T](count: self.size, repeatedValue: 0)
+            
+            for index in self.permutation.fixedPoints {
+                returnElements[index] = 1
+            }
+            
+            return returnElements
+        }
+        
+        set(elements) {
+            
+            NSException(name: "PermutationMatrix is unsettable", reason: "You can't directly set the diagonal elements of a permutation matrix.", userInfo: nil).raise()
+        }
+    }
+    
+    
     
     
     // MARK: Element Methods
