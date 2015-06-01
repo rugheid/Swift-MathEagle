@@ -105,7 +105,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         super.init()
         
         self.elementsStructure = diagonal
-        self.dimensions = Dimensions(diagonal.count, diagonal.count)
+        self.dimensions = Dimensions(size: diagonal.count)
     }
     
     
@@ -210,11 +210,8 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         
         set(elements) {
             
-            if elements.count != self.dimensions.minimum {
-                NSException(name: "Wrong number of elements", reason: "Wrong number of diagonal elements provided. Expected \(self.dimensions.minimum), but got \(elements.count).", userInfo: nil).raise()
-            }
-            
             self.elementsStructure = elements
+            self.dimensions = Dimensions(size: elements.count)
         }
     }
     

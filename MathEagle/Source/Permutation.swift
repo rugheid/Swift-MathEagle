@@ -300,7 +300,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashabl
     */
     public var sign: Int {
         
-        return self.parity.rawValue
+        return self.parity.sign
     }
     
     
