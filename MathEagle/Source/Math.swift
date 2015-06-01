@@ -295,11 +295,9 @@ extension UInt: Randomizable {
     
     public static func randomArrayOfLength(length: Int) -> [UInt] {
         
-        var array = [UInt]()
+        var array = [UInt](count: length, repeatedValue: 0)
         
-        for _ in 0 ..< length {
-            array.append(self.random())
-        }
+        Random_OBJC.randomUIntArrayOfLength(length, inArray: &array)
         
         return array
     }

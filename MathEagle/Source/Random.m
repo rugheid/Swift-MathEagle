@@ -11,11 +11,47 @@
 @implementation Random_OBJC
 
 
-+ (void)randomIntArrayOfLength:(long)length inArray:(long *)array {
+typedef union {
+    unsigned long ul;
+    struct {
+        int a;
+        int b;
+    } integers;
+} unsigned_long_generator;
+
++ (void)randomUIntArrayOfLength:(long)length inArray:(unsigned long *)array {
+    
+    unsigned_long_generator g;
     
     for (long k = 0; k < length; k++) {
         
-        array[k] = arc4random();
+        g.integers.a = arc4random();
+        g.integers.b = arc4random();
+        
+        array[k] = g.ul;
+    }
+}
+
+
+
+typedef union {
+    long l;
+    struct {
+        int a;
+        int b;
+    } integers;
+} long_generator;
+
++ (void)randomIntArrayOfLength:(long)length inArray:(long *)array {
+    
+    long_generator g;
+    
+    for (long k = 0; k < length; k++) {
+        
+        g.integers.a = arc4random();
+        g.integers.b = arc4random();
+        
+        array[k] = g.l;
     }
 }
 

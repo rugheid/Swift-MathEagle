@@ -36,6 +36,14 @@ class RandomTests: XCTestCase {
         }
     }
     
+    func testUIntRandomArrayOfLengthPerformance() {
+        
+        compareBaseline(0.000478798151016235, title: "Random Int Array of length 10_000", n: 10){
+            
+            UInt.randomArrayOfLength(10_000)
+        }
+    }
+    
     
     
     // MARK: Float
