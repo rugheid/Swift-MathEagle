@@ -86,6 +86,15 @@ public class Cycle: ArrayLiteralConvertible, Printable, Hashable {
     
     
     /**
+        Retursn the parity of the cycle. The cycle is even when it's length is odd.
+    */
+    public var parity: Parity {
+        
+        return self.length % 2 == 0 ? .Odd : .Even
+    }
+    
+    
+    /**
         Returns a description of the cycle.
     
         :example: (4 3 2)

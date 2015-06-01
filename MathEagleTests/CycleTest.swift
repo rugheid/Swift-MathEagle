@@ -41,6 +41,20 @@ class CycleTest: XCTestCase {
     }
     
     
+    func testParity() {
+        
+        var cycle = Cycle([3, 4, 7])
+        XCTAssertEqual(.Even, cycle.parity)
+        
+        cycle = Cycle()
+        XCTAssertEqual(.Odd, cycle.parity)
+        
+        cycle = Cycle([5])
+        XCTAssertEqual(.Even, cycle.parity)
+
+    }
+    
+    
     func testDescription() {
         
         var cycle = Cycle([3, 4, 7])
