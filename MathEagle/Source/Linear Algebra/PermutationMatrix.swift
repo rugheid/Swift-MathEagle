@@ -106,6 +106,16 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     }
     
     
+    /**
+        Returns the determinant of the matrix.
+    */
+    override public var determinant: T {
+        
+        //TODO: Make sure there's no better solution for this, because T can't be initialised from an Int
+        return self.permutation.sign == 1 ? 1 : -1
+    }
+    
+    
     
     
     // MARK: Element Methods
