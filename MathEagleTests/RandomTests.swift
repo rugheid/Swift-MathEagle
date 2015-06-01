@@ -13,6 +13,18 @@ import MathEagle
 class RandomTests: XCTestCase {
     
     
+    // MARK: Int
+    
+    func testIntRandomArrayOfLengthPerformance() {
+        
+        compareBaseline(0.000257396697998047, title: "Random Int Array of length 10_000", n: 10){
+            
+            Int.randomArrayOfLength(10_000)
+        }
+    }
+    
+    
+    
     // MARK: UInt
 
     func testUIntRandomInInterval() {
@@ -37,7 +49,7 @@ class RandomTests: XCTestCase {
     
     func testFloatRandomArrayOfLengthPerformance() {
         
-        compareBaseline(0.000304659207661947, title: "Random Float Array of length 10_000", n: 3){
+        compareBaseline(0.000304659207661947, title: "Random Float Array of length 10_000", n: 10){
             
             Float.randomArrayOfLength(10_000)
         }
@@ -56,7 +68,7 @@ class RandomTests: XCTestCase {
     
     func testDoubleRandomArrayOfLengthPerformance() {
         
-        compareBaseline(0.000660339991251628, title: "Random Double Array of length 10_000", n: 3){
+        compareBaseline(0.000660339991251628, title: "Random Double Array of length 10_000", n: 10){
             
             Double.randomArrayOfLength(10_000)
         }

@@ -11,6 +11,16 @@
 @implementation Random_OBJC
 
 
++ (void)randomIntArrayOfLength:(long)length inArray:(long *)array {
+    
+    for (long k = 0; k < length; k++) {
+        
+        array[k] = arc4random();
+    }
+}
+
+
+
 typedef union {
     float f;
     int i;

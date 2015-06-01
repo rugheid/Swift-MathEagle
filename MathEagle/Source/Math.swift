@@ -449,11 +449,9 @@ extension Int: Randomizable {
     
     public static func randomArrayOfLength(length: Int) -> [Int] {
         
-        var array = [Int]()
+        var array = [Int](count: length, repeatedValue: 0)
         
-        for _ in 0 ..< length {
-            array.append(self.random())
-        }
+        Random_OBJC.randomIntArrayOfLength(length, inArray: &array)
         
         return array
     }
