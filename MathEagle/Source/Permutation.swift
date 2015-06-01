@@ -177,6 +177,26 @@ public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashabl
     
     
     /**
+        Returns a dictionary representation of the permutation.
+    
+        :example: [1, 0, 2] is represented as [0: 1, 1: 0, 2: 2]
+    */
+    public var dictionaryRepresentation: [Int: Int] {
+        
+        get {
+            
+            var dict = [Int: Int]()
+            
+            for (index, element) in enumerate(self.arrayRepresentation) {
+                dict[index] = element
+            }
+            
+            return dict
+        }
+    }
+    
+    
+    /**
         Returns the one-line notation or word representation of the permutation.
     
         :example: 3 2 0 1

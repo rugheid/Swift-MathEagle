@@ -35,6 +35,16 @@ class PermutationTest: XCTestCase {
     
     // MARK: Properties
     
+    func testDictionaryRepresentation() {
+        
+        var perm = Permutation(arrayRepresentation: [1, 2, 0])
+        XCTAssertEqual([0: 1, 1: 2, 2: 0], perm.dictionaryRepresentation)
+        
+        perm = Permutation()
+        XCTAssertEqual([Int: Int](), perm.dictionaryRepresentation)
+    }
+    
+    
     func testGetCycles() {
         
         var perm = Permutation(arrayRepresentation: [1, 4, 3, 2, 0])
