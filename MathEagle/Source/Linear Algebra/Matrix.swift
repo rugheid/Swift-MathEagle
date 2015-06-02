@@ -1001,7 +1001,10 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     */
     public func isUpperTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
         
-        //TODO: Throw an exception when n is out of bounds.
+        if -n >= self.dimensions.rows || n >= self.dimensions.columns {
+            
+            NSException(name: "Index out the bounds.", reason: "The given diagonal index is out of bounds.", userInfo: nil).raise()
+        }
         
         // A non-square matrix can't be upper triangular
         if mustBeSquare && !self.isSquare { return false }
@@ -1064,7 +1067,10 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     */
     public func isLowerTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
         
-        //TODO: Throw an exception when n is out of bounds.
+        if -n >= self.dimensions.rows || n >= self.dimensions.columns {
+            
+            NSException(name: "Index out the bounds.", reason: "The given diagonal index is out of bounds.", userInfo: nil).raise()
+        }
         
         // A non-square matrix can't be upper triangular
         if mustBeSquare && !self.isSquare { return false }

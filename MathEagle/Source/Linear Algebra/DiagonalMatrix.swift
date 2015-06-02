@@ -428,7 +428,11 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     */
     override public func isUpperTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
         
-        //TODO: Throw exception when n is out of bounds.
+        if -n >= self.dimensions.rows || n >= self.dimensions.columns {
+            
+            NSException(name: "Index out the bounds.", reason: "The given diagonal index is out of bounds.", userInfo: nil).raise()
+        }
+        
         return (!mustBeSquare || self.isSquare) && (n <= 0 || self.isZero)
     }
     
@@ -453,7 +457,11 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     */
     override public func isLowerTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
         
-        //TODO: Throw an exception when n is out of bounds.
+        if -n >= self.dimensions.rows || n >= self.dimensions.columns {
+            
+            NSException(name: "Index out the bounds.", reason: "The given diagonal index is out of bounds.", userInfo: nil).raise()
+        }
+        
         return (!mustBeSquare || self.isSquare) && (n >= 0 || self.isZero)
     }
     
