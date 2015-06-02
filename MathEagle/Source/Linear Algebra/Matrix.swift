@@ -2012,6 +2012,8 @@ public func LUDecomposition(matrix: Matrix<Float>) -> (Matrix<Float>, Matrix<Flo
     
     let result = Matrix(elementsList: elementsList, columns: matrix.dimensions.rows).transpose
     
+    //FIXME: L and U are always of the dimensions of result, which is not correct.
+    
     let L = result.lowerTriangle
     L.fillDiagonal(1)
     
