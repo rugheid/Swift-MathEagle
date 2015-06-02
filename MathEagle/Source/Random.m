@@ -56,6 +56,15 @@ typedef union {
 }
 
 
++ (void)randomUInt16ArrayOfLength:(long)length inArray:(unsigned short *)array {
+    
+    for (long k = 0; k < length; k++) {
+        
+        array[k] = arc4random_uniform(USHRT_MAX);
+    }
+}
+
+
 + (void)randomIntArrayOfLength:(long)length inArray:(long *)array {
     
     double_precision_generator g;

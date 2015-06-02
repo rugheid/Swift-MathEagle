@@ -352,11 +352,9 @@ extension UInt16: Randomizable {
     
     public static func randomArrayOfLength(length: Int) -> [UInt16] {
         
-        var array = [UInt16]()
+        var array = [UInt16](count: length, repeatedValue: 0)
         
-        for _ in 0 ..< length {
-            array.append(self.random())
-        }
+        Random_OBJC.randomUInt16ArrayOfLength(length, inArray: &array)
         
         return array
     }

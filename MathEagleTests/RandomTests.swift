@@ -98,6 +98,34 @@ class RandomTests: XCTestCase {
     
     
     
+    // MARK: UInt16
+    
+    func testUInt16RandomArrayOfLength() {
+        
+        let length = 1_000_000
+        let array = UInt16.randomArrayOfLength(length)
+        
+        var mean = 0.0
+        
+        for element in array {
+            
+            mean += Double(element)/Double(length)
+        }
+        
+        println("Mean = \(mean)")
+        XCTAssertEqualWithAccuracy(Double(UInt16.max)/2.0, mean, 100.0)
+    }
+    
+    func testUInt16RandomArrayOfLengthPermormance() {
+        
+        compareBaseline(0.000305402278900146, title: "Random UInt16 Array of length 10_000", n: 10){
+            
+            UInt16.randomArrayOfLength(10_000)
+        }
+    }
+    
+    
+    
     // MARK: Float
     
     func testFloatRandomArrayOfLength() {
