@@ -147,10 +147,6 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         }
     }
     
-    //TODO: Check whether the super implementation of init(size: generator:) calls this class' implementation.
-    
-    //TODO: Override random initialisers once they have been made faster.
-    
     
     /**
         Creates a matrix with the given dimensions filled with the given element.
@@ -393,8 +389,12 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     */
     override public var isZero: Bool {
         
-        //TODO: Improve this implementation
-        return reduce(self.elementsStructure, true){ $0 ? $1 == 0 : false }
+        for element in self.diagonalElements {
+            
+            if element != 0 { return false }
+        }
+        
+        return true
     }
     
     
