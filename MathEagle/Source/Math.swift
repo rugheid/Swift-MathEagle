@@ -325,11 +325,9 @@ extension UInt8: Randomizable {
     
     public static func randomArrayOfLength(length: Int) -> [UInt8] {
         
-        var array = [UInt8]()
+        var array = [UInt8](count: length, repeatedValue: 0)
         
-        for _ in 0 ..< length {
-            array.append(self.random())
-        }
+        Random_OBJC.randomUInt8ArrayOfLength(length, inArray: &array)
         
         return array
     }

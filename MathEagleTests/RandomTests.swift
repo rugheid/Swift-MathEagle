@@ -15,6 +15,23 @@ class RandomTests: XCTestCase {
     
     // MARK: Int
     
+    func testIntRandomArrayOfLength() {
+        
+        let length = 10_000
+        let array = Int.randomArrayOfLength(length)
+        
+        var positiveCount = 0
+        
+        for element in array {
+            
+            if element > 0 { positiveCount++ }
+        }
+        
+        let positiveFraction = Double(positiveCount)/Double(length)
+        println("Positive Fraction = \(positiveFraction)")
+        XCTAssertEqualWithAccuracy(0.5, Double(positiveCount)/Double(length), 0.1)
+    }
+    
     func testIntRandomArrayOfLengthPerformance() {
         
         compareBaseline(0.000473904609680176, title: "Random Int Array of length 10_000", n: 10){
@@ -36,11 +53,37 @@ class RandomTests: XCTestCase {
         }
     }
     
+    func testUIntRandomArrayOfLength() {
+        
+        let array = UInt.randomArrayOfLength(10_000)
+        
+        XCTAssertNotEqual(array[0], array[1])
+    }
+    
     func testUIntRandomArrayOfLengthPerformance() {
         
-        compareBaseline(0.000478798151016235, title: "Random Int Array of length 10_000", n: 10){
+        compareBaseline(0.000478798151016235, title: "Random UInt Array of length 10_000", n: 10){
             
             UInt.randomArrayOfLength(10_000)
+        }
+    }
+    
+    
+    
+    // MARK: UInt8
+    
+    func testUInt8RandomArrayOfLength() {
+        
+        let array = UInt8.randomArrayOfLength(10_000)
+        
+        XCTAssertNotEqual(array[0], array[1])
+    }
+    
+    func testUInt8RandomArrayOfLengthPermormance() {
+        
+        compareBaseline(0.000305402278900146, title: "Random UInt8 Array of length 10_000", n: 10){
+            
+            UInt8.randomArrayOfLength(10_000)
         }
     }
     
