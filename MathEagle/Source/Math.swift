@@ -381,11 +381,9 @@ extension UInt32: Randomizable {
     
     public static func randomArrayOfLength(length: Int) -> [UInt32] {
         
-        var array = [UInt32]()
+        var array = [UInt32](count: length, repeatedValue: 0)
         
-        for _ in 0 ..< length {
-            array.append(self.random())
-        }
+        Random_OBJC.randomUInt32ArrayOfLength(length, inArray: &array)
         
         return array
     }
@@ -410,11 +408,9 @@ extension UInt64: Randomizable {
     
     public static func randomArrayOfLength(length: Int) -> [UInt64] {
         
-        var array = [UInt64]()
+        var array = [UInt64](count: length, repeatedValue: 0)
         
-        for _ in 0 ..< length {
-            array.append(self.random())
-        }
+        Random_OBJC.randomUInt64ArrayOfLength(length, inArray: &array)
         
         return array
     }
@@ -470,11 +466,9 @@ extension Int8: Randomizable {
     
     public static func randomArrayOfLength(length: Int) -> [Int8] {
         
-        var array = [Int8]()
+        var array = [Int8](count: length, repeatedValue: 0)
         
-        for _ in 0 ..< length {
-            array.append(self.random())
-        }
+        Random_OBJC.randomInt8ArrayOfLength(length, inArray: &array)
         
         return array
     }
@@ -499,11 +493,9 @@ extension Int16: Randomizable {
     
     public static func randomArrayOfLength(length: Int) -> [Int16] {
         
-        var array = [Int16]()
+        var array = [Int16](count: length, repeatedValue: 0)
         
-        for _ in 0 ..< length {
-            array.append(self.random())
-        }
+        Random_OBJC.randomInt16ArrayOfLength(length, inArray: &array)
         
         return array
     }
@@ -528,11 +520,9 @@ extension Int32: Randomizable {
     
     public static func randomArrayOfLength(length: Int) -> [Int32] {
         
-        var array = [Int32]()
+        var array = [Int32](count: length, repeatedValue: 0)
         
-        for _ in 0 ..< length {
-            array.append(self.random())
-        }
+        Random_OBJC.randomInt32ArrayOfLength(length, inArray: &array)
         
         return array
     }
@@ -557,11 +547,9 @@ extension Int64: Randomizable {
     
     public static func randomArrayOfLength(length: Int) -> [Int64] {
         
-        var array = [Int64]()
+        var array = [Int64](count: length, repeatedValue: 0)
         
-        for _ in 0 ..< length {
-            array.append(self.random())
-        }
+        Random_OBJC.randomInt64ArrayOfLength(length, inArray: &array)
         
         return array
     }

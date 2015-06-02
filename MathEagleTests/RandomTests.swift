@@ -13,35 +13,6 @@ import MathEagle
 class RandomTests: XCTestCase {
     
     
-    // MARK: Int
-    
-    func testIntRandomArrayOfLength() {
-        
-        let length = 10_000
-        let array = Int.randomArrayOfLength(length)
-        
-        var positiveCount = 0
-        
-        for element in array {
-            
-            if element > 0 { positiveCount++ }
-        }
-        
-        let positiveFraction = Double(positiveCount)/Double(length)
-        println("Positive Fraction = \(positiveFraction)")
-        XCTAssertEqualWithAccuracy(0.5, Double(positiveCount)/Double(length), 0.1)
-    }
-    
-    func testIntRandomArrayOfLengthPerformance() {
-        
-        compareBaseline(0.000473904609680176, title: "Random Int Array of length 10_000", n: 10){
-            
-            Int.randomArrayOfLength(10_000)
-        }
-    }
-    
-    
-    
     // MARK: UInt
 
     func testUIntRandomInInterval() {
@@ -121,6 +92,139 @@ class RandomTests: XCTestCase {
         compareBaseline(0.000304996967315674, title: "Random UInt16 Array of length 10_000", n: 10){
             
             UInt16.randomArrayOfLength(10_000)
+        }
+    }
+    
+    
+    
+    // MARK: UInt32
+    
+    func testUInt32RandomArrayOfLengthPermormance() {
+        
+        compareBaseline(0.000248199701309204, title: "Random UInt32 Array of length 10_000", n: 10){
+            
+            UInt32.randomArrayOfLength(10_000)
+        }
+    }
+    
+    
+    
+    // MARK: UInt64
+    
+    func testUInt64RandomArrayOfLengthPermormance() {
+        
+        compareBaseline(0.00044180154800415, title: "Random UInt64 Array of length 10_000", n: 10){
+            
+            UInt64.randomArrayOfLength(10_000)
+        }
+    }
+    
+    
+    
+    // MARK: Int
+    
+    func testIntRandomArrayOfLength() {
+        
+        let length = 10_000
+        let array = Int.randomArrayOfLength(length)
+        
+        var positiveCount = 0
+        
+        for element in array {
+            
+            if element > 0 { positiveCount++ }
+        }
+        
+        let positiveFraction = Double(positiveCount)/Double(length)
+        println("Positive Fraction = \(positiveFraction)")
+        XCTAssertEqualWithAccuracy(0.5, Double(positiveCount)/Double(length), 0.1)
+    }
+    
+    func testIntRandomArrayOfLengthPerformance() {
+        
+        compareBaseline(0.000473904609680176, title: "Random Int Array of length 10_000", n: 10){
+            
+            Int.randomArrayOfLength(10_000)
+        }
+    }
+    
+    
+    
+    // MARK: Int8
+    
+    func testInt8RandomArrayOfLength() {
+        
+        let length = 1_000_000
+        let array = Int8.randomArrayOfLength(length)
+        
+        var mean = 0.0
+        
+        for element in array {
+            
+            mean += Double(element)/Double(length)
+        }
+        
+        println("Mean = \(mean)")
+        XCTAssertEqualWithAccuracy(0.0, mean, 10.0)
+    }
+    
+    func testInt8RandomArrayOfLengthPermormance() {
+        
+        compareBaseline(0.000310802459716797, title: "Random Int8 Array of length 10_000", n: 10){
+            
+            UInt8.randomArrayOfLength(10_000)
+        }
+    }
+    
+    
+    
+    // MARK: Int16
+    
+    func testInt16RandomArrayOfLength() {
+        
+        let length = 1_000_000
+        let array = Int16.randomArrayOfLength(length)
+        
+        var mean = 0.0
+        
+        for element in array {
+            
+            mean += Double(element)/Double(length)
+        }
+        
+        println("Mean = \(mean)")
+        XCTAssertEqualWithAccuracy(0.0, mean, 100.0)
+    }
+    
+    func testInt16RandomArrayOfLengthPermormance() {
+        
+        compareBaseline(0.000315195322036743, title: "Random Int16 Array of length 10_000", n: 10){
+            
+            Int16.randomArrayOfLength(10_000)
+        }
+    }
+    
+    
+    
+    // MARK: Int32
+    
+    func testInt32RandomArrayOfLengthPermormance() {
+        
+        compareBaseline(0.0002532958984375, title: "Random Int32 Array of length 10_000", n: 10){
+            
+            Int32.randomArrayOfLength(10_000)
+        }
+    }
+    
+    
+    
+    // MARK: UInt64
+    
+    func testInt64RandomArrayOfLengthPermormance() {
+        
+        compareBaseline(0.000450801849365234, title: "Random Int64 Array of length 10_000", n: 10){
+            
+            Int64.randomArrayOfLength(10_000)
         }
     }
     
