@@ -17,7 +17,7 @@ class RandomTests: XCTestCase {
     
     func testIntRandomArrayOfLengthPerformance() {
         
-        compareBaseline(0.000257396697998047, title: "Random Int Array of length 10_000", n: 10){
+        compareBaseline(0.000473904609680176, title: "Random Int Array of length 10_000", n: 10){
             
             Int.randomArrayOfLength(10_000)
         }

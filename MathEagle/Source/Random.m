@@ -11,17 +11,31 @@
 @implementation Random_OBJC
 
 
+#pragma mark Unions
+
 typedef union {
+    float f;
+    int i;
+    unsigned int ui;
+} single_precision_generator;
+
+typedef union {
+    double d;
+    long l;
     unsigned long ul;
     struct {
-        int a;
-        int b;
+        unsigned int a;
+        unsigned int b;
     } integers;
-} unsigned_long_generator;
+} double_precision_generator;
+
+
+
+#pragma mark - Array Functions
 
 + (void)randomUIntArrayOfLength:(long)length inArray:(unsigned long *)array {
     
-    unsigned_long_generator g;
+    double_precision_generator g;
     
     for (long k = 0; k < length; k++) {
         
@@ -33,18 +47,9 @@ typedef union {
 }
 
 
-
-typedef union {
-    long l;
-    struct {
-        int a;
-        int b;
-    } integers;
-} long_generator;
-
 + (void)randomIntArrayOfLength:(long)length inArray:(long *)array {
     
-    long_generator g;
+    double_precision_generator g;
     
     for (long k = 0; k < length; k++) {
         
@@ -56,22 +61,16 @@ typedef union {
 }
 
 
-
-typedef union {
-    float f;
-    int i;
-} float_generator;
-
 + (void)randomFloatArrayOfLength:(long)length inArray:(float*)array {
     
-    float_generator g;
+    single_precision_generator g;
     
     for (long k = 0; k < length; k++) {
         
         g.i = arc4random();
         
         while (!isnormal(g.f)) {
-            g.i = arc4random();
+            g.ui = arc4random();
         }
         
         array[k] = g.f;
@@ -79,18 +78,9 @@ typedef union {
 }
 
 
-
-typedef union {
-    double d;
-    struct {
-        int a;
-        int b;
-    } integers;
-} double_generator;
-
 + (void)randomDoubleArrayOfLength:(long)length inArray:(double*)array {
     
-    double_generator g;
+    double_precision_generator g;
     
     for (long k = 0; k < length; k++) {
         
