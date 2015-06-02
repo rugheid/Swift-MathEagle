@@ -915,8 +915,12 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     */
     public var isZero: Bool {
         
-        //TODO: Improve this implementation.
-        return mreduce(self, true){ $0 ? $1 == 0 : false }
+        for element in self.elementsList {
+            
+            if element != 0 { return false }
+        }
+        
+        return true
     }
     
     
