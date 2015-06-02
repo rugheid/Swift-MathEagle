@@ -26,9 +26,51 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
     
     /**
-        Returns the dimensions of matrix.
+        The variable to store the dimensions of the matrix.
     */
-    public var dimensions: Dimensions = Dimensions(0, 0)
+    internal var innerDimensions: Dimensions = Dimensions()
+    
+    
+    /**
+        Gets or sets the dimensions of the matrix.
+    
+        :Set: When the new dimensions are smaller, the stored elements will
+                simply be removed. When the dimensions are bigger, the matrix will
+                be padded with zeros.
+    */
+    public var dimensions: Dimensions {
+        
+        get {
+            return self.innerDimensions
+        }
+        
+        set(newDimensions) {
+            
+            if newDimensions.columns < self.dimensions.columns {
+                
+                for r in 0 ..< min(newDimensions.rows, self.dimensions.rows) {
+                    self.elementsStructure.removeRange((r + 1) * newDimensions.columns ..< r * newDimensions.columns + self.dimensions.columns)
+                }
+                
+            } else if newDimensions.columns > self.dimensions.columns {
+                
+                for r in 0 ..< min(newDimensions.rows, self.dimensions.rows) {
+                    self.elementsStructure.splice([T](count: newDimensions.columns - self.dimensions.columns, repeatedValue: 0), atIndex: r * newDimensions.columns + self.dimensions.columns)
+                }
+            }
+            
+            if newDimensions.rows < self.dimensions.rows {
+                
+                self.elementsStructure.removeRange(newDimensions.product ..< self.elementsStructure.count)
+                
+            } else if newDimensions.rows > self.dimensions.rows {
+                
+                self.elementsStructure.extend([T](count: (newDimensions.rows - self.dimensions.rows) * newDimensions.columns, repeatedValue: 0))
+            }
+            
+            self.innerDimensions = newDimensions
+        }
+    }
     
     
     /**
@@ -86,9 +128,9 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
             }
             
             if newElements.count == 0 || newElements[0].count == 0 {
-                self.dimensions = Dimensions()
+                self.innerDimensions = Dimensions()
             } else {
-                self.dimensions = Dimensions(newElements.count, newElements[0].count)
+                self.innerDimensions = Dimensions(newElements.count, newElements[0].count)
             }
         }
     }
@@ -148,7 +190,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
             NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not a multiple of rows.", userInfo: nil).raise()
         }
         
-        self.dimensions = Dimensions(rows, rows == 0 ? 0 : elementsList.count / rows)
+        self.innerDimensions = Dimensions(rows, rows == 0 ? 0 : elementsList.count / rows)
         self.elementsList = elementsList
     }
     
@@ -171,7 +213,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
             NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not a multiple of columns.", userInfo: nil).raise()
         }
         
-        self.dimensions = Dimensions(columns == 0 ? 0 : elementsList.count / columns, columns)
+        self.innerDimensions = Dimensions(columns == 0 ? 0 : elementsList.count / columns, columns)
         self.elementsList = elementsList
     }
     
@@ -194,7 +236,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
             NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not equal to the product of the dimensions.", userInfo: nil).raise()
         }
         
-        self.dimensions = dimensions
+        self.innerDimensions = dimensions
         self.elementsList = elementsList
     }
     
@@ -211,7 +253,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     public init(dimensions: Dimensions, generator: (Index) -> T) {
         
         self.elementsList = []
-        self.dimensions = dimensions
+        self.innerDimensions = dimensions
         
         for row in 0 ..< dimensions.rows {
             for col in 0 ..< dimensions.columns {
@@ -314,7 +356,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         self.elementsList = [T]()
         
         let size = (elements.count + 1) / 2
-        self.dimensions = Dimensions(size, size)
+        self.innerDimensions = Dimensions(size, size)
         
         for row in 0 ..< size {
             for column in 0 ..< size {
@@ -344,7 +386,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     */
     public init(filledWith element: T, dimensions: Dimensions) {
         
-        self.dimensions = dimensions
+        self.innerDimensions = dimensions
         self.elementsList = [T](count: dimensions.rows * dimensions.columns, repeatedValue: element)
     }
     
@@ -1343,7 +1385,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         if self.dimensions.columns == 1 {
             
             self.elementsList = []
-            self.dimensions = Dimensions()
+            self.innerDimensions = Dimensions()
             
         } else {
             
@@ -1352,7 +1394,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
                 self.elementsList.removeAtIndex(r * (self.dimensions.columns - 1) + index)
             }
             
-            self.dimensions = Dimensions(self.dimensions.rows, self.dimensions.columns - 1)
+            self.innerDimensions = Dimensions(self.dimensions.rows, self.dimensions.columns - 1)
         }
     }
     

@@ -81,9 +81,9 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         set(newElements) {
             
             if newElements.count == 0 || newElements[0].count == 0 {
-                self.dimensions = Dimensions()
+                self.innerDimensions = Dimensions()
             } else {
-                self.dimensions = Dimensions(newElements.count, newElements[0].count)
+                self.innerDimensions = Dimensions(newElements.count, newElements[0].count)
             }
             
             self.elementsStructure = []
@@ -105,7 +105,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         super.init()
         
         self.elementsStructure = diagonal
-        self.dimensions = Dimensions(size: diagonal.count)
+        self.innerDimensions = Dimensions(size: diagonal.count)
     }
     
     
@@ -123,7 +123,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         }
         
         self.elementsStructure = diagonal
-        self.dimensions = dimensions
+        self.innerDimensions = dimensions
     }
     
     
@@ -140,7 +140,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         super.init()
         
         self.elementsStructure = []
-        self.dimensions = dimensions
+        self.innerDimensions = dimensions
         
         for i in 0 ..< self.dimensions.minimum {
             self.elementsStructure.append(generator([i, i]))
@@ -158,7 +158,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         super.init()
         
         self.elementsStructure = [T](count: dimensions.minimum, repeatedValue: element)
-        self.dimensions = dimensions
+        self.innerDimensions = dimensions
     }
     
     
@@ -207,7 +207,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         set(elements) {
             
             self.elementsStructure = elements
-            self.dimensions = Dimensions(size: elements.count)
+            self.innerDimensions = Dimensions(size: elements.count)
         }
     }
     

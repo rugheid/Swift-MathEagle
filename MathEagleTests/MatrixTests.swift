@@ -445,6 +445,34 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(expected, matrix.dimensions)
     }
     
+    func testSetDimensions() {
+        
+        var A = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        A.dimensions = Dimensions(size: 4)
+        XCTAssertEqual([[1, 2, 3, 0], [4, 5, 6, 0], [7, 8, 9, 0], [0, 0, 0, 0]], A.elements)
+        XCTAssertEqual(Dimensions(size: 4), A.dimensions)
+        
+        A.dimensions = Dimensions(size: 2)
+        XCTAssertEqual([[1, 2], [4, 5]], A.elements)
+        XCTAssertEqual(Dimensions(size: 2), A.dimensions)
+        
+        A.dimensions = Dimensions(2, 4)
+        XCTAssertEqual([[1, 2, 0, 0], [4, 5, 0, 0]], A.elements)
+        XCTAssertEqual(Dimensions(2, 4), A.dimensions)
+        
+        A.dimensions = Dimensions(size: 4)
+        XCTAssertEqual([[1, 2, 0, 0], [4, 5, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], A.elements)
+        XCTAssertEqual(Dimensions(size: 4), A.dimensions)
+        
+        A.dimensions = Dimensions(4, 2)
+        XCTAssertEqual([[1, 2], [4, 5], [0, 0], [0, 0]], A.elements)
+        XCTAssertEqual(Dimensions(4, 2), A.dimensions)
+        
+        A.dimensions = Dimensions(size: 2)
+        XCTAssertEqual([[1, 2], [4, 5]], A.elements)
+        XCTAssertEqual(Dimensions(size: 2), A.dimensions)
+    }
+    
     func testTrace() {
         
         var matrix = Matrix<Int>(identityOfSize: 10)
