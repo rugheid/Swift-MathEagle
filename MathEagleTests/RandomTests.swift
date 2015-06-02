@@ -74,9 +74,18 @@ class RandomTests: XCTestCase {
     
     func testUInt8RandomArrayOfLength() {
         
-        let array = UInt8.randomArrayOfLength(10_000)
+        let length = 1_000_000
+        let array = UInt8.randomArrayOfLength(length)
         
-        XCTAssertNotEqual(array[0], array[1])
+        var mean = 0.0
+        
+        for element in array {
+            
+            mean += Double(element)/Double(length)
+        }
+        
+        println("Mean = \(mean)")
+        XCTAssertEqualWithAccuracy(Double(UInt8.max)/2.0, mean, 10.0)
     }
     
     func testUInt8RandomArrayOfLengthPermormance() {
