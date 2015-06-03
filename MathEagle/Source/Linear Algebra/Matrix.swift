@@ -1649,8 +1649,6 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     */
     public func LUDecomposition(pivoting: Bool = true, optimalPivoting: Bool = true) -> (Matrix<T>, Matrix<T>, Matrix<T>, T) {
         
-        //TODO: Try to bridge from Objective-C to Swift using LAPACK: getrf_ function
-        
         if !self.isSquare {
             
             NSException(name: "Not square", reason: "A non-square matrix does not have a LU decomposition.", userInfo: nil).raise()
