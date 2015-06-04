@@ -982,6 +982,20 @@ class MatrixTests: XCTestCase {
         XCTAssertFalse(matrix.isLowerHessenberg)
     }
     
+    func testIsHermitian() {
+        
+        XCTAssertFalse(cmatrix.isHermitian)
+        
+        var A = Matrix<Float>(randomWithDimensions: Dimensions(34, 65))
+        XCTAssertFalse(A.isHermitian)
+        
+        A = Matrix<Float>(randomWithSize: 50)
+        XCTAssertFalse(A.isHermitian)
+        
+        A = [[1, 2, 3], [2, 4, 5], [3, 5, 6]]
+        XCTAssertTrue(A.isHermitian)
+    }
+    
     
     
     // MARK: Method tests

@@ -1165,8 +1165,27 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     */
     public var isHermitian: Bool {
         
-        //TODO: Rewrite this, this is not efficient
-        return self == self.conjugateTranspose
+        if !self.isSquare { return false }
+        
+        var row = 0, col = 1
+        
+        while row < self.dimensions.rows && col < self.dimensions.columns {
+            
+            for c in col ..< self.dimensions.columns {
+                
+                let a = self.element(row, c).conjugate
+                let b = self.element(c, row)
+                
+                if self.element(row, c).conjugate != self.element(c, row) {
+                    return false
+                }
+            }
+            
+            row++
+            col++
+        }
+        
+        return true
     }
     
     
