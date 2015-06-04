@@ -146,7 +146,7 @@ public struct Complex: Equatable, Comparable, Addable, Negatable, Substractable,
     */
     public func equals(z: Complex) -> Bool {
         
-        return self.real == self.real && self.imaginary == z.imaginary
+        return self.real == z.real && self.imaginary == z.imaginary
     }
     
     
