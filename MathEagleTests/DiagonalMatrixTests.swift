@@ -86,5 +86,41 @@ class DiagonalMatrixTests: XCTestCase {
         var D = DiagonalMatrix(diagonal: [1, 2, 3, 4])
         D.diagonalElements = [2, 3, 5]
         XCTAssertEqual([2, 3, 5], D.diagonalElements)
+        XCTAssertEqual(Dimensions(size: 3), D.dimensions)
+        
+        D = DiagonalMatrix(filledWith: 5, dimensions: Dimensions(3, 4))
+        D.diagonalElements = [1, 2, 3, 4]
+        XCTAssertEqual([1, 2, 3, 4], D.diagonalElements)
+        XCTAssertEqual(Dimensions(size: 4), D.dimensions)
+        
+        D = DiagonalMatrix(filledWith: 5, dimensions: Dimensions(3, 4))
+        D.diagonalElements = [1, 2, 3, 4, 5]
+        XCTAssertEqual([1, 2, 3, 4, 5], D.diagonalElements)
+        XCTAssertEqual(Dimensions(size: 5), D.dimensions)
+        
+        D = DiagonalMatrix(filledWith: 5, dimensions: Dimensions(2, 4))
+        D.diagonalElements = [1, 2, 3]
+        XCTAssertEqual([1, 2, 3], D.diagonalElements)
+        XCTAssertEqual(Dimensions(3, 4), D.dimensions)
+        
+        D = DiagonalMatrix(filledWith: 5, dimensions: Dimensions(4, 2))
+        D.diagonalElements = [1, 2, 3]
+        XCTAssertEqual([1, 2, 3], D.diagonalElements)
+        XCTAssertEqual(Dimensions(4, 3), D.dimensions)
+        
+        D = DiagonalMatrix(filledWith: 5, dimensions: Dimensions(3, 4))
+        D.diagonalElements = [1, 2]
+        XCTAssertEqual([1, 2], D.diagonalElements)
+        XCTAssertEqual(Dimensions(2, 4), D.dimensions)
+        
+        D = DiagonalMatrix(filledWith: 5, dimensions: Dimensions(4, 3))
+        D.diagonalElements = [1, 2]
+        XCTAssertEqual([1, 2], D.diagonalElements)
+        XCTAssertEqual(Dimensions(4, 2), D.dimensions)
+        
+        D = DiagonalMatrix(filledWith: 5, dimensions: Dimensions(4, 4))
+        D.diagonalElements = [1, 2]
+        XCTAssertEqual([1, 2], D.diagonalElements)
+        XCTAssertEqual(Dimensions(size: 2), D.dimensions)
     }
 }

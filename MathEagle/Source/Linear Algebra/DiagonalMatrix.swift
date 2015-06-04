@@ -128,13 +128,14 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     
     
     /**
-        Creates a matrix with the given dimensions using
-        the given generator.
+        Creates a diagonal matrix with the given dimensions using
+        the given generator. Note that the row and column values of the indives
+        will be equal.
     
         :param: dimensions  The dimensions the matrix should have.
         :param: generator   The generator used to generate the matrix.
-                This function is called for every element passing
-                the index of the element.
+                            This function is called for every element passing
+                            the index of the element.
     */
     override public init(dimensions: Dimensions, generator: (Index) -> T) {
         super.init()
@@ -149,9 +150,9 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     
     
     /**
-        Creates a matrix with the given dimensions filled with the given element.
+        Creates a diagonal matrix with the given dimensions with the diagonal filled with the given element.
     
-        :param: element     The element to fill the matrix with.
+        :param: element     The element to fill the diagonal with.
         :param: dimensions  The dimensions the matrix should have.
     */
     override public init(filledWith element: T, dimensions: Dimensions) {
@@ -172,6 +173,8 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     */
     override public var rank: Int {
         
+        //TODO: Improve this implementation using a general count function or something using diagonalElements
+        
         var rank = self.dimensions.minimum
         
         for element in self.elementsStructure {
@@ -183,7 +186,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     
     
     /**
-        Returns the determinant of the matrix.
+        Returns the determinant of the matrix. This is the product of the diagonal elements.
     */
     override public var determinant: T {
         
@@ -196,7 +199,15 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     
         :returns: An array with the diagonal elements of the matrix.
     
-        :exception: Throws an exception when the given array countains too many elements.
+        :set: When the number of given elements is bigger than the minimum dimension of the matrix,
+                the dimensions will be padded as few as possible.
+                This means that when a 2x4 matrix is set using 3 elements it will only be padded
+                to a 3x4 matrix.
+                When the number of given elements is less than the minimum dimension of the matrix,
+                the minimum dimensions will shrink even more. Unless the matrix is square. When it is square,
+                both dimensions will shrink.
+                This means that when a 3x4 matrix is set using 2 elements it will shrink to a 2x4 matrix, but
+                when a 4x4 matrix is set using 2 elements it will shrink to a 2x2 matrix.
     */
     override public var diagonalElements: [T] {
         
@@ -207,7 +218,29 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         set(elements) {
             
             self.elementsStructure = elements
-            self.innerDimensions = Dimensions(size: elements.count)
+            
+            if elements.count >= self.dimensions.minimum {
+                
+                self.innerDimensions = Dimensions(max(elements.count, self.dimensions.rows), max(elements.count, self.dimensions.columns))
+                
+            } else {
+                
+                if self.isSquare {
+                    
+                    self.innerDimensions = Dimensions(size: elements.count)
+                    
+                } else {
+                    
+                    if self.dimensions.rows < self.dimensions.columns {
+                        
+                        self.innerDimensions = Dimensions(elements.count, self.dimensions.columns)
+                        
+                    } else {
+                        
+                        self.innerDimensions = Dimensions(self.dimensions.rows, elements.count)
+                    }
+                }
+            }
         }
     }
     
