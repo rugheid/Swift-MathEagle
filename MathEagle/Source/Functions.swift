@@ -126,6 +126,43 @@ public func isAbundant <X: protocol<Equatable, Comparable, Addable, Modulable, D
 
 
 /**
+    Returns a set containing all abundant number up to a given value. The value itself is also
+    included when it is abundant.
+
+    :param: x   The maximum allowed number to include.
+*/
+public func abundantsUpTo <X: protocol<Equatable, Comparable, Addable, Modulable, Dividable, Powerable, IntegerLiteralConvertible> where X.PowerType: protocol<Comparable, Addable, IntegerLiteralConvertible>> (x: X) -> Set<X> {
+    
+    if x < 12 { return [] }
+    
+    var abundants: Set<X> = [12]
+    
+    var i: X = 18
+    while i <= x {
+        
+        if abundants.contains(i) {
+            i = i + 1
+            continue
+        }
+        
+        if isAbundant(i) {
+            
+            var k = i
+            
+            while k <= x {
+                abundants.insert(k)
+                k = k + i
+            }
+        }
+        
+        i = i + 1
+    }
+    
+    return abundants
+}
+
+
+/**
     Returns whether the given number is deficient. This means the sum of it's proper divisors is
     less than the number itself.
 

@@ -70,6 +70,15 @@ class FunctionsTests: XCTestCase {
     }
     
     
+    func testAbundantsUpTo() {
+        
+        let abundants: Set<Int> = [12, 18, 20, 24, 30, 36, 40, 42, 48, 54, 56, 60]
+        XCTAssertEqual(abundants, abundantsUpTo(60))
+        XCTAssertEqual(abundants, abundantsUpTo(65))
+        XCTAssertEqual(Set<Int>(), abundantsUpTo(10))
+    }
+    
+    
     func testIsDeficient() {
         
         for i: UInt in 1 ... 60 {
