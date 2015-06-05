@@ -248,6 +248,31 @@ public func factorial <X: protocol<Comparable, Substractable, Multiplicable, Set
 
 
 /**
+    Returns an array containing the factorials up to the given value. This means it contains the factorial
+    of all values smaller than or equal to the given value. The index in the array corresponds to the argument
+    of the factorial, so factorialsUpTo(x)[i] == factorial(i).
+
+    :example: factorialsUpTo(5) returns [1, 1, 2, 6, 24, 120]
+*/
+public func factorialsUpTo <X: protocol<Comparable, Addable, Substractable, Multiplicable, SetCompliant, IntegerLiteralConvertible>> (x: X) -> [X] {
+    
+    if x < 0 { return [] }
+    
+    var factorials: [X] = [1]
+    var i: X = 1
+    
+    while i <= x {
+        
+        factorials.append(factorials.last! * i)
+        
+        i = i + 1
+    }
+    
+    return factorials
+}
+
+
+/**
     Returns the n'th Fibonacci number, with fib(0) = 0 and fib(1) = 1
 */
 public func fib <X: protocol<Hashable, Addable, Substractable, IntegerLiteralConvertible>> (n: X) -> X {
