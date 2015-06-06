@@ -186,6 +186,56 @@ public func ** (left: UInt64, right: Double) -> Double {
 }
 
 
+// MARK: SelfPowerable
+
+//TODO: Figure out a really good structure to get all the powers right...
+public protocol SelfPowerable: Powerable {
+    
+    func ** (left: Self, right: Self) -> PowerType
+}
+
+public func ** (left: Int, right: Int) -> Double {
+    
+    return pow(Double(left), Double(right))
+}
+public func ** (left: Int8, right: Int8) -> Double {
+    
+    return pow(Double(left), Double(right))
+}
+public func ** (left: Int16, right: Int16) -> Double {
+    
+    return pow(Double(left), Double(right))
+}
+public func ** (left: Int32, right: Int32) -> Double {
+    
+    return pow(Double(left), Double(right))
+}
+public func ** (left: Int64, right: Int64) -> Double {
+    
+    return pow(Double(left), Double(right))
+}
+public func ** (left: UInt, right: UInt) -> Double {
+    
+    return pow(Double(left), Double(right))
+}
+public func ** (left: UInt8, right: UInt8) -> Double {
+    
+    return pow(Double(left), Double(right))
+}
+public func ** (left: UInt16, right: UInt16) -> Double {
+    
+    return pow(Double(left), Double(right))
+}
+public func ** (left: UInt32, right: UInt32) -> Double {
+    
+    return pow(Double(left), Double(right))
+}
+public func ** (left: UInt64, right: UInt64) -> Double {
+    
+    return pow(Double(left), Double(right))
+}
+
+
 // MARK: SetCompliant Protocol
 
 public protocol SetCompliant {
@@ -630,17 +680,17 @@ public protocol FullMathValue: Equatable, Comparable, Addable, Negatable, Substr
 // MARK: Basic Type Protocol Adoptions
 
 // I have to add Comparable for everything to work properly, but I have no idea why...
-extension Int: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
-extension Int8: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
-extension Int16: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
-extension Int32: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
-extension Int64: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
-extension UInt: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, BasicMathValue, MatrixCompatible {}
-extension UInt8: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, BasicMathValue, MatrixCompatible {}
-extension UInt16: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, BasicMathValue, MatrixCompatible {}
-extension UInt32: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, BasicMathValue, MatrixCompatible {}
-extension UInt64: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, BasicMathValue, MatrixCompatible {}
+extension Int: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
+extension Int8: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
+extension Int16: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
+extension Int32: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
+extension Int64: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
+extension UInt: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, BasicMathValue, MatrixCompatible {}
+extension UInt8: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, BasicMathValue, MatrixCompatible {}
+extension UInt16: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, BasicMathValue, MatrixCompatible {}
+extension UInt32: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, BasicMathValue, MatrixCompatible {}
+extension UInt64: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, BasicMathValue, MatrixCompatible {}
 extension Float: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {}
-extension Double: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {}
+extension Double: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {}
 extension String: Addable {}
 

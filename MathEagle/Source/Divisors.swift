@@ -201,3 +201,21 @@ public func lcm <X: protocol<Equatable, Comparable, Negatable, Multiplicable, Di
     
     return lcm < 0 ? -lcm : lcm
 }
+
+
+/**
+    Returns wether the given value is a k'th power, where k is the given exponent. So it returns whether
+    there exists a given b for which b^exponent = x.
+
+    :param: x               The value to check.
+    :param: exponent        The exponent to which a number to be raised to become x.
+    :param: integersAllowed Indicates whether the base should be natural or integer.
+*/
+public func isPower <X: protocol<SelfPowerable> where X.PowerType: protocol<Powerable, SetCompliant>> (x:X, exponent: X.PowerType, integersAllowed: Bool = true) -> Bool {
+    
+    //TODO: Edge cases here? Negative exponents, non integer exponents?
+    //FIXME: function doesn't work!!!
+    
+    let root = x ** X(X.PowerType(exponent ** -1))
+    return integersAllowed ? root.isInteger : root.isNatural
+}
