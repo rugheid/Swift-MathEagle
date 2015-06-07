@@ -8,7 +8,7 @@
 
 import Accelerate
 
-public struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, Conjugatable, FullMathValue, IntegerLiteralConvertible, FloatLiteralConvertible, MatrixCompatible, Printable {
+public struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, Conjugatable, MatrixCompatible, IntegerLiteralConvertible, FloatLiteralConvertible, Printable {
     
     public var real: Double
     public var imaginary: Double
@@ -327,6 +327,26 @@ public func * (left: Complex, right: Double) -> Complex {
     return right * left
 }
 
+public func * (left: UInt, right: Complex) -> Complex {
+    
+    return Complex(Double(left) * right.real, Double(left) * right.imaginary)
+}
+
+public func * (left: Complex, right: UInt) -> Complex {
+    
+    return right * left
+}
+
+public func * (left: Int, right: Complex) -> Complex {
+    
+    return Complex(Double(left) * right.real, Double(left) * right.imaginary)
+}
+
+public func * (left: Complex, right: Int) -> Complex {
+    
+    return right * left
+}
+
 
 
 // MARK: Dividable Protocol Conformance
@@ -360,6 +380,16 @@ public func ** (left: Complex, right: Complex) -> Complex {
 public func ** (left: Double, right: Complex) -> Complex {
     
     return Complex(modulus: left ** right.real, argument: log(left) * right.imaginary)
+}
+
+public func ** (left: Complex, right: UInt) -> Complex {
+    
+    return Complex(modulus: left.modulus ** right, argument: Double(right) * left.argument)
+}
+
+public func ** (left: Complex, right: Int) -> Complex {
+    
+    return Complex(modulus: left.modulus ** right, argument: Double(right) * left.argument)
 }
 
 public func ** (left: Complex, right: Double) -> Complex {

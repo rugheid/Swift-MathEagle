@@ -18,7 +18,11 @@ class OptimizationTests: XCTestCase {
         var x = Optimization.goldenSection(-3.0, 3.0){ $0**2 + $0 - 4 }
         XCTAssertEqualWithAccuracy(-0.5, x, ACCURACY)
         
-        x = Optimization.goldenSection(0.5, 2.0){ (log($0**2 + 1) + exp($0))/$0 }
+        var f = { (x: Double) -> Double in
+            (log(x**2 + 1) + exp(x))/x
+        }
+        
+        x = Optimization.goldenSection(0.5, 2.0, f: f)
         XCTAssertEqualWithAccuracy(0.8754963230, x, ACCURACY)
         
         x = Optimization.goldenSection(-2.0, 1.5){ -sin($0)/$0 }
@@ -27,9 +31,13 @@ class OptimizationTests: XCTestCase {
     
     func testGoldenSectionPerformance() {
         
+        var f = { (x: Double) -> Double in
+            (log(x**2 + 1) + exp(x))/x
+        }
+        
         let time = timeBlock(n: 1000){
             
-            Optimization.goldenSection(0.5, 2.0){ (log($0**2 + 1) + exp($0))/$0 }
+            Optimization.goldenSection(0.5, 2.0, f: f)
         }
         
         let baseline = 1.0

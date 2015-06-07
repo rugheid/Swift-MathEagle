@@ -205,7 +205,7 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Returns the 2-norm. This means
         sqrt(element_0^2 + element_1^2 + ... + element_n^2).
     */
-    public var norm: T.PowerType {
+    public var norm: T.RealPowerType {
         
         if self.length == 0 {
             
@@ -221,7 +221,7 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
             sum = sum + element*element
         }
         
-        return sum ** 0.5
+        return root(sum, 2)
     }
     
     

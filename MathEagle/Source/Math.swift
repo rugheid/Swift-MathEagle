@@ -113,127 +113,273 @@ public protocol Modulable {
 }
 
 
-// MARK: Powerable Protocol
+// MARK: Powerable Protocols
 
 infix operator ** {associativity left precedence 160}
 
-public protocol Powerable {
+public protocol NaturalPowerable {
     
-    typealias PowerType
-    func ** (left: Self, right: Double) -> PowerType
-    init(PowerType)
+    typealias NaturalPowerType
+    func ** (Self, UInt) -> NaturalPowerType
+    init(NaturalPowerType)
 }
 
-public func ** (left: Double, right: Double) -> Double {
+public func ** (left: Int, right: UInt) -> Int {
+    return Int(pow(Double(left), Double(right)))
+}
+public func ** (left: Int8, right: UInt) -> Int {
+    return Int(pow(Double(left), Double(right)))
+}
+public func ** (left: Int16, right: UInt) -> Int {
+    return Int(pow(Double(left), Double(right)))
+}
+public func ** (left: Int32, right: UInt) -> Int {
+    return Int(pow(Double(left), Double(right)))
+}
+public func ** (left: Int64, right: UInt) -> Int {
+    return Int(pow(Double(left), Double(right)))
+}
+public func ** (left: UInt, right: UInt) -> UInt {
+    return UInt(pow(Double(left), Double(right)))
+}
+public func ** (left: UInt8, right: UInt) -> UInt {
+    return UInt(pow(Double(left), Double(right)))
+}
+public func ** (left: UInt16, right: UInt) -> UInt {
+    return UInt(pow(Double(left), Double(right)))
+}
+public func ** (left: UInt32, right: UInt) -> UInt {
+    return UInt(pow(Double(left), Double(right)))
+}
+public func ** (left: UInt64, right: UInt) -> UInt {
+    return UInt(pow(Double(left), Double(right)))
+}
+public func ** (left: Float, right: UInt) -> Float {
+    return pow(left, Float(right))
+}
+public func ** (left: Double, right: UInt) -> Double {
+    return pow(left, Double(right))
+}
+
+
+
+public protocol IntegerPowerable {
     
-    return pow(left, right)
+    typealias IntegerPowerType
+    func ** (Self, Int) -> IntegerPowerType
+    init(IntegerPowerType)
+}
+
+public func ** (left: Int, right: Int) -> Double {
+    return pow(Double(left), Double(right))
+}
+public func ** (left: Int8, right: Int) -> Double {
+    return pow(Double(left), Double(right))
+}
+public func ** (left: Int16, right: Int) -> Double {
+    return pow(Double(left), Double(right))
+}
+public func ** (left: Int32, right: Int) -> Double {
+    return pow(Double(left), Double(right))
+}
+public func ** (left: Int64, right: Int) -> Double {
+    return pow(Double(left), Double(right))
+}
+public func ** (left: UInt, right: Int) -> Double {
+    return pow(Double(left), Double(right))
+}
+public func ** (left: UInt8, right: Int) -> Double {
+    return pow(Double(left), Double(right))
+}
+public func ** (left: UInt16, right: Int) -> Double {
+    return pow(Double(left), Double(right))
+}
+public func ** (left: UInt32, right: Int) -> Double {
+    return pow(Double(left), Double(right))
+}
+public func ** (left: UInt64, right: Int) -> Double {
+    return pow(Double(left), Double(right))
+}
+public func ** (left: Float, right: Int) -> Float {
+    return pow(left, Float(right))
 }
 public func ** (left: Double, right: Int) -> Double {
-    
     return pow(left, Double(right))
 }
-public func ** (left: Float, right: Float) -> Float {
+
+
+
+public protocol RealPowerable {
     
-    return pow(left, right)
+    typealias RealPowerType
+    func ** (Self, Double) -> RealPowerType
+    init(RealPowerType)
 }
-public func ** (left: Float, right: Double) -> Double {
-    
-    return pow(Double(left), right)
-}
-public func ** (left: Double, right: Float) -> Double {
-    
-    return pow(left, Double(right))
-}
+
 public func ** (left: Int, right: Double) -> Double {
-    
     return pow(Double(left), right)
 }
 public func ** (left: Int8, right: Double) -> Double {
-    
     return pow(Double(left), right)
 }
 public func ** (left: Int16, right: Double) -> Double {
-    
     return pow(Double(left), right)
 }
 public func ** (left: Int32, right: Double) -> Double {
-    
     return pow(Double(left), right)
 }
 public func ** (left: Int64, right: Double) -> Double {
-    
     return pow(Double(left), right)
 }
 public func ** (left: UInt, right: Double) -> Double {
-    
     return pow(Double(left), right)
 }
 public func ** (left: UInt8, right: Double) -> Double {
-    
     return pow(Double(left), right)
 }
 public func ** (left: UInt16, right: Double) -> Double {
-    
     return pow(Double(left), right)
 }
 public func ** (left: UInt32, right: Double) -> Double {
-    
     return pow(Double(left), right)
 }
 public func ** (left: UInt64, right: Double) -> Double {
-    
     return pow(Double(left), right)
 }
+public func ** (left: Float, right: Double) -> Double {
+    return pow(Double(left), right)
+}
+public func ** (left: Double, right: Double) -> Double {
+    return pow(left, right)
+}
+
+
+
+public func root <X: RealPowerable> (x: X, order: Int) -> X.RealPowerType {
+    return x ** (1.0 / Double(order))
+}
+
+
+
+
+//public protocol Powerable {
+//    
+//    typealias PowerType
+//    func ** (left: Self, right: Double) -> PowerType
+//    init(PowerType)
+//}
+
+//public func ** (left: Double, right: Double) -> Double {
+//    
+//    return pow(left, right)
+//}
+//public func ** (left: Double, right: Int) -> Double {
+//    
+//    return pow(left, Double(right))
+//}
+//public func ** (left: Float, right: Float) -> Float {
+//    
+//    return pow(left, right)
+//}
+//public func ** (left: Float, right: Double) -> Double {
+//    
+//    return pow(Double(left), right)
+//}
+//public func ** (left: Double, right: Float) -> Double {
+//    
+//    return pow(left, Double(right))
+//}
+//public func ** (left: Int, right: Double) -> Double {
+//    
+//    return pow(Double(left), right)
+//}
+//public func ** (left: Int8, right: Double) -> Double {
+//    
+//    return pow(Double(left), right)
+//}
+//public func ** (left: Int16, right: Double) -> Double {
+//    
+//    return pow(Double(left), right)
+//}
+//public func ** (left: Int32, right: Double) -> Double {
+//    
+//    return pow(Double(left), right)
+//}
+//public func ** (left: Int64, right: Double) -> Double {
+//    
+//    return pow(Double(left), right)
+//}
+//public func ** (left: UInt, right: Double) -> Double {
+//    
+//    return pow(Double(left), right)
+//}
+//public func ** (left: UInt8, right: Double) -> Double {
+//    
+//    return pow(Double(left), right)
+//}
+//public func ** (left: UInt16, right: Double) -> Double {
+//    
+//    return pow(Double(left), right)
+//}
+//public func ** (left: UInt32, right: Double) -> Double {
+//    
+//    return pow(Double(left), right)
+//}
+//public func ** (left: UInt64, right: Double) -> Double {
+//    
+//    return pow(Double(left), right)
+//}
 
 
 // MARK: SelfPowerable
 
 //TODO: Figure out a really good structure to get all the powers right...
-public protocol SelfPowerable: Powerable {
-    
-    func ** (left: Self, right: Self) -> PowerType
-}
+//public protocol SelfPowerable: Powerable {
+//    
+//    func ** (left: Self, right: Self) -> PowerType
+//}
+//
+//public func ** (left: Int, right: Int) -> Double {
+//    
+//    return pow(Double(left), Double(right))
+//}
+//public func ** (left: Int8, right: Int8) -> Double {
+//    
+//    return pow(Double(left), Double(right))
+//}
+//public func ** (left: Int16, right: Int16) -> Double {
+//    
+//    return pow(Double(left), Double(right))
+//}
+//public func ** (left: Int32, right: Int32) -> Double {
+//    
+//    return pow(Double(left), Double(right))
+//}
+//public func ** (left: Int64, right: Int64) -> Double {
+//    
+//    return pow(Double(left), Double(right))
+//}
+//public func ** (left: UInt, right: UInt) -> Double {
+//    
+//    return pow(Double(left), Double(right))
+//}
+//public func ** (left: UInt8, right: UInt8) -> Double {
+//    
+//    return pow(Double(left), Double(right))
+//}
+//public func ** (left: UInt16, right: UInt16) -> Double {
+//    
+//    return pow(Double(left), Double(right))
+//}
+//public func ** (left: UInt32, right: UInt32) -> Double {
+//    
+//    return pow(Double(left), Double(right))
+//}
+//public func ** (left: UInt64, right: UInt64) -> Double {
+//    
+//    return pow(Double(left), Double(right))
+//}
 
-public func ** (left: Int, right: Int) -> Double {
-    
-    return pow(Double(left), Double(right))
-}
-public func ** (left: Int8, right: Int8) -> Double {
-    
-    return pow(Double(left), Double(right))
-}
-public func ** (left: Int16, right: Int16) -> Double {
-    
-    return pow(Double(left), Double(right))
-}
-public func ** (left: Int32, right: Int32) -> Double {
-    
-    return pow(Double(left), Double(right))
-}
-public func ** (left: Int64, right: Int64) -> Double {
-    
-    return pow(Double(left), Double(right))
-}
-public func ** (left: UInt, right: UInt) -> Double {
-    
-    return pow(Double(left), Double(right))
-}
-public func ** (left: UInt8, right: UInt8) -> Double {
-    
-    return pow(Double(left), Double(right))
-}
-public func ** (left: UInt16, right: UInt16) -> Double {
-    
-    return pow(Double(left), Double(right))
-}
-public func ** (left: UInt32, right: UInt32) -> Double {
-    
-    return pow(Double(left), Double(right))
-}
-public func ** (left: UInt64, right: UInt64) -> Double {
-    
-    return pow(Double(left), Double(right))
-}
 
 
 // MARK: SetCompliant Protocol
@@ -674,23 +820,23 @@ public protocol BasicMathValue: Equatable, Comparable, Addable, Substractable, M
 
 // MARK: FullMathValue Protocol
 
-public protocol FullMathValue: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Powerable, SetCompliant, IntegerLiteralConvertible {}
+public protocol FullMathValue: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, IntegerLiteralConvertible {}
 
 
 // MARK: Basic Type Protocol Adoptions
 
 // I have to add Comparable for everything to work properly, but I have no idea why...
-extension Int: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
-extension Int8: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
-extension Int16: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
-extension Int32: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
-extension Int64: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
-extension UInt: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, BasicMathValue, MatrixCompatible {}
-extension UInt8: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, BasicMathValue, MatrixCompatible {}
-extension UInt16: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, BasicMathValue, MatrixCompatible {}
-extension UInt32: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, BasicMathValue, MatrixCompatible {}
-extension UInt64: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, BasicMathValue, MatrixCompatible {}
-extension Float: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {}
-extension Double: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, Powerable, SelfPowerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {}
+extension Int: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
+extension Int8: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
+extension Int16: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
+extension Int32: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
+extension Int64: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
+extension UInt: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, MatrixCompatible {}
+extension UInt8: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, MatrixCompatible {}
+extension UInt16: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, MatrixCompatible {}
+extension UInt32: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, MatrixCompatible {}
+extension UInt64: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, MatrixCompatible {}
+extension Float: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {}
+extension Double: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {}
 extension String: Addable {}
 

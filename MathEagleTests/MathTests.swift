@@ -21,4 +21,14 @@ class MathTests: XCTestCase {
         println(PI)
     }
     
+    
+    
+    // MARK: Powerable Tests
+    
+    func testRoot() {
+        
+//        XCTAssertEqual(root(4, 2), 2.0)
+        
+    }
+    
 }

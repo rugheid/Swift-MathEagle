@@ -16,7 +16,7 @@ import Foundation
 
     :returns: true if the given unsigned integer is prime.
 */
-public func isPrime <X: protocol<Equatable, Comparable, Addable, Modulable, Powerable, IntegerLiteralConvertible>> (x: X) -> Bool {
+public func isPrime <X: protocol<Equatable, Comparable, Addable, Modulable, RealPowerable, IntegerLiteralConvertible>> (x: X) -> Bool {
     
     if x <= 3 { return x >= 2 }
     
@@ -24,7 +24,7 @@ public func isPrime <X: protocol<Equatable, Comparable, Addable, Modulable, Powe
     
     var p: X = 5
     
-    while p <= X(x ** 0.5) {
+    while p <= X(root(x, 2)) {
         
         if x % p == 0 || x % (p + 2) == 0 { return false }
         

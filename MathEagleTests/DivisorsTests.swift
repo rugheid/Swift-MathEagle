@@ -12,15 +12,15 @@ import MathEagle
 
 class DivisorsTests: XCTestCase {
     
-    func testIsPower() {
-        
-        XCTAssertTrue(isPower(4, 2, integersAllowed: false))
-        XCTAssertTrue(isPower(4, 2, integersAllowed: true))
-        XCTAssertTrue(isPower(8, 3, integersAllowed: false))
-        XCTAssertTrue(isPower(-8, 3, integersAllowed: true))
-        
-        XCTAssertFalse(isPower(4, 3, integersAllowed: false))
-        XCTAssertFalse(isPower(4, 3, integersAllowed: true))
-        XCTAssertFalse(isPower(-8, 3, integersAllowed: false))
-    }
+//    func testIsPower() {
+//        
+//        XCTAssertTrue(isPower(4, 2, integersAllowed: false))
+//        XCTAssertTrue(isPower(4, 2, integersAllowed: true))
+//        XCTAssertTrue(isPower(8, 3, integersAllowed: false))
+//        XCTAssertTrue(isPower(-8, 3, integersAllowed: true))
+//        
+//        XCTAssertFalse(isPower(4, 3, integersAllowed: false))
+//        XCTAssertFalse(isPower(4, 3, integersAllowed: true))
+//        XCTAssertFalse(isPower(-8, 3, integersAllowed: false))
+//    }
 }
