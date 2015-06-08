@@ -15,6 +15,7 @@
 		981ED68D1B164B7600B190FA /* Permutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981ED68C1B164B7600B190FA /* Permutation.swift */; };
 		983106261AFB628C0074FBC8 /* Numpy Times in Resources */ = {isa = PBXBuildFile; fileRef = 983106251AFB628C0074FBC8 /* Numpy Times */; };
 		983106281AFB62AE0074FBC8 /* Benchmarking Files in Resources */ = {isa = PBXBuildFile; fileRef = 983106271AFB62AE0074FBC8 /* Benchmarking Files */; };
+		9837B8511B258ED000E6EE1B /* SequenceFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9837B8501B258ED000E6EE1B /* SequenceFunctions.swift */; };
 		9843568F1ACC79F100B988CB /* RandomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9843568E1ACC79F100B988CB /* RandomTests.swift */; };
 		9885B2C41B1C47600028FC9A /* Parity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9885B2C31B1C47600028FC9A /* Parity.swift */; };
 		9885B2C61B1C7E990028FC9A /* PermutationMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9885B2C51B1C7E990028FC9A /* PermutationMatrixTests.swift */; };
@@ -74,6 +75,7 @@
 		981ED68C1B164B7600B190FA /* Permutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Permutation.swift; path = Source/Permutation.swift; sourceTree = "<group>"; };
 		983106251AFB628C0074FBC8 /* Numpy Times */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Numpy Times"; sourceTree = "<group>"; };
 		983106271AFB62AE0074FBC8 /* Benchmarking Files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Benchmarking Files"; sourceTree = "<group>"; };
+		9837B8501B258ED000E6EE1B /* SequenceFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceFunctions.swift; path = Source/SequenceFunctions.swift; sourceTree = "<group>"; };
 		9843568E1ACC79F100B988CB /* RandomTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomTests.swift; sourceTree = "<group>"; };
 		9885B2C31B1C47600028FC9A /* Parity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Parity.swift; path = Source/Parity.swift; sourceTree = "<group>"; };
 		9885B2C51B1C7E990028FC9A /* PermutationMatrixTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermutationMatrixTests.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				98E671711AA8C02100C88DCE /* Prime.swift */,
 				98E671761AA8F00600C88DCE /* Complex.swift */,
 				98F598691A7B8BED0058DF53 /* Functions.swift */,
+				9837B8501B258ED000E6EE1B /* SequenceFunctions.swift */,
 				98109D1B1B236568002AD5C0 /* Divisors.swift */,
 				98F5986A1A7B8BED0058DF53 /* Solver.swift */,
 				98F5986B1A7B8BED0058DF53 /* Optimization.swift */,
@@ -426,6 +429,7 @@
 				98F558841B1AFBC2009AECD5 /* Cycle.swift in Sources */,
 				98F598741A7B8BED0058DF53 /* Functions.swift in Sources */,
 				981ED68D1B164B7600B190FA /* Permutation.swift in Sources */,
+				9837B8511B258ED000E6EE1B /* SequenceFunctions.swift in Sources */,
 				981ED68A1B16496000B190FA /* PermutationMatrix.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
