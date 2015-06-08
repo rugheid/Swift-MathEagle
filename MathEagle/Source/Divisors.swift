@@ -211,11 +211,11 @@ public func lcm <X: protocol<Equatable, Comparable, Negatable, Multiplicable, Di
     :param: exponent        The exponent to which a number to be raised to become x.
     :param: integersAllowed Indicates whether the base should be natural or integer.
 */
-//public func isPower <X: protocol<SelfPowerable> where X.PowerType: protocol<Powerable, SetCompliant>> (x:X, exponent: X.PowerType, integersAllowed: Bool = true) -> Bool {
-//    
-//    //TODO: Edge cases here? Negative exponents, non integer exponents?
-//    //FIXME: function doesn't work!!!
-//    
-//    let root = x ** X(X.PowerType(exponent ** -1))
-//    return integersAllowed ? root.isInteger : root.isNatural
-//}
+public func isPower <X: RealPowerable where X.RealPowerType: SetCompliant> (x:X, order: Int, integersAllowed: Bool = true) -> Bool {
+    
+    //TODO: Edge cases here? Negative exponents, non integer exponents?
+    //FIXME: function doesn't work for some values, see tests. The problem lies with the root function
+    
+    let rt = root(x, order)
+    return integersAllowed ? rt.isInteger : rt.isNatural
+}
