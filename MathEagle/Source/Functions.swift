@@ -94,3 +94,15 @@ private func memoFib <X: protocol<Hashable, Addable, Substractable, IntegerLiter
     
     return answer
 }
+
+
+/**
+    Returns an array containing the digits of the given number from most to least significant digits.
+
+    :param: number  The number to get the digits of.
+*/
+public func digits(number: Int) -> [Int] {
+    
+    //TODO: Benchmark this method.
+    return map("\(abs(number))"){ "\($0)".toInt()! }
+}

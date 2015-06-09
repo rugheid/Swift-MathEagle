@@ -22,6 +22,7 @@
 		988B441D1B1CB4A40010C5FF /* DiagonalMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988B441C1B1CB4A40010C5FF /* DiagonalMatrixTests.swift */; };
 		988B7CCD1ACAD2F600CDEEF7 /* MatrixVectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988B7CCB1ACAD2F600CDEEF7 /* MatrixVectorTests.swift */; };
 		989729431B18B0550046D951 /* PermutationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989729421B18B0550046D951 /* PermutationTest.swift */; };
+		98B927461B277F70006C4C73 /* SequenceFunctionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B927451B277F70006C4C73 /* SequenceFunctionsTests.swift */; };
 		98E25E411B19DE6D008435B7 /* Random.h in Headers */ = {isa = PBXBuildFile; fileRef = 98E25E3F1B19DE6D008435B7 /* Random.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		98E25E421B19DE6D008435B7 /* Random.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E25E401B19DE6D008435B7 /* Random.m */; };
 		98E25E461B19DE88008435B7 /* Matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 98E25E441B19DE88008435B7 /* Matrix.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -82,6 +83,7 @@
 		988B441C1B1CB4A40010C5FF /* DiagonalMatrixTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagonalMatrixTests.swift; sourceTree = "<group>"; };
 		988B7CCB1ACAD2F600CDEEF7 /* MatrixVectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixVectorTests.swift; sourceTree = "<group>"; };
 		989729421B18B0550046D951 /* PermutationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermutationTest.swift; sourceTree = "<group>"; };
+		98B927451B277F70006C4C73 /* SequenceFunctionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceFunctionsTests.swift; sourceTree = "<group>"; };
 		98E25E3F1B19DE6D008435B7 /* Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Random.h; path = Source/Random.h; sourceTree = "<group>"; };
 		98E25E401B19DE6D008435B7 /* Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Random.m; path = Source/Random.m; sourceTree = "<group>"; };
 		98E25E441B19DE88008435B7 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Matrix.h; path = "Source/Linear Algebra/Matrix.h"; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 				98E671741AA8C4B400C88DCE /* PrimeTests.swift */,
 				98E671791AA99AB500C88DCE /* ComplexTests.swift */,
 				98F598861A7B8C2A0058DF53 /* FunctionsTests.swift */,
+				98B927451B277F70006C4C73 /* SequenceFunctionsTests.swift */,
 				98109D1D1B23818E002AD5C0 /* DivisorsTests.swift */,
 				98F598871A7B8C2A0058DF53 /* SolverTests.swift */,
 				98F598881A7B8C2A0058DF53 /* OptimizationTests.swift */,
@@ -466,6 +469,7 @@
 				98F5989A1A7B8C2A0058DF53 /* IntegrationTests.swift in Sources */,
 				98F598981A7B8C2A0058DF53 /* OptimizationTests.swift in Sources */,
 				9885B2C61B1C7E990028FC9A /* PermutationMatrixTests.swift in Sources */,
+				98B927461B277F70006C4C73 /* SequenceFunctionsTests.swift in Sources */,
 				98F598921A7B8C2A0058DF53 /* ExtensionsTests.swift in Sources */,
 				98F5989E1A7B8C2A0058DF53 /* VectorTests.swift in Sources */,
 				98F598961A7B8C2A0058DF53 /* SolverTests.swift in Sources */,
