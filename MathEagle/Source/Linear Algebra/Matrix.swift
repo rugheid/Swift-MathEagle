@@ -17,6 +17,7 @@ public protocol MatrixCompatible: Equatable, Comparable, Addable, Negatable, Sub
 public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, CustomStringConvertible, SequenceType {
     
     
+    
     // MARK: Internal Elements
     
     /**
@@ -723,7 +724,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     */
     public var upperTriangle: Matrix<T> {
         
-        return upperTriangle()
+        return try! upperTriangle()
     }
     
     
@@ -746,11 +747,11 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         :exception: An exception will be raised if the diagonal at the given index does not exist.
                     This means -n >= the number of rows or n >= the number of columns.
     */
-    public func upperTriangle(n: Int = 0) -> Matrix<T> {
+    public func upperTriangle(n: Int = 0) throws -> Matrix<T> {
         
-        if -n >= self.dimensions.rows || n >= self.dimensions.columns {
+        if n != 0 && (-n >= self.dimensions.rows || n >= self.dimensions.columns) {
             
-            NSException(name: "Index out the bounds.", reason: "The given index is out of bounds.", userInfo: nil).raise()
+            throw MatrixError.IndexOutOfBounds(received: n, allowedRange: -(self.dimensions.rows + 1) ... self.dimensions.columns - 1, description: nil)
         }
         
         var row = max(-n, 0)
@@ -2138,4 +2139,25 @@ public struct Index: ArrayLiteralConvertible {
         self.row = elements[0]
         self.column = elements[1]
     }
+}
+
+
+
+
+// MARK: - Errors
+
+/**
+    A struct containing the different types of Matrix errors.
+*/
+public enum MatrixError: ErrorType {
+    
+    /**
+    Caused by an index being out of bounds.
+    
+    - parameter received: The index passed by the user.
+    - parameter allowedRange: The allowed range of indices. The error is thrown when the index
+        does not lie in this range.
+    - parameter description: A description describing what exactly went wrong.
+    */
+    case IndexOutOfBounds(received: Int, allowedRange: Range<Int>, description: String?)
 }

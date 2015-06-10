@@ -571,13 +571,20 @@ class MatrixTests: XCTestCase {
     func testGetUpperTriangleFunction() {
         
         var matrix = Matrix([[1, 2, 3], [4, 5, 6]])
-        XCTAssertEqual(Matrix([[1, 2, 3], [0, 5, 6]]), matrix.upperTriangle())
-        XCTAssertEqual(Matrix([[1, 2, 3], [4, 5, 6]]), matrix.upperTriangle(-1))
-        XCTAssertEqual(Matrix([[0, 2, 3], [0, 0, 6]]), matrix.upperTriangle(1))
-        XCTAssertEqual(Matrix([[0, 0, 3], [0, 0, 0]]), matrix.upperTriangle(2))
+        XCTAssertEqual(Matrix([[1, 2, 3], [0, 5, 6]]), try! matrix.upperTriangle())
+        XCTAssertEqual(Matrix([[1, 2, 3], [4, 5, 6]]), try! matrix.upperTriangle(-1))
+        XCTAssertEqual(Matrix([[0, 2, 3], [0, 0, 6]]), try! matrix.upperTriangle(1))
+        XCTAssertEqual(Matrix([[0, 0, 3], [0, 0, 0]]), try! matrix.upperTriangle(2))
         
         matrix = []
-        XCTAssertEqual(Matrix<Int>(), matrix.upperTriangle())
+        XCTAssertEqual(Matrix<Int>(), try! matrix.upperTriangle())
+        
+        do {
+            try matrix.upperTriangle(1)
+            XCTAssert(false)
+        } catch {
+            XCTAssert(true)
+        }
     }
     
     func testGetUpperTriangleFunctionPerformance() {
@@ -587,7 +594,7 @@ class MatrixTests: XCTestCase {
         let diagonalBaseline = 0.00145101547241211
         let diagonalTime = timeBlock(){
             
-            matrix.upperTriangle()
+            try! matrix.upperTriangle()
         }
         
         print("\nDiagonal time = \(diagonalTime), this is \(diagonalBaseline/diagonalTime) times faster than baseline.")
@@ -595,7 +602,7 @@ class MatrixTests: XCTestCase {
         let superDiagonalBaseline = 0.00230699777603149
         let superDiagonalTime = timeBlock(){
             
-            matrix.upperTriangle(25)
+            try! matrix.upperTriangle(25)
         }
         
         print("\nSuper diagonal time = \(superDiagonalTime), this is \(superDiagonalBaseline/superDiagonalTime) times faster than baseline.")
@@ -603,7 +610,7 @@ class MatrixTests: XCTestCase {
         let subDiagonalBaseline = 0.000886976718902588
         let subDiagonalTime = timeBlock(){
             
-            matrix.upperTriangle(-25)
+            try! matrix.upperTriangle(-25)
         }
         
         print("\nSub diagonal time = \(subDiagonalTime), this is \(subDiagonalBaseline/subDiagonalTime) times faster than baseline.\n")
