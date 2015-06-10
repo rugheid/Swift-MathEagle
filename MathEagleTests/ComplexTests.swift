@@ -22,21 +22,21 @@ class ComplexTests: XCTestCase {
         
         let i = Complex.imaginaryUnit
         
-        var x = -3.0 + 4.5*i
-        var y = -5.0 + 2.8*i
-        var z = 1.0 + 2.0*i
+        let x = -3.0 + 4.5*i
+        let y = -5.0 + 2.8*i
+        let z = 1.0 + 2.0*i
         
-        print("\n\n\n")
+        print("\n\n\n", appendNewline: false)
         
-        println("x = \(x)")
-        println("y = \(y)")
-        println("z = \(z)")
-        println("x + y = \(x+y)")
-        println("x * y = \(x*y)")
-        println("e^z = \(exp(z))")
-        println("sqrt(z) = \(sqrt(z))")
+        print("x = \(x)")
+        print("y = \(y)")
+        print("z = \(z)")
+        print("x + y = \(x+y)")
+        print("x * y = \(x*y)")
+        print("e^z = \(exp(z))")
+        print("sqrt(z) = \(sqrt(z))")
         
-        print("\n\n\n")
+        print("\n\n\n", appendNewline: false)
     }
 
     
@@ -56,9 +56,9 @@ class ComplexTests: XCTestCase {
     
     func testModulusArgumentInit() {
         
-        var z = Complex(modulus: 2.0, argument: PI/2)
-        XCTAssertEqualWithAccuracy(0, z.real, ACCURACY)
-        XCTAssertEqualWithAccuracy(2, z.imaginary, ACCURACY)
+        let z = Complex(modulus: 2.0, argument: PI/2)
+        XCTAssertEqualWithAccuracy(0, z.real, accuracy: ACCURACY)
+        XCTAssertEqualWithAccuracy(2, z.imaginary, accuracy: ACCURACY)
     }
     
     
@@ -76,12 +76,12 @@ class ComplexTests: XCTestCase {
     func testModulusAndArgument() {
         
         var z = Complex(1, 2)
-        XCTAssertEqualWithAccuracy(sqrt(5), z.modulus, ACCURACY)
-        XCTAssertEqualWithAccuracy(atan(2), z.argument, ACCURACY)
+        XCTAssertEqualWithAccuracy(sqrt(5), z.modulus, accuracy: ACCURACY)
+        XCTAssertEqualWithAccuracy(atan(2), z.argument, accuracy: ACCURACY)
         
         z = Complex(-2, -2)
-        XCTAssertEqualWithAccuracy(sqrt(8), z.modulus, ACCURACY)
-        XCTAssertEqualWithAccuracy(5*PI/4, z.argument, ACCURACY)
+        XCTAssertEqualWithAccuracy(sqrt(8), z.modulus, accuracy: ACCURACY)
+        XCTAssertEqualWithAccuracy(5*PI/4, z.argument, accuracy: ACCURACY)
     }
     
     
@@ -108,8 +108,8 @@ class ComplexTests: XCTestCase {
         
         let z = exp(Complex(1, 2))
         
-        XCTAssertEqualWithAccuracy(exp(1) * cos(2), z.real, ACCURACY)
-        XCTAssertEqualWithAccuracy(exp(1) * sin(2), z.imaginary, ACCURACY)
+        XCTAssertEqualWithAccuracy(exp(1) * cos(2), z.real, accuracy: ACCURACY)
+        XCTAssertEqualWithAccuracy(exp(1) * sin(2), z.imaginary, accuracy: ACCURACY)
     }
     
     

@@ -14,7 +14,7 @@ public protocol MatrixCompatible: Equatable, Comparable, Addable, Negatable, Sub
 /**
     A generic class representing a 2-dimensional matrix of the given type.
 */
-public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, Printable, SequenceType {
+public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, CustomStringConvertible, SequenceType {
     
     
     // MARK: Internal Elements
@@ -149,7 +149,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Creates a matrix with the given elements.
     
-        :param: elements The elements of the matrix. Every element
+        - parameter elements: The elements of the matrix. Every element
                     in this array should be an array representing
                     a row in the matrix.
     */
@@ -162,7 +162,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Creates a matrix with the given array literal.
     
-        :param: elements The elements of the matrix. Every element
+        - parameter elements: The elements of the matrix. Every element
                     in this array should be an array representing
                     a row in the matrix.
     */
@@ -176,9 +176,9 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Creates a matrix with the given elementsList and the
         given number of rows.
     
-        :param: elementsList A flat row majored list of all elements in
+        - parameter elementsList: A flat row majored list of all elements in
                     the matrix.
-        :param: rows The number of rows the matrix should have.
+        - parameter rows: The number of rows the matrix should have.
     
         :exception: An exception will be thrown when the number
                         of elements in the elementsList is not
@@ -199,9 +199,9 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Creates a matrix with the given elementsList and the
         given number of columns.
     
-        :param: elementsList A flat row majored list of all elements in
+        - parameter elementsList: A flat row majored list of all elements in
                     the matrix.
-        :param: columns The number of columns the matrix should have.
+        - parameter columns: The number of columns the matrix should have.
     
         :exception: An exception will be thrown when the number
                         of elements in the elementsList is not
@@ -222,9 +222,9 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Creates a matrix with the given elementsList and the
         given dimensions.
     
-        :param: elementsList A flat row majored list of all elements in
+        - parameter elementsList: A flat row majored list of all elements in
                     the matrix.
-        :param: dimensions The dimensions the matrix should have.
+        - parameter dimensions: The dimensions the matrix should have.
     
         :exception: An exception will be thrown when the number
                         of elements in the elementsList is not
@@ -245,8 +245,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Creates a matrix with the given dimensions using
         the given generator.
     
-        :param: dimensions The dimensions the matrix should have.
-        :param: generator The generator used to generate the matrix.
+        - parameter dimensions: The dimensions the matrix should have.
+        - parameter generator: The generator used to generate the matrix.
                     This function is called for every element passing
                     the index of the element.
     */
@@ -266,8 +266,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Creates a square matrix with the given size using the given generator.
     
-        :param: size        The size the matrix should have.
-        :param: generator   The generator used to generate the matrix.
+        - parameter size:        The size the matrix should have.
+        - parameter generator:   The generator used to generate the matrix.
                                 This function is called for every element
                                 passing the index of the element.
     */
@@ -284,7 +284,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         So you can either state the type of the variable explicitly or
         call the initialiser with the specific type like Matrix<Type>(...).
     
-        :param: dimensions  The dimensions the matrix should have.
+        - parameter dimensions:  The dimensions the matrix should have.
     */
     public convenience init(randomWithDimensions dimensions: Dimensions) {
         
@@ -299,7 +299,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         So you can either state the type of the variable explicitly or
         call the initialiser with the specific type like Matrix<Type>(...).
     
-        :param: size    The size the matrix should have.
+        - parameter size:    The size the matrix should have.
     */
     public convenience init(randomWithSize size: Int) {
         
@@ -315,8 +315,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         variable explicitly or call the initialiser with the specific type
         like Matrix<Type>(...).
     
-        :param: dimensions  The dimensions the matrix should have.
-        :param: intervals   The interval in which the values can lie. You should
+        - parameter dimensions:  The dimensions the matrix should have.
+        - parameter intervals:   The interval in which the values can lie. You should
                                 only pass multiple intervals for Complex matrices.
                                 Here the first interval represents the interval
                                 for the real part and the second interval represents
@@ -337,8 +337,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         variable explicitly or call the initialiser with the specific type
         like Matrix<Type>(...).
     
-        :param: size  The dimensions the matrix should have.
-        :param: intervals   The interval in which the values can lie. You should
+        - parameter size:  The dimensions the matrix should have.
+        - parameter intervals:   The interval in which the values can lie. You should
                                 only pass multiple intervals for Complex matrices.
                                 Here the first interval represents the interval
                                 for the real part and the second interval represents
@@ -369,8 +369,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Creates a matrix of the given size filled with the given element.
     
-        :param: element The element to fill the matrix with.
-        :param: size    The size the matrix should have.
+        - parameter element: The element to fill the matrix with.
+        - parameter size:    The size the matrix should have.
     */
     public convenience init(filledWith element: T, size: Int) {
         
@@ -381,8 +381,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Creates a matrix with the given dimensions filled with the given element.
     
-        :param: element     The element to fill the matrix with.
-        :param: dimensions  The dimensions the matrix should have.
+        - parameter element:     The element to fill the matrix with.
+        - parameter dimensions:  The dimensions the matrix should have.
     */
     public init(filledWith element: T, dimensions: Dimensions) {
         
@@ -395,7 +395,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Creates an identity matrix of the given size. This means all diagonal elements
         are equal to 1 and all other elements are equal to 0.
     
-        :param: size    The size the matrix should have.
+        - parameter size:    The size the matrix should have.
     */
     public convenience init(identityOfSize size: Int) {
         
@@ -411,10 +411,10 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Gets or sets the element at the given row and column.
     
-        :param: row     The row of the desired element.
-        :param: column  The column of the desired element.
+        - parameter row:     The row of the desired element.
+        - parameter column:  The column of the desired element.
     
-        :returns: The element at the given row and column.
+        - returns: The element at the given row and column.
     
         :exception: An exception will be thrown when either of the indices
                         is out of bounds.
@@ -435,9 +435,9 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Gets or sets the row at the given element.
     
-        :param: index   The index of the desired row.
+        - parameter index:   The index of the desired row.
     
-        :returns: A vector representing the row at the given index.
+        - returns: A vector representing the row at the given index.
     
         :exception: An exception will be thrown when the given index is out
                         of bounds.
@@ -490,10 +490,10 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Gets or sets the submatrix at the given index ranges.
     
-        :param: rowRange    The row index range of the desired submatrix.
-        :param: columnRange The column index range of the desired submatrix.
+        - parameter rowRange:    The row index range of the desired submatrix.
+        - parameter columnRange: The column index range of the desired submatrix.
     
-        :returns: A matrix representing the submatrix at the given index ranges.
+        - returns: A matrix representing the submatrix at the given index ranges.
     
         :exception: Throws an exception when any of the index ranges is out of bounds.
     */
@@ -514,10 +514,10 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Gets or sets the subvector at the given row index range at the given column.
     
-        :param: rowRange    The row index range of the desired subvector.
-        :param: column      The column of the desired subvector.
+        - parameter rowRange:    The row index range of the desired subvector.
+        - parameter column:      The column of the desired subvector.
     
-        :returns: A vector representing the subvector at the given row index range at
+        - returns: A vector representing the subvector at the given row index range at
                     the given column.
     
         :exception: Throws an exception when any of the indices is out of bounds.
@@ -539,10 +539,10 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Gets or sets the subvector at the given row at the given column index range.
     
-        :param: row         The row of the desired subvector.
-        :param: columnRange The column index range of the desired subvector.
+        - parameter row:         The row of the desired subvector.
+        - parameter columnRange: The column index range of the desired subvector.
     
-        :returns: A vector representing the subvector at the given row at the given
+        - returns: A vector representing the subvector at the given row at the given
                     columnn index range.
     
         :exception: Throws an exception when any of the indices is out of bounds.
@@ -600,7 +600,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Returns the size of the matrix if the matrix is square. If the matrix is not
         square it returns nil.
     
-        :returns: The size of the matrix if the matrix is square or nil otherwise.
+        - returns: The size of the matrix if the matrix is square or nil otherwise.
     */
     public var size: Int? {
         return self.dimensions.size
@@ -610,7 +610,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Gives the rank of the matrix. This is not the tensor rank.
     
-        :returns: The rank of the matrix.
+        - returns: The rank of the matrix.
     */
     public var rank: Int {
         
@@ -623,7 +623,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Returns the trace of the matrix. This is the sum of the diagonal elements. If the
         matrix is empty nil is returned.
     
-        :returns: The trace of the matrix if the matrix is not empty, otherwise nil.
+        - returns: The trace of the matrix if the matrix is not empty, otherwise nil.
     */
     public var trace: T? {
         
@@ -636,7 +636,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     */
     public var determinant: T {
         
-        let (_, _, _, det) = LUDecomposition(pivoting: true, optimalPivoting: true)
+        let (_, _, _, det) = self.LUDecomposition(pivoting: true, optimalPivoting: true)
         return det
     }
     
@@ -644,7 +644,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Gets or sets the diagonal elements of the matrix.
     
-        :returns: An array with the diagonal elements of the matrix.
+        - returns: An array with the diagonal elements of the matrix.
     
         :exception: Throws an exception when the given array countains too many elements.
     */
@@ -687,14 +687,14 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         1 means the first superdiagonal, this is the one above the main diagonal.
         Other positive numbers represent higher superdiagonals.
     
-        :param: n The diagonal's index.
+        - parameter n: The diagonal's index.
     
-        :returns: An array representing the diagonal elements from top left to bottom right in the matrix.
+        - returns: An array representing the diagonal elements from top left to bottom right in the matrix.
     
         :exception: An exception will be raised if the diagonal at the given index does not exist.
                     This means -n >= the number of rows or n >= the number of columns.
     */
-    public func diagonalElements(_ n: Int = 0) -> [T] {
+    public func diagonalElements(n: Int = 0) -> [T] {
         
         if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
@@ -739,14 +739,14 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         :note: Note that this method also works for non-square matrices, but the returned matrix will thus be
                 not upper triangular because only square matrices are upper triangular.
     
-        :param: n The diagonal's index.
+        - parameter n: The diagonal's index.
     
-        :returns: A matrix where all elements under the diagonal with the given index are zero.
+        - returns: A matrix where all elements under the diagonal with the given index are zero.
     
         :exception: An exception will be raised if the diagonal at the given index does not exist.
                     This means -n >= the number of rows or n >= the number of columns.
     */
-    public func upperTriangle(_ n: Int = 0) -> Matrix<T> {
+    public func upperTriangle(n: Int = 0) -> Matrix<T> {
         
         if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
@@ -817,14 +817,14 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         :note: Note that this method also works for non-square matrices, but the returned matrix will thus be
                 not lower triangular because only square matrices are lower triangular.
     
-        :param: n   The diagonal's index.
+        - parameter n:   The diagonal's index.
     
-        :returns: A matrix where all elements above the diagonal with the given index are zero.
+        - returns: A matrix where all elements above the diagonal with the given index are zero.
     
         :exception: An exception will be raised if the diagonal at the given index does not exist.
                     This means -n >= the number of rows or n >= the number of columns.
     */
-    public func lowerTriangle(_ n: Int = 0) -> Matrix<T> {
+    public func lowerTriangle(n: Int = 0) -> Matrix<T> {
         
         if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
@@ -944,7 +944,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns whether the matrix is empty. This means the dimensions are (0, 0).
     
-        :returns: true if the matrix is empty.
+        - returns: true if the matrix is empty.
     */
     public var isEmpty: Bool {
         
@@ -969,7 +969,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns whether the matrix is square.
     
-        :returns: true if the matrix is square.
+        - returns: true if the matrix is square.
     */
     public var isSquare: Bool {
         
@@ -982,7 +982,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     */
     public var isDiagonal: Bool {
         
-        for (index, element) in enumerate(self) {
+        for (index, element) in self.enumerate() {
             
             if index / self.dimensions.rows != index % self.dimensions.rows && element != 0 {
                 
@@ -997,7 +997,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns whether the matrix is symmetrical. This method works O(2n) for symmetrical (square) matrixes of size n.
     
-        :returns: true if the matrix is symmetrical.
+        - returns: true if the matrix is symmetrical.
     */
     public var isSymmetrical: Bool {
         
@@ -1042,10 +1042,10 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         This means all elements below the diagonal at the given index n must be zero.
         When mustBeSquare is set to true the matrix must be square.
     
-        :param: n               The diagonal's index.
-        :param: mustBeSquare    Whether the matrix must be square to be upper triangular.
+        - parameter n:               The diagonal's index.
+        - parameter mustBeSquare:    Whether the matrix must be square to be upper triangular.
     */
-    public func isUpperTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
+    public func isUpperTriangular(n: Int = 0, mustBeSquare: Bool = true) -> Bool {
         
         if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
@@ -1108,10 +1108,10 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         This means all elements above the diagonal at the given index n must be zero.
         When mustBeSquare is set to true the matrix must be square.
     
-        :param: n The diagonal's index.
-        :param: mustBeSquare Whether the matrix must be square to be lower triangular.
+        - parameter n: The diagonal's index.
+        - parameter mustBeSquare: Whether the matrix must be square to be lower triangular.
     */
-    public func isLowerTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
+    public func isLowerTriangular(n: Int = 0, mustBeSquare: Bool = true) -> Bool {
         
         if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
@@ -1173,9 +1173,6 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
             
             for c in col ..< self.dimensions.columns {
                 
-                let a = self.element(row, c).conjugate
-                let b = self.element(c, row)
-                
                 if self.element(row, c).conjugate != self.element(c, row) {
                     return false
                 }
@@ -1195,10 +1192,10 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns the element at the given index (row, column).
     
-        :param: row     The row index of the requested element
-        :param: column  The column index of the requested element
+        - parameter row:     The row index of the requested element
+        - parameter column:  The column index of the requested element
     
-        :returns: The element at the given index (row, column).
+        - returns: The element at the given index (row, column).
     
         :exception: Throws an exception when either of the given indices is out of bounds.
     */
@@ -1221,9 +1218,9 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Sets the element at the given indexes.
     
-        :param: row     The row index of the element
-        :param: column  The column index of the element
-        :param: element The element to set at the given indexes
+        - parameter row:     The row index of the element
+        - parameter column:  The column index of the element
+        - parameter element: The element to set at the given indexes
     
         :exception: Throws an exception when either of the given indices is out of bounds.
     */
@@ -1246,8 +1243,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Sets the element at the given index.
     
-        :param: index   A tuple containing the indexes of the element (row, column)
-        :param: element The element to set at the given index
+        - parameter index:   A tuple containing the indexes of the element (row, column)
+        - parameter element: The element to set at the given index
     
         :exception: Throws an exception when either of the given indices is out of bounds.
     */
@@ -1262,7 +1259,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns the row at the given index. The first row has index 0.
     
-        :returns: The row at the given index.
+        - returns: The row at the given index.
     
         :exception: Throws an exception when the given index is out of bounds.
     */
@@ -1286,8 +1283,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Sets the row at the given index to the given row.
     
-        :param: index The index of the row to change.
-        :param: newRow The row to set at the given index.
+        - parameter index: The index of the row to change.
+        - parameter newRow: The row to set at the given index.
     
         :exception: Throws an exception when the given index is out of bounds.
         :exception: Throws an exception when the given vector is of the wrong length.
@@ -1313,8 +1310,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Switches the rows at the given indexes.
     
-        :param: i The index of the first row.
-        :param: j The index of the second row.
+        - parameter i: The index of the first row.
+        - parameter j: The index of the second row.
     
         :exception: Throws an exception when the given index is out of bounds.
     */
@@ -1335,7 +1332,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns the column at the given index. The first column has index 0.
     
-        :returns: The column at the given index.
+        - returns: The column at the given index.
     
         :exception: Throws an exception when the given index is out of bounds.
     */
@@ -1360,8 +1357,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Sets the column at the given index to the given column.
     
-        :param: index The index of the column to change.
-        :param: column The column to set at the given index.
+        - parameter index: The index of the column to change.
+        - parameter column: The column to set at the given index.
     
         :exception: Throws an exception when the given index is out of bounds.
         :exception: Throws an exception when the given vector is of the wrong length.
@@ -1390,7 +1387,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Removes the column at the given index.
     
-        :param: index   The index of the column to remove.
+        - parameter index:   The index of the column to remove.
     
         :exception: Throws an exception when the given index is out of bounds.
     */
@@ -1421,12 +1418,12 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Switches the columns at the given indexes.
     
-        :param: i The index of the first column.
-        :param: j The index of the second column.
+        - parameter i: The index of the first column.
+        - parameter j: The index of the second column.
     */
     public func switchColumns(i: Int, _ j: Int) {
         
-        var intermediate = self.column(i)
+        let intermediate = self.column(i)
         
         self.setColumn(atIndex: i, toColumn: self.column(j))
         self.setColumn(atIndex: j, toColumn: intermediate)
@@ -1436,10 +1433,10 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns the submatrix for the given row and column ranges.
     
-        :param: rowRange The range with rows included in the submatrix.
-        :param: columnRange The range with columns included in the submatrix.
+        - parameter rowRange: The range with rows included in the submatrix.
+        - parameter columnRange: The range with columns included in the submatrix.
     
-        :returns: The submatrix for the given row and column ranges.
+        - returns: The submatrix for the given row and column ranges.
     */
     public func submatrix(rowRange: Range<Int>, _ columnRange: Range<Int>) -> Matrix<T> {
         
@@ -1469,9 +1466,9 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Replaces the current submatrix for the given row and column ranges with the given matrix.
     
-        :param: rowRange The range with rows included in the submatrix.
-        :param: columnRange The range with columns included in the submatrix.
-        :param: matrix The matrix to replace the submatrix with.
+        - parameter rowRange: The range with rows included in the submatrix.
+        - parameter columnRange: The range with columns included in the submatrix.
+        - parameter matrix: The matrix to replace the submatrix with.
     
         :exceptions: Expections will be thrown if the given ranges are out of bounds or if the given matrix's dimensions don't match the given ranges' lengths.
     */
@@ -1504,8 +1501,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns the subvector for the given row range at the given column.
     
-        :param: rowRange The range with rows included in the subvector.
-        :param: column The column of the subvector.
+        - parameter rowRange: The range with rows included in the subvector.
+        - parameter column: The column of the subvector.
     
         :exceptions: Exceptions will be thrown if the given row range and/or column are out of bounds.
     */
@@ -1535,9 +1532,9 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Replaces the current subvector for the given row range and column with the given vector.
     
-        :param: rowRange The range with rows included in the subvector.
-        :param: column The column of the subvector.
-        :param: vector The vector to replace the subvector with.
+        - parameter rowRange: The range with rows included in the subvector.
+        - parameter column: The column of the subvector.
+        - parameter vector: The vector to replace the subvector with.
     
         :exceptions: Exceptions will be thrown if the given row range and/or column are out of bounds or if the vector's length does not match the row range's length.
     */
@@ -1568,8 +1565,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
     Returns the subvector for the given column range at the given row.
     
-    :param: row The row of the subvector.
-    :param: columnRange The range with columns included in the subvector.
+    - parameter row: The row of the subvector.
+    - parameter columnRange: The range with columns included in the subvector.
     
     :exceptions: Exceptions will be thrown if the given row and/or column range are out of bounds.
     */
@@ -1599,9 +1596,9 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
     Replaces the current subvector for the given row and column range with the given vector.
     
-    :param: row The row of the subvector.
-    :param: columnRange The range with columns included in the subvector.
-    :param: vector The vector to replace the subvector with.
+    - parameter row: The row of the subvector.
+    - parameter columnRange: The range with columns included in the subvector.
+    - parameter vector: The vector to replace the subvector with.
     
     :exceptions: Exceptions will be thrown if the given row and/or column range are out of bounds or if the vector's length does not match the column range's length.
     */
@@ -1632,7 +1629,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Fills the diagonal with the given value.
     
-        :param: value The value to fill the diagonal with.
+        - parameter value: The value to fill the diagonal with.
     */
     public func fillDiagonal(value: T) {
         
@@ -1649,7 +1646,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns the LU decomposition of the matrix. This is only possible if the matrix is square.
     
-        :returns: (L, U, P) with L being a lower triangular matrix with 1 on the diagonal, U an upper triangular matrix and P a permutation matrix. This way PA = LU.
+        - returns: (L, U, P) with L being a lower triangular matrix with 1 on the diagonal, U an upper triangular matrix and P a permutation matrix. This way PA = LU.
     */
     public var LUDecomposition: (Matrix<T>, Matrix<T>, Matrix<T>) {
         
@@ -1661,12 +1658,12 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns the LU decomposition of the matrix. This is only possible if the matrix is square.
     
-        :param: pivoting Determines whether the algorithm should use row pivoting. Note that if note pivoting is disabled, the algorithm might not find the LU decomposition.
-        :param: optimalPivoting Determines whether the algorithm should use optimal row pivoting when pivoting is enabled. This means the biggest element in the current column is chosen to get more numerical stability.
+        - parameter pivoting: Determines whether the algorithm should use row pivoting. Note that if note pivoting is disabled, the algorithm might not find the LU decomposition.
+        - parameter optimalPivoting: Determines whether the algorithm should use optimal row pivoting when pivoting is enabled. This means the biggest element in the current column is chosen to get more numerical stability.
         
-        :returns: (L, U, P, det) with L being a lower triangular matrix with 1 on the diagonal, U an upper triangular matrix and P a permutation matrix. This way PA = LU. det gives the determinant of the matrix
+        - returns: (L, U, P, det) with L being a lower triangular matrix with 1 on the diagonal, U an upper triangular matrix and P a permutation matrix. This way PA = LU. det gives the determinant of the matrix
     */
-    public func LUDecomposition(pivoting: Bool = true, optimalPivoting: Bool = true) -> (Matrix<T>, Matrix<T>, Matrix<T>, T) {
+    public func LUDecomposition(pivoting pivoting: Bool = true, optimalPivoting: Bool = true) -> (Matrix<T>, Matrix<T>, Matrix<T>, T) {
         
         if !self.isSquare {
             
@@ -1675,9 +1672,9 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         
         let n = self.size!
         
-        var L = Matrix(identityOfSize: n)
-        var U = self.copy
-        var P = Matrix(identityOfSize: n)
+        let L = Matrix(identityOfSize: n)
+        let U = self.copy
+        let P = Matrix(identityOfSize: n)
         var detP: T = 1;
         
         for i in 0 ..< n {
@@ -1716,10 +1713,10 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     Returns whether the two given matrices are equal. This means corresponding
     elements are equal.
 
-    :param: left    The left matrix in the equation.
-    :param: right   The right matrix in the equation.
+    - parameter left:    The left matrix in the equation.
+    - parameter right:   The right matrix in the equation.
 
-    :returns: true if the two matrices are equal.
+    - returns: true if the two matrices are equal.
 */
 public func == <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Bool {
     
@@ -1743,10 +1740,10 @@ public func == <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Bool
 /**
     Returns the sum of the two matrices.
 
-    :param: left    The left matrix in the sum.
-    :param: right   The right matrix in the sum.
+    - parameter left:    The left matrix in the sum.
+    - parameter right:   The right matrix in the sum.
 
-    :returns: A matrix of the same dimensions as the two
+    - returns: A matrix of the same dimensions as the two
                 given matrices.
 
     :exception: Throws an exception when the dimensions of the two matrices are not equal.
@@ -1763,10 +1760,10 @@ public func + <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matri
 /**
     Returns the sum of the two matrices.
 
-    :param: left    The left matrix in the sum.
-    :param: right   The right matrix in the sum.
+    - parameter left:    The left matrix in the sum.
+    - parameter right:   The right matrix in the sum.
 
-    :returns: A matrix of the same dimensions as the two
+    - returns: A matrix of the same dimensions as the two
                 given matrices.
 
     :exception: Throws an exception when the dimensions of the two matrices are not equal.
@@ -1799,10 +1796,10 @@ public func + (left: Matrix<Float>, right: Matrix<Float>) -> Matrix<Float> {
 /**
     Returns the sum of the two matrices.
 
-    :param: left    The left matrix in the sum.
-    :param: right   The right matrix in the sum.
+    - parameter left:    The left matrix in the sum.
+    - parameter right:   The right matrix in the sum.
 
-    :returns: A matrix of the same dimensions as the two
+    - returns: A matrix of the same dimensions as the two
     given matrices.
 
     :exception: Throws an exception when the dimensions of the two matrices are not equal.
@@ -1838,9 +1835,9 @@ public func + (left: Matrix<Double>, right: Matrix<Double>) -> Matrix<Double> {
 /**
     Returns the negation of the given matrix.
 
-    :param: matrix  The matrix to negate.
+    - parameter matrix:  The matrix to negate.
 
-    :returns: A matrix with the given dimensions as the given matrix
+    - returns: A matrix with the given dimensions as the given matrix
                 where every element is the negation of the corresponding
                 element in the given matrix.
 */
@@ -1855,10 +1852,10 @@ public prefix func - <T: MatrixCompatible> (matrix: Matrix<T>) -> Matrix<T> {
 /**
     Returns the subtraction of the two given matrices.
 
-    :param: left    The left matrix in the subtraction.
-    :param: right   The right matrix in the subtraction.
+    - parameter left:    The left matrix in the subtraction.
+    - parameter right:   The right matrix in the subtraction.
 
-    :returns: A matrix with the same dimensions as the two given matrices
+    - returns: A matrix with the same dimensions as the two given matrices
                 where every element is the difference of the corresponding
                 elements in the left and right matrices.
 
@@ -1880,25 +1877,25 @@ public func - <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matri
 /**
     Returns the product of the given scalar and the given matrix.
 
-    :param: scalar  The scalar with which to multiply the given matrix.
-    :param: matrix  The matrix to multiply with the given scalar.
+    - parameter scalar:  The scalar with which to multiply the given matrix.
+    - parameter matrix:  The matrix to multiply with the given scalar.
 
-    :returns: A matrix of the same dimensions as the given matrix where
+    - returns: A matrix of the same dimensions as the given matrix where
                 every element is calculated as the product of the corresponding
                 element in the given matrix and the given scalar.
 */
 public func * <T: MatrixCompatible> (scalar: T, matrix: Matrix<T>) -> Matrix<T> {
     
-    return Matrix(map(matrix.elements){ map($0){ scalar * $0 } })
+    return Matrix(matrix.elements.map{ $0.map{ scalar * $0 } })
 }
 
 /**
     Returns the product of the given scalar and the given matrix.
 
-    :param: scalar  The scalar with which to multiply the given matrix.
-    :param: matrix  The matrix to multiply with the given scalar.
+    - parameter scalar:  The scalar with which to multiply the given matrix.
+    - parameter matrix:  The matrix to multiply with the given scalar.
 
-    :returns: A matrix of the same dimensions as the given matrix where
+    - returns: A matrix of the same dimensions as the given matrix where
                 every element is calculated as the product of the corresponding
                 element in the given matrix and the given scalar.
 */
@@ -1913,10 +1910,10 @@ public func * <T: MatrixCompatible> (matrix: Matrix<T>, scalar: T) -> Matrix<T> 
 /**
     Returns the product of the two given matrices.
 
-    :param: left    The left matrix in the multiplication.
-    :param: right   The right matrix in the multiplication.
+    - parameter left:    The left matrix in the multiplication.
+    - parameter right:   The right matrix in the multiplication.
 
-    :returns: A matrix with the same number of rows as the left matrix
+    - returns: A matrix with the same number of rows as the left matrix
                 and the same number of columns as the right matrix.
 
     :exception: Throws an exception when the number of columns of the left
@@ -1958,12 +1955,12 @@ public func * <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matri
 /**
     Returns a new matrix of the same dimensions where the elements are generated by calling the transform with the elements in this matrix.
 
-    :param: matrix The matrix to map with the original elements.
-    :param: transform The transform to map on the elements of matrix.
+    - parameter matrix: The matrix to map with the original elements.
+    - parameter transform: The transform to map on the elements of matrix.
 */
 public func mmap <T: MatrixCompatible, U: MatrixCompatible> (matrix: Matrix<T>, transform: T -> U) -> Matrix<U> {
     
-    let elementsList = map(matrix.elementsList, transform)
+    let elementsList = matrix.elementsList.map(transform)
     
     return Matrix(elementsList: elementsList, dimensions: matrix.dimensions)
 }
@@ -1972,25 +1969,25 @@ public func mmap <T: MatrixCompatible, U: MatrixCompatible> (matrix: Matrix<T>, 
     Returns a single value generated by systematically reducing the matrix using the combine closure. For the first element initial will be used. Then the last generated element will be used to combine with the next element in the matrix.
     The elements will be looped through row per row, column per column.
 
-    :param: matrix The matrix to reduce.
-    :param: initial The element to combine with the first element of the matrix.
-    :param: combine The closure to combine two values to generate a new value.
+    - parameter matrix: The matrix to reduce.
+    - parameter initial: The element to combine with the first element of the matrix.
+    - parameter combine: The closure to combine two values to generate a new value.
 */
 public func mreduce <T: MatrixCompatible, U> (matrix: Matrix<T>, initial: U, combine: (U, T) -> U) -> U {
     
-    return reduce(matrix.elementsList, initial, combine)
+    return matrix.elementsList.reduce(initial, combine: combine)
 }
 
 /**
     Returns a new matrix by combining the two given matrices using the combine closure. The two given matrices have to have the same dimensions, since the combination will happen element per element.
 
-    :param: left The left matrix in the combination.
-    :param: right The right matrix in the combination.
-    :param: combine The closure to combine two elements from the two matrices.
+    - parameter left: The left matrix in the combination.
+    - parameter right: The right matrix in the combination.
+    - parameter combine: The closure to combine two elements from the two matrices.
 
     :exceptions: Throws an exception when the dimensions of the two given matrices are not equal.
 */
-public func mcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (left: Matrix<T>, right: Matrix<U>, combine: (T, U) -> V) -> Matrix<V> {
+public func mcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (left: Matrix<T>, _ right: Matrix<U>, combine: (T, U) -> V) -> Matrix<V> {
 
     if left.dimensions != right.dimensions {
         
@@ -2013,9 +2010,9 @@ public func mcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompati
 /**
     Returns the transpose of the given matrix.
 
-    :param: matrix  The matrix to transpose.
+    - parameter matrix:  The matrix to transpose.
 
-    :returns: The transpose of the given matrix.
+    - returns: The transpose of the given matrix.
 */
 public func transpose(matrix: Matrix<Float>) -> Matrix<Float> {
     
@@ -2030,9 +2027,9 @@ public func transpose(matrix: Matrix<Float>) -> Matrix<Float> {
 /**
     Returns the transpose of the given matrix.
 
-    :param: matrix  The matrix to transpose.
+    - parameter matrix:  The matrix to transpose.
 
-    :returns: The transpose of the given matrix.
+    - returns: The transpose of the given matrix.
 */
 public func transpose(matrix: Matrix<Double>) -> Matrix<Double> {
     
@@ -2052,9 +2049,9 @@ public func transpose(matrix: Matrix<Double>) -> Matrix<Double> {
 /**
     Returns the LU decomposition of the given matrix.
 
-    :param: matrix  The matrix to compute the LU decomposition of.
+    - parameter matrix:  The matrix to compute the LU decomposition of.
 
-    :returns: (L, U, P) A tuple containing three matrices. The first matrix
+    - returns: (L, U, P) A tuple containing three matrices. The first matrix
                 is a lower triangular matrix with ones on the main diagonal.
                 The second matrix is an upper triangular matrix and the third
                 matrix is a permutations matrix. Here is A = PLU.
@@ -2076,9 +2073,9 @@ public func LUDecomposition(matrix: Matrix<Float>) -> (Matrix<Float>, Matrix<Flo
     let L = result.lowerTriangle
     L.fillDiagonal(1)
     
-    var permutation = Permutation(identityOfLength: matrix.dimensions.columns)
+    let permutation = Permutation(identityOfLength: matrix.dimensions.columns)
     
-    for (index, element) in enumerate(pivotArray) {
+    for (index, element) in pivotArray.enumerate() {
         permutation.switchElements(index, Int(element-1))
     }
     
@@ -2104,7 +2101,7 @@ public struct MatrixGenerator <T: MatrixCompatible> : GeneratorType {
     /**
         Creates a new matrix generator to iterator over the given matrix.
     
-        :param: The matrix to iterate over.
+        - parameter The: matrix to iterate over.
     */
     public init(matrix: Matrix<T>) {
         

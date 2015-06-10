@@ -17,7 +17,7 @@ class DiagonalMatrixTests: XCTestCase {
     
     func testInitDiagonal() {
         
-        var D = DiagonalMatrix(diagonal: [1, 2, 3, 4])
+        let D = DiagonalMatrix(diagonal: [1, 2, 3, 4])
         XCTAssertEqual(4, D.size!)
         XCTAssertEqual([1, 2, 3, 4], D.diagonalElements)
     }
@@ -25,7 +25,7 @@ class DiagonalMatrixTests: XCTestCase {
     
     func testInitDiagonalDimensions() {
         
-        var D = DiagonalMatrix(diagonal: [1, 2, 3, 4], dimensions: Dimensions(4, 6))
+        let D = DiagonalMatrix(diagonal: [1, 2, 3, 4], dimensions: Dimensions(4, 6))
         XCTAssertEqual(Dimensions(4, 6), D.dimensions)
         XCTAssertEqual([1, 2, 3, 4], D.diagonalElements)
     }
@@ -33,7 +33,7 @@ class DiagonalMatrixTests: XCTestCase {
     
     func testInitDimensionsGenerator() {
         
-        var D = DiagonalMatrix(dimensions: Dimensions(2, 3)){ $0.row }
+        let D = DiagonalMatrix(dimensions: Dimensions(2, 3)){ $0.row }
         XCTAssertEqual(Dimensions(2, 3), D.dimensions)
         XCTAssertEqual([0, 1], D.diagonalElements)
         XCTAssertEqual([[0, 0, 0], [0, 1, 0]], D.elements)
@@ -42,7 +42,7 @@ class DiagonalMatrixTests: XCTestCase {
     
     func testInitFilledWithDimensions() {
         
-        var D = DiagonalMatrix(filledWith: 3, dimensions: Dimensions(2, 3))
+        let D = DiagonalMatrix(filledWith: 3, dimensions: Dimensions(2, 3))
         XCTAssertEqual(Dimensions(2, 3), D.dimensions)
         XCTAssertEqual([[3, 0, 0], [0, 3, 0]], D.elements)
     }

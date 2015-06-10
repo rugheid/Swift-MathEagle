@@ -19,7 +19,7 @@ class RandomTests: XCTestCase {
         
         for _ in 1 ... 1000 {
             
-            var rand = UInt.randomInInterval(0...10)
+            let rand = UInt.randomInInterval(0...10)
             XCTAssertTrue(rand >= 0 && rand <= 10)
         }
     }
@@ -55,8 +55,8 @@ class RandomTests: XCTestCase {
             mean += Double(element)/Double(length)
         }
         
-        println("Mean = \(mean)")
-        XCTAssertEqualWithAccuracy(Double(UInt8.max)/2.0, mean, 10.0)
+        print("Mean = \(mean)")
+        XCTAssertEqualWithAccuracy(Double(UInt8.max)/2.0, mean, accuracy: 10.0)
     }
     
     func testUInt8RandomArrayOfLengthPermormance() {
@@ -83,8 +83,8 @@ class RandomTests: XCTestCase {
             mean += Double(element)/Double(length)
         }
         
-        println("Mean = \(mean)")
-        XCTAssertEqualWithAccuracy(Double(UInt16.max)/2.0, mean, 100.0)
+        print("Mean = \(mean)")
+        XCTAssertEqualWithAccuracy(Double(UInt16.max)/2.0, mean, accuracy: 100.0)
     }
     
     func testUInt16RandomArrayOfLengthPermormance() {
@@ -136,8 +136,8 @@ class RandomTests: XCTestCase {
         }
         
         let positiveFraction = Double(positiveCount)/Double(length)
-        println("Positive Fraction = \(positiveFraction)")
-        XCTAssertEqualWithAccuracy(0.5, Double(positiveCount)/Double(length), 0.1)
+        print("Positive Fraction = \(positiveFraction)")
+        XCTAssertEqualWithAccuracy(0.5, Double(positiveCount)/Double(length), accuracy: 0.1)
     }
     
     func testIntRandomArrayOfLengthPerformance() {
@@ -164,8 +164,8 @@ class RandomTests: XCTestCase {
             mean += Double(element)/Double(length)
         }
         
-        println("Mean = \(mean)")
-        XCTAssertEqualWithAccuracy(0.0, mean, 10.0)
+        print("Mean = \(mean)")
+        XCTAssertEqualWithAccuracy(0.0, mean, accuracy: 10.0)
     }
     
     func testInt8RandomArrayOfLengthPermormance() {
@@ -192,8 +192,8 @@ class RandomTests: XCTestCase {
             mean += Double(element)/Double(length)
         }
         
-        println("Mean = \(mean)")
-        XCTAssertEqualWithAccuracy(0.0, mean, 100.0)
+        print("Mean = \(mean)")
+        XCTAssertEqualWithAccuracy(0.0, mean, accuracy: 100.0)
     }
     
     func testInt16RandomArrayOfLengthPermormance() {

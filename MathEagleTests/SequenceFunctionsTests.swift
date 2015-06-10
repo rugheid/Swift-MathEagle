@@ -34,7 +34,7 @@ class SequenceFunctionsTests: XCTestCase {
     func testSumFloatVector() {
         
         let vector = Vector<Float>(randomWithLength: 10_000, intervals: -10.0...10.0)
-        XCTAssertEqualWithAccuracy(reduce(vector, 0, +), sum(vector), 1e-7)
+        XCTAssertEqualWithAccuracy(vector.reduce(0, combine: +), sum(vector), accuracy: 1e-7)
     }
     
     
@@ -66,7 +66,7 @@ class SequenceFunctionsTests: XCTestCase {
     func testSumDoubleVector() {
         
         let vector = Vector<Double>(randomWithLength: 10_000)
-        XCTAssertEqual(reduce(vector, 0, +), sum(vector))
+        XCTAssertEqual(vector.reduce(0, combine: +), sum(vector))
     }
     
     

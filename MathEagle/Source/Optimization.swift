@@ -29,7 +29,7 @@ public class Optimization {
         var u = a + b - v
         var fu = f(u)
         
-        var k = 1
+        let k = 1
         
         while k <= k_max && b-a > 2*error {
             

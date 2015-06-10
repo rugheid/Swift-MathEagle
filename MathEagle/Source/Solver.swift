@@ -18,13 +18,13 @@ public class Solver {
     /**
         Returns the zero value of f with the given accuracy, starting with the given interval [a,b] and using the bisection rule. The signs of f(a) and f(b) should not be equal.
     
-        :param: a The beginpoint of the interval.
-        :param: b The endpoint of the interval.
-        :param: f The function to find the zero of.
-        :param: accuracy The accuracy, this is standard set on 10^-7.
-        :param: maxTime The maximum time (in seconds) the solving should take, this is standard set on 10 seconds.
+        - parameter a: The beginpoint of the interval.
+        - parameter b: The endpoint of the interval.
+        - parameter f: The function to find the zero of.
+        - parameter accuracy: The accuracy, this is standard set on 10^-7.
+        - parameter maxTime: The maximum time (in seconds) the solving should take, this is standard set on 10 seconds.
     
-        :returns: The zero value of f.
+        - returns: The zero value of f.
     
         :exception: An exception will be thrown if the signs of f(a) and f(b) are equal. This means the bisection method can not known whether the interval contains a zero.
     
@@ -76,13 +76,13 @@ public class Solver {
     /**
         Returns a zero value of f with the given accuracy, starting with x0 and using Newton's method. You can explicitley pass the derivative as well, otherwise the derivative will be approximated.
     
-        :param: x0 The starting point for the iteration.
-        :param: f The function to find the zero of.
-        :param: accuracy The accuracy, this is standard set on 10^-7.
-        :param: k_max The maximum allowed number of iterations.
-        :param: maxTime The maximum time (in seconds) the solving should take, this is standard set on 10 seconds.
+        - parameter x0: The starting point for the iteration.
+        - parameter f: The function to find the zero of.
+        - parameter accuracy: The accuracy, this is standard set on 10^-7.
+        - parameter k_max: The maximum allowed number of iterations.
+        - parameter maxTime: The maximum time (in seconds) the solving should take, this is standard set on 10 seconds.
     
-        :returns: The zero value of f.
+        - returns: The zero value of f.
     */
     public class func newton(x0: Double, df: ((Double) -> Double)? = nil, accuracy err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, f: (Double) -> Double) -> Double {
         

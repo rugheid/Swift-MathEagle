@@ -89,7 +89,7 @@ class VectorTests: XCTestCase {
     
     func testSubscriptSet() {
         
-        var vector = Vector([1, 2, 3])
+        let vector = Vector([1, 2, 3])
         
         vector[1] = 4
     }
@@ -132,7 +132,7 @@ class VectorTests: XCTestCase {
         
         let vector = Vector([1, 2, 3, 4])
         
-        let reduced = vreduce(vector, ""){ $0 + "\($1)" }
+        let reduced = vreduce(vector, initial: ""){ $0 + "\($1)" }
         
         XCTAssertEqual("1234", reduced)
     }
@@ -183,7 +183,7 @@ class VectorTests: XCTestCase {
         
         self.measureBlock(){
             
-            let norm = vector.norm
+            vector.norm
         }
     }
     
@@ -192,7 +192,7 @@ class VectorTests: XCTestCase {
     
     func testVectorEquality() {
         
-        var vector = Vector([1, 2, 3, 4])
+        let vector = Vector([1, 2, 3, 4])
         
         // different length
         let test1 = Vector([1, 2, 3])
@@ -222,9 +222,9 @@ class VectorTests: XCTestCase {
     
     func testVectorAdditionFloat() {
         
-        var left = Vector<Float>([1, 2, 3, 4, 5])
+        let left = Vector<Float>([1, 2, 3, 4, 5])
         let oldLeft = left.copy
-        var right = Vector<Float>([6, 7, 8, 9, 10])
+        let right = Vector<Float>([6, 7, 8, 9, 10])
         let oldRight = right.copy
         
         XCTAssertEqual(Vector<Float>([7, 9, 11, 13, 15]), left + right)
@@ -243,7 +243,7 @@ class VectorTests: XCTestCase {
             left + right
         }
         
-        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+        print("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
     
     func testVectorAdditionFloatBenchmarking() {
@@ -279,7 +279,7 @@ class VectorTests: XCTestCase {
             left + right
         }
         
-        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+        print("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
     
     func testVectorAdditionDoubleBenchmarking() {
@@ -312,7 +312,8 @@ class VectorTests: XCTestCase {
         let r4 = -4.0 + 5.0*i
         let right = Vector<Complex>([r1, r2, r3, r4])
         
-        let expected = Vector<Complex>([l1 + r1, l2 + r2, l3 + r3, l4 + r4])
+        let expectedElements = [l1 + r1, l2 + r2, l3 + r3, l4 + r4]
+        let expected = Vector<Complex>(expectedElements)
         XCTAssertEqual(expected, left + right)
     }
     
@@ -327,7 +328,7 @@ class VectorTests: XCTestCase {
             left + right
         }
         
-        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+        print("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
 
     func testVectorNegation() {
@@ -358,7 +359,7 @@ class VectorTests: XCTestCase {
             -left
         }
         
-        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+        print("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
     
     func testVectorNegationFloatBenchmarking() {
@@ -393,7 +394,7 @@ class VectorTests: XCTestCase {
             -left
         }
         
-        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+        print("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
     
     func testVectorNegationDoubleBenchmarking() {
@@ -428,7 +429,7 @@ class VectorTests: XCTestCase {
             -left
         }
         
-        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+        print("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
     
     func testVectorSubstraction() {
@@ -462,7 +463,7 @@ class VectorTests: XCTestCase {
             left - right
         }
         
-        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+        print("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
     
     func testVectorSubstractionFloatBenchmarking() {
@@ -500,7 +501,7 @@ class VectorTests: XCTestCase {
             left - right
         }
         
-        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+        print("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
     
     func testVectorSubstractionDoubleBenchmarking() {
@@ -544,7 +545,7 @@ class VectorTests: XCTestCase {
             scalar * vector
         }
         
-        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+        print("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
     
     func testVectorScalarMultiplicationFloatBenchmarking() {
@@ -580,7 +581,7 @@ class VectorTests: XCTestCase {
             scalar * vector
         }
         
-        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+        print("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
     
     func testVectorScalarMultiplicationDoubleBenchmarking() {
@@ -622,7 +623,7 @@ class VectorTests: XCTestCase {
             vector / scalar
         }
         
-        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+        print("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
     
     func testVectorScalarDivisionDouble() {
@@ -643,7 +644,7 @@ class VectorTests: XCTestCase {
             vector / scalar
         }
         
-        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+        print("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
     
     func testDotProduct() {
@@ -756,7 +757,7 @@ class VectorTests: XCTestCase {
             vectorDirectProduct(left, right)
         }
         
-        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+        print("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
     
     func testVectorDirectProductDouble() {
@@ -792,6 +793,6 @@ class VectorTests: XCTestCase {
             vectorDirectProduct(left, right)
         }
         
-        println("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
+        print("\nTime without accelerate: \(timeWithoutAccelerate)\nTime with accelerate: \(time)\nWith accelerate is \(timeWithoutAccelerate/time) times faster.\n")
     }
 }

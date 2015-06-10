@@ -8,7 +8,12 @@
 
 import Accelerate
 
-public struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, Conjugatable, MatrixCompatible, IntegerLiteralConvertible, FloatLiteralConvertible, Printable {
+public struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, Conjugatable, MatrixCompatible, IntegerLiteralConvertible, FloatLiteralConvertible, CustomStringConvertible {
+    
+    public typealias NaturalPowerType = Complex
+    public typealias IntegerPowerType = Complex
+    public typealias RealPowerType = Complex
+    
     
     public var real: Double
     public var imaginary: Double
@@ -20,9 +25,9 @@ public struct Complex: Equatable, Comparable, Addable, Negatable, Substractable,
     
     var DSPDoubleSplitComplexValue: DSPDoubleSplitComplex {
         
-        var r = UnsafeMutablePointer<Double>.alloc(1)
+        let r = UnsafeMutablePointer<Double>.alloc(1)
         r[0] = real
-        var i = UnsafeMutablePointer<Double>.alloc(1)
+        let i = UnsafeMutablePointer<Double>.alloc(1)
         i[0] = imaginary
         return DSPDoubleSplitComplex(realp: r, imagp: i)
     }

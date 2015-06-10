@@ -132,8 +132,8 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         the given generator. Note that the row and column values of the indives
         will be equal.
     
-        :param: dimensions  The dimensions the matrix should have.
-        :param: generator   The generator used to generate the matrix.
+        - parameter dimensions:  The dimensions the matrix should have.
+        - parameter generator:   The generator used to generate the matrix.
                             This function is called for every element passing
                             the index of the element.
     */
@@ -152,8 +152,8 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Creates a diagonal matrix with the given dimensions with the diagonal filled with the given element.
     
-        :param: element     The element to fill the diagonal with.
-        :param: dimensions  The dimensions the matrix should have.
+        - parameter element:     The element to fill the diagonal with.
+        - parameter dimensions:  The dimensions the matrix should have.
     */
     override public init(filledWith element: T, dimensions: Dimensions) {
         super.init()
@@ -169,7 +169,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Gives the rank of the matrix. This is not the tensor rank.
     
-        :returns: The rank of the matrix.
+        - returns: The rank of the matrix.
     */
     override public var rank: Int {
         
@@ -197,7 +197,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Gets or sets the diagonal elements of the matrix.
     
-        :returns: An array with the diagonal elements of the matrix.
+        - returns: An array with the diagonal elements of the matrix.
     
         :set: When the number of given elements is bigger than the minimum dimension of the matrix,
                 the dimensions will be padded as few as possible.
@@ -253,14 +253,14 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         1 means the first superdiagonal, this is the one above the main diagonal.
         Other positive numbers represent higher superdiagonals.
     
-        :param: n The diagonal's index.
+        - parameter n: The diagonal's index.
     
-        :returns: An array representing the diagonal elements from top left to bottom right in the matrix.
+        - returns: An array representing the diagonal elements from top left to bottom right in the matrix.
     
         :exception: An exception will be raised if the diagonal at the given index does not exist.
                     This means -n > the number of rows or n > the number of columns.
     */
-    override public func diagonalElements(_ n: Int = 0) -> [T] {
+    override public func diagonalElements(n: Int = 0) -> [T] {
         
         if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             NSException(name: "Index out the bounds.", reason: "The given index is out of bounds.", userInfo: nil).raise()
@@ -297,22 +297,19 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         :note: Note that this method also works for non-square matrices, but the returned matrix will thus be
                 not upper triangular because only square matrices are upper triangular.
     
-        :param: n The diagonal's index.
+        - parameter n: The diagonal's index.
     
-        :returns: A matrix where all elements under the diagonal with the given index are zero.
+        - returns: A matrix where all elements under the diagonal with the given index are zero.
     
         :exception: An exception will be raised if the diagonal at the given index does not exist.
                     This means -n > the number of rows or n > the number of columns.
     */
-    override public func upperTriangle(_ n: Int = 0) -> Matrix<T> {
+    override public func upperTriangle(n: Int = 0) -> Matrix<T> {
         
         if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
             NSException(name: "Index out the bounds.", reason: "The given index is out of bounds.", userInfo: nil).raise()
         }
-        
-        var row = max(-n, 0)
-        var col = max(n, 0)
         
         if n == 0 {
             return self
@@ -334,14 +331,14 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         :note: Note that this method also works for non-square matrices, but the returned matrix will thus be
                 not lower triangular because only square matrices are lower triangular.
     
-        :param: n   The diagonal's index.
+        - parameter n:   The diagonal's index.
     
-        :returns: A matrix where all elements above the diagonal with the given index are zero.
+        - returns: A matrix where all elements above the diagonal with the given index are zero.
     
         :exception: An exception will be raised if the diagonal at the given index does not exist.
                     This means -n >= the number of rows or n >= the number of columns.
     */
-    override public func lowerTriangle(_ n: Int = 0) -> Matrix<T> {
+    override public func lowerTriangle(n: Int = 0) -> Matrix<T> {
         
         if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
@@ -404,7 +401,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     */
     override public var conjugate: Matrix<T> {
         
-        return DiagonalMatrix(diagonal: map(self.elementsStructure){ $0.conjugate }, dimensions: self.dimensions)
+        return DiagonalMatrix(diagonal: self.elementsStructure.map{ $0.conjugate }, dimensions: self.dimensions)
     }
     
     
@@ -413,7 +410,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     */
     override public var conjugateTranspose: Matrix<T> {
         
-        return DiagonalMatrix(diagonal: map(self.elementsStructure){ $0.conjugate }, dimensions: self.dimensions.transpose)
+        return DiagonalMatrix(diagonal: self.elementsStructure.map{ $0.conjugate }, dimensions: self.dimensions.transpose)
     }
     
     
@@ -443,7 +440,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Returns whether the matrix is symmetrical. This method works O(2n) for symmetrical (square) matrixes of size n.
     
-        :returns: true if the matrix is symmetrical.
+        - returns: true if the matrix is symmetrical.
     */
     override public var isSymmetrical: Bool {
         
@@ -456,10 +453,10 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         This means all elements below the diagonal at the given index n must be zero.
         When mustBeSquare is set to true the matrix must be square.
     
-        :param: n               The diagonal's index.
-        :param: mustBeSquare    Whether the matrix must be square to be upper triangular.
+        - parameter n:               The diagonal's index.
+        - parameter mustBeSquare:    Whether the matrix must be square to be upper triangular.
     */
-    override public func isUpperTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
+    override public func isUpperTriangular(n: Int = 0, mustBeSquare: Bool = true) -> Bool {
         
         if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
@@ -485,10 +482,10 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         This means all elements above the diagonal at the given index n must be zero.
         When mustBeSquare is set to true the matrix must be square.
     
-        :param: n The diagonal's index.
-        :param: mustBeSquare Whether the matrix must be square to be lower triangular.
+        - parameter n: The diagonal's index.
+        - parameter mustBeSquare: Whether the matrix must be square to be lower triangular.
     */
-    override public func isLowerTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
+    override public func isLowerTriangular(n: Int = 0, mustBeSquare: Bool = true) -> Bool {
         
         if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
@@ -515,10 +512,10 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Returns the element at the given index (row, column).
     
-        :param: row The row index of the requested element
-        :param: column The column index of the requested element
+        - parameter row: The row index of the requested element
+        - parameter column: The column index of the requested element
     
-        :returns: The element at the given index (row, column).
+        - returns: The element at the given index (row, column).
     */
     override public func element(row: Int, _ column: Int) -> T {
         
@@ -539,9 +536,9 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Sets the element at the given indexes.
     
-        :param: row The row index of the element
-        :param: column The column index of the element
-        :param: element The element to set at the given indexes
+        - parameter row: The row index of the element
+        - parameter column: The column index of the element
+        - parameter element: The element to set at the given indexes
     */
     override public func setElement(atRow row: Int, atColumn column: Int, toElement element: T) {
         
@@ -567,7 +564,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Returns the row at the given index. The first row has index 0.
     
-        :returns: The row at the given index.
+        - returns: The row at the given index.
     */
     override public func row(index: Int) -> Vector<T> {
         
@@ -586,8 +583,8 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Sets the row at the given index to the given row.
     
-        :param: index The index of the row to change.
-        :param: newRow The row to set at the given index.
+        - parameter index: The index of the row to change.
+        - parameter newRow: The row to set at the given index.
     */
     override public func setRow(atIndex index: Int, toRow newRow: Vector<T>) {
         
@@ -603,7 +600,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
             NSException(name: "New row wrong length", reason: "The new row's length is not equal to the matrix's number of columns.", userInfo: nil).raise()
         }
         
-        for (i, element) in enumerate(newRow) {
+        for (i, element) in newRow.enumerate() {
             
             if i == index {
                 
@@ -620,8 +617,8 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Switches the rows at the given indexes.
     
-        :param: i The index of the first row.
-        :param: j The index of the second row.
+        - parameter i: The index of the first row.
+        - parameter j: The index of the second row.
     */
     override public func switchRows(i: Int, _ j: Int) {
         
@@ -632,7 +629,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Returns the column at the given index. The first column has index 0.
     
-        :returns: The column at the given index.
+        - returns: The column at the given index.
     */
     override public func column(index: Int) -> Vector<T> {
         
@@ -651,8 +648,8 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Sets the column at the given index to the given column.
     
-        :param: index The index of the column to change.
-        :param: column The column to set at the given index.
+        - parameter index: The index of the column to change.
+        - parameter column: The column to set at the given index.
     */
     override public func setColumn(atIndex index: Int, toColumn newColumn: Vector<T>) {
         
@@ -668,7 +665,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
             NSException(name: "New column wrong length", reason: "The new column's length is not equal to the matrix's number of rows.", userInfo: nil).raise()
         }
         
-        for (i, element) in enumerate(newColumn) {
+        for (i, element) in newColumn.enumerate() {
             
             if i == index {
                 
@@ -685,8 +682,8 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Switches the columns at the given indexes.
     
-        :param: i   The index of the first column.
-        :param: j   The index of the second column.
+        - parameter i:   The index of the first column.
+        - parameter j:   The index of the second column.
     */
     override public func switchColumns(i: Int, _ j: Int) {
         
@@ -697,7 +694,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Fills the diagonal with the given value.
     
-        :param: value   The value to fill the diagonal with.
+        - parameter value:   The value to fill the diagonal with.
     */
     override public func fillDiagonal(value: T) {
         
@@ -712,10 +709,10 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     Returns whether the two given matrices are equal. This means corresponding
     elements are equal.
 
-    :param: left    The left matrix in the equation.
-    :param: right   The right matrix in the equation.
+    - parameter left:    The left matrix in the equation.
+    - parameter right:   The right matrix in the equation.
 
-    :returns: true if the two matrices are equal.
+    - returns: true if the two matrices are equal.
 */
 public func == <T: MatrixCompatible> (left: DiagonalMatrix<T>, right: DiagonalMatrix<T>) -> Bool {
     
@@ -732,10 +729,10 @@ public func == <T: MatrixCompatible> (left: DiagonalMatrix<T>, right: DiagonalMa
 /**
     Returns the sum of the two matrices.
 
-    :param: left    The left matrix in the sum.
-    :param: right   The right matrix in the sum.
+    - parameter left:    The left matrix in the sum.
+    - parameter right:   The right matrix in the sum.
 
-    :returns: A matrix of the same dimensions as the two
+    - returns: A matrix of the same dimensions as the two
                 given matrices.
 
     :exception: Throws an exception when the dimensions of the two matrices are not equal.
@@ -752,10 +749,10 @@ public func + <T: MatrixCompatible> (left: DiagonalMatrix<T>, right: DiagonalMat
 /**
     Returns the sum of the two matrices.
 
-    :param: left    The left matrix in the sum.
-    :param: right   The right matrix in the sum.
+    - parameter left:    The left matrix in the sum.
+    - parameter right:   The right matrix in the sum.
 
-    :returns: A matrix of the same dimensions as the two
+    - returns: A matrix of the same dimensions as the two
                 given matrices.
 
     :exception: Throws an exception when the dimensions of the two matrices are not equal.
@@ -776,10 +773,10 @@ public func + (left: DiagonalMatrix<Float>, right: DiagonalMatrix<Float>) -> Dia
 /**
     Returns the sum of the two matrices.
 
-    :param: left    The left matrix in the sum.
-    :param: right   The right matrix in the sum.
+    - parameter left:    The left matrix in the sum.
+    - parameter right:   The right matrix in the sum.
 
-    :returns: A matrix of the same dimensions as the two
+    - returns: A matrix of the same dimensions as the two
                 given matrices.
 
     :exception: Throws an exception when the dimensions of the two matrices are not equal.

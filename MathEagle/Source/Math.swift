@@ -480,7 +480,7 @@ extension UInt64: Randomizable {
     
     public static func randomInInterval(intervals: [ClosedInterval<UInt64>]) -> UInt64 {
         
-        return UInt64(UInt.randomInInterval(map(intervals){ ClosedInterval(UInt($0.start), UInt($0.end)) }))
+        return UInt64(UInt.randomInInterval(intervals.map{ ClosedInterval(UInt($0.start), UInt($0.end)) }))
     }
     
     public static func randomArrayOfLength(length: Int) -> [UInt64] {
@@ -538,7 +538,7 @@ extension Int8: Randomizable {
     
     public static func randomInInterval(intervals: [ClosedInterval<Int8>]) -> Int8 {
         
-        return Int8(Int.randomInInterval(map(intervals){ ClosedInterval(Int($0.start), Int($0.end)) }))
+        return Int8(Int.randomInInterval(intervals.map{ ClosedInterval(Int($0.start), Int($0.end)) }))
     }
     
     public static func randomArrayOfLength(length: Int) -> [Int8] {
@@ -565,7 +565,7 @@ extension Int16: Randomizable {
     
     public static func randomInInterval(intervals: [ClosedInterval<Int16>]) -> Int16 {
         
-        return Int16(Int.randomInInterval(map(intervals){ ClosedInterval(Int($0.start), Int($0.end)) }))
+        return Int16(Int.randomInInterval(intervals.map{ ClosedInterval(Int($0.start), Int($0.end)) }))
     }
     
     public static func randomArrayOfLength(length: Int) -> [Int16] {
@@ -592,7 +592,7 @@ extension Int32: Randomizable {
     
     public static func randomInInterval(intervals: [ClosedInterval<Int32>]) -> Int32 {
         
-        return Int32(Int.randomInInterval(map(intervals){ ClosedInterval(Int($0.start), Int($0.end)) }))
+        return Int32(Int.randomInInterval(intervals.map{ ClosedInterval(Int($0.start), Int($0.end)) }))
     }
     
     public static func randomArrayOfLength(length: Int) -> [Int32] {
@@ -619,7 +619,7 @@ extension Int64: Randomizable {
     
     public static func randomInInterval(intervals: [ClosedInterval<Int64>]) -> Int64 {
         
-        return Int64(Int.randomInInterval(map(intervals){ ClosedInterval(Int($0.start), Int($0.end)) }))
+        return Int64(Int.randomInInterval(intervals.map{ ClosedInterval(Int($0.start), Int($0.end)) }))
     }
     
     public static func randomArrayOfLength(length: Int) -> [Int64] {
@@ -707,17 +707,77 @@ public protocol FullMathValue: Equatable, Comparable, Addable, Negatable, Substr
 // MARK: Basic Type Protocol Adoptions
 
 // I have to add Comparable for everything to work properly, but I have no idea why...
-extension Int: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
-extension Int8: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
-extension Int16: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
-extension Int32: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
-extension Int64: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {}
-extension UInt: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, MatrixCompatible {}
-extension UInt8: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, MatrixCompatible {}
-extension UInt16: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, MatrixCompatible {}
-extension UInt32: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, MatrixCompatible {}
-extension UInt64: Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, MatrixCompatible {}
-extension Float: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {}
-extension Double: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {}
+extension Int: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {
+    
+    public typealias NaturalPowerType = Int
+    public typealias IntegerPowerType = Double
+    public typealias RealPowerType = Double
+}
+extension Int8: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {
+    
+    public typealias NaturalPowerType = Int
+    public typealias IntegerPowerType = Double
+    public typealias RealPowerType = Double
+}
+extension Int16: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {
+    
+    public typealias NaturalPowerType = Int
+    public typealias IntegerPowerType = Double
+    public typealias RealPowerType = Double
+}
+extension Int32: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {
+    
+    public typealias NaturalPowerType = Int
+    public typealias IntegerPowerType = Double
+    public typealias RealPowerType = Double
+}
+extension Int64: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, FullMathValue, MatrixCompatible {
+    
+    public typealias NaturalPowerType = Int
+    public typealias IntegerPowerType = Double
+    public typealias RealPowerType = Double
+}
+extension UInt: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, MatrixCompatible {
+    
+    public typealias NaturalPowerType = UInt
+    public typealias IntegerPowerType = Double
+    public typealias RealPowerType = Double
+}
+extension UInt8: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, MatrixCompatible {
+    
+    public typealias NaturalPowerType = UInt
+    public typealias IntegerPowerType = Double
+    public typealias RealPowerType = Double
+}
+extension UInt16: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, MatrixCompatible {
+    
+    public typealias NaturalPowerType = UInt
+    public typealias IntegerPowerType = Double
+    public typealias RealPowerType = Double
+}
+extension UInt32: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, MatrixCompatible {
+    
+    public typealias NaturalPowerType = UInt
+    public typealias IntegerPowerType = Double
+    public typealias RealPowerType = Double
+}
+extension UInt64: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, BasicMathValue, MatrixCompatible {
+    
+    public typealias NaturalPowerType = UInt
+    public typealias IntegerPowerType = Double
+    public typealias RealPowerType = Double
+}
+extension Float: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {
+    
+    public typealias NaturalPowerType = Float
+    public typealias IntegerPowerType = Float
+    public typealias RealPowerType = Double
+}
+extension Double: Addable, Negatable, Substractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {
+    
+    public typealias NaturalPowerType = Double
+    public typealias IntegerPowerType = Double
+    public typealias RealPowerType = Double
+}
 extension String: Addable {}
 

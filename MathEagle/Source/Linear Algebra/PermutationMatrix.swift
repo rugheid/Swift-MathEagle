@@ -47,7 +47,7 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Creates a permutation matrix with the given permutation.
     
-        :param: permutation The permutation defining the matrix.
+        - parameter permutation: The permutation defining the matrix.
     */
     public init(permutation: Permutation) {
         
@@ -88,7 +88,7 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
         Returns the size of the matrix if the matrix is square. If the matrix is not
         square it returns nil.
     
-        :returns: The size of the matrix if the matrix is square or nil otherwise.
+        - returns: The size of the matrix if the matrix is square or nil otherwise.
     */
     override public var size: Int! {
         return self.permutation.length
@@ -98,7 +98,7 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Returns the rank of the matrix. This is not the tensor rank.
     
-        :returns: The rank of the matrix.
+        - returns: The rank of the matrix.
     */
     override public var rank: Int {
         
@@ -119,7 +119,7 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Gets or sets the diagonal elements of the matrix.
     
-        :returns: An array with the diagonal elements of the matrix.
+        - returns: An array with the diagonal elements of the matrix.
     
         :exception: Throws an exception when you try to set the diagonal elements.
     */
@@ -150,10 +150,10 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Returns the element at the given index (row, column).
     
-        :param: row     The row index of the requested element
-        :param: column  The column index of the requested element
+        - parameter row:     The row index of the requested element
+        - parameter column:  The column index of the requested element
     
-        :returns: The element at the given index (row, column).
+        - returns: The element at the given index (row, column).
     */
     override public func element(row: Int, _ column: Int) -> T {
         
@@ -174,9 +174,9 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Sets the element at the given indexes.
     
-        :param: row     The row index of the element
-        :param: column  The column index of the element
-        :param: element The element to set at the given indexes
+        - parameter row:     The row index of the element
+        - parameter column:  The column index of the element
+        - parameter element: The element to set at the given indexes
     */
     override public func setElement(atRow row: Int, atColumn column: Int, toElement element: T) {
         
@@ -187,7 +187,7 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Returns the row at the given index. The first row has index 0.
     
-        :returns:   The row at the given index.
+        - returns:   The row at the given index.
     */
     override public func row(index: Int) -> Vector<T> {
         
@@ -207,8 +207,8 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Sets the row at the given index to the given row.
     
-        :param: index   The index of the row to change.
-        :param: newRow  The row to set at the given index.
+        - parameter index:   The index of the row to change.
+        - parameter newRow:  The row to set at the given index.
     */
     override public func setRow(atIndex index: Int, toRow newRow: Vector<T>) {
         
@@ -219,8 +219,8 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Switches the rows at the given indexes.
     
-        :param: i   The index of the first row.
-        :param: j   The index of the second row.
+        - parameter i:   The index of the first row.
+        - parameter j:   The index of the second row.
     */
     override public func switchRows(i: Int, _ j: Int) {
         
@@ -236,7 +236,7 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Returns the column at the given index. The first column has index 0.
     
-        :returns: The column at the given index.
+        - returns: The column at the given index.
     */
     override public func column(index: Int) -> Vector<T> {
         
@@ -256,8 +256,8 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Sets the column at the given index to the given column.
     
-        :param: index   The index of the column to change.
-        :param: column  The column to set at the given index.
+        - parameter index:   The index of the column to change.
+        - parameter column:  The column to set at the given index.
     */
     override public func setColumn(atIndex index: Int, toColumn newColumn: Vector<T>) {
         
@@ -268,8 +268,8 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Switches the columns at the given indexes.
     
-        :param: i   The index of the first column.
-        :param: j   The index of the second column.
+        - parameter i:   The index of the first column.
+        - parameter j:   The index of the second column.
     */
     override public func switchColumns(i: Int, _ j: Int) {
         

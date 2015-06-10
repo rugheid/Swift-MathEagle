@@ -31,8 +31,8 @@ public struct Dimensions: Equatable, Addable {
     /**
         Creates a new dimensions object with the given number of rows and columns.
     
-        :param: rows    The number of rows in the dimensions.
-        :param: columns The number of columns in the dimensions.
+        - parameter rows:    The number of rows in the dimensions.
+        - parameter columns: The number of columns in the dimensions.
     */
     public init(_ rows: Int = 0, _ columns: Int = 0) {
         
@@ -43,7 +43,7 @@ public struct Dimensions: Equatable, Addable {
     /**
         Creates a new dimensions object where the number of rows and columns are equal.
     
-        :param: size    The size of the dimensions. This value will be used for both the
+        - parameter size:    The size of the dimensions. This value will be used for both the
                 number of rows and columns.
     */
     public init(size: Int) {
@@ -88,7 +88,7 @@ public struct Dimensions: Equatable, Addable {
         Returns whether the dimensions are sqaure or not. Dimensions are sqaure when the number of
         rows equals the number of columns.
     
-        :returns: true if the dimensions are square.
+        - returns: true if the dimensions are square.
     */
     public var isSquare: Bool {
         
@@ -107,7 +107,7 @@ public struct Dimensions: Equatable, Addable {
     /**
         Returns whether the dimensions are empty or not.
     
-        :returns: true if the dimensions are empty.
+        - returns: true if the dimensions are empty.
     */
     public var isEmpty: Bool {
         

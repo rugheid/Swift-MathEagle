@@ -21,14 +21,14 @@ public class Integration {
     /**
         Calculates the single integral of f in the interval [a,b] with the given accuracy using midpoint integration.
     
-        :param: a The beginpoint of the interval.
-        :param: b The endpoint of the interval.
-        :param: f The function to integrate.
-        :param: error The accuracy, this is standard set on 10^-7.
-        :param: k_max The maximum number of iterations to perform.
-        :param: maxTime The maximum time (in seconds) the integration can take, this is standard set on 10 seconds.
+        - parameter a: The beginpoint of the interval.
+        - parameter b: The endpoint of the interval.
+        - parameter f: The function to integrate.
+        - parameter error: The accuracy, this is standard set on 10^-7.
+        - parameter k_max: The maximum number of iterations to perform.
+        - parameter maxTime: The maximum time (in seconds) the integration can take, this is standard set on 10 seconds.
     
-        :returns: The integral of f in the interval [a,b] with the given accuracy.
+        - returns: The integral of f in the interval [a,b] with the given accuracy.
     */
     public class func midpoint(a: Double, _ b: Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
         
@@ -72,14 +72,14 @@ public class Integration {
     /**
     Calculates the single integral of f in the interval [a,b] with the given accuracy using trapezoid integration.
     
-    :param: a The beginpoint of the interval.
-    :param: b The endpoint of the interval.
-    :param: f The function to integrate.
-    :param: error The accuracy, this is standard set on 10^-7.
-    :param: k_max The maximum number of iterations to perform.
-    :param: maxTime The maximum time (in seconds) the integration can take, this is standard set on 10 seconds.
+    - parameter a: The beginpoint of the interval.
+    - parameter b: The endpoint of the interval.
+    - parameter f: The function to integrate.
+    - parameter error: The accuracy, this is standard set on 10^-7.
+    - parameter k_max: The maximum number of iterations to perform.
+    - parameter maxTime: The maximum time (in seconds) the integration can take, this is standard set on 10 seconds.
     
-    :returns: The integral of f in the interval [a,b] with the given accuracy.
+    - returns: The integral of f in the interval [a,b] with the given accuracy.
     */
     public class func trapezoid(a: Double, _ b: Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
         
@@ -123,14 +123,14 @@ public class Integration {
     /**
     Calculates the single integral of f in the interval [a,b] with the given accuracy using simpson integration.
     
-    :param: a The beginpoint of the interval.
-    :param: b The endpoint of the interval.
-    :param: f The function to integrate.
-    :param: error The accuracy, this is standard set on 10^-7.
-    :param: k_max The maximum number of iterations to perform.
-    :param: maxTime The maximum time (in seconds) the integration can take, this is standard set on 10 seconds.
+    - parameter a: The beginpoint of the interval.
+    - parameter b: The endpoint of the interval.
+    - parameter f: The function to integrate.
+    - parameter error: The accuracy, this is standard set on 10^-7.
+    - parameter k_max: The maximum number of iterations to perform.
+    - parameter maxTime: The maximum time (in seconds) the integration can take, this is standard set on 10 seconds.
     
-    :returns: The integral of f in the interval [a,b] with the given accuracy.
+    - returns: The integral of f in the interval [a,b] with the given accuracy.
     */
     public class func simpson(a: Double, _ b: Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
         
@@ -149,7 +149,7 @@ public class Integration {
         while k <= Double(k_max) && NSDate().timeIntervalSinceDate(start) < t_max && !converged {
             
             h = h * 0.5
-            var S = S0
+            let S = S0
             S0 = 0.0
             var i = 0.0
             
@@ -175,14 +175,14 @@ public class Integration {
     /**
     Calculates the single integral of f in the interval [a,b] with the given accuracy using adaptive simpson integration.
     
-    :param: a The beginpoint of the interval.
-    :param: b The endpoint of the interval.
-    :param: f The function to integrate.
-    :param: error The accuracy, this is standard set on 10^-7.
-    :param: k_max The maximum number of iterations to perform.
-    :param: maxTime The maximum time (in seconds) the integration can take, this is standard set on 10 seconds.
+    - parameter a: The beginpoint of the interval.
+    - parameter b: The endpoint of the interval.
+    - parameter f: The function to integrate.
+    - parameter error: The accuracy, this is standard set on 10^-7.
+    - parameter k_max: The maximum number of iterations to perform.
+    - parameter maxTime: The maximum time (in seconds) the integration can take, this is standard set on 10 seconds.
     
-    :returns: The integral of f in the interval [a,b] with the given accuracy.
+    - returns: The integral of f in the interval [a,b] with the given accuracy.
     */
     public class func adaptiveSimpson(a: Double, _ b: Double, error err: Double? = nil, _ f: (Double) -> Double) -> Double {
         

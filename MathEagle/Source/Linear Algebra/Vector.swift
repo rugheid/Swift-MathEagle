@@ -12,7 +12,7 @@ import Accelerate
 /**
     A generic class representing a vector with the given type.
 */
-public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, SequenceType, Printable {
+public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, SequenceType, CustomStringConvertible {
     
     /**
         Returns a list of all elements of the vector.
@@ -28,7 +28,7 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Creates a vector with the given elements.
     
-        :param: elements An array containing the elements of the vector.
+        - parameter elements: An array containing the elements of the vector.
     */
     public init(_ elements: [T]) {
         
@@ -51,12 +51,12 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         the index of the element. These indices start at 0 and
         go to length - 1.
     
-        :param: length The number of elements the vector should have.
-        :param: generator The generator used to generate the elements.
+        - parameter length: The number of elements the vector should have.
+        - parameter generator: The generator used to generate the elements.
     */
     public init(length: Int, generator: (Int) -> T) {
         
-        self.elements = map(0..<length){ generator($0) }
+        self.elements = (0..<length).map{ generator($0) }
     }
     
     
@@ -64,7 +64,7 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Creates a vector of the given length filled with the
         given element.
     
-        :param: element The element to fill the vector with.
+        - parameter element: The element to fill the vector with.
     */
     public convenience init(filledWith element: T, length: Int) {
         
@@ -77,7 +77,7 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         The elements in the vector are generated with
         the random function of the vector's type T.
     
-        :param: length The number of elements the vector should have.
+        - parameter length: The number of elements the vector should have.
     */
     public convenience init(randomWithLength length: Int) {
         
@@ -92,8 +92,8 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         type T. This means the generated values will
         lie within the given interval(s).
     
-        :param: length The number of elements the vector should have.
-        :param: intervals The intervals in which the random generated
+        - parameter length: The number of elements the vector should have.
+        - parameter intervals: The intervals in which the random generated
                     elements may lie.
     */
     public convenience init(randomWithLength length: Int, intervals: ClosedInterval<T.RandomIntervalType>...) {
@@ -107,7 +107,7 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns or sets the element at the given index.
     
-        :param: index The index of the element to get/set.
+        - parameter index: The index of the element to get/set.
     */
     public subscript(index: Int) -> T {
         
@@ -135,7 +135,7 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns the subvector at the given index range.
     
-        :param: indexRange A range representing the indices
+        - parameter indexRange: A range representing the indices
                     of the subvector.
     */
     public subscript(indexRange: Range<Int>) -> Vector<T> {
@@ -221,7 +221,7 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
             sum = sum + element*element
         }
         
-        return root(sum, 2)
+        return root(sum, order: 2)
     }
     
     
@@ -275,9 +275,9 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         of self as a row vector with the given vector as a column vector.
         The given vector has to be of the same type and length.
     
-        :param: vector The vector to multiply with.
+        - parameter vector: The vector to multiply with.
     
-        :returns: A scalar of the same type as the two vectors.
+        - returns: A scalar of the same type as the two vectors.
     */
     public func dotProduct(vector: Vector<T>) -> T {
         
@@ -290,9 +290,9 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         the product of self as a column vector with the given vector as a
         row vector. The two vectors need to be of the same type and length.
     
-        :param: vector The vector to multiply with.
+        - parameter vector: The vector to multiply with.
     
-        :returns: A square matrix of the same type as the two vectors with
+        - returns: A square matrix of the same type as the two vectors with
                     size equal to the vector's length.
     */
     public func directProduct(vector: Vector<T>) -> Matrix<T> {
@@ -729,7 +729,7 @@ public func / (vector: Vector<Double>, scalar: Double) -> Vector<Double> {
     :exception: An exception will be thrown when the two vectors
                     are not of equal length.
 */
-public func vectorDotProduct <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> T {
+public func vectorDotProduct <T: MatrixCompatible> (left: Vector<T>, _ right: Vector<T>) -> T {
     
     if left.length != right.length {
         
@@ -747,7 +747,7 @@ public func vectorDotProduct <T: MatrixCompatible> (left: Vector<T>, right: Vect
     :exception: An exception will be thrown when the two vectors
                     are not of equal length.
 */
-public func vectorDotProduct(left: Vector<Float>, right: Vector<Float>) -> Float {
+public func vectorDotProduct(left: Vector<Float>, _ right: Vector<Float>) -> Float {
     
     if left.length != right.length {
         
@@ -769,7 +769,7 @@ public func vectorDotProduct(left: Vector<Float>, right: Vector<Float>) -> Float
     :exception: An exception will be thrown when the two vectors
                     are not of equal length.
 */
-public func vectorDotProduct(left: Vector<Double>, right: Vector<Double>) -> Double {
+public func vectorDotProduct(left: Vector<Double>, _ right: Vector<Double>) -> Double {
     
     if left.length != right.length {
         
@@ -838,7 +838,7 @@ public func * (left: Vector<Double>, right: Vector<Double>) -> Matrix<Double> {
     :exception: An exception will be thrown when the two
                     given vectors are not of equal length.
 */
-public func vectorDirectProduct <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Matrix<T> {
+public func vectorDirectProduct <T: MatrixCompatible> (left: Vector<T>, _ right: Vector<T>) -> Matrix<T> {
     
     if left.length != right.length {
         
@@ -857,7 +857,7 @@ public func vectorDirectProduct <T: MatrixCompatible> (left: Vector<T>, right: V
     :exception: An exception will be thrown when the two
                     given vectors are not of equal length.
 */
-public func vectorDirectProduct(left: Vector<Float>, right: Vector<Float>) -> Matrix<Float> {
+public func vectorDirectProduct(left: Vector<Float>, _ right: Vector<Float>) -> Matrix<Float> {
     
     if left.length != right.length {
         
@@ -884,7 +884,7 @@ public func vectorDirectProduct(left: Vector<Float>, right: Vector<Float>) -> Ma
     :exception: An exception will be thrown when the two
                     given vectors are not of equal length.
 */
-public func vectorDirectProduct(left: Vector<Double>, right: Vector<Double>) -> Matrix<Double> {
+public func vectorDirectProduct(left: Vector<Double>, _ right: Vector<Double>) -> Matrix<Double> {
     
     if left.length != right.length {
         
@@ -910,13 +910,13 @@ public func vectorDirectProduct(left: Vector<Double>, right: Vector<Double>) -> 
     Returns a new vector created by using the given
     transform on every element of the given vector.
 
-    :param: vector The vector to map.
-    :param: transform The function used to transform
+    - parameter vector: The vector to map.
+    - parameter transform: The function used to transform
                 the elements in the given vector.
 */
 public func vmap <T: MatrixCompatible, U: MatrixCompatible> (vector: Vector<T>, transform: (T) -> U) -> Vector<U> {
     
-    return Vector(map(vector.elements, transform))
+    return Vector(vector.elements.map(transform))
 }
 
 /**
@@ -928,15 +928,15 @@ public func vmap <T: MatrixCompatible, U: MatrixCompatible> (vector: Vector<T>, 
     to combine with the second element of the given
     vector, and so on.
 
-    :param: vector The vector to reduce.
-    :param: initial The initial vector to use in the
+    - parameter vector: The vector to reduce.
+    - parameter initial: The initial vector to use in the
                 reduction proces.
-    :param: combine The function used to combine two
+    - parameter combine: The function used to combine two
                 values and reduce the vector.
 */
 public func vreduce <T: MatrixCompatible, U> (vector: Vector<T>, initial: U, combine: (U, T) -> U) -> U {
     
-    return reduce(vector.elements, initial, combine)
+    return vector.elements.reduce(initial, combine: combine)
 }
 
 /**
@@ -947,22 +947,22 @@ public func vreduce <T: MatrixCompatible, U> (vector: Vector<T>, initial: U, com
     elements are combined to form the second element
     of the new vector, and so on.
 
-    :param: left The first vector in the combination.
+    - parameter left: The first vector in the combination.
                 The elements from this vector will be
                 passed as first element in the combine
                 function.
-    :param: right The second vector in the combination.
+    - parameter right: The second vector in the combination.
                 The elements from this vector will be
                 passed as second element in the combine
                 function.
-    :param: combine The function used to combine according
+    - parameter combine: The function used to combine according
                 elements from the two vectors.
 
     :exception: An exception will be thrown when the
                     two given vectors are not of equal
                     length.
 */
-public func vcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (left: Vector<T>, right: Vector<U>, combine: (T, U) -> V) -> Vector<V> {
+public func vcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (left: Vector<T>, _ right: Vector<U>, combine: (T, U) -> V) -> Vector<V> {
     
     if left.length != right.length {
         
@@ -986,14 +986,14 @@ public func vcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompati
 /**
     Sorts the given vector in place.
 
-    :param: vector The vector to sort in place.
-    :param: ascending True means the vector should be sorted in
+    - parameter vector: The vector to sort in place.
+    - parameter ascending: True means the vector should be sorted in
                 ascending order, otherwise it's sorted in
                 descending order.
 */
 public func vsort <T: MatrixCompatible> (inout vector: Vector<T>, ascending: Bool = true) {
     
-    vector.elements.sort(){ ascending ? $0 < $1 : $0 > $1 }
+    vector.elements.sortInPlace { ascending ? $0 < $1 : $0 > $1 }
 }
 
 
@@ -1017,7 +1017,7 @@ public struct VectorGenerator <T: MatrixCompatible> : GeneratorType {
     /**
         Creates a new generator with the given vector.
     
-        :param: vector The vector the generator should iterate over.
+        - parameter vector: The vector the generator should iterate over.
     */
     public init(vector: Vector<T>) {
         

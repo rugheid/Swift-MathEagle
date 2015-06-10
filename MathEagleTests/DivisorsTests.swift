@@ -47,7 +47,7 @@ class DivisorsTests: XCTestCase {
             
             let abundants: [UInt] = [12, 18, 20, 24, 30, 36, 40, 42, 48, 54, 56, 60]
             
-            if contains(abundants, i) {
+            if abundants.contains(i) {
                 XCTAssertTrue(isAbundant(i))
             } else {
                 XCTAssertFalse(isAbundant(i))
@@ -71,7 +71,7 @@ class DivisorsTests: XCTestCase {
             
             let deficients: [UInt] = [1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 19, 21, 22, 23, 25, 26, 27, 29, 31, 32, 33, 34, 35, 37, 38, 39, 41, 43, 44, 45, 46, 47, 49, 50, 51, 52, 53, 55, 57, 58, 59]
             
-            if contains(deficients, i) {
+            if deficients.contains(i) {
                 let deficient = isDeficient(i)
                 XCTAssertTrue(deficient)
             } else {

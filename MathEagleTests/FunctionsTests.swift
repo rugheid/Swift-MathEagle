@@ -66,9 +66,9 @@ class FunctionsTests: XCTestCase {
             }
         }
         
-        println()
-        println("Fibonacci: \(a)*n^\(b)")
-        println()
+        print("")
+        print("Fibonacci: \(a)*n^\(b)")
+        print("")
     }
     
     

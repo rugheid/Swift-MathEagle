@@ -12,9 +12,9 @@ import Foundation
 /**
     Returns true if the given number is prime.
 
-    :param: x The number to check for primality
+    - parameter x: The number to check for primality
 
-    :returns: true if the given unsigned integer is prime.
+    - returns: true if the given unsigned integer is prime.
 */
 public func isPrime <X: protocol<Equatable, Comparable, Addable, Modulable, RealPowerable, IntegerLiteralConvertible>> (x: X) -> Bool {
     
@@ -24,7 +24,7 @@ public func isPrime <X: protocol<Equatable, Comparable, Addable, Modulable, Real
     
     var p: X = 5
     
-    while p <= X(root(x, 2)) {
+    while p <= X(root(x, order: 2)) {
         
         if x % p == 0 || x % (p + 2) == 0 { return false }
         
@@ -39,12 +39,12 @@ public func isPrime <X: protocol<Equatable, Comparable, Addable, Modulable, Real
 /**
     Returns true if the given unsigned integers are coprimes. This means they have no common prime factors.
 
-    :param: a The first unsigned integer
-    :param: b The second unsigned integer
+    - parameter a: The first unsigned integer
+    - parameter b: The second unsigned integer
 
-    :returns: true if the given unsigned integers are coprime.
+    - returns: true if the given unsigned integers are coprime.
 */
-public func areCoprime <X: protocol<Equatable, Comparable, Negatable, Modulable, IntegerLiteralConvertible>> (a: X, b: X) -> Bool {
+public func areCoprime <X: protocol<Equatable, Comparable, Negatable, Modulable, IntegerLiteralConvertible>> (a: X, _ b: X) -> Bool {
     
     return gcd(a, b) == 1
 }
@@ -53,9 +53,9 @@ public func areCoprime <X: protocol<Equatable, Comparable, Negatable, Modulable,
 /**
     Returns a list of all primes up to (and including) the given integer.
 
-    :param: n The upper bound
+    - parameter n: The upper bound
 
-    :returns: All primes up to (and including) the given integer.
+    - returns: All primes up to (and including) the given integer.
 */
 public func primesUpTo(n: UInt) -> [UInt] {
     
@@ -92,9 +92,9 @@ public func primesUpTo(n: UInt) -> [UInt] {
 /**
     Returns the prime factors of the given integer in ascending order. Factors with higher multiplicity will appear multiple times. An empty array will be returned for all numbers smaller than or equal to 1.
 
-    :param: n The integer to factorise
+    - parameter n: The integer to factorise
 
-    :returns: The prime factors of the given integer in ascending order.
+    - returns: The prime factors of the given integer in ascending order.
 */
 public func primeFactors <X: protocol<Equatable, Comparable, Addable, Modulable, Dividable, IntegerLiteralConvertible>> (x: X) -> [X] {
     

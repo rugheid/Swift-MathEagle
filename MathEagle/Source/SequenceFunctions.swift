@@ -15,23 +15,23 @@ import Accelerate
 /**
     Returns the sum of all elements in the sequence.
 
-    :param: seq The sequence to sum.
+    - parameter seq: The sequence to sum.
 
-    :returns: The sum of all elements in the sequence. When the sequence is
+    - returns: The sum of all elements in the sequence. When the sequence is
                 empty zero is returned.
 */
 public func sum <S: SequenceType where S.Generator.Element: protocol<Addable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
     
-    return reduce(seq, 0){ $0 + $1 }
+    return seq.reduce(0){ $0 + $1 }
 }
 
 
 /**
 Returns the sum of all elements in the array.
 
-:param: seq The array to sum.
+- parameter seq: The array to sum.
 
-:returns: The sum of all elements in the array. When the array is empty
+- returns: The sum of all elements in the array. When the array is empty
 zero is returned.
 */
 public func sum(seq: [Float]) -> Float {
@@ -45,9 +45,9 @@ public func sum(seq: [Float]) -> Float {
 /**
 Returns the sum of all elements in the vector.
 
-:param: vector  The vector to sum.
+- parameter vector:  The vector to sum.
 
-:returns: The sum of all elements in the vector. When the vector is empty
+- returns: The sum of all elements in the vector. When the vector is empty
 zero is returned.
 */
 public func sum(vector: Vector<Float>) -> Float {
@@ -57,9 +57,9 @@ public func sum(vector: Vector<Float>) -> Float {
 /**
 Returns the sum of all elements in the array.
 
-:param: seq The array to sum.
+- parameter seq: The array to sum.
 
-:returns: The sum of all elements in the array. When the array is empty
+- returns: The sum of all elements in the array. When the array is empty
 zero is returned.
 */
 public func sum(seq: [Double]) -> Double {
@@ -72,9 +72,9 @@ public func sum(seq: [Double]) -> Double {
 /**
 Returns the sum of all elements in the vector.
 
-:param: vector  The vector to sum.
+- parameter vector:  The vector to sum.
 
-:returns: The sum of all elements in the vector. When the vector is empty
+- returns: The sum of all elements in the vector. When the vector is empty
 zero is returned.
 */
 public func sum(vector: Vector<Double>) -> Double {
@@ -89,11 +89,11 @@ public func sum(vector: Vector<Double>) -> Double {
 /**
 Returns the product of all elements in the sequence.
 
-:param: seq The sequence to take the product of.
+- parameter seq: The sequence to take the product of.
 */
 public func product <S: SequenceType where S.Generator.Element: protocol<Multiplicable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
     
-    return reduce(seq, 1){ $0 * $1 }
+    return seq.reduce(1){ $0 * $1 }
 }
 
 
@@ -104,9 +104,9 @@ public func product <S: SequenceType where S.Generator.Element: protocol<Multipl
 /**
 Returns the minimal element in the given sequence.
 
-:param: seq The sequence to get the minimum of.
+- parameter seq: The sequence to get the minimum of.
 
-:returns: The minimum value of the given sequence.
+- returns: The minimum value of the given sequence.
 
 :exception: Throws an exception when the given sequence is empty.
 */
@@ -114,7 +114,7 @@ public func min <S: SequenceType where S.Generator.Element: protocol<Comparable,
     
     var generator = seq.generate()
     if let initial = generator.next() {
-        return reduce(seq, initial){ $0 < $1 ? $0 : $1 }
+        return seq.reduce(initial){ $0 < $1 ? $0 : $1 }
     } else {
         NSException(name: "Empty array", reason: "Can't compute minimum of an empty array.", userInfo: nil).raise()
         return 0
@@ -124,9 +124,9 @@ public func min <S: SequenceType where S.Generator.Element: protocol<Comparable,
 /**
 Returns the minimal element in the given sequence.
 
-:param: seq The sequence to get the minimum of.
+- parameter seq: The sequence to get the minimum of.
 
-:returns: The minimum value of the given sequence.
+- returns: The minimum value of the given sequence.
 
 :exception: Throws an exception when the given sequence is empty.
 */
@@ -144,9 +144,9 @@ public func min(seq: [Float]) -> Float {
 /**
 Returns the minimal element in the given vector.
 
-:param: vector  The vector to get the minimum of.
+- parameter vector:  The vector to get the minimum of.
 
-:returns: The minimum value of the given vector.
+- returns: The minimum value of the given vector.
 
 :exception: Throws an exception when the given vector is empty.
 */
@@ -163,11 +163,11 @@ public func min(vector: Vector<Float>) -> Float {
 /**
 Returns the maximal element in the given sequence.
 
-:param: seq The sequence to get the maximum of.
+- parameter seq: The sequence to get the maximum of.
 */
 public func max <S: SequenceType where S.Generator.Element: protocol<Comparable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
     
     var generator = seq.generate()
     let initial = generator.next()!
-    return reduce(seq, initial){ $0 > $1 ? $0 : $1 }
+    return seq.reduce(initial){ $0 > $1 ? $0 : $1 }
 }

@@ -16,13 +16,13 @@ class SolverTests: XCTestCase {
     func testBisection() {
 
         var x = Solver.bisection(-1.0, 1.0){ $0 }
-        XCTAssertEqualWithAccuracy(0.0, x, ACCURACY)
+        XCTAssertEqualWithAccuracy(0.0, x, accuracy: ACCURACY)
         
         x = Solver.bisection(0.0, 5.0){ (1 - sqrt($0))/log($0 + 5) }
-        XCTAssertEqualWithAccuracy(1.0, x, ACCURACY)
+        XCTAssertEqualWithAccuracy(1.0, x, accuracy: ACCURACY)
         
         x = Solver.bisection(-0.5, 5.0){ ($0**4 - 1)/exp(2*$0) }
-        XCTAssertEqualWithAccuracy(1.0, x, ACCURACY)
+        XCTAssertEqualWithAccuracy(1.0, x, accuracy: ACCURACY)
     }
     
     func testBisectionPerformance() {
@@ -34,13 +34,13 @@ class SolverTests: XCTestCase {
         
         let baseline = 6.36100769042969e-06
         
-        println("Bisection time = \(time)\nBaseline = \(baseline)\n\(baseline/time) times faster than baseline")
+        print("Bisection time = \(time)\nBaseline = \(baseline)\n\(baseline/time) times faster than baseline")
     }
     
     func testNewtonWithExactDf() {
         
         var x = Solver.newton(1.0, df: { (x) -> Double in 1.0 }, f: { $0 })
-        XCTAssertEqualWithAccuracy(0.0, x, ACCURACY)
+        XCTAssertEqualWithAccuracy(0.0, x, accuracy: ACCURACY)
         
         var df = {(x: Double) -> Double in
             
@@ -52,7 +52,7 @@ class SolverTests: XCTestCase {
         }
         
         x = Solver.newton(0.5, df: df, f: { (1 - sqrt($0))/log($0 + 5) })
-        XCTAssertEqualWithAccuracy(1.0, x, ACCURACY)
+        XCTAssertEqualWithAccuracy(1.0, x, accuracy: ACCURACY)
         
         df = {(x: Double) -> Double in
             
@@ -63,7 +63,7 @@ class SolverTests: XCTestCase {
         }
         
         x = Solver.newton(-0.5, df: df, f: { ($0**4 - 1)/exp(2*$0) })
-        XCTAssertEqualWithAccuracy(1.0, x, ACCURACY)
+        XCTAssertEqualWithAccuracy(1.0, x, accuracy: ACCURACY)
     }
     
     func testNewtonWithExactDfPerformance() {
@@ -83,19 +83,19 @@ class SolverTests: XCTestCase {
         
         let baseline = 3.12000513076782e-06
         
-        println("Exact Newton time = \(time)\nBaseline = \(baseline)\n\(baseline/time) times faster than baseline")
+        print("Exact Newton time = \(time)\nBaseline = \(baseline)\n\(baseline/time) times faster than baseline")
     }
     
     func testNewtonWithApproxDf() {
         
         var x = Solver.newton(1.0, f: { $0 })
-        XCTAssertEqualWithAccuracy(0.0, x, ACCURACY)
+        XCTAssertEqualWithAccuracy(0.0, x, accuracy: ACCURACY)
         
         x = Solver.newton(0.5, f: { (1 - sqrt($0))/log($0 + 5) })
-        XCTAssertEqualWithAccuracy(1.0, x, ACCURACY)
+        XCTAssertEqualWithAccuracy(1.0, x, accuracy: ACCURACY)
         
         x = Solver.newton(-0.5, f: { ($0**4 - 1)/exp(2*$0) })
-        XCTAssertEqualWithAccuracy(1.0, x, ACCURACY)
+        XCTAssertEqualWithAccuracy(1.0, x, accuracy: ACCURACY)
     }
     
     func testNewtonWithApproxDfPerformance() {
@@ -107,7 +107,7 @@ class SolverTests: XCTestCase {
         
         let baseline = 3.23200225830078e-06
         
-        println("Approx Newton time = \(time)\nBaseline = \(baseline)\n\(baseline/time) times faster than baseline")
+        print("Approx Newton time = \(time)\nBaseline = \(baseline)\n\(baseline/time) times faster than baseline")
     }
     
 }

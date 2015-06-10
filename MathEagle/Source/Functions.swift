@@ -12,9 +12,9 @@ import Foundation
 /**
     Returns the sign of the given value. Returns -1, 0 or 1.
 
-    :param: x The value to calculate the sign of
+    - parameter x: The value to calculate the sign of
     
-    :returns: -1 if the value is smaller than 0, 0 if the value is 0 and 1 if the value is bigger than 0
+    - returns: -1 if the value is smaller than 0, 0 if the value is 0 and 1 if the value is bigger than 0
 */
 public func sign <X: protocol<Equatable, Comparable, IntegerLiteralConvertible>> (x: X) -> Int {
     
@@ -27,9 +27,9 @@ public func sign <X: protocol<Equatable, Comparable, IntegerLiteralConvertible>>
 /**
     Returns the factorial of the given value, aka x!
     
-    :param: x   The value to caculate the factorial of
+    - parameter x:   The value to caculate the factorial of
 
-    :returns: The factorial of the given value
+    - returns: The factorial of the given value
 
     :exceptions: Throws an exception if the given value is not a natural number.
 */
@@ -82,14 +82,14 @@ public func factorialsUpTo <X: protocol<Comparable, Addable, Substractable, Mult
 public func fib <X: protocol<Hashable, Addable, Substractable, IntegerLiteralConvertible>> (n: X) -> X {
     
     var memo: [X: X] = [0: 0, 1: 1]
-    return memoFib(n, &memo)
+    return memoFib(n, memo: &memo)
 }
 
 private func memoFib <X: protocol<Hashable, Addable, Substractable, IntegerLiteralConvertible>> (n: X, inout memo: [X: X]) -> X {
     
     if let answer = memo[n] { return answer }
     
-    let answer = memoFib(n-1, &memo) + memoFib(n-2, &memo)
+    let answer = memoFib(n-1, memo: &memo) + memoFib(n-2, memo: &memo)
     memo[n] = answer
     
     return answer
@@ -99,10 +99,10 @@ private func memoFib <X: protocol<Hashable, Addable, Substractable, IntegerLiter
 /**
     Returns an array containing the digits of the given number from most to least significant digits.
 
-    :param: number  The number to get the digits of.
+    - parameter number:  The number to get the digits of.
 */
 public func digits(number: Int) -> [Int] {
     
     //TODO: Benchmark this method.
-    return map("\(abs(number))"){ "\($0)".toInt()! }
+    return "\(abs(number))".characters.map{ Int("\($0)")! }
 }

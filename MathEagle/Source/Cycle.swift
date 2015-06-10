@@ -10,7 +10,7 @@
 /**
     A class representing a cycle in a permutation.
 */
-public class Cycle: ArrayLiteralConvertible, Printable, Hashable {
+public class Cycle: ArrayLiteralConvertible, CustomStringConvertible, Hashable {
     
     
     // MARK: Inner Structure
@@ -66,7 +66,7 @@ public class Cycle: ArrayLiteralConvertible, Printable, Hashable {
             
             var dict = [Int: Int]()
             
-            for (index, element) in enumerate(self.cycleRepresentation) {
+            for (index, element) in self.cycleRepresentation.enumerate() {
                 
                 dict[element] = self.cycleRepresentation[index == self.length-1 ? 0 : index+1]
             }
@@ -101,7 +101,9 @@ public class Cycle: ArrayLiteralConvertible, Printable, Hashable {
     */
     public var description: String {
         
-        return "(" + reduce(self.cycleRepresentation, ""){ $0 + ($0 == "" ? "" : " ") + "\($1)" } + ")"
+        let combine = { (a: String, b: Int) in a + (a == "" ? "" : " ") + "\(b)" }
+        
+        return "(" + self.cycleRepresentation.reduce("", combine: combine) + ")"
     }
     
     

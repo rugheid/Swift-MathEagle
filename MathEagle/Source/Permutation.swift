@@ -12,7 +12,7 @@ import Foundation
 /**
     A class representing a permutation.
 */
-public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashable {
+public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConvertible, Hashable {
     
     
     // MARK: Class Settings
@@ -74,7 +74,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashabl
     /**
         Creates an identity permutation of the given length.
     
-        :param: length  The length of the permutation.
+        - parameter length:  The length of the permutation.
     
         :exception: Throws an exception when the given length is negative.
     */
@@ -100,7 +100,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashabl
     /**
         Returns the element at the given index.
         
-        :param: index   The index to take the element from.
+        - parameter index:   The index to take the element from.
     */
     public subscript(index: Int) -> Int {
         
@@ -111,7 +111,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashabl
     /**
         Returns the elements at the given index range:
     
-        :param: indexRange  The indices to take the elements from.
+        - parameter indexRange:  The indices to take the elements from.
     */
     public subscript(indexRange: Range<Int>) -> [Int] {
         
@@ -187,7 +187,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashabl
             
             var dict = [Int: Int]()
             
-            for (index, element) in enumerate(self.arrayRepresentation) {
+            for (index, element) in self.arrayRepresentation.enumerate() {
                 dict[index] = element
             }
             
@@ -203,7 +203,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashabl
     */
     public var wordRepresentation: String {
         
-        return reduce(self.arrayRepresentation, ""){ $0 + " \($1)" }
+        return self.arrayRepresentation.reduce(""){ $0 + " \($1)" }
     }
     
     
@@ -257,7 +257,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashabl
         
         var fixedPoints = [Int]()
         
-        for (index, element) in enumerate(self.arrayRepresentation) {
+        for (index, element) in self.arrayRepresentation.enumerate() {
             
             if index == element { fixedPoints.append(index) }
         }
@@ -275,7 +275,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashabl
         
         var count = 0
         
-        for (index, element) in enumerate(self.arrayRepresentation) {
+        for (index, element) in self.arrayRepresentation.enumerate() {
             
             if index == element { count++ }
         }
@@ -290,7 +290,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashabl
     */
     public var parity: Parity {
         
-        return sum(map(self.cycles){ $0.parity })
+        return sum(self.cycles.map{ $0.parity })
     }
     
     
@@ -340,7 +340,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashabl
             NSException(name: "Invalid Element", reason: "The given element is not valid.", userInfo: nil).raise()
         }
         
-        return find(self.arrayRepresentation, element)!
+        return self.arrayRepresentation.indexOf(element)!
     }
     
     
@@ -350,8 +350,8 @@ public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashabl
     /**
         Switches the elements at the given indices.
 
-        :param: fromIndex   The index of the first element.
-        :param: toIndex     The index of the second element.
+        - parameter fromIndex:   The index of the first element.
+        - parameter toIndex:     The index of the second element.
     */
     public func switchElements(i: Int, _ j: Int) {
         
@@ -367,9 +367,9 @@ public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashabl
     /**
         Returns whether the given array would be a valid array representation for a permutation.
     
-        :param: arrayRepresentation The array to check.
+        - parameter arrayRepresentation: The array to check.
     
-        :returns: true if it would be a valid array representation.
+        - returns: true if it would be a valid array representation.
     */
     private func isValidArrayRepresentation(arrayRepresentation: [Int]) -> Bool {
         
@@ -425,10 +425,10 @@ public class Permutation: ArrayLiteralConvertible, Equatable, Printable, Hashabl
 /**
     Returns whether the two given permutations are equal.
 
-    :param: left    The left permutation in the equation.
-    :param: right   The right permutation in the equation.
+    - parameter left:    The left permutation in the equation.
+    - parameter right:   The right permutation in the equation.
 
-    :returns: true if the two permutations are equal.
+    - returns: true if the two permutations are equal.
 */
 public func == (left: Permutation, right: Permutation) -> Bool {
     

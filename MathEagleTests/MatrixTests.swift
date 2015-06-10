@@ -31,14 +31,14 @@ class MatrixTests: XCTestCase {
     func testElementsInit() {
         
         let initElements: [[UInt]] = [[1, 2], [3, 4]]
-        var matrix = Matrix(initElements)
+        let matrix = Matrix(initElements)
         
         XCTAssertEqual(initElements, matrix.elements)
     }
 
     func testArrayLiterableInit() {
         
-        var matrix: Matrix = [[1, 2], [3, 4]]
+        let matrix: Matrix = [[1, 2], [3, 4]]
         
         XCTAssertEqual([[1, 2], [3, 4]], matrix.elements)
     }
@@ -80,7 +80,7 @@ class MatrixTests: XCTestCase {
         
         self.measureBlock(){
             
-            let matrix = Matrix(symmetrical: diagonalElements)
+            Matrix(symmetrical: diagonalElements)
         }
     }
     
@@ -89,7 +89,7 @@ class MatrixTests: XCTestCase {
         // 3 x 3 matrix filled with "a"
         var matrix = Matrix(filledWith: 5, size: 3)
         
-        var expected = Matrix([[5, 5, 5], [5, 5, 5], [5, 5, 5]])
+        let expected = Matrix([[5, 5, 5], [5, 5, 5], [5, 5, 5]])
         
         XCTAssertEqual(expected, matrix)
         
@@ -103,7 +103,7 @@ class MatrixTests: XCTestCase {
         
         self.measureBlock(){
             
-            let matrix = Matrix(filledWith: 4, size: 10000)
+            Matrix(filledWith: 4, size: 10000)
         }
     }
     
@@ -121,9 +121,9 @@ class MatrixTests: XCTestCase {
         
         // 2 x 3 matrix filled with 5
         
-        var matrix2 = Matrix(filledWith: 5, dimensions: Dimensions(2, 3))
+        let matrix2 = Matrix(filledWith: 5, dimensions: Dimensions(2, 3))
         
-        var expected2 = Matrix([[5, 5, 5], [5, 5, 5]])
+        let expected2 = Matrix([[5, 5, 5], [5, 5, 5]])
         
         XCTAssertEqual(expected2, matrix2)
     }
@@ -131,7 +131,7 @@ class MatrixTests: XCTestCase {
     func testIdentityInit() {
         
         // 3 x 3 identity matrix with strings
-        var matrix = Matrix<Int>(identityOfSize: 3)
+        let matrix = Matrix<Int>(identityOfSize: 3)
         
         XCTAssertEqual([[1, 0, 0], [0, 1, 0], [0, 0, 1]], matrix.elements)
     }
@@ -140,7 +140,7 @@ class MatrixTests: XCTestCase {
         
         self.measureBlock(){
             
-            let matrix = Matrix<Int>(identityOfSize: 1000)
+            Matrix<Int>(identityOfSize: 1000)
         }
     }
     
@@ -150,15 +150,15 @@ class MatrixTests: XCTestCase {
     func testElementsSubscript() {
         
         let initElements = [[1, 2], [3, 4]]
-        var matrix = Matrix(initElements)
+        let matrix = Matrix(initElements)
         
         XCTAssertEqual(3, matrix.elements[1][0])
     }
     
     func testSubscriptGet() {
         
-        var initElements = [[1, 2], [3, 4]]
-        var matrix = Matrix(initElements)
+        let initElements = [[1, 2], [3, 4]]
+        let matrix = Matrix(initElements)
         
         XCTAssertEqual(Vector([1, 2]), matrix[0])
         XCTAssertEqual(Vector([3, 4]), matrix[1])
@@ -166,8 +166,8 @@ class MatrixTests: XCTestCase {
     
     func testSubscriptSet() {
         
-        var initElements = [[1, 2], [3, 4]]
-        var matrix = Matrix(initElements)
+        let initElements = [[1, 2], [3, 4]]
+        let matrix = Matrix(initElements)
         matrix[0] = [5, 6]
         
         XCTAssertEqual(Vector([5, 6]), matrix[0])
@@ -175,7 +175,7 @@ class MatrixTests: XCTestCase {
     
     func testSubscriptRangeGet() {
         
-        var matrix = Matrix([[1, 2], [3, 4], [5,6]])
+        let matrix = Matrix([[1, 2], [3, 4], [5,6]])
         
         var expected = Matrix([[3, 4], [5, 6]])
         
@@ -238,7 +238,7 @@ class MatrixTests: XCTestCase {
     
     func testSubscriptRowRangeColumnRangeGet() {
         
-        var matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+        let matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
         
         XCTAssertEqual(Matrix([[6, 7], [10, 11]]), matrix[1...2, 1...2])
         XCTAssertEqual(Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]), matrix[0...2, 0...3])
@@ -247,7 +247,7 @@ class MatrixTests: XCTestCase {
     
     func testSubscriptRowRangeColumnRangeSet() {
         
-        var matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+        let matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
         
         matrix[1...2, 2...3] = Matrix([[13, 14], [15, 16]])
         
@@ -256,7 +256,7 @@ class MatrixTests: XCTestCase {
     
     func testSubscriptRowRangeColumnGet() {
         
-        var matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+        let matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
         
         XCTAssertEqual(Vector([6, 10]), matrix[1...2, 1])
         XCTAssertEqual(Vector([4, 8, 12]), matrix[0...2, 3])
@@ -264,7 +264,7 @@ class MatrixTests: XCTestCase {
     
     func testSubscriptRowRangeColumnSet() {
         
-        var matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+        let matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
         
         matrix[1...2, 2] = Vector([13, 14])
         
@@ -273,7 +273,7 @@ class MatrixTests: XCTestCase {
     
     func testSubscriptRowColumnRangeGet() {
         
-        var matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+        let matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
         
         XCTAssertEqual(Vector([6, 7]), matrix[1, 1...2])
         XCTAssertEqual(Vector([9, 10, 11, 12]), matrix[2, 0...3])
@@ -281,7 +281,7 @@ class MatrixTests: XCTestCase {
     
     func testSubscriptRowColumnRangeSet() {
         
-        var matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+        let matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
         
         matrix[1, 1...2] = Vector([13, 14])
         
@@ -318,7 +318,7 @@ class MatrixTests: XCTestCase {
     
     func testMatrixMapPerformance() {
         
-        let (a, b) = getCoefficients(n0: 2, numberOfIterations: 5){
+        let (_, b) = getCoefficients(n0: 2, numberOfIterations: 5){
             
             let matrix = Matrix<Int>(randomWithSize: $0, intervals: 0 ... 10)
             
@@ -328,7 +328,7 @@ class MatrixTests: XCTestCase {
             }
         }
         
-        println("\nb for matrix map = \(b)")
+        print("\nb for matrix map = \(b)")
         
         let matrix = Matrix<Int>(randomWithSize: 100, intervals: 0 ... 10)
         
@@ -342,30 +342,30 @@ class MatrixTests: XCTestCase {
         
         let matrix = Matrix([[1, 2, 3], [4, 5, 6]])
         
-        let totalSum = mreduce(matrix, 0){ $0 + $1 }
+        let totalSum = mreduce(matrix, initial: 0){ $0 + $1 }
         
         XCTAssertEqual(21, totalSum)
     }
     
     func testMatrixReducePerformance() {
         
-        let (a, b) = getCoefficients(n0: 2, numberOfIterations: 5){
+        let (_, b) = getCoefficients(n0: 2, numberOfIterations: 5){
             
             let matrix = Matrix<Int>(randomWithSize: $0, intervals: -2 ... 2)
             
             return timeBlock(){
                 
-                mreduce(matrix, 0, +)
+                mreduce(matrix, initial: 0, combine: +)
             }
         }
         
-        println("\nb for matrix reduce = \(b)")
+        print("\nb for matrix reduce = \(b)")
         
         let matrix = Matrix<Int>(randomWithSize: 100, intervals: -2 ... 2)
         
         compareBaseline(0.00280898809432983, title: "Reducing 100x100 matrix using +", n: 10){
             
-            mreduce(matrix, 0, +)
+            mreduce(matrix, initial: 0, combine: +)
         }
     }
     
@@ -383,25 +383,25 @@ class MatrixTests: XCTestCase {
     
     func testMatrixCombinePerformance() {
         
-        let (a, b) = getCoefficients(n0: 2, numberOfIterations: 5){
+        let (_, b) = getCoefficients(n0: 2, numberOfIterations: 5){
             
             let left = Matrix<Int>(randomWithSize: $0, intervals: 0 ... 10)
             let right = Matrix<Int>(randomWithSize: $0, intervals: -10 ... 0)
             
             return timeBlock(){
                 
-                mcombine(left, right, +)
+                mcombine(left, right, combine: +)
             }
         }
         
-        println("\nb for matrix reduce = \(b)")
+        print("\nb for matrix reduce = \(b)")
         
         let left = Matrix<Int>(randomWithSize: 100, intervals: 0 ... 10)
         let right = Matrix<Int>(randomWithSize: 100, intervals: -10 ... 0)
         
         compareBaseline(0.00611197948455811, title: "Combining 2 100x100 matrices using +", n: 10){
             
-            mcombine(left, right, +)
+            mcombine(left, right, combine: +)
         }
     }
     
@@ -447,7 +447,7 @@ class MatrixTests: XCTestCase {
     
     func testSetDimensions() {
         
-        var A = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        let A = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
         A.dimensions = Dimensions(size: 4)
         XCTAssertEqual([[1, 2, 3, 0], [4, 5, 6, 0], [7, 8, 9, 0], [0, 0, 0, 0]], A.elements)
         XCTAssertEqual(Dimensions(size: 4), A.dimensions)
@@ -494,10 +494,10 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(1.0, matrix.determinant)
         
         matrix = Matrix([[2, 4], [3, 7]])
-        XCTAssertEqualWithAccuracy(2.0, matrix.determinant, ACCURACY)
+        XCTAssertEqualWithAccuracy(2.0, matrix.determinant, accuracy: ACCURACY)
         
         matrix = Matrix([[6, 7, -3, 2], [5, -2, -2, 3], [8, 6, 5, 5], [-8, -8, 0, 3]])
-        XCTAssertEqualWithAccuracy(-2759.0, matrix.determinant, ACCURACY)
+        XCTAssertEqualWithAccuracy(-2759.0, matrix.determinant, accuracy: ACCURACY)
         
         let i = Complex.imaginaryUnit
         XCTAssertTrue((-10.0 + 11.0 * i).equals(cmatrix.determinant, accuracy: ACCURACY))
@@ -552,8 +552,7 @@ class MatrixTests: XCTestCase {
     }
     
     func testGetDiagonalElementsFunction() {
-        
-        var matrix = Matrix([[1, 2, 3], [4, 5, 6]])
+        let matrix = Matrix([[1, 2, 3], [4, 5, 6]])
         XCTAssertEqual([1, 5], matrix.diagonalElements())
         XCTAssertEqual([4], matrix.diagonalElements(-1))
         XCTAssertEqual([2, 6], matrix.diagonalElements(1))
@@ -591,7 +590,7 @@ class MatrixTests: XCTestCase {
             matrix.upperTriangle()
         }
         
-        println("\nDiagonal time = \(diagonalTime), this is \(diagonalBaseline/diagonalTime) times faster than baseline.")
+        print("\nDiagonal time = \(diagonalTime), this is \(diagonalBaseline/diagonalTime) times faster than baseline.")
         
         let superDiagonalBaseline = 0.00230699777603149
         let superDiagonalTime = timeBlock(){
@@ -599,7 +598,7 @@ class MatrixTests: XCTestCase {
             matrix.upperTriangle(25)
         }
         
-        println("\nSuper diagonal time = \(superDiagonalTime), this is \(superDiagonalBaseline/superDiagonalTime) times faster than baseline.")
+        print("\nSuper diagonal time = \(superDiagonalTime), this is \(superDiagonalBaseline/superDiagonalTime) times faster than baseline.")
         
         let subDiagonalBaseline = 0.000886976718902588
         let subDiagonalTime = timeBlock(){
@@ -607,7 +606,7 @@ class MatrixTests: XCTestCase {
             matrix.upperTriangle(-25)
         }
         
-        println("\nSub diagonal time = \(subDiagonalTime), this is \(subDiagonalBaseline/subDiagonalTime) times faster than baseline.\n")
+        print("\nSub diagonal time = \(subDiagonalTime), this is \(subDiagonalBaseline/subDiagonalTime) times faster than baseline.\n")
     }
     
     func testGetLowerTriangle() {
@@ -641,7 +640,7 @@ class MatrixTests: XCTestCase {
             matrix.lowerTriangle()
         }
         
-        println("\nDiagonal time = \(diagonalTime), this is \(diagonalBaseline/diagonalTime) times faster than baseline.")
+        print("\nDiagonal time = \(diagonalTime), this is \(diagonalBaseline/diagonalTime) times faster than baseline.")
         
         let superDiagonalBaseline = 0.00111198425292969
         let superDiagonalTime = timeBlock(){
@@ -649,7 +648,7 @@ class MatrixTests: XCTestCase {
             matrix.lowerTriangle(25)
         }
         
-        println("\nSuper diagonal time = \(superDiagonalTime), this is \(superDiagonalBaseline/superDiagonalTime) times faster than baseline.")
+        print("\nSuper diagonal time = \(superDiagonalTime), this is \(superDiagonalBaseline/superDiagonalTime) times faster than baseline.")
         
         let subDiagonalBaseline = 0.00196701288223267
         let subDiagonalTime = timeBlock(){
@@ -657,7 +656,7 @@ class MatrixTests: XCTestCase {
             matrix.lowerTriangle(-25)
         }
         
-        println("\nSub diagonal time = \(subDiagonalTime), this is \(subDiagonalBaseline/subDiagonalTime) times faster than baseline.\n")
+        print("\nSub diagonal time = \(subDiagonalTime), this is \(subDiagonalBaseline/subDiagonalTime) times faster than baseline.\n")
     }
     
     func testMaxValue() {
@@ -673,7 +672,7 @@ class MatrixTests: XCTestCase {
     
     func testMaxValuePerformance() {
         
-        let (a, b) = getCoefficients(n0: 10, numberOfIterations: 5){
+        getCoefficients(n0: 10, numberOfIterations: 5){
             
             let matrix = Matrix<Int>(randomWithSize: $0, intervals: -1000 ... 1000)
             
@@ -690,7 +689,7 @@ class MatrixTests: XCTestCase {
         
         self.measureBlock(){
             
-            let max = matrix.maxElement
+            matrix.maxElement
         }
     }
     
@@ -724,7 +723,7 @@ class MatrixTests: XCTestCase {
     
     func testConjugate() {
         
-        var matrix = Matrix([[1, 2, 3], [4, 5, 6]])
+        let matrix = Matrix([[1, 2, 3], [4, 5, 6]])
         XCTAssertEqual(matrix, matrix.conjugate)
         
         let a = cmatrix[0, 0].conjugate
@@ -759,7 +758,7 @@ class MatrixTests: XCTestCase {
             self.cmatrix.conjugateTranspose
         }
         
-        println("\nTime for conjugate transpose = \(time), this is \(baseline/time) times faster than baseline.\n")
+        print("\nTime for conjugate transpose = \(time), this is \(baseline/time) times faster than baseline.\n")
     }
     
     func testIsEmpty() {
@@ -777,7 +776,7 @@ class MatrixTests: XCTestCase {
         XCTAssertTrue(matrix.isEmpty)
         
         // init matrix
-        var matrix2 = Matrix<Int>()
+        let matrix2 = Matrix<Int>()
         
         XCTAssertTrue(matrix2.isEmpty)
     }
@@ -835,7 +834,7 @@ class MatrixTests: XCTestCase {
     
     func testIsSymmetricalPerformance() {
         
-        var (a, b) = getCoefficients(n0: 10, numberOfIterations: 5){
+        let (_, b) = getCoefficients(n0: 10, numberOfIterations: 5){
             
             let matrixElements = [Int](count: 2*$0 - 1, repeatedValue: 2)
             
@@ -847,7 +846,7 @@ class MatrixTests: XCTestCase {
             }
         }
         
-        println("Symmetrical performance \n b = \(b)")
+        print("Symmetrical performance \n b = \(b)")
     }
     
     func testIsUpperTriangular() {
@@ -1002,16 +1001,16 @@ class MatrixTests: XCTestCase {
     
     func testElement() {
         
-        var initElements = [[1, 2], [3, 4]]
-        var matrix = Matrix(initElements)
+        let initElements = [[1, 2], [3, 4]]
+        let matrix = Matrix(initElements)
         
         XCTAssertEqual(2, matrix.element(0, 1))
     }
     
     func testSetElementAtRowAtColumn() {
         
-        var initElements = [[1, 2], [3, 4]]
-        var matrix = Matrix(initElements)
+        let initElements = [[1, 2], [3, 4]]
+        let matrix = Matrix(initElements)
         
         matrix.setElement(atRow: 0, atColumn: 1, toElement: 5)
         
@@ -1020,8 +1019,8 @@ class MatrixTests: XCTestCase {
     
     func testSetElementAtIndex() {
         
-        var initElements = [[1, 2], [3, 4]]
-        var matrix = Matrix(initElements)
+        let initElements = [[1, 2], [3, 4]]
+        let matrix = Matrix(initElements)
         
         matrix.setElement(atIndex: (0, 1), toElement: 5)
         
@@ -1031,8 +1030,8 @@ class MatrixTests: XCTestCase {
     func testRow() {
         
         // 2 x 3 matrix
-        var initElements = [[1, 2, 3], [4, 5, 6]]
-        var matrix = Matrix(initElements)
+        let initElements = [[1, 2, 3], [4, 5, 6]]
+        let matrix = Matrix(initElements)
         
         XCTAssertEqual(Vector([4,5,6]), matrix.row(1))
     }
@@ -1040,8 +1039,8 @@ class MatrixTests: XCTestCase {
     func testSetRow() {
         
         // 2 x 3 matrix
-        var initElements = [[1, 2, 3], [4, 5, 6]]
-        var matrix = Matrix(initElements)
+        let initElements = [[1, 2, 3], [4, 5, 6]]
+        let matrix = Matrix(initElements)
         
         matrix.setRow(atIndex: 0, toRow: [7, 8, 9])
         
@@ -1050,8 +1049,8 @@ class MatrixTests: XCTestCase {
     
     func testSwitchRows() {
         
-        var initElements = [[1, 2, 3], [4, 5, 6]]
-        var matrix = Matrix(initElements)
+        let initElements = [[1, 2, 3], [4, 5, 6]]
+        let matrix = Matrix(initElements)
         
         matrix.switchRows(0, 1)
         
@@ -1062,8 +1061,8 @@ class MatrixTests: XCTestCase {
     func testColumn() {
         
         // 2 x 3 matrix
-        var initElements = [[1, 2, 3], [4, 5, 6]]
-        var matrix = Matrix(initElements)
+        let initElements = [[1, 2, 3], [4, 5, 6]]
+        let matrix = Matrix(initElements)
         
         XCTAssertEqual(Vector([2,5]), matrix.column(1))
     }
@@ -1071,8 +1070,8 @@ class MatrixTests: XCTestCase {
     func testSetColumn() {
         
         // 2 x 3 matrix
-        var initElements = [[1, 2, 3], [4, 5, 6]]
-        var matrix = Matrix(initElements)
+        let initElements = [[1, 2, 3], [4, 5, 6]]
+        let matrix = Matrix(initElements)
         
         matrix.setColumn(atIndex: 1, toColumn: [7, 8])
         
@@ -1095,8 +1094,8 @@ class MatrixTests: XCTestCase {
     func testSwitchColumns() {
         
         // 2 x 3 matrix
-        var initElements = [[1, 2, 3], [4, 5, 6]]
-        var matrix = Matrix(initElements)
+        let initElements = [[1, 2, 3], [4, 5, 6]]
+        let matrix = Matrix(initElements)
         
         matrix.switchColumns(1, 2)
         
@@ -1106,7 +1105,7 @@ class MatrixTests: XCTestCase {
     
     func testSubmatrix() {
         
-        var matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+        let matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
         
         XCTAssertEqual(Matrix([[6, 7], [10, 11]]), matrix.submatrix(1...2, 1...2))
         XCTAssertEqual(Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]), matrix.submatrix(0...2, 0...3))
@@ -1115,7 +1114,7 @@ class MatrixTests: XCTestCase {
     
     func testSetSubmatrix() {
         
-        var matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+        let matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
         
         matrix.setSubmatrix(1...2, 2...3, toMatrix: Matrix([[13, 14], [15, 16]]))
         
@@ -1124,7 +1123,7 @@ class MatrixTests: XCTestCase {
     
     func testSubvectorRowRange() {
         
-        var matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+        let matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
         
         XCTAssertEqual(Vector([6, 10]), matrix.subvector(1...2, 1))
         XCTAssertEqual(Vector([4, 8, 12]), matrix.subvector(0...2, 3))
@@ -1132,7 +1131,7 @@ class MatrixTests: XCTestCase {
     
     func testSetSubvectorRowRange() {
         
-        var matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+        let matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
         
         matrix.setSubvector(1...2, 2, toVector: Vector([13, 14]))
         
@@ -1141,7 +1140,7 @@ class MatrixTests: XCTestCase {
     
     func testSubvectorColumnRange() {
         
-        var matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+        let matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
         
         XCTAssertEqual(Vector([6, 7]), matrix.subvector(1, 1...2))
         XCTAssertEqual(Vector([9, 10, 11, 12]), matrix.subvector(2, 0...3))
@@ -1149,7 +1148,7 @@ class MatrixTests: XCTestCase {
     
     func testSetSubvectorColumnRange() {
         
-        var matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+        let matrix = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
         
         matrix.setSubvector(1, 1...2, toVector: Vector([13, 14]))
         
@@ -1205,16 +1204,16 @@ class MatrixTests: XCTestCase {
         
         let start = NSDate()
         
-        for i in 0 ..< 100 {
+        for _ in 0 ..< 100 {
             
-            let (L, U, P) = matrix.LUDecomposition
+            matrix.LUDecomposition
         }
         
         let elapsed = NSDate().timeIntervalSinceDate(start)
         let python = 0.011
         let slower = elapsed/python
         
-        println("Swift time = \(elapsed)\nPython time = \(python)\nSwift is still \(slower) times slower than python...")
+        print("Swift time = \(elapsed)\nPython time = \(python)\nSwift is still \(slower) times slower than python...")
     }
     
     
@@ -1223,18 +1222,18 @@ class MatrixTests: XCTestCase {
     
     func testMatrixEquality() {
         
-        var matrix1 = Matrix([[1,2], [3, 4]])
-        var matrix2 = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-        var matrix3 = Matrix([[1, 2], [3, 5]])
-        var matrix4 = Matrix([[1, 2], [3, 4]])
+        let matrix1 = Matrix([[1,2], [3, 4]])
+        let matrix2 = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        let matrix3 = Matrix([[1, 2], [3, 5]])
+        let matrix4 = Matrix([[1, 2], [3, 4]])
         
         XCTAssertNotEqual(matrix1, matrix2)
         XCTAssertNotEqual(matrix1, matrix3)
         XCTAssertEqual(matrix1, matrix4)
         
         // 2 empty matrices
-        var matrix5 = Matrix<Int>()
-        var matrix6 = Matrix<Int>()
+        let matrix5 = Matrix<Int>()
+        let matrix6 = Matrix<Int>()
         
         XCTAssertEqual(matrix5, matrix6)
     }
@@ -1252,20 +1251,20 @@ class MatrixTests: XCTestCase {
     
     func testMatrixAddition() {
         
-        var left = Matrix([[1, 2], [3, 4]])
-        var right = Matrix([[5, 6], [7, 8]])
+        let left = Matrix([[1, 2], [3, 4]])
+        let right = Matrix([[5, 6], [7, 8]])
         
-        var expected = Matrix([[6, 8], [10, 12]])
+        let expected = Matrix([[6, 8], [10, 12]])
         
         XCTAssertEqual(expected, left + right)
     }
     
     func testMatrixAdditionFloat() {
         
-        var left = Matrix<Float>([[1, 2], [3, 4]])
-        var right = Matrix<Float>([[5, 6], [7, 8]])
+        let left = Matrix<Float>([[1, 2], [3, 4]])
+        let right = Matrix<Float>([[5, 6], [7, 8]])
         
-        var expected = Matrix<Float>([[6, 8], [10, 12]])
+        let expected = Matrix<Float>([[6, 8], [10, 12]])
         
         XCTAssertEqual(expected, left + right)
     }
@@ -1297,20 +1296,17 @@ class MatrixTests: XCTestCase {
     
     func testMatrixNegation() {
         
-        var matrix = Matrix([[1, 2], [3, 4]])
-        
-        var expected = Matrix([[-1, -2], [-3, -4]])
-        var negative = -matrix
-        
+        let matrix = Matrix([[1, 2], [3, 4]])
+        let expected = Matrix([[-1, -2], [-3, -4]])
         XCTAssertEqual(expected, -matrix)
     }
     
     func testMatrixSubstraction() {
         
-        var left = Matrix([[1, 2], [3, 4]])
-        var right = Matrix([[0, 2], [-1, 10]])
+        let left = Matrix([[1, 2], [3, 4]])
+        let right = Matrix([[0, 2], [-1, 10]])
         
-        var expected = Matrix([[1, 0], [4, -6]])
+        let expected = Matrix([[1, 0], [4, -6]])
         
         XCTAssertEqual(expected, left - right)
     }
@@ -1318,7 +1314,7 @@ class MatrixTests: XCTestCase {
     func testMatrixScalarMultiplication() {
         
         var scalar = 3
-        var matrix = Matrix([[1, 2], [3, 4]])
+        let matrix = Matrix([[1, 2], [3, 4]])
         
         var expected = Matrix([[3, 6], [9, 12]])
         
@@ -1335,17 +1331,17 @@ class MatrixTests: XCTestCase {
     
     func testMatrixMultiplication() {
         
-        var left = Matrix([[1, 2, 3], [4, 5, 6]])
-        var right = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        let left = Matrix([[1, 2, 3], [4, 5, 6]])
+        let right = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
         
-        var expected = Matrix([[30, 36, 42], [66, 81, 96]])
+        let expected = Matrix([[30, 36, 42], [66, 81, 96]])
         
         XCTAssertEqual(expected, left * right)
     }
     
     func testMatrixMultiplicationPerformance() {
         
-        let (a, b) = getCoefficients(n0: 3, numberOfIterations: 3){
+        getCoefficients(n0: 3, numberOfIterations: 3){
             
             let left = Matrix<Int>(randomWithSize: $0, intervals: 0 ... 10)
             let right = Matrix<Int>(randomWithSize: $0, intervals: 0 ... 10)
@@ -1422,7 +1418,7 @@ class MatrixTests: XCTestCase {
     
     func testDimensionsSizeInit() {
         
-        var dimensions = Dimensions(size: 3)
+        let dimensions = Dimensions(size: 3)
         
         XCTAssertTrue(dimensions.isSquare)
         XCTAssertEqual(3, dimensions.rows)
@@ -1431,7 +1427,7 @@ class MatrixTests: XCTestCase {
     
     func testDimensionMinimum() {
         
-        var dimensions = Dimensions(1, 3)
+        let dimensions = Dimensions(1, 3)
         
         XCTAssertEqual(1, dimensions.minimum)
     }
@@ -1449,7 +1445,7 @@ class MatrixTests: XCTestCase {
     
     func testDimensionEquality() {
         
-        var firstDimensions = Dimensions(1, 4)
+        let firstDimensions = Dimensions(1, 4)
         var secondDimensions = Dimensions(3, 5)
         
         XCTAssertNotEqual(firstDimensions, secondDimensions)
@@ -1465,7 +1461,7 @@ class MatrixTests: XCTestCase {
     
     func testDimensionTupleEqualityRight() {
         
-        var dimensions = Dimensions(1, 4)
+        let dimensions = Dimensions(1, 4)
         
         XCTAssertFalse(dimensions == (3, 5))
         
@@ -1476,7 +1472,7 @@ class MatrixTests: XCTestCase {
     
     func testDimensionTupleEqualityLeft() {
         
-        var dimensions = Dimensions(1, 4)
+        let dimensions = Dimensions(1, 4)
         
         XCTAssertFalse((3, 5) == dimensions)
         
@@ -1487,27 +1483,27 @@ class MatrixTests: XCTestCase {
     
     func testDimensionAddition() {
         
-        var firstDimensions = Dimensions(1, 4)
-        var secondDimensions = Dimensions(3, 5)
-        var expected = Dimensions(4, 9)
+        let firstDimensions = Dimensions(1, 4)
+        let secondDimensions = Dimensions(3, 5)
+        let expected = Dimensions(4, 9)
         
         XCTAssertEqual(expected, firstDimensions + secondDimensions)
     }
     
     func testDimensionNegation() {
         
-        var dimensions = Dimensions(2, 3)
-        var expected = Dimensions(-2, -3)
+        let dimensions = Dimensions(2, 3)
+        let expected = Dimensions(-2, -3)
         
         XCTAssertEqual(expected, -dimensions)
     }
     
     func testDimensionSubstraction() {
         
-        var firstDimensions = Dimensions(1, 5)
-        var secondDimensions = Dimensions(3, 4)
-        var expected = Dimensions(-2, 1)
-        var result = firstDimensions - secondDimensions
+        let firstDimensions = Dimensions(1, 5)
+        let secondDimensions = Dimensions(3, 4)
+        let expected = Dimensions(-2, 1)
+        let result = firstDimensions - secondDimensions
         
         XCTAssertEqual(expected, result)
     }

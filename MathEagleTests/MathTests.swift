@@ -18,7 +18,7 @@ class MathTests: XCTestCase {
     func testPi() {
         
         // Test to see if maximum accuracy in Double is reached
-        println(PI)
+        print(PI)
     }
     
     

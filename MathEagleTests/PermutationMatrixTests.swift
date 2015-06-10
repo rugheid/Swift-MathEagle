@@ -81,7 +81,7 @@ class PermutationMatrixTests: XCTestCase {
     
     func testDeterminant() {
         
-        var P = PermutationMatrix<Int>(permutation: [1, 0, 3, 2])
+        let P = PermutationMatrix<Int>(permutation: [1, 0, 3, 2])
         XCTAssertEqual(1, P.determinant)
     }
     

@@ -17,7 +17,7 @@ let ACCURACY = 1e-7
 
 // MARK: Time Helper Functions
 
-func getCoefficients(#n0: Int, numberOfIterations k: Int, timeBlock: Int -> Double) -> (Double, Double) {
+func getCoefficients(n0 n0: Int, numberOfIterations k: Int, timeBlock: Int -> Double) -> (Double, Double) {
     
     var prev: Double = 0
     var a: Double = 0, b: Double = 0
@@ -35,7 +35,7 @@ func getCoefficients(#n0: Int, numberOfIterations k: Int, timeBlock: Int -> Doub
             b = log2(ratio)
             a = time / pow(Double(n), b)
             
-            println("a = \(a), b = \(b) ->  \(a) * n ^ \(b)")
+            print("a = \(a), b = \(b) ->  \(a) * n ^ \(b)")
         }
         
         prev = time
@@ -44,52 +44,52 @@ func getCoefficients(#n0: Int, numberOfIterations k: Int, timeBlock: Int -> Doub
     return (a, b)
 }
 
-func timeBlock(n: Int = 1, block: Void -> Any) -> Double {
+func timeBlock(n n: Int = 1, block: Void -> Any) -> Double {
     
-    var start = NSDate()
+    let start = NSDate()
     
     for _ in 1 ... n {
         
         block()
     }
     
-    var end = NSDate()
+    let end = NSDate()
     
     return Double(end.timeIntervalSinceDate(start)) / Double(n)
 }
 
 func compareBaseline(baseline: Double, title: String = "", n: Int = 1, block: Void -> Any) {
     
-    let time = timeBlock(n: n, block)
+    let time = timeBlock(n: n, block: block)
     
-    println()
-    println()
+    print("")
+    print("")
     if !title.isEmpty {
-        println(title)
-        println(String(count: count(title), repeatedValue: Character("-")))
+        print(title)
+        print(String(count: title.characters.count, repeatedValue: Character("-")))
     }
-    println("Baseline:\t\t\t\t\t\(baseline)")
-    println("Time:\t\t\t\t\t\t\(time)")
-    println("Times faster than baseline:\t\(baseline/time)")
-    println()
-    println()
+    print("Baseline:\t\t\t\t\t\(baseline)")
+    print("Time:\t\t\t\t\t\t\(time)")
+    print("Times faster than baseline:\t\(baseline/time)")
+    print("")
+    print("")
 }
 
 func calculateBenchmarkingTimes(base: Int, maxPower k: Int, title: String = "", timeBlock: (Int) -> Double) {
     
-    println()
-    println()
+    print("")
+    print("")
     if !title.isEmpty {
-        println(title)
-        println(String(count: count(title), repeatedValue: Character("-")))
+        print(title)
+        print(String(count: title.characters.count, repeatedValue: Character("-")))
     }
     
     for i in 1 ... k {
         
         let n = Int(base ** Double(i))
-        println(timeBlock(n))
+        print(timeBlock(n))
     }
     
-    println()
-    println()
+    print("")
+    print("")
 }
