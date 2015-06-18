@@ -1,7 +1,7 @@
 # Swift-MathEagle
 MathEagle is named after the golden eagle, since this is the fastest bird in the world (in horizontal flight).
 
-This project is meant to make math easy in swift. The syntax is designed to be as simple as possible. Contributors are always welcome, the more the merrier!
+This project is meant to make math easy in swift withour losing performance. The syntax is designed to be as simple as possible. Contributors are always welcome, the more the merrier!
 
 ## Warning!
 MathEagle is still in its initial development phase so the syntax still changes frequently.
