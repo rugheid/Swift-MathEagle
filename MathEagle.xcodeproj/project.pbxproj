@@ -22,6 +22,11 @@
 		988B441D1B1CB4A40010C5FF /* DiagonalMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988B441C1B1CB4A40010C5FF /* DiagonalMatrixTests.swift */; };
 		988B7CCD1ACAD2F600CDEEF7 /* MatrixVectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988B7CCB1ACAD2F600CDEEF7 /* MatrixVectorTests.swift */; };
 		989729431B18B0550046D951 /* PermutationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989729421B18B0550046D951 /* PermutationTest.swift */; };
+		98B546EF1B33305D00360F0D /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B546EE1B33305D00360F0D /* Random.swift */; };
+		98B546F21B3330EA00360F0D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B546F11B3330EA00360F0D /* Constants.swift */; };
+		98B546F41B33313600360F0D /* BasicOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B546F31B33313600360F0D /* BasicOperations.swift */; };
+		98B546F61B33319E00360F0D /* Powerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B546F51B33319E00360F0D /* Powerable.swift */; };
+		98B546F81B3331E500360F0D /* Conjugatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B546F71B3331E500360F0D /* Conjugatable.swift */; };
 		98B927461B277F70006C4C73 /* SequenceFunctionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B927451B277F70006C4C73 /* SequenceFunctionsTests.swift */; };
 		98E25E411B19DE6D008435B7 /* Random.h in Headers */ = {isa = PBXBuildFile; fileRef = 98E25E3F1B19DE6D008435B7 /* Random.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		98E25E421B19DE6D008435B7 /* Random.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E25E401B19DE6D008435B7 /* Random.m */; };
@@ -83,6 +88,11 @@
 		988B441C1B1CB4A40010C5FF /* DiagonalMatrixTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagonalMatrixTests.swift; sourceTree = "<group>"; };
 		988B7CCB1ACAD2F600CDEEF7 /* MatrixVectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixVectorTests.swift; sourceTree = "<group>"; };
 		989729421B18B0550046D951 /* PermutationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermutationTest.swift; sourceTree = "<group>"; };
+		98B546EE1B33305D00360F0D /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Random.swift; path = Source/Random.swift; sourceTree = "<group>"; };
+		98B546F11B3330EA00360F0D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Source/Constants.swift; sourceTree = "<group>"; };
+		98B546F31B33313600360F0D /* BasicOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicOperations.swift; path = Source/BasicOperations.swift; sourceTree = "<group>"; };
+		98B546F51B33319E00360F0D /* Powerable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Powerable.swift; path = Source/Powerable.swift; sourceTree = "<group>"; };
+		98B546F71B3331E500360F0D /* Conjugatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Conjugatable.swift; path = Source/Conjugatable.swift; sourceTree = "<group>"; };
 		98B927451B277F70006C4C73 /* SequenceFunctionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceFunctionsTests.swift; sourceTree = "<group>"; };
 		98E25E3F1B19DE6D008435B7 /* Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Random.h; path = Source/Random.h; sourceTree = "<group>"; };
 		98E25E401B19DE6D008435B7 /* Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Random.m; path = Source/Random.m; sourceTree = "<group>"; };
@@ -180,6 +190,17 @@
 			name = Matrix;
 			sourceTree = "<group>";
 		};
+		98B546F01B3330CB00360F0D /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				98B546F31B33313600360F0D /* BasicOperations.swift */,
+				98B546F51B33319E00360F0D /* Powerable.swift */,
+				98B546F71B3331E500360F0D /* Conjugatable.swift */,
+				98B546EE1B33305D00360F0D /* Random.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
 		98E25E431B19DE73008435B7 /* Objective-C Bridgers */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,6 +263,8 @@
 			children = (
 				9808C8BD1B13891000D82572 /* Framework Headers */,
 				98F598671A7B8BED0058DF53 /* Math.swift */,
+				98B546F11B3330EA00360F0D /* Constants.swift */,
+				98B546F01B3330CB00360F0D /* Protocols */,
 				98F598681A7B8BED0058DF53 /* Extensions.swift */,
 				9885B2C31B1C47600028FC9A /* Parity.swift */,
 				98E671761AA8F00600C88DCE /* Complex.swift */,
@@ -436,21 +459,26 @@
 				98F5987A1A7B8BED0058DF53 /* Integration.swift in Sources */,
 				98109D1C1B236568002AD5C0 /* Divisors.swift in Sources */,
 				98E25E421B19DE6D008435B7 /* Random.m in Sources */,
+				98B546F41B33313600360F0D /* BasicOperations.swift in Sources */,
 				9808C8C41B149B0100D82572 /* DiagonalMatrix.swift in Sources */,
 				98F5588D1B1B92C4009AECD5 /* ArrayGenerators.swift in Sources */,
 				9885B2C41B1C47600028FC9A /* Parity.swift in Sources */,
 				98F598781A7B8BED0058DF53 /* Optimization.swift in Sources */,
 				98F5987E1A7B8BED0058DF53 /* MatrixVector.swift in Sources */,
+				98B546F61B33319E00360F0D /* Powerable.swift in Sources */,
 				98F598761A7B8BED0058DF53 /* Solver.swift in Sources */,
 				98E671721AA8C02100C88DCE /* Prime.swift in Sources */,
+				98B546F81B3331E500360F0D /* Conjugatable.swift in Sources */,
 				9808C8C71B1502BD00D82572 /* Dimensions.swift in Sources */,
 				98E671771AA8F00600C88DCE /* Complex.swift in Sources */,
 				98F598801A7B8BED0058DF53 /* Vector.swift in Sources */,
 				98F558841B1AFBC2009AECD5 /* Cycle.swift in Sources */,
 				98F598741A7B8BED0058DF53 /* Functions.swift in Sources */,
 				981ED68D1B164B7600B190FA /* Permutation.swift in Sources */,
+				98B546EF1B33305D00360F0D /* Random.swift in Sources */,
 				9837B8511B258ED000E6EE1B /* SequenceFunctions.swift in Sources */,
 				981ED68A1B16496000B190FA /* PermutationMatrix.swift in Sources */,
+				98B546F21B3330EA00360F0D /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
