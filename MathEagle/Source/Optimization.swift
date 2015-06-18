@@ -31,7 +31,7 @@ public class Optimization {
         
         let k = 1
         
-        while k <= k_max && b-a > 2*error {
+        while k <= k_max && b-a > 2*error && NSDate().timeIntervalSinceDate(start) < t_max {
             
             if fu >= fv {
                 
