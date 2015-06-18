@@ -2154,10 +2154,19 @@ public enum MatrixError: ErrorType {
     /**
     Caused by an index being out of bounds.
     
-    - parameter received: The index passed by the user.
-    - parameter allowedRange: The allowed range of indices. The error is thrown when the index
-        does not lie in this range.
-    - parameter description: A description describing what exactly went wrong.
+    - parameter received:       The index passed by the user.
+    - parameter allowedRange:   The allowed range of indices. The error is thrown when the index
+                                does not lie in this range.
+    - parameter description:    A description describing what exactly went wrong.
     */
     case IndexOutOfBounds(received: Int, allowedRange: Range<Int>, description: String?)
+    
+    /**
+    Caused by providing a wrong number of elements.
+    
+    - parameter received:       The number passed by the user.
+    - parameter expected:       The expected number.
+    - parameter description:    A description describing what exactly went wrong.
+    */
+    case WrongNumberOfElements(received: Int, expected: Int, description: String?)
 }
