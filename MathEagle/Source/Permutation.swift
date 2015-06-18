@@ -158,10 +158,6 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
         case .WordRepresentation:
             
             return self.wordRepresentation
-            
-        default:
-            
-            return self.wordRepresentation
         }
     }
     
