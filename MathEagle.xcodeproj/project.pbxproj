@@ -22,6 +22,7 @@
 		988B441D1B1CB4A40010C5FF /* DiagonalMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988B441C1B1CB4A40010C5FF /* DiagonalMatrixTests.swift */; };
 		988B7CCD1ACAD2F600CDEEF7 /* MatrixVectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988B7CCB1ACAD2F600CDEEF7 /* MatrixVectorTests.swift */; };
 		989729431B18B0550046D951 /* PermutationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989729421B18B0550046D951 /* PermutationTest.swift */; };
+		98B546EF1B33305D00360F0D /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B546EE1B33305D00360F0D /* Random.swift */; };
 		98B927461B277F70006C4C73 /* SequenceFunctionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B927451B277F70006C4C73 /* SequenceFunctionsTests.swift */; };
 		98E25E411B19DE6D008435B7 /* Random.h in Headers */ = {isa = PBXBuildFile; fileRef = 98E25E3F1B19DE6D008435B7 /* Random.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		98E25E421B19DE6D008435B7 /* Random.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E25E401B19DE6D008435B7 /* Random.m */; };
@@ -83,6 +84,7 @@
 		988B441C1B1CB4A40010C5FF /* DiagonalMatrixTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagonalMatrixTests.swift; sourceTree = "<group>"; };
 		988B7CCB1ACAD2F600CDEEF7 /* MatrixVectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixVectorTests.swift; sourceTree = "<group>"; };
 		989729421B18B0550046D951 /* PermutationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermutationTest.swift; sourceTree = "<group>"; };
+		98B546EE1B33305D00360F0D /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Random.swift; path = Source/Random.swift; sourceTree = "<group>"; };
 		98B927451B277F70006C4C73 /* SequenceFunctionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceFunctionsTests.swift; sourceTree = "<group>"; };
 		98E25E3F1B19DE6D008435B7 /* Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Random.h; path = Source/Random.h; sourceTree = "<group>"; };
 		98E25E401B19DE6D008435B7 /* Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Random.m; path = Source/Random.m; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 			children = (
 				9808C8BD1B13891000D82572 /* Framework Headers */,
 				98F598671A7B8BED0058DF53 /* Math.swift */,
+				98B546EE1B33305D00360F0D /* Random.swift */,
 				98F598681A7B8BED0058DF53 /* Extensions.swift */,
 				9885B2C31B1C47600028FC9A /* Parity.swift */,
 				98E671761AA8F00600C88DCE /* Complex.swift */,
@@ -449,6 +452,7 @@
 				98F558841B1AFBC2009AECD5 /* Cycle.swift in Sources */,
 				98F598741A7B8BED0058DF53 /* Functions.swift in Sources */,
 				981ED68D1B164B7600B190FA /* Permutation.swift in Sources */,
+				98B546EF1B33305D00360F0D /* Random.swift in Sources */,
 				9837B8511B258ED000E6EE1B /* SequenceFunctions.swift in Sources */,
 				981ED68A1B16496000B190FA /* PermutationMatrix.swift in Sources */,
 			);
