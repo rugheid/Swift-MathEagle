@@ -14,6 +14,5 @@ FOUNDATION_EXPORT double MathEagleVersionNumber;
 //! Project version string for MathEagle.
 FOUNDATION_EXPORT const unsigned char MathEagleVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <MathEagle/PublicHeader.h>
-
-
+#import <MathEagle/Matrix.h>
+#import <MathEagle/Random.h>
