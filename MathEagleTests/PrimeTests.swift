@@ -42,7 +42,7 @@ class PrimeTests: XCTestCase {
         
         XCTAssertEqual([2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47], primesUpTo(50))
         XCTAssertEqual([], primesUpTo(-10))
-//        XCTAssertEqual([2.0, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47], primesUpTo(50.0))
+        XCTAssertEqual([2.0, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47], primesUpTo(50.0))
     }
     
     

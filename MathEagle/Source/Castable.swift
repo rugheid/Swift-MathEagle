@@ -20,7 +20,57 @@ extension Int: IntCastable {
         return self
     }
 }
+extension Int8: IntCastable {
+    public var asInt: Int {
+        return Int(self)
+    }
+}
+extension Int16: IntCastable {
+    public var asInt: Int {
+        return Int(self)
+    }
+}
+extension Int32: IntCastable {
+    public var asInt: Int {
+        return Int(self)
+    }
+}
+extension Int64: IntCastable {
+    public var asInt: Int {
+        return Int(self)
+    }
+}
 extension UInt: IntCastable {
+    public var asInt: Int {
+        return Int(self)
+    }
+}
+extension UInt8: IntCastable {
+    public var asInt: Int {
+        return Int(self)
+    }
+}
+extension UInt16: IntCastable {
+    public var asInt: Int {
+        return Int(self)
+    }
+}
+extension UInt32: IntCastable {
+    public var asInt: Int {
+        return Int(self)
+    }
+}
+extension UInt64: IntCastable {
+    public var asInt: Int {
+        return Int(self)
+    }
+}
+extension Float: IntCastable {
+    public var asInt: Int {
+        return Int(self)
+    }
+}
+extension Double: IntCastable {
     public var asInt: Int {
         return Int(self)
     }
