@@ -35,7 +35,6 @@ public func isPrime <X: protocol<Equatable, Comparable, Addable, Modulable, Real
 }
 
 
-
 /**
     Returns true if the given unsigned integers are coprimes. This means they have no common prime factors.
 
@@ -57,32 +56,69 @@ public func areCoprime <X: protocol<Equatable, Comparable, Negatable, Modulable,
 
     - returns: All primes up to (and including) the given integer.
 */
-public func primesUpTo(n: UInt) -> [UInt] {
+//public func primesUpTo(n: UInt) -> [UInt] {
+//    
+//    if n <= 1 { return [] }
+//    
+//    var sieve = [Bool](count: Int(n - 1), repeatedValue: true)
+//    
+//    for i: UInt in 2 ... UInt(sqrt(Double(n))) {
+//        
+//        if sieve[Int(i)-2] {
+//            
+//            var j = i*i
+//            
+//            while j <= n {
+//                
+//                sieve[Int(j)-2] = false
+//                
+//                j += i
+//            }
+//        }
+//    }
+//    
+//    var primes = [UInt]()
+//    
+//    for i in 0 ..< n-1 {
+//        
+//        if sieve[Int(i)] { primes.append(i+2) }
+//    }
+//    
+//    return primes
+//}
+
+public func primesUpTo <X: protocol<Comparable, Addable, Substractable, Multiplicable, RealPowerable, IntegerLiteralConvertible, IntCastable>> (x: X) -> [X] {
     
-    if n <= 1 { return [] }
+    if x <= 1 { return [] }
     
-    var sieve = [Bool](count: Int(n - 1), repeatedValue: true)
+    var sieve = [Bool](count: (x - 1).asInt, repeatedValue: true)
     
-    for i: UInt in 2 ... UInt(sqrt(Double(n))) {
+    var i: X = 2
+    while i <= X(root(x, order: 2)) {
         
-        if sieve[Int(i)-2] {
+        if sieve[i.asInt - 2] {
             
             var j = i*i
             
-            while j <= n {
+            while j <= x {
                 
-                sieve[Int(j)-2] = false
+                sieve[j.asInt - 2] = false
                 
-                j += i
+                j = j + i
             }
         }
+        
+        i = i + 1
     }
     
-    var primes = [UInt]()
+    var primes = [X]()
     
-    for i in 0 ..< n-1 {
+    i = 0
+    while i < (x - 1) {
         
-        if sieve[Int(i)] { primes.append(i+2) }
+        if sieve[i.asInt] { primes.append(i + 2) }
+        
+        i = i + 1
     }
     
     return primes

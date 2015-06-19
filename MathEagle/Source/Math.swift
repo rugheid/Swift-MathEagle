@@ -10,7 +10,6 @@ import Foundation
 
 
 
-
 // MARK: BasicMathValue Protocol
 
 public protocol BasicMathValue: Equatable, Comparable, Addable, Substractable, Multiplicable, Dividable, SetCompliant, IntegerLiteralConvertible {}

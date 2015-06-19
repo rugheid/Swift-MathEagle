@@ -13,6 +13,7 @@
 		98109D1E1B23818E002AD5C0 /* DivisorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98109D1D1B23818E002AD5C0 /* DivisorsTests.swift */; };
 		981ED68A1B16496000B190FA /* PermutationMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981ED6891B16496000B190FA /* PermutationMatrix.swift */; };
 		981ED68D1B164B7600B190FA /* Permutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981ED68C1B164B7600B190FA /* Permutation.swift */; };
+		982E014D1B3403750009E6C7 /* Castable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982E014C1B3403750009E6C7 /* Castable.swift */; };
 		983106261AFB628C0074FBC8 /* Numpy Times in Resources */ = {isa = PBXBuildFile; fileRef = 983106251AFB628C0074FBC8 /* Numpy Times */; };
 		983106281AFB62AE0074FBC8 /* Benchmarking Files in Resources */ = {isa = PBXBuildFile; fileRef = 983106271AFB62AE0074FBC8 /* Benchmarking Files */; };
 		9837B8511B258ED000E6EE1B /* SequenceFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9837B8501B258ED000E6EE1B /* SequenceFunctions.swift */; };
@@ -79,6 +80,7 @@
 		98109D1D1B23818E002AD5C0 /* DivisorsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DivisorsTests.swift; sourceTree = "<group>"; };
 		981ED6891B16496000B190FA /* PermutationMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PermutationMatrix.swift; path = "Source/Linear Algebra/PermutationMatrix.swift"; sourceTree = "<group>"; };
 		981ED68C1B164B7600B190FA /* Permutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Permutation.swift; path = Source/Permutation.swift; sourceTree = "<group>"; };
+		982E014C1B3403750009E6C7 /* Castable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Castable.swift; path = Source/Castable.swift; sourceTree = "<group>"; };
 		983106251AFB628C0074FBC8 /* Numpy Times */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Numpy Times"; sourceTree = "<group>"; };
 		983106271AFB62AE0074FBC8 /* Benchmarking Files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Benchmarking Files"; sourceTree = "<group>"; };
 		9837B8501B258ED000E6EE1B /* SequenceFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceFunctions.swift; path = Source/SequenceFunctions.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				98B546F51B33319E00360F0D /* Powerable.swift */,
 				98B546F71B3331E500360F0D /* Conjugatable.swift */,
 				98B546EE1B33305D00360F0D /* Random.swift */,
+				982E014C1B3403750009E6C7 /* Castable.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				98B546F61B33319E00360F0D /* Powerable.swift in Sources */,
 				98F598761A7B8BED0058DF53 /* Solver.swift in Sources */,
 				98E671721AA8C02100C88DCE /* Prime.swift in Sources */,
+				982E014D1B3403750009E6C7 /* Castable.swift in Sources */,
 				98B546F81B3331E500360F0D /* Conjugatable.swift in Sources */,
 				9808C8C71B1502BD00D82572 /* Dimensions.swift in Sources */,
 				98E671771AA8F00600C88DCE /* Complex.swift in Sources */,
