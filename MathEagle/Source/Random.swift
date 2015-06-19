@@ -22,6 +22,145 @@ public protocol Randomizable {
 
 // MARK: Implementations
 
+extension Int: Randomizable {
+    
+    public static func random() -> Int {
+        
+        return Int(bitPattern: UInt.random())
+    }
+    
+    public static func randomInInterval(intervals: ClosedInterval<Int>...) -> Int {
+        
+        let interval = intervals[0]
+        let length = interval.end - interval.start
+        return Int(UInt.randomInInterval(ClosedInterval<UInt>(0, UInt(length))))
+    }
+    
+    public static func randomInInterval(intervals: [ClosedInterval<Int>]) -> Int {
+        
+        let interval = intervals[0]
+        let length = interval.end - interval.start
+        return interval.start + Int(UInt.randomInInterval(ClosedInterval<UInt>(0, UInt(length))))
+    }
+    
+    public static func randomArrayOfLength(length: Int) -> [Int] {
+        
+        var array = [Int](count: length, repeatedValue: 0)
+        
+        Random_OBJC.randomIntArrayOfLength(length, inArray: &array)
+        
+        return array
+    }
+}
+
+extension Int8: Randomizable {
+    
+    public static func random() -> Int8 {
+        
+        return Int8(Int.randomInInterval(ClosedInterval(0, Int(Int8.max))))
+    }
+    
+    public static func randomInInterval(intervals: ClosedInterval<Int8>...) -> Int8 {
+        
+        return randomInInterval(intervals)
+    }
+    
+    public static func randomInInterval(intervals: [ClosedInterval<Int8>]) -> Int8 {
+        
+        return Int8(Int.randomInInterval(intervals.map{ ClosedInterval(Int($0.start), Int($0.end)) }))
+    }
+    
+    public static func randomArrayOfLength(length: Int) -> [Int8] {
+        
+        var array = [Int8](count: length, repeatedValue: 0)
+        
+        Random_OBJC.randomInt8ArrayOfLength(length, inArray: &array)
+        
+        return array
+    }
+}
+
+extension Int16: Randomizable {
+    
+    public static func random() -> Int16 {
+        
+        return Int16(Int.randomInInterval(ClosedInterval(0, Int(Int16.max))))
+    }
+    
+    public static func randomInInterval(intervals: ClosedInterval<Int16>...) -> Int16 {
+        
+        return randomInInterval(intervals)
+    }
+    
+    public static func randomInInterval(intervals: [ClosedInterval<Int16>]) -> Int16 {
+        
+        return Int16(Int.randomInInterval(intervals.map{ ClosedInterval(Int($0.start), Int($0.end)) }))
+    }
+    
+    public static func randomArrayOfLength(length: Int) -> [Int16] {
+        
+        var array = [Int16](count: length, repeatedValue: 0)
+        
+        Random_OBJC.randomInt16ArrayOfLength(length, inArray: &array)
+        
+        return array
+    }
+}
+
+extension Int32: Randomizable {
+    
+    public static func random() -> Int32 {
+        
+        return Int32(Int.randomInInterval(ClosedInterval(0, Int(Int32.max))))
+    }
+    
+    public static func randomInInterval(intervals: ClosedInterval<Int32>...) -> Int32 {
+        
+        return randomInInterval(intervals)
+    }
+    
+    public static func randomInInterval(intervals: [ClosedInterval<Int32>]) -> Int32 {
+        
+        return Int32(Int.randomInInterval(intervals.map{ ClosedInterval(Int($0.start), Int($0.end)) }))
+    }
+    
+    public static func randomArrayOfLength(length: Int) -> [Int32] {
+        
+        var array = [Int32](count: length, repeatedValue: 0)
+        
+        Random_OBJC.randomInt32ArrayOfLength(length, inArray: &array)
+        
+        return array
+    }
+}
+
+extension Int64: Randomizable {
+    
+    public static func random() -> Int64 {
+        
+        return Int64(Int.random())
+    }
+    
+    public static func randomInInterval(intervals: ClosedInterval<Int64>...) -> Int64 {
+        
+        return randomInInterval(intervals)
+    }
+    
+    public static func randomInInterval(intervals: [ClosedInterval<Int64>]) -> Int64 {
+        
+        return Int64(Int.randomInInterval(intervals.map{ ClosedInterval(Int($0.start), Int($0.end)) }))
+    }
+    
+    public static func randomArrayOfLength(length: Int) -> [Int64] {
+        
+        var array = [Int64](count: length, repeatedValue: 0)
+        
+        Random_OBJC.randomInt64ArrayOfLength(length, inArray: &array)
+        
+        return array
+    }
+}
+
 extension UInt: Randomizable {
     
     public static func random() -> UInt {
@@ -167,145 +306,6 @@ extension UInt64: Randomizable {
         var array = [UInt64](count: length, repeatedValue: 0)
         
         Random_OBJC.randomUInt64ArrayOfLength(length, inArray: &array)
-        
-        return array
-    }
-}
-
-extension Int: Randomizable {
-    
-    public static func random() -> Int {
-        
-        return Int(bitPattern: UInt.random())
-    }
-    
-    public static func randomInInterval(intervals: ClosedInterval<Int>...) -> Int {
-        
-        let interval = intervals[0]
-        let length = interval.end - interval.start
-        return Int(UInt.randomInInterval(ClosedInterval<UInt>(0, UInt(length))))
-    }
-    
-    public static func randomInInterval(intervals: [ClosedInterval<Int>]) -> Int {
-        
-        let interval = intervals[0]
-        let length = interval.end - interval.start
-        return interval.start + Int(UInt.randomInInterval(ClosedInterval<UInt>(0, UInt(length))))
-    }
-    
-    public static func randomArrayOfLength(length: Int) -> [Int] {
-        
-        var array = [Int](count: length, repeatedValue: 0)
-        
-        Random_OBJC.randomIntArrayOfLength(length, inArray: &array)
-        
-        return array
-    }
-}
-
-extension Int8: Randomizable {
-    
-    public static func random() -> Int8 {
-        
-        return Int8(Int.randomInInterval(ClosedInterval(0, Int(Int8.max))))
-    }
-    
-    public static func randomInInterval(intervals: ClosedInterval<Int8>...) -> Int8 {
-        
-        return randomInInterval(intervals)
-    }
-    
-    public static func randomInInterval(intervals: [ClosedInterval<Int8>]) -> Int8 {
-        
-        return Int8(Int.randomInInterval(intervals.map{ ClosedInterval(Int($0.start), Int($0.end)) }))
-    }
-    
-    public static func randomArrayOfLength(length: Int) -> [Int8] {
-        
-        var array = [Int8](count: length, repeatedValue: 0)
-        
-        Random_OBJC.randomInt8ArrayOfLength(length, inArray: &array)
-        
-        return array
-    }
-}
-
-extension Int16: Randomizable {
-    
-    public static func random() -> Int16 {
-        
-        return Int16(Int.randomInInterval(ClosedInterval(0, Int(Int16.max))))
-    }
-    
-    public static func randomInInterval(intervals: ClosedInterval<Int16>...) -> Int16 {
-        
-        return randomInInterval(intervals)
-    }
-    
-    public static func randomInInterval(intervals: [ClosedInterval<Int16>]) -> Int16 {
-        
-        return Int16(Int.randomInInterval(intervals.map{ ClosedInterval(Int($0.start), Int($0.end)) }))
-    }
-    
-    public static func randomArrayOfLength(length: Int) -> [Int16] {
-        
-        var array = [Int16](count: length, repeatedValue: 0)
-        
-        Random_OBJC.randomInt16ArrayOfLength(length, inArray: &array)
-        
-        return array
-    }
-}
-
-extension Int32: Randomizable {
-    
-    public static func random() -> Int32 {
-        
-        return Int32(Int.randomInInterval(ClosedInterval(0, Int(Int32.max))))
-    }
-    
-    public static func randomInInterval(intervals: ClosedInterval<Int32>...) -> Int32 {
-        
-        return randomInInterval(intervals)
-    }
-    
-    public static func randomInInterval(intervals: [ClosedInterval<Int32>]) -> Int32 {
-        
-        return Int32(Int.randomInInterval(intervals.map{ ClosedInterval(Int($0.start), Int($0.end)) }))
-    }
-    
-    public static func randomArrayOfLength(length: Int) -> [Int32] {
-        
-        var array = [Int32](count: length, repeatedValue: 0)
-        
-        Random_OBJC.randomInt32ArrayOfLength(length, inArray: &array)
-        
-        return array
-    }
-}
-
-extension Int64: Randomizable {
-    
-    public static func random() -> Int64 {
-        
-        return Int64(Int.random())
-    }
-    
-    public static func randomInInterval(intervals: ClosedInterval<Int64>...) -> Int64 {
-        
-        return randomInInterval(intervals)
-    }
-    
-    public static func randomInInterval(intervals: [ClosedInterval<Int64>]) -> Int64 {
-        
-        return Int64(Int.randomInInterval(intervals.map{ ClosedInterval(Int($0.start), Int($0.end)) }))
-    }
-    
-    public static func randomArrayOfLength(length: Int) -> [Int64] {
-        
-        var array = [Int64](count: length, repeatedValue: 0)
-        
-        Random_OBJC.randomInt64ArrayOfLength(length, inArray: &array)
         
         return array
     }
