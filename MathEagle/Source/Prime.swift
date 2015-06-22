@@ -56,37 +56,6 @@ public func areCoprime <X: protocol<Equatable, Comparable, Negatable, Modulable,
 
     - returns: All primes up to (and including) the given integer.
 */
-//public func primesUpTo(n: UInt) -> [UInt] {
-//    
-//    if n <= 1 { return [] }
-//    
-//    var sieve = [Bool](count: Int(n - 1), repeatedValue: true)
-//    
-//    for i: UInt in 2 ... UInt(sqrt(Double(n))) {
-//        
-//        if sieve[Int(i)-2] {
-//            
-//            var j = i*i
-//            
-//            while j <= n {
-//                
-//                sieve[Int(j)-2] = false
-//                
-//                j += i
-//            }
-//        }
-//    }
-//    
-//    var primes = [UInt]()
-//    
-//    for i in 0 ..< n-1 {
-//        
-//        if sieve[Int(i)] { primes.append(i+2) }
-//    }
-//    
-//    return primes
-//}
-
 public func primesUpTo <X: protocol<Comparable, Addable, Substractable, Multiplicable, RealPowerable, IntegerLiteralConvertible, IntCastable>> (x: X) -> [X] {
     
     if x <= 1 { return [] }
