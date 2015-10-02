@@ -89,6 +89,11 @@ public func + (left: Parity, right: Parity) -> Parity {
     return left == right ? .Even : .Odd
 }
 
+public func += (inout left: Parity, right: Parity) {
+    
+    left = left + right
+}
+
 
 
 // MARK: Substractable

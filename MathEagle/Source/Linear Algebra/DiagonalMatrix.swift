@@ -544,12 +544,12 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         
         if row < 0 || row >= self.dimensions.rows {
             
-            NSException(name: "Row index out of bounds", reason: "The row index at which the element should be set is out of bounds.", userInfo: nil)
+            NSException(name: "Row index out of bounds", reason: "The row index at which the element should be set is out of bounds.", userInfo: nil).raise()
         }
         
         if column < 0 || column >= self.dimensions.columns {
             
-            NSException(name: "Column index out of bounds", reason: "The column index at which the element should be set is out of bounds.", userInfo: nil)
+            NSException(name: "Column index out of bounds", reason: "The column index at which the element should be set is out of bounds.", userInfo: nil).raise()
         }
         
         if row != column {

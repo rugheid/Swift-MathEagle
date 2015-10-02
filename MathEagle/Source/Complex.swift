@@ -164,6 +164,8 @@ public struct Complex: Equatable, Comparable, Addable, Negatable, Substractable,
     
     // MARK: Randomizable Conformance
     
+    public typealias RandomIntervalType = Double
+    
     /**
         Returns a random complex number.
     */
@@ -286,7 +288,7 @@ public func + (left: Complex, right: Double) -> Complex {
 }
 
 
-public func += (inout left: Complex, right: Complex) -> Complex {
+public func += (inout left: Complex, right: Complex) {
     
     left.real += right.real
     left.imaginary += right.imaginary

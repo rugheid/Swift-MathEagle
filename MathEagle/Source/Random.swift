@@ -24,6 +24,8 @@ public protocol Randomizable {
 
 extension Int: Randomizable {
     
+    public typealias RandomIntervalType = Int
+    
     public static func random() -> Int {
         
         return Int(bitPattern: UInt.random())
@@ -55,6 +57,8 @@ extension Int: Randomizable {
 
 extension Int8: Randomizable {
     
+    public typealias RandomIntervalType = Int8
+    
     public static func random() -> Int8 {
         
         return Int8(Int.randomInInterval(ClosedInterval(0, Int(Int8.max))))
@@ -81,6 +85,8 @@ extension Int8: Randomizable {
 }
 
 extension Int16: Randomizable {
+    
+    public typealias RandomIntervalType = Int16
     
     public static func random() -> Int16 {
         
@@ -109,6 +115,8 @@ extension Int16: Randomizable {
 
 extension Int32: Randomizable {
     
+    public typealias RandomIntervalType = Int32
+    
     public static func random() -> Int32 {
         
         return Int32(Int.randomInInterval(ClosedInterval(0, Int(Int32.max))))
@@ -136,6 +144,8 @@ extension Int32: Randomizable {
 
 extension Int64: Randomizable {
     
+    public typealias RandomIntervalType = Int64
+    
     public static func random() -> Int64 {
         
         return Int64(Int.random())
@@ -162,6 +172,8 @@ extension Int64: Randomizable {
 }
 
 extension UInt: Randomizable {
+    
+    public typealias RandomIntervalType = UInt
     
     public static func random() -> UInt {
         
@@ -200,6 +212,8 @@ extension UInt: Randomizable {
 
 extension UInt8: Randomizable {
     
+    public typealias RandomIntervalType = UInt8
+    
     public static func random() -> UInt8 {
         
         return UInt8(arc4random_uniform(UInt32(UInt8.max)+1))
@@ -230,6 +244,8 @@ extension UInt8: Randomizable {
 
 extension UInt16: Randomizable {
     
+    public typealias RandomIntervalType = UInt16
+    
     public static func random() -> UInt16 {
         
         return UInt16(arc4random_uniform(UInt32(UInt16.max)+1))
@@ -256,6 +272,8 @@ extension UInt16: Randomizable {
 }
 
 extension UInt32: Randomizable {
+    
+    public typealias RandomIntervalType = UInt32
     
     public static func random() -> UInt32 {
         
@@ -286,6 +304,8 @@ extension UInt32: Randomizable {
 
 extension UInt64: Randomizable {
     
+    public typealias RandomIntervalType = UInt64
+    
     public static func random() -> UInt64 {
         
         return UInt64(UInt.random())
@@ -312,6 +332,8 @@ extension UInt64: Randomizable {
 }
 
 extension Float: Randomizable {
+    
+    public typealias RandomIntervalType = Float
     
     public static func random() -> Float {
         
@@ -343,6 +365,8 @@ extension Float: Randomizable {
 }
 
 extension Double: Randomizable {
+    
+    public typealias RandomIntervalType = Double
     
     public static func random() -> Double {
         

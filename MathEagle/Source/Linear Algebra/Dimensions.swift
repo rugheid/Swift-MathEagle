@@ -140,6 +140,11 @@ public func + (left: Dimensions, right: Dimensions) -> Dimensions {
     return Dimensions(left[0] + right[0], left[1] + right[1])
 }
 
+public func += (inout left: Dimensions, right: Dimensions) {
+    
+    left = left + right
+}
+
 // MARK: Dimensions Negation
 public prefix func - (dimensions: Dimensions) -> Dimensions {
     

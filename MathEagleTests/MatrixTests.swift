@@ -80,7 +80,7 @@ class MatrixTests: XCTestCase {
         
         self.measureBlock(){
             
-            Matrix(symmetrical: diagonalElements)
+            _ = Matrix(symmetrical: diagonalElements)
         }
     }
     
@@ -103,7 +103,7 @@ class MatrixTests: XCTestCase {
         
         self.measureBlock(){
             
-            Matrix(filledWith: 4, size: 10000)
+            _ = Matrix(filledWith: 4, size: 10000)
         }
     }
     
@@ -140,7 +140,7 @@ class MatrixTests: XCTestCase {
         
         self.measureBlock(){
             
-            Matrix<Int>(identityOfSize: 1000)
+            _ = Matrix<Int>(identityOfSize: 1000)
         }
     }
     

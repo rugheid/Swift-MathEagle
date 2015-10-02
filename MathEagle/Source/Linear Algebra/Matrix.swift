@@ -56,7 +56,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
             } else if newDimensions.columns > self.dimensions.columns {
                 
                 for r in 0 ..< min(newDimensions.rows, self.dimensions.rows) {
-                    self.elementsStructure.splice([T](count: newDimensions.columns - self.dimensions.columns, repeatedValue: 0), atIndex: r * newDimensions.columns + self.dimensions.columns)
+                    self.elementsStructure.insertContentsOf([T](count: newDimensions.columns - self.dimensions.columns, repeatedValue: 0), at: r * newDimensions.columns + self.dimensions.columns)
                 }
             }
             
@@ -66,7 +66,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
                 
             } else if newDimensions.rows > self.dimensions.rows {
                 
-                self.elementsStructure.extend([T](count: (newDimensions.rows - self.dimensions.rows) * newDimensions.columns, repeatedValue: 0))
+                self.elementsStructure.appendContentsOf([T](count: (newDimensions.rows - self.dimensions.rows) * newDimensions.columns, repeatedValue: 0))
             }
             
             self.innerDimensions = newDimensions
@@ -125,7 +125,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
             elementsList = []
             
             for row in newElements {
-                elementsList.extend(row)
+                elementsList.appendContentsOf(row)
             }
             
             if newElements.count == 0 || newElements[0].count == 0 {
@@ -1229,12 +1229,12 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         
         if row < 0 || row >= self.dimensions.rows {
             
-            NSException(name: "Row index out of bounds", reason: "The row index at which the element should be set is out of bounds.", userInfo: nil)
+            NSException(name: "Row index out of bounds", reason: "The row index at which the element should be set is out of bounds.", userInfo: nil).raise()
         }
         
         if column < 0 || column >= self.dimensions.columns {
             
-            NSException(name: "Column index out of bounds", reason: "The column index at which the element should be set is out of bounds.", userInfo: nil)
+            NSException(name: "Column index out of bounds", reason: "The column index at which the element should be set is out of bounds.", userInfo: nil).raise()
         }
         
         self.elementsList[row * self.dimensions.columns + column] = element

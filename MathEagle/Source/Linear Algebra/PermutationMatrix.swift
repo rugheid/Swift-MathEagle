@@ -68,7 +68,7 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
         
         get {
             
-            let i = self.size
+            let i = self.size!
             
             var elementsList = [T](count: i * i, repeatedValue: 0)
             for r in 0 ..< i {
@@ -90,7 +90,8 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     
         - returns: The size of the matrix if the matrix is square or nil otherwise.
     */
-    override public var size: Int! {
+    override public var size: Int? {
+        //TODO: This used to be of type Int! but this gave errors since swift 2.0
         return self.permutation.length
     }
     
@@ -102,7 +103,7 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     */
     override public var rank: Int {
         
-        return self.size
+        return self.size!
     }
     
     
@@ -127,7 +128,7 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
         
         get {
             
-            var returnElements = [T](count: self.size, repeatedValue: 0)
+            var returnElements = [T](count: self.size!, repeatedValue: 0)
             
             for index in self.permutation.fixedPoints {
                 returnElements[index] = 1
@@ -196,7 +197,7 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
             NSException(name: "Row index out of bounds", reason: "The requested row's index is out of bounds.", userInfo: nil).raise()
         }
         
-        var elementsList = [T](count: self.size, repeatedValue: 0)
+        var elementsList = [T](count: self.size!, repeatedValue: 0)
         
         elementsList[index] = 1
         
@@ -245,7 +246,7 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
             NSException(name: "Column index out of bounds", reason: "The requested column's index is out of bounds.", userInfo: nil).raise()
         }
         
-        var column = [T](count: self.size, repeatedValue: 0)
+        var column = [T](count: self.size!, repeatedValue: 0)
         
         column[self.permutation.indexOfElement(index)] = 1
         

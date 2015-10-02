@@ -26,7 +26,7 @@ class ComplexTests: XCTestCase {
         let y = -5.0 + 2.8*i
         let z = 1.0 + 2.0*i
         
-        print("\n\n\n", appendNewline: false)
+        print("\n\n\n", terminator: "")
         
         print("x = \(x)")
         print("y = \(y)")
@@ -36,7 +36,7 @@ class ComplexTests: XCTestCase {
         print("e^z = \(exp(z))")
         print("sqrt(z) = \(sqrt(z))")
         
-        print("\n\n\n", appendNewline: false)
+        print("\n\n\n", terminator: "")
     }
 
     
