@@ -286,6 +286,13 @@ public func + (left: Complex, right: Double) -> Complex {
 }
 
 
+public func += (inout left: Complex, right: Complex) -> Complex {
+    
+    left.real += right.real
+    left.imaginary += right.imaginary
+}
+
+
 
 // MARK: Negatable Protocol Conformance
 

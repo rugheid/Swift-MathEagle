@@ -137,10 +137,12 @@ class ComplexTests: XCTestCase {
     
     func testAddition() {
         
-        let z = Complex(1, 2)
+        var z = Complex(1, 2)
         let x = Complex(-1, 3.4)
         
         XCTAssertEqual(Complex(0, 5.4), z + x)
+        
+        z += x
     }
     
     

@@ -14,6 +14,7 @@ import Foundation
 public protocol Addable {
     
     func + (left: Self, right: Self) -> Self
+    func += (inout left:  Self, right: Self)
 }
 
 
