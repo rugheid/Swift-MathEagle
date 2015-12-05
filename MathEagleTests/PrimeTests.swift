@@ -25,6 +25,7 @@ class PrimeTests: XCTestCase {
         XCTAssertFalse(isPrime(-7))
         XCTAssertFalse(isPrime(8))
         XCTAssertFalse(isPrime(99999))
+        XCTAssertFalse(isPrime(123456789))
     }
     
     
