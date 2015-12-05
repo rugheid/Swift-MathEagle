@@ -71,12 +71,4 @@ class FunctionsTests: XCTestCase {
         print("")
     }
     
-    
-    func testDigits() {
-        
-        XCTAssertEqual(digits(124387), [1, 2, 4, 3, 8, 7])
-        XCTAssertEqual(digits(-234), [2, 3, 4])
-        XCTAssertEqual(digits(0), [0])
-    }
-    
 }
