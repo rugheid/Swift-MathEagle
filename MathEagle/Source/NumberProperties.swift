@@ -20,7 +20,48 @@ public func digits(number: Int) -> [Int] {
 
 
 /**
-Returns whether the given number is pandigital. This means all it's digits are distinct and
+ Returns the number of digits of the given number.
+ 
+ - parameter number: The number to get the number of digits of.
+*/
+public func numberOfDigits(var number: Int) -> Int {
+    
+    number = abs(number)
+    
+    var n = 1
+    
+    while number > 10 {
+        
+        if number > 100_000_000 {
+            n += 8
+            number /= 100_000_000
+        }
+        if number > 10_000 {
+            n += 4
+            number /= 10_000
+        }
+        if number > 100 {
+            n += 2
+            number /= 100
+        }
+        if number > 10 {
+            n += 1
+            number /= 10
+        }
+    }
+    
+    return n
+}
+
+
+/**
+Returns whether the given number is pandigital.
+ 
+ - parameter number: The number to check.
+ - parameter includeZero: Whether or not zero should be included.
+ 
+ - examples: 12345678 is a pandigital number without zero.
+ 10234568 is a pandigtal number with zero.
 */
 public func isPandigital(number: Int, includeZero: Bool = false) -> Bool {
     
