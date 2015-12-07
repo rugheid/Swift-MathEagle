@@ -94,3 +94,39 @@ private func memoFib <X: protocol<Hashable, Addable, Substractable, IntegerLiter
     
     return answer
 }
+
+
+/**
+ Returns the gamma function, evaluated in the given point, with the given precision.
+ 
+ - parameter z: The point to evaluate the gamma function in.
+ - parameter precision: The number of fractional digits required.
+*/
+public func gamma(var z: Double, precision n: Int = 7) -> Double {
+    // Some theory used from http://en.literateprograms.org/Gamma_function_with_Spouge's_formula_(Mathematica)
+    
+    // TODO: Benchmark this method + add checks for natural and half natural numbers
+    
+    z -= 1.0
+    
+    let a = Int(ceil(1.26 * Double(n)))
+    
+    var sum = 1.0
+    
+    for k in 1 ..< a {
+        
+        var c = Double(a - k) ** (Double(k) - 0.5)
+        c *= exp(Double(a - k))
+        c /= sqrt(2.0 * PI) * Double(factorial(k-1))
+        
+        if k % 2 == 0 { c *= -1 }
+        
+        sum += c / (z + Double(k))
+    }
+    
+    sum *= (z + Double(a)) ** (z + 0.5)
+    sum *= exp(-(z + Double(a)))
+    sum *= sqrt(2.0 * PI)
+    
+    return sum
+}

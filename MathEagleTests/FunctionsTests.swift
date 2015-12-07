@@ -71,4 +71,12 @@ class FunctionsTests: XCTestCase {
         print("")
     }
     
+    
+    func testGamma() {
+        
+        XCTAssertEqualWithAccuracy(gamma(3.0), 2.0, accuracy: 10 ** -7)
+        XCTAssertEqualWithAccuracy(gamma(2.5), 1.3293403881791370204736256125058588870981620920917903, accuracy: 10 ** -7)
+        XCTAssertEqualWithAccuracy(gamma(-2.3749), -1.17168614897932682180740075479679861986782655946903, accuracy: 10 ** -7)
+    }
+    
 }
