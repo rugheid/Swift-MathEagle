@@ -36,6 +36,19 @@ public func isPrime <X: protocol<Equatable, Comparable, Addable, Modulable, Real
 
 
 /**
+ Returns true if the given number is composite. This means it's not prime.
+ 
+ - parameter x: The number to check.
+ 
+ - returns: true if the given unsigned integer is composite.
+ */
+public func isComposite <X: protocol<Equatable, Comparable, Addable, Modulable, RealPowerable, IntegerLiteralConvertible>> (x: X) -> Bool {
+    
+    return !isPrime(x)
+}
+
+
+/**
     Returns true if the given unsigned integers are coprimes. This means they have no common prime factors.
 
     - parameter a: The first unsigned integer
