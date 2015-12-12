@@ -33,7 +33,7 @@ public func sign <X: protocol<Equatable, Comparable, IntegerLiteralConvertible>>
 
     :exceptions: Throws an exception if the given value is not a natural number.
 */
-public func factorial <X: protocol<Comparable, Substractable, Multiplicable, SetCompliant, IntegerLiteralConvertible>> (x: X) -> X {
+public func factorial <X: protocol<Comparable, Addable, Substractable, Multiplicable, SetCompliant, IntegerLiteralConvertible>> (x: X) -> X {
     
     if x < 0 {
         
@@ -47,7 +47,20 @@ public func factorial <X: protocol<Comparable, Substractable, Multiplicable, Set
     
     if x <= 1 { return 1 }
     
-    return x * factorial(x-1)
+    var result: X = 1
+    var mult: X = 2
+    
+    while mult <= x {
+        
+        result = result * mult
+        mult += 1
+    }
+    
+    return result
+    
+//    if x <= 1 { return 1 }
+//    
+//    return x * factorial(x-1)
 }
 
 
