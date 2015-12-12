@@ -14,7 +14,7 @@ import Foundation
 
     - parameter x: The number to check for primality
 
-    - returns: true if the given unsigned integer is prime.
+    - returns: true if the given number is prime.
 */
 public func isPrime <X: protocol<Equatable, Comparable, Addable, Modulable, RealPowerable, IntegerLiteralConvertible>> (x: X) -> Bool {
     
