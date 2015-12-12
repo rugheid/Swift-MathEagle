@@ -108,9 +108,9 @@ public func primesUpTo <X: protocol<Comparable, Addable, Substractable, Multipli
 
 
 /**
-    Returns the prime factors of the given integer in ascending order. Factors with higher multiplicity will appear multiple times. An empty array will be returned for all numbers smaller than or equal to 1.
+    Returns the prime factors of the given number in ascending order. Factors with higher multiplicity will appear multiple times. An empty array will be returned for all numbers smaller than or equal to 1.
 
-    - parameter n: The integer to factorise
+    - parameter n: The number to factorise
 
     - returns: The prime factors of the given integer in ascending order.
 */
@@ -120,7 +120,41 @@ public func primeFactors <X: protocol<Equatable, Comparable, Addable, Modulable,
     
     var i: X = 2
     
-    while i < x {
+    while i < x / 2 {
+        
+        if x % i == 0 {
+            
+            return primeFactors(i) + primeFactors(x/i)
+        }
+        
+        i = i + 1
+    }
+    
+    return [x]
+}
+
+
+private var primeFactors = [Int:[Int]]()
+
+/**
+ Returns the prime factors of the given integer in ascending order. Factors with higher multiplicity will appear multiple times. An empty array will be returned for all numbers smaller than or equal to 1.
+ This version is optimised for Ints.
+ 
+ - parameter n: The integer to factorise
+ 
+ - returns: The prime factors of the given integer in ascending order.
+ */
+public func primeFactors(x: Int) -> [Int] {
+    
+    if x <= 1 { return [] }
+    
+    if let factors = primeFactors[x] {
+        return factors
+    }
+    
+    var i = 2
+    
+    while i < x / 2 {
         
         if x % i == 0 {
             
