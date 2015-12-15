@@ -78,8 +78,58 @@ class BigIntTests: XCTestCase {
         let a = BigInt(int: 53103)
         let b = BigInt(int: 53103)
         let c = BigInt(int: -47801842)
+        XCTAssertTrue(a == a)
         XCTAssertTrue(a == b)
         XCTAssertFalse(a == c)
+    }
+    
+    func testInequalityOperator() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: 53103)
+        let c = BigInt(int: -47801842)
+        XCTAssertTrue(a != c)
+        XCTAssertFalse(a != a)
+        XCTAssertFalse(a != b)
+    }
+    
+    func testSmallerThanOperator() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: 53103)
+        let c = BigInt(int: -47801842)
+        XCTAssertTrue(c < a)
+        XCTAssertFalse(a < c)
+        XCTAssertFalse(a < b)
+        XCTAssertFalse(a < a)
+    }
+    
+    func testSmallerThanOrEqualOperator() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: 53103)
+        let c = BigInt(int: -47801842)
+        XCTAssertTrue(c <= a)
+        XCTAssertTrue(a <= b)
+        XCTAssertTrue(a <= a)
+        XCTAssertFalse(a <= c)
+    }
+    
+    func testGreaterThanOperator() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: 53103)
+        let c = BigInt(int: -47801842)
+        XCTAssertTrue(a > c)
+        XCTAssertFalse(c > a)
+        XCTAssertFalse(a > b)
+        XCTAssertFalse(a > a)
+    }
+    
+    func testGreaterThanOrEqualOperator() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: 53103)
+        let c = BigInt(int: -47801842)
+        XCTAssertTrue(a >= c)
+        XCTAssertTrue(a >= b)
+        XCTAssertTrue(a >= a)
+        XCTAssertFalse(c >= a)
     }
     
     
@@ -92,6 +142,15 @@ class BigIntTests: XCTestCase {
         XCTAssertEqual(BigInt(int: 106206), a.add(b))
         XCTAssertEqual(BigInt(int: 106206), a.add(a))
         XCTAssertEqual(BigInt(int: -47748739), a.add(c))
+    }
+    
+    func testAdditionOperator() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: 53103)
+        let c = BigInt(int: -47801842)
+        XCTAssertEqual(BigInt(int: 106206), a + b)
+        XCTAssertEqual(BigInt(int: 106206), a + a)
+        XCTAssertEqual(BigInt(int: -47748739), a + c)
     }
     
 }

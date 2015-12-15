@@ -133,6 +133,19 @@ public func == (left: BigInt, right: BigInt) -> Bool {
 }
 
 
+// MARK: Comparable
+
+extension BigInt: Comparable {}
+
+public func < (left: BigInt, right: BigInt) -> Bool {
+    return left.compare(right) == .OrderedAscending
+}
+
+public func > (left: BigInt, right: BigInt) -> Bool {
+    return left.compare(right) == .OrderedDescending
+}
+
+
 // MARK: Addable
 
 extension BigInt: Addable {}
