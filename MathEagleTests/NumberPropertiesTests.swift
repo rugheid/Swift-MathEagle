@@ -17,6 +17,9 @@ class NumberPropertiesTests: XCTestCase {
         XCTAssertEqual(digits(124387), [1, 2, 4, 3, 8, 7])
         XCTAssertEqual(digits(-234), [2, 3, 4])
         XCTAssertEqual(digits(0), [0])
+        
+        XCTAssertEqual(digits(BigInt(string: "469222367941738420037468219376478322738")), [4, 6, 9, 2, 2, 2, 3, 6, 7, 9, 4, 1, 7, 3, 8, 4, 2, 0, 0, 3, 7, 4, 6, 8, 2, 1, 9, 3, 7, 6, 4, 7, 8, 3, 2, 2, 7, 3, 8])
+        XCTAssertEqual(digits(BigInt(string: "-469222367941738420037468219376478322738")), [4, 6, 9, 2, 2, 2, 3, 6, 7, 9, 4, 1, 7, 3, 8, 4, 2, 0, 0, 3, 7, 4, 6, 8, 2, 1, 9, 3, 7, 6, 4, 7, 8, 3, 2, 2, 7, 3, 8])
     }
     
     

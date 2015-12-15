@@ -18,6 +18,22 @@ public func digits(number: Int) -> [Int] {
     return "\(abs(number))".characters.map{ Int("\($0)")! }
 }
 
+/**
+ Returns an array containing the digits of the given big int from most to least significant digits.
+ 
+ - parameter bigInt:  The big int to get the digits of.
+ */
+public func digits(bigInt: BigInt) -> [Int] {
+    
+    var stringValue = bigInt.stringValue
+    
+    if stringValue.hasPrefix("-") {
+        stringValue.removeAtIndex(stringValue.characters.startIndex)
+    }
+    
+    return stringValue.characters.map{ Int("\($0)")! }
+}
+
 
 /**
  Returns the number of digits of the given number.
