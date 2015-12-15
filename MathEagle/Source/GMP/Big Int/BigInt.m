@@ -110,4 +110,8 @@
     mpz_mul(result->mpzBigInt, left->mpzBigInt, right->mpzBigInt);
 }
 
++ (void)set:(BigInt_OBJC *)result toQuotientOf:(BigInt_OBJC *)left and:(BigInt_OBJC *)right {
+    mpz_div(result->mpzBigInt, left->mpzBigInt, right->mpzBigInt);
+}
+
 @end

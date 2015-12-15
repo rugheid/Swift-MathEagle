@@ -263,4 +263,55 @@ class BigIntTests: XCTestCase {
         XCTAssertEqual(BigInt(int: -2538421215726), a * c)
     }
     
+    func testMultiplicationAssignOperator() {
+        var a = BigInt(int: 53103)
+        let b = BigInt(int: 0)
+        var c = BigInt(int: -47801842)
+        let d = BigInt(int: 53103)
+        a *= b
+        c *= d
+        XCTAssertEqual(BigInt(int: 0), a)
+        XCTAssertEqual(BigInt(int: -2538421215726), c)
+    }
+    
+    func testDivide() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: 0)
+        let c = BigInt(int: -47801842)
+        XCTAssertEqual(BigInt(int: 0), b.divide(a))
+        XCTAssertEqual(BigInt(int: 1), a.divide(a))
+        XCTAssertEqual(BigInt(int: -1), a.divide(c))
+        XCTAssertEqual(BigInt(int: -901), c.divide(a))
+    }
+    
+    func testDivideInPlace() {
+        let a = BigInt(int: 53103)
+        var b = BigInt(int: 0)
+        var c = BigInt(int: -47801842)
+        c.divideInPlace(a)
+        b.divideInPlace(a)
+        XCTAssertEqual(BigInt(int: -901), c)
+        XCTAssertEqual(BigInt(int: 0), b)
+    }
+    
+    func testDivisionOperator() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: 0)
+        let c = BigInt(int: -47801842)
+        XCTAssertEqual(BigInt(int: 0), b / a)
+        XCTAssertEqual(BigInt(int: 1), a / a)
+        XCTAssertEqual(BigInt(int: -1), a / c)
+        XCTAssertEqual(BigInt(int: -901), c / a)
+    }
+    
+    func testDivisionAssignOperator() {
+        let a = BigInt(int: 53103)
+        var b = BigInt(int: 0)
+        var c = BigInt(int: -47801842)
+        c /= a
+        b /= a
+        XCTAssertEqual(BigInt(int: -901), c)
+        XCTAssertEqual(BigInt(int: 0), b)
+    }
+    
 }

@@ -34,5 +34,6 @@
 + (void)set:(BigInt_OBJC*)result toNegationOf:(BigInt_OBJC*)bigIntNumber;
 + (void)set:(BigInt_OBJC*)result toDifferenceOf:(BigInt_OBJC*)left and:(BigInt_OBJC*)right;
 + (void)set:(BigInt_OBJC*)result toProductOf:(BigInt_OBJC*)left and:(BigInt_OBJC*)right;
++ (void)set:(BigInt_OBJC*)result toQuotientOf:(BigInt_OBJC*)left and:(BigInt_OBJC*)right;
 
 @end
