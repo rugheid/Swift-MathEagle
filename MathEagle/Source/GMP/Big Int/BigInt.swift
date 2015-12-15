@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class BigInt: CustomStringConvertible {
+public final class BigInt: Equatable, Comparable, Addable, CustomStringConvertible {
     
     
     // MARK: Private Properties
@@ -126,16 +126,12 @@ public final class BigInt: CustomStringConvertible {
 
 // MARK: Equatable
 
-extension BigInt: Equatable {}
-
 public func == (left: BigInt, right: BigInt) -> Bool {
     return left.compare(right) == .OrderedSame
 }
 
 
 // MARK: Comparable
-
-extension BigInt: Comparable {}
 
 public func < (left: BigInt, right: BigInt) -> Bool {
     return left.compare(right) == .OrderedAscending
@@ -147,8 +143,6 @@ public func > (left: BigInt, right: BigInt) -> Bool {
 
 
 // MARK: Addable
-
-extension BigInt: Addable {}
 
 public func + (left: BigInt, right: BigInt) -> BigInt {
     return left.add(right)
