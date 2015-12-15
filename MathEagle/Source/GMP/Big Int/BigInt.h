@@ -14,6 +14,7 @@
 }
 
 #pragma mark - Initialisers
+- (instancetype)initWithBigIntOBJC:(BigInt_OBJC*)bigIntNumber;
 - (instancetype)initWithLong:(long)longNumber;
 - (instancetype)initWithUnsignedLong:(unsigned long)unsignedLongNumber;
 - (instancetype)initWithDouble:(double)doubleNumber;
@@ -24,5 +25,11 @@
 - (unsigned long)getUnsignedLongValue;
 - (double)getDoubleValue;
 - (char*)getStringValueInBase:(int)base;
+
+#pragma mark - Comparisons
+- (int)compareWithBigIntOBJC:(BigInt_OBJC*)bigIntNumber;
+
+#pragma mark - Operations
++ (void)set:(BigInt_OBJC*)result toSumOf:(BigInt_OBJC*)left and:(BigInt_OBJC*)right;
 
 @end

@@ -21,6 +21,14 @@
     return nil;
 }
 
+- (instancetype)initWithBigIntOBJC:(BigInt_OBJC *)bigIntNumber {
+    if (self = [super init]) {
+        mpz_init_set(mpzBigInt, bigIntNumber->mpzBigInt);
+        return self;
+    }
+    return nil;
+}
+
 - (instancetype)initWithLong:(long)longNumber {
     if (self = [super init]) {
         mpz_init_set_si(mpzBigInt, longNumber);
@@ -74,6 +82,20 @@
 
 - (char *)getStringValueInBase:(int)base {
     return mpz_get_str(NULL, base, mpzBigInt);
+}
+
+
+#pragma mark - Comparisons
+
+- (int)compareWithBigIntOBJC:(BigInt_OBJC *)bigIntNumber {
+    return mpz_cmp(mpzBigInt, bigIntNumber->mpzBigInt);
+}
+
+
+#pragma mark - Operations
+
++ (void)set:(BigInt_OBJC *)result toSumOf:(BigInt_OBJC *)left and:(BigInt_OBJC *)right {
+    mpz_add(result->mpzBigInt, left->mpzBigInt, right->mpzBigInt);
 }
 
 @end

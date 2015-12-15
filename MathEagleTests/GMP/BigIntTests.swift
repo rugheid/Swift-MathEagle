@@ -13,15 +13,85 @@ import MathEagle
 
 class BigIntTests: XCTestCase {
     
+    
+    // MARK: Init tests
+    
     func testInit() {
         let bigInt = BigInt()
         XCTAssertEqual("0", bigInt.stringValue)
     }
     
+    func testInitBigInt() {
+        let bigInt = BigInt(string: "-31692029223372036854775807")
+        let bigIntCopy = BigInt(bigInt: bigInt)
+        XCTAssertEqual(bigInt, bigIntCopy)
+    }
+    
+    
+    // MARK: Conversion Tests
+    
+    func testIntValue() {
+        var bigInt = BigInt(string: "-4321")
+        XCTAssertEqual(-4321, bigInt.intValue)
+        
+        bigInt = BigInt(string: "11" + "111111111111111111111111111111111111111111111111111111111111111", base: 2)
+        XCTAssertEqual(Int.max, bigInt.intValue)
+    }
+    
+    func testUIntValue() {
+        let bigInt = BigInt(string: "-4321")
+        XCTAssertEqual(UInt(4321), bigInt.uintValue)
+    }
+    
+    func testDoubleValue() {
+        let bigInt = BigInt(string: "-4321")
+        XCTAssertEqual(-4321.0, bigInt.doubleValue)
+    }
+    
     func testStringValue() {
-        let bigInt = BigInt(int: 123521)
+        var bigInt = BigInt(int: 123521)
         XCTAssertEqual("11110001010000001", bigInt.stringValue(2))
+        XCTAssertEqual("361201", bigInt.stringValue(8))
         XCTAssertEqual("123521", bigInt.stringValue(10))
+        XCTAssertEqual("1e281", bigInt.stringValue(16))
+        
+        bigInt = BigInt(string: "-31692029223372036854775807")
+        XCTAssertEqual("-1101000110111000011000101100011000010110100011010110101011011010011111111111111111111", bigInt.stringValue(2))
+        XCTAssertEqual("-15067030543026432653323777777", bigInt.stringValue(8))
+        XCTAssertEqual("-31692029223372036854775807", bigInt.stringValue(10))
+        XCTAssertEqual("-1a370c58c2d1ad5b4fffff", bigInt.stringValue(16))
+    }
+    
+    
+    // MARK: Comparison Tests
+    
+    func testCompareBigInt() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: 53103)
+        let c = BigInt(int: -47801842)
+        XCTAssertEqual(a.compare(b), NSComparisonResult.OrderedSame)
+        XCTAssertEqual(a.compare(c), NSComparisonResult.OrderedDescending)
+        XCTAssertEqual(c.compare(a), NSComparisonResult.OrderedAscending)
+    }
+    
+    func testEqualityOperator() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: 53103)
+        let c = BigInt(int: -47801842)
+        XCTAssertTrue(a == b)
+        XCTAssertFalse(a == c)
+    }
+    
+    
+    // MARK: Operation Tests
+    
+    func testAdd() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: 53103)
+        let c = BigInt(int: -47801842)
+        XCTAssertEqual(BigInt(int: 106206), a.add(b))
+        XCTAssertEqual(BigInt(int: 106206), a.add(a))
+        XCTAssertEqual(BigInt(int: -47748739), a.add(c))
     }
     
 }
