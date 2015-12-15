@@ -144,6 +144,16 @@ class BigIntTests: XCTestCase {
         XCTAssertEqual(BigInt(int: -47748739), a.add(c))
     }
     
+    func testAddInPlace() {
+        var a = BigInt(int: 53103)
+        var b = BigInt(int: 53103)
+        let c = BigInt(int: -47801842)
+        a.addInPlace(b)
+        b.addInPlace(c)
+        XCTAssertEqual(BigInt(int: 106206), a)
+        XCTAssertEqual(BigInt(int: -47748739), b)
+    }
+    
     func testAdditionOperator() {
         let a = BigInt(int: 53103)
         let b = BigInt(int: 53103)
@@ -151,6 +161,54 @@ class BigIntTests: XCTestCase {
         XCTAssertEqual(BigInt(int: 106206), a + b)
         XCTAssertEqual(BigInt(int: 106206), a + a)
         XCTAssertEqual(BigInt(int: -47748739), a + c)
+    }
+    
+    func testAdditionAssignOperator() {
+        var a = BigInt(int: 53103)
+        var b = BigInt(int: 53103)
+        let c = BigInt(int: -47801842)
+        a += b
+        b += c
+        XCTAssertEqual(BigInt(int: 106206), a)
+        XCTAssertEqual(BigInt(int: -47748739), b)
+    }
+    
+    func testSubtract() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: 53103)
+        let c = BigInt(int: -47801842)
+        XCTAssertEqual(BigInt(int: 0), a.subtract(b))
+        XCTAssertEqual(BigInt(int: 0), a.subtract(a))
+        XCTAssertEqual(BigInt(int: 47854945), a.subtract(c))
+    }
+    
+    func testSubtractInPlace() {
+        var a = BigInt(int: 53103)
+        var b = BigInt(int: 53103)
+        let c = BigInt(int: -47801842)
+        a.subtractInPlace(b)
+        b.subtractInPlace(c)
+        XCTAssertEqual(BigInt(int: 0), a)
+        XCTAssertEqual(BigInt(int: 47854945), b)
+    }
+    
+    func testSubtractionOperator() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: 53103)
+        let c = BigInt(int: -47801842)
+        XCTAssertEqual(BigInt(int: 0), a - b)
+        XCTAssertEqual(BigInt(int: 0), a - a)
+        XCTAssertEqual(BigInt(int: 47854945), a - c)
+    }
+    
+    func testSubtractionAssignOperator() {
+        var a = BigInt(int: 53103)
+        var b = BigInt(int: 53103)
+        let c = BigInt(int: -47801842)
+        a -= b
+        b -= c
+        XCTAssertEqual(BigInt(int: 0), a)
+        XCTAssertEqual(BigInt(int: 47854945), b)
     }
     
 }

@@ -11,7 +11,7 @@ import Foundation
 /**
     Defines either even or odd.
 */
-public enum Parity: IntegerLiteralConvertible, Addable, Substractable, Multiplicable {
+public enum Parity: IntegerLiteralConvertible, Addable, Subtractable, Multiplicable {
     
     /// Denotes an even parity.
     case Even
@@ -96,7 +96,7 @@ public func += (inout left: Parity, right: Parity) {
 
 
 
-// MARK: Substractable
+// MARK: Subtractable
 
 /**
     Returns the difference of the two given parities. When they are equal `.Even` is returned,

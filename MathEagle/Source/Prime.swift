@@ -69,7 +69,7 @@ public func areCoprime <X: protocol<Equatable, Comparable, Negatable, Modulable,
 
     - returns: All primes up to (and including) the given integer.
 */
-public func primesUpTo <X: protocol<Comparable, Addable, Substractable, Multiplicable, RealPowerable, IntegerLiteralConvertible, IntCastable>> (x: X) -> [X] {
+public func primesUpTo <X: protocol<Comparable, Addable, Subtractable, Multiplicable, RealPowerable, IntegerLiteralConvertible, IntCastable>> (x: X) -> [X] {
     
     if x <= 1 { return [] }
     

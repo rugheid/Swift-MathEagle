@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class BigInt: Equatable, Comparable, Addable, CustomStringConvertible {
+public struct BigInt: Equatable, Comparable, Addable, Subtractable, CustomStringConvertible {
     
     
     // MARK: Private Properties
@@ -118,8 +118,18 @@ public final class BigInt: Equatable, Comparable, Addable, CustomStringConvertib
         return result
     }
     
-    public func addInPlace(bigInt: BigInt) {
+    public mutating func addInPlace(bigInt: BigInt) {
         BigInt_OBJC.set(self.bigIntOBJC, toSumOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
+    }
+    
+    public func subtract(bigInt: BigInt) -> BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, toDifferenceOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
+        return result
+    }
+    
+    public mutating func subtractInPlace(bigInt: BigInt) {
+        BigInt_OBJC.set(self.bigIntOBJC, toDifferenceOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
     }
 }
 
@@ -150,4 +160,15 @@ public func + (left: BigInt, right: BigInt) -> BigInt {
 
 public func += (inout left: BigInt, right: BigInt) {
     left.addInPlace(right)
+}
+
+
+// MARK: Subtractable
+
+public func - (left: BigInt, right: BigInt) -> BigInt {
+    return left.subtract(right)
+}
+
+public func -= (inout left: BigInt, right: BigInt) {
+    left.subtractInPlace(right)
 }

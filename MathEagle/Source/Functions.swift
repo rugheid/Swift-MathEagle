@@ -33,7 +33,7 @@ public func sign <X: protocol<Equatable, Comparable, IntegerLiteralConvertible>>
 
     :exceptions: Throws an exception if the given value is not a natural number.
 */
-public func factorial <X: protocol<Comparable, Addable, Substractable, Multiplicable, SetCompliant, IntegerLiteralConvertible>> (x: X) -> X {
+public func factorial <X: protocol<Comparable, Addable, Subtractable, Multiplicable, SetCompliant, IntegerLiteralConvertible>> (x: X) -> X {
     
     if x < 0 {
         
@@ -71,7 +71,7 @@ public func factorial <X: protocol<Comparable, Addable, Substractable, Multiplic
 
     :example: factorialsUpTo(5) returns [1, 1, 2, 6, 24, 120]
 */
-public func factorialsUpTo <X: protocol<Comparable, Addable, Substractable, Multiplicable, SetCompliant, IntegerLiteralConvertible>> (x: X) -> [X] {
+public func factorialsUpTo <X: protocol<Comparable, Addable, Subtractable, Multiplicable, SetCompliant, IntegerLiteralConvertible>> (x: X) -> [X] {
     
     if x < 0 { return [] }
     
@@ -92,13 +92,13 @@ public func factorialsUpTo <X: protocol<Comparable, Addable, Substractable, Mult
 /**
     Returns the n'th Fibonacci number, with fib(0) = 0 and fib(1) = 1
 */
-public func fib <X: protocol<Hashable, Addable, Substractable, IntegerLiteralConvertible>> (n: X) -> X {
+public func fib <X: protocol<Hashable, Addable, Subtractable, IntegerLiteralConvertible>> (n: X) -> X {
     
     var memo: [X: X] = [0: 0, 1: 1]
     return memoFib(n, memo: &memo)
 }
 
-private func memoFib <X: protocol<Hashable, Addable, Substractable, IntegerLiteralConvertible>> (n: X, inout memo: [X: X]) -> X {
+private func memoFib <X: protocol<Hashable, Addable, Subtractable, IntegerLiteralConvertible>> (n: X, inout memo: [X: X]) -> X {
     
     if let answer = memo[n] { return answer }
     

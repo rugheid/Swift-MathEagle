@@ -8,7 +8,7 @@
 
 import Accelerate
 
-public struct Complex: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, Conjugatable, MatrixCompatible, IntegerLiteralConvertible, FloatLiteralConvertible, CustomStringConvertible {
+public struct Complex: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, Conjugatable, MatrixCompatible, IntegerLiteralConvertible, FloatLiteralConvertible, CustomStringConvertible {
     
     public typealias NaturalPowerType = Complex
     public typealias IntegerPowerType = Complex
@@ -305,7 +305,7 @@ public prefix func - (z: Complex) -> Complex {
 
 
 
-// MARK: Substractable Protocol Conformance
+// MARK: Subtractable Protocol Conformance
 
 public func - (left: Complex, right: Complex) -> Complex {
     

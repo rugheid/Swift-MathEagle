@@ -9,7 +9,7 @@
 import Foundation
 import Accelerate
 
-public protocol MatrixCompatible: Equatable, Comparable, Addable, Negatable, Substractable, Multiplicable, Dividable, NaturalPowerable, IntegerPowerable, RealPowerable, Conjugatable, Randomizable, IntegerLiteralConvertible {}
+public protocol MatrixCompatible: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, NaturalPowerable, IntegerPowerable, RealPowerable, Conjugatable, Randomizable, IntegerLiteralConvertible {}
 
 /**
     A generic class representing a 2-dimensional matrix of the given type.

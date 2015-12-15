@@ -42,9 +42,9 @@ public prefix func - (x: UInt64) -> UInt64 {
 }
 
 
-// MARK: Substractable Protocol
+// MARK: Subtractable Protocol
 
-public protocol Substractable {
+public protocol Subtractable {
     
     func - (left: Self, right: Self) -> Self
 }

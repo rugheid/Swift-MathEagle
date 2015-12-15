@@ -98,4 +98,8 @@
     mpz_add(result->mpzBigInt, left->mpzBigInt, right->mpzBigInt);
 }
 
++ (void)set:(BigInt_OBJC *)result toDifferenceOf:(BigInt_OBJC *)left and:(BigInt_OBJC *)right {
+    mpz_sub(result->mpzBigInt, left->mpzBigInt, right->mpzBigInt);
+}
+
 @end
