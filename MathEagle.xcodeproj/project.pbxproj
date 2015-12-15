@@ -31,6 +31,7 @@
 		98B546F61B33319E00360F0D /* Powerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B546F51B33319E00360F0D /* Powerable.swift */; };
 		98B546F81B3331E500360F0D /* Conjugatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B546F71B3331E500360F0D /* Conjugatable.swift */; };
 		98B927461B277F70006C4C73 /* SequenceFunctionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B927451B277F70006C4C73 /* SequenceFunctionsTests.swift */; };
+		98DE55DF1C201B7D00DBD3D6 /* BigIntTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DE55DE1C201B7D00DBD3D6 /* BigIntTests.swift */; };
 		98E25E411B19DE6D008435B7 /* Random.h in Headers */ = {isa = PBXBuildFile; fileRef = 98E25E3F1B19DE6D008435B7 /* Random.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		98E25E421B19DE6D008435B7 /* Random.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E25E401B19DE6D008435B7 /* Random.m */; };
 		98E25E461B19DE88008435B7 /* Matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 98E25E441B19DE88008435B7 /* Matrix.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -39,6 +40,17 @@
 		98E671751AA8C4B400C88DCE /* PrimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E671741AA8C4B400C88DCE /* PrimeTests.swift */; };
 		98E671771AA8F00600C88DCE /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E671761AA8F00600C88DCE /* Complex.swift */; };
 		98E6717A1AA99AB500C88DCE /* ComplexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E671791AA99AB500C88DCE /* ComplexTests.swift */; };
+		98E743AB1C1E00EF00B43898 /* libgmp.10.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 98E743A51C1E00EF00B43898 /* libgmp.10.dylib */; };
+		98E743AC1C1E00EF00B43898 /* libgmp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98E743A61C1E00EF00B43898 /* libgmp.a */; };
+		98E743AD1C1E00EF00B43898 /* libgmp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 98E743A71C1E00EF00B43898 /* libgmp.dylib */; };
+		98E743AE1C1E00EF00B43898 /* libgmpxx.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 98E743A81C1E00EF00B43898 /* libgmpxx.4.dylib */; };
+		98E743AF1C1E00EF00B43898 /* libgmpxx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98E743A91C1E00EF00B43898 /* libgmpxx.a */; };
+		98E743B01C1E00EF00B43898 /* libgmpxx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 98E743AA1C1E00EF00B43898 /* libgmpxx.dylib */; };
+		98E743B31C1E014100B43898 /* gmp.h in Headers */ = {isa = PBXBuildFile; fileRef = 98E743B11C1E014100B43898 /* gmp.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		98E743B41C1E014100B43898 /* gmpxx.h in Headers */ = {isa = PBXBuildFile; fileRef = 98E743B21C1E014100B43898 /* gmpxx.h */; };
+		98E743B71C1E109600B43898 /* BigInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E743B61C1E109600B43898 /* BigInt.swift */; };
+		98E743BA1C1F36E000B43898 /* BigInt.h in Headers */ = {isa = PBXBuildFile; fileRef = 98E743B81C1F36E000B43898 /* BigInt.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		98E743BB1C1F36E000B43898 /* BigInt.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E743B91C1F36E000B43898 /* BigInt.m */; };
 		98F558841B1AFBC2009AECD5 /* Cycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F558831B1AFBC2009AECD5 /* Cycle.swift */; };
 		98F558881B1B10B8009AECD5 /* CycleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F558871B1B10B8009AECD5 /* CycleTest.swift */; };
 		98F5588D1B1B92C4009AECD5 /* ArrayGenerators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F5588C1B1B92C4009AECD5 /* ArrayGenerators.swift */; };
@@ -100,6 +112,7 @@
 		98B546F51B33319E00360F0D /* Powerable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Powerable.swift; path = Source/Powerable.swift; sourceTree = "<group>"; };
 		98B546F71B3331E500360F0D /* Conjugatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Conjugatable.swift; path = Source/Conjugatable.swift; sourceTree = "<group>"; };
 		98B927451B277F70006C4C73 /* SequenceFunctionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceFunctionsTests.swift; sourceTree = "<group>"; };
+		98DE55DE1C201B7D00DBD3D6 /* BigIntTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigIntTests.swift; sourceTree = "<group>"; };
 		98E25E3F1B19DE6D008435B7 /* Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Random.h; path = Source/Random.h; sourceTree = "<group>"; };
 		98E25E401B19DE6D008435B7 /* Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Random.m; path = Source/Random.m; sourceTree = "<group>"; };
 		98E25E441B19DE88008435B7 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Matrix.h; path = "Source/Linear Algebra/Matrix.h"; sourceTree = "<group>"; };
@@ -108,6 +121,17 @@
 		98E671741AA8C4B400C88DCE /* PrimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeTests.swift; sourceTree = "<group>"; };
 		98E671761AA8F00600C88DCE /* Complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Complex.swift; path = Source/Complex.swift; sourceTree = "<group>"; };
 		98E671791AA99AB500C88DCE /* ComplexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexTests.swift; sourceTree = "<group>"; };
+		98E743A51C1E00EF00B43898 /* libgmp.10.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libgmp.10.dylib; sourceTree = "<group>"; };
+		98E743A61C1E00EF00B43898 /* libgmp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgmp.a; sourceTree = "<group>"; };
+		98E743A71C1E00EF00B43898 /* libgmp.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libgmp.dylib; sourceTree = "<group>"; };
+		98E743A81C1E00EF00B43898 /* libgmpxx.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libgmpxx.4.dylib; sourceTree = "<group>"; };
+		98E743A91C1E00EF00B43898 /* libgmpxx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgmpxx.a; sourceTree = "<group>"; };
+		98E743AA1C1E00EF00B43898 /* libgmpxx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libgmpxx.dylib; sourceTree = "<group>"; };
+		98E743B11C1E014100B43898 /* gmp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gmp.h; sourceTree = "<group>"; };
+		98E743B21C1E014100B43898 /* gmpxx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gmpxx.h; sourceTree = "<group>"; };
+		98E743B61C1E109600B43898 /* BigInt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigInt.swift; sourceTree = "<group>"; };
+		98E743B81C1F36E000B43898 /* BigInt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigInt.h; sourceTree = "<group>"; };
+		98E743B91C1F36E000B43898 /* BigInt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigInt.m; sourceTree = "<group>"; };
 		98F558831B1AFBC2009AECD5 /* Cycle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Cycle.swift; path = Source/Cycle.swift; sourceTree = "<group>"; };
 		98F558871B1B10B8009AECD5 /* CycleTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CycleTest.swift; sourceTree = "<group>"; };
 		98F5588C1B1B92C4009AECD5 /* ArrayGenerators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArrayGenerators.swift; path = Source/ArrayGenerators.swift; sourceTree = "<group>"; };
@@ -142,6 +166,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98E743AC1C1E00EF00B43898 /* libgmp.a in Frameworks */,
+				98E743AF1C1E00EF00B43898 /* libgmpxx.a in Frameworks */,
+				98E743AD1C1E00EF00B43898 /* libgmp.dylib in Frameworks */,
+				98E743AB1C1E00EF00B43898 /* libgmp.10.dylib in Frameworks */,
+				98E743AE1C1E00EF00B43898 /* libgmpxx.4.dylib in Frameworks */,
+				98E743B01C1E00EF00B43898 /* libgmpxx.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +239,14 @@
 			name = Protocols;
 			sourceTree = "<group>";
 		};
+		98DE55DD1C201B0000DBD3D6 /* GMP */ = {
+			isa = PBXGroup;
+			children = (
+				98DE55DE1C201B7D00DBD3D6 /* BigIntTests.swift */,
+			);
+			path = GMP;
+			sourceTree = "<group>";
+		};
 		98E25E431B19DE73008435B7 /* Objective-C Bridgers */ = {
 			isa = PBXGroup;
 			children = (
@@ -218,6 +256,41 @@
 				98E25E451B19DE88008435B7 /* Matrix.m */,
 			);
 			name = "Objective-C Bridgers";
+			sourceTree = "<group>";
+		};
+		98E743971C1E003C00B43898 /* GMP */ = {
+			isa = PBXGroup;
+			children = (
+				98E743B51C1E0F1F00B43898 /* Big Int */,
+				98E743981C1E004400B43898 /* GMP Source */,
+			);
+			name = GMP;
+			path = Source/GMP;
+			sourceTree = "<group>";
+		};
+		98E743981C1E004400B43898 /* GMP Source */ = {
+			isa = PBXGroup;
+			children = (
+				98E743B11C1E014100B43898 /* gmp.h */,
+				98E743B21C1E014100B43898 /* gmpxx.h */,
+				98E743A51C1E00EF00B43898 /* libgmp.10.dylib */,
+				98E743A61C1E00EF00B43898 /* libgmp.a */,
+				98E743A71C1E00EF00B43898 /* libgmp.dylib */,
+				98E743A81C1E00EF00B43898 /* libgmpxx.4.dylib */,
+				98E743A91C1E00EF00B43898 /* libgmpxx.a */,
+				98E743AA1C1E00EF00B43898 /* libgmpxx.dylib */,
+			);
+			path = "GMP Source";
+			sourceTree = "<group>";
+		};
+		98E743B51C1E0F1F00B43898 /* Big Int */ = {
+			isa = PBXGroup;
+			children = (
+				98E743B61C1E109600B43898 /* BigInt.swift */,
+				98E743B81C1F36E000B43898 /* BigInt.h */,
+				98E743B91C1F36E000B43898 /* BigInt.m */,
+			);
+			path = "Big Int";
 			sourceTree = "<group>";
 		};
 		98F558851B1AFBCA009AECD5 /* Permutation */ = {
@@ -276,6 +349,7 @@
 				98F598681A7B8BED0058DF53 /* Extensions.swift */,
 				9885B2C31B1C47600028FC9A /* Parity.swift */,
 				98E671761AA8F00600C88DCE /* Complex.swift */,
+				98E743971C1E003C00B43898 /* GMP */,
 				9837B8521B258F6C00E6EE1B /* Functions */,
 				9837B8531B258FA200E6EE1B /* Analysis */,
 				98F558851B1AFBCA009AECD5 /* Permutation */,
@@ -310,6 +384,7 @@
 				98F598871A7B8C2A0058DF53 /* SolverTests.swift */,
 				98F598881A7B8C2A0058DF53 /* OptimizationTests.swift */,
 				98F598891A7B8C2A0058DF53 /* IntegrationTests.swift */,
+				98DE55DD1C201B0000DBD3D6 /* GMP */,
 				98F558891B1B10C0009AECD5 /* Permutation */,
 				98F598A11A7B8C370058DF53 /* Linear Algebra */,
 				98F5988C1A7B8C2A0058DF53 /* Helper.swift */,
@@ -357,8 +432,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				98F598511A7B8BD20058DF53 /* MathEagle.h in Headers */,
+				98E743BA1C1F36E000B43898 /* BigInt.h in Headers */,
 				98E25E461B19DE88008435B7 /* Matrix.h in Headers */,
+				98E743B41C1E014100B43898 /* gmpxx.h in Headers */,
 				98E25E411B19DE6D008435B7 /* Random.h in Headers */,
+				98E743B31C1E014100B43898 /* gmp.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,10 +549,12 @@
 				98B546F41B33313600360F0D /* BasicOperations.swift in Sources */,
 				9808C8C41B149B0100D82572 /* DiagonalMatrix.swift in Sources */,
 				98F5588D1B1B92C4009AECD5 /* ArrayGenerators.swift in Sources */,
+				98E743BB1C1F36E000B43898 /* BigInt.m in Sources */,
 				9885B2C41B1C47600028FC9A /* Parity.swift in Sources */,
 				98F598781A7B8BED0058DF53 /* Optimization.swift in Sources */,
 				98F5987E1A7B8BED0058DF53 /* MatrixVector.swift in Sources */,
 				98B546F61B33319E00360F0D /* Powerable.swift in Sources */,
+				98E743B71C1E109600B43898 /* BigInt.swift in Sources */,
 				98F598761A7B8BED0058DF53 /* Solver.swift in Sources */,
 				98E671721AA8C02100C88DCE /* Prime.swift in Sources */,
 				982E014D1B3403750009E6C7 /* Castable.swift in Sources */,
@@ -505,6 +585,7 @@
 				98E671751AA8C4B400C88DCE /* PrimeTests.swift in Sources */,
 				989729431B18B0550046D951 /* PermutationTest.swift in Sources */,
 				9843568F1ACC79F100B988CB /* RandomTests.swift in Sources */,
+				98DE55DF1C201B7D00DBD3D6 /* BigIntTests.swift in Sources */,
 				98F598A01A7B8C2A0058DF53 /* Helper.swift in Sources */,
 				98F5989A1A7B8C2A0058DF53 /* IntegrationTests.swift in Sources */,
 				98F598981A7B8C2A0058DF53 /* OptimizationTests.swift in Sources */,
@@ -628,6 +709,10 @@
 				INFOPLIST_FILE = MathEagle/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MathEagle/Source/GMP/GMP\\ Source",
+				);
 				MODULEMAP_PRIVATE_FILE = "";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jorestha.$(PRODUCT_NAME:rfc1034identifier)";
@@ -652,6 +737,10 @@
 				INFOPLIST_FILE = MathEagle/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MathEagle/Source/GMP/GMP\\ Source",
+				);
 				MODULEMAP_PRIVATE_FILE = "";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jorestha.$(PRODUCT_NAME:rfc1034identifier)";
