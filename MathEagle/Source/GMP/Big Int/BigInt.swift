@@ -161,6 +161,16 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, M
     public mutating func divideInPlace(bigInt: BigInt) {
         BigInt_OBJC.set(self.bigIntOBJC, toQuotientOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
     }
+    
+    public var absoluteValue: BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, toAbsoluteValueOf: self.bigIntOBJC)
+        return result
+    }
+    
+    public mutating func absoluteValueInPlace() {
+        BigInt_OBJC.set(self.bigIntOBJC, toAbsoluteValueOf: self.bigIntOBJC)
+    }
 }
 
 
@@ -230,4 +240,11 @@ public func / (left: BigInt, right: BigInt) -> BigInt {
 
 public func /= (inout left: BigInt, right: BigInt) {
     left.divideInPlace(right)
+}
+
+
+// MARK: Absolute Value
+
+public func abs(bigInt: BigInt) -> BigInt {
+    return bigInt.absoluteValue
 }

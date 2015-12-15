@@ -314,4 +314,34 @@ class BigIntTests: XCTestCase {
         XCTAssertEqual(BigInt(int: 0), b)
     }
     
+    func testAbsoluteValue() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: 0)
+        let c = BigInt(int: -47801842)
+        XCTAssertEqual(BigInt(int: 53103), a.absoluteValue)
+        XCTAssertEqual(BigInt(int: 0), b.absoluteValue)
+        XCTAssertEqual(BigInt(int: 47801842), c.absoluteValue)
+    }
+    
+    func testAbsoluteValueInPlace() {
+        var a = BigInt(int: 53103)
+        var b = BigInt(int: 0)
+        var c = BigInt(int: -47801842)
+        a.absoluteValueInPlace()
+        b.absoluteValueInPlace()
+        c.absoluteValueInPlace()
+        XCTAssertEqual(BigInt(int: 53103), a)
+        XCTAssertEqual(BigInt(int: 0), b)
+        XCTAssertEqual(BigInt(int: 47801842), c)
+    }
+    
+    func testAbs() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: 0)
+        let c = BigInt(int: -47801842)
+        XCTAssertEqual(BigInt(int: 53103), abs(a))
+        XCTAssertEqual(BigInt(int: 0), abs(b))
+        XCTAssertEqual(BigInt(int: 47801842), abs(c))
+    }
+    
 }

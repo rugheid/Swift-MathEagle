@@ -114,4 +114,8 @@
     mpz_div(result->mpzBigInt, left->mpzBigInt, right->mpzBigInt);
 }
 
++ (void)set:(BigInt_OBJC *)result toAbsoluteValueOf:(BigInt_OBJC *)bigIntNumber {
+    mpz_abs(result->mpzBigInt, bigIntNumber->mpzBigInt);
+}
+
 @end
