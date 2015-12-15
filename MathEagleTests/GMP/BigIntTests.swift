@@ -234,4 +234,33 @@ class BigIntTests: XCTestCase {
         XCTAssertEqual(BigInt(int: 47854945), b)
     }
     
+    func testMultiply() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: 0)
+        let c = BigInt(int: -47801842)
+        XCTAssertEqual(BigInt(int: 0), a.multiply(b))
+        XCTAssertEqual(BigInt(int: 2819928609), a.multiply(a))
+        XCTAssertEqual(BigInt(int: -2538421215726), a.multiply(c))
+    }
+    
+    func testMultiplyInPlace() {
+        var a = BigInt(int: 53103)
+        let b = BigInt(int: 0)
+        var c = BigInt(int: -47801842)
+        let d = BigInt(int: 53103)
+        a.multiplyInPlace(b)
+        c.multiplyInPlace(d)
+        XCTAssertEqual(BigInt(int: 0), a)
+        XCTAssertEqual(BigInt(int: -2538421215726), c)
+    }
+    
+    func testMultiplicationOperator() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: 0)
+        let c = BigInt(int: -47801842)
+        XCTAssertEqual(BigInt(int: 0), a * b)
+        XCTAssertEqual(BigInt(int: 2819928609), a * a)
+        XCTAssertEqual(BigInt(int: -2538421215726), a * c)
+    }
+    
 }

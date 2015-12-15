@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, CustomStringConvertible {
+public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, CustomStringConvertible {
     
     
     // MARK: Private Properties
@@ -141,6 +141,16 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, C
     public mutating func subtractInPlace(bigInt: BigInt) {
         BigInt_OBJC.set(self.bigIntOBJC, toDifferenceOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
     }
+    
+    public func multiply(bigInt: BigInt) -> BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, toProductOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
+        return result
+    }
+    
+    public mutating func multiplyInPlace(bigInt: BigInt) {
+        BigInt_OBJC.set(self.bigIntOBJC, toProductOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
+    }
 }
 
 
@@ -188,4 +198,15 @@ public func - (left: BigInt, right: BigInt) -> BigInt {
 
 public func -= (inout left: BigInt, right: BigInt) {
     left.subtractInPlace(right)
+}
+
+
+// MARK: Multiplicable
+
+public func * (left: BigInt, right: BigInt) -> BigInt {
+    return left.multiply(right)
+}
+
+public func *= (inout left: BigInt, right: BigInt) {
+    left.multiplyInPlace(right)
 }

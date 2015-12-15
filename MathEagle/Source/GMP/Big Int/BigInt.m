@@ -106,4 +106,8 @@
     mpz_sub(result->mpzBigInt, left->mpzBigInt, right->mpzBigInt);
 }
 
++ (void)set:(BigInt_OBJC *)result toProductOf:(BigInt_OBJC *)left and:(BigInt_OBJC *)right {
+    mpz_mul(result->mpzBigInt, left->mpzBigInt, right->mpzBigInt);
+}
+
 @end
