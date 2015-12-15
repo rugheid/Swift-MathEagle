@@ -173,6 +173,29 @@ class BigIntTests: XCTestCase {
         XCTAssertEqual(BigInt(int: -47748739), b)
     }
     
+    func testNegation() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: -47801842)
+        XCTAssertEqual(BigInt(int: -53103), a.negation)
+        XCTAssertEqual(BigInt(int: 47801842), b.negation)
+    }
+    
+    func testNegateInPlace() {
+        var a = BigInt(int: 53103)
+        var b = BigInt(int: -47801842)
+        a.negateInPlace()
+        b.negateInPlace()
+        XCTAssertEqual(BigInt(int: -53103), a)
+        XCTAssertEqual(BigInt(int: 47801842), b)
+    }
+    
+    func testNegationOperator() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: -47801842)
+        XCTAssertEqual(BigInt(int: -53103), -a)
+        XCTAssertEqual(BigInt(int: 47801842), -b)
+    }
+    
     func testSubtract() {
         let a = BigInt(int: 53103)
         let b = BigInt(int: 53103)

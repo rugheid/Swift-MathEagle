@@ -98,6 +98,10 @@
     mpz_add(result->mpzBigInt, left->mpzBigInt, right->mpzBigInt);
 }
 
++ (void)set:(BigInt_OBJC *)result toNegationOf:(BigInt_OBJC *)bigIntNumber {
+    mpz_neg(result->mpzBigInt, bigIntNumber->mpzBigInt);
+}
+
 + (void)set:(BigInt_OBJC *)result toDifferenceOf:(BigInt_OBJC *)left and:(BigInt_OBJC *)right {
     mpz_sub(result->mpzBigInt, left->mpzBigInt, right->mpzBigInt);
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct BigInt: Equatable, Comparable, Addable, Subtractable, CustomStringConvertible {
+public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, CustomStringConvertible {
     
     
     // MARK: Private Properties
@@ -122,6 +122,16 @@ public struct BigInt: Equatable, Comparable, Addable, Subtractable, CustomString
         BigInt_OBJC.set(self.bigIntOBJC, toSumOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
     }
     
+    public var negation: BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, toNegationOf: self.bigIntOBJC)
+        return result
+    }
+    
+    public mutating func negateInPlace() {
+        BigInt_OBJC.set(self.bigIntOBJC, toNegationOf: self.bigIntOBJC)
+    }
+    
     public func subtract(bigInt: BigInt) -> BigInt {
         let result = BigInt()
         BigInt_OBJC.set(result.bigIntOBJC, toDifferenceOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
@@ -160,6 +170,13 @@ public func + (left: BigInt, right: BigInt) -> BigInt {
 
 public func += (inout left: BigInt, right: BigInt) {
     left.addInPlace(right)
+}
+
+
+// MARK: Negatable
+
+public prefix func - (bigInt: BigInt) -> BigInt {
+    return bigInt.negation
 }
 
 
