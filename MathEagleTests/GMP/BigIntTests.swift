@@ -27,6 +27,12 @@ class BigIntTests: XCTestCase {
         XCTAssertEqual(bigInt, bigIntCopy)
     }
     
+    func testInitIntLiteral() {
+        var bigInt = BigInt()
+        bigInt = 2897
+        XCTAssertEqual(BigInt(int: 2897), bigInt)
+    }
+    
     
     // MARK: Conversion Tests
     

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, CustomStringConvertible, Hashable {
+public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, CustomStringConvertible, Hashable, IntegerLiteralConvertible {
     
     
     // MARK: Private Properties
@@ -28,6 +28,10 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, M
     
     public init(int: Int) {
         bigIntOBJC = BigInt_OBJC(long: int)
+    }
+    
+    public init(integerLiteral value: IntegerLiteralType) {
+        bigIntOBJC = BigInt_OBJC(long: value)
     }
     
     public init(uint: UInt) {
