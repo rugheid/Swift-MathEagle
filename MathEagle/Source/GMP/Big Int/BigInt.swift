@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, CustomStringConvertible {
+public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, CustomStringConvertible, Hashable {
     
     
     // MARK: Private Properties
@@ -46,10 +46,17 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, M
     // MARK: Properties
     
     /**
-    Returns the string value of the number in base 10.
-    */
+     Returns the string value of the number in base 10.
+     */
     public var description: String {
         return self.stringValue
+    }
+    
+    /**
+     Returns the hash value of the number.
+     */
+    public var hashValue: Int {
+        return self.intValue.hashValue
     }
     
     
