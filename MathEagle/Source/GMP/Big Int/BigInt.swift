@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, CustomStringConvertible, Hashable, IntegerLiteralConvertible {
+public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, SetCompliant, CustomStringConvertible, Hashable, IntegerLiteralConvertible {
     
     
     // MARK: Private Properties
@@ -181,6 +181,17 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, M
     
     public mutating func absoluteValueInPlace() {
         BigInt_OBJC.set(self.bigIntOBJC, toAbsoluteValueOf: self.bigIntOBJC)
+    }
+    
+    
+    // MARK: SetCompliant
+    
+    public var isNatural: Bool {
+        return self >= BigInt(int: 0)
+    }
+    
+    public var isInteger: Bool {
+        return true
     }
 }
 

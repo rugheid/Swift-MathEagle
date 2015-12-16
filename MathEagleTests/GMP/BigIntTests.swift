@@ -350,4 +350,16 @@ class BigIntTests: XCTestCase {
         XCTAssertEqual(BigInt(int: 47801842), abs(c))
     }
     
+    
+    // MARK: SetCompliant tests
+    
+    func testIsNatural() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: 0)
+        let c = BigInt(int: -47801842)
+        XCTAssertTrue(a.isNatural)
+        XCTAssertTrue(b.isNatural)
+        XCTAssertFalse(c.isNatural)
+    }
+    
 }
