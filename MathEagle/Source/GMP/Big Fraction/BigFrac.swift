@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct BigFrac: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, SetCompliant, CustomStringConvertible, Hashable, IntegerLiteralConvertible {
+public final class BigFrac: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, SetCompliant, CustomStringConvertible, Hashable, IntegerLiteralConvertible {
     
     
     // MARK: Private Properties
@@ -30,11 +30,11 @@ public struct BigFrac: Equatable, Comparable, Addable, Negatable, Subtractable, 
         bigFracOBJC = BigFrac_OBJC(longNumerator: numerator, denominator: denominator)
     }
     
-    public init(int: Int) {
+    public convenience init(int: Int) {
         self.init(numerator: int, denominator: 1)
     }
     
-    public init(integerLiteral value: IntegerLiteralType) {
+    public required convenience init(integerLiteral value: IntegerLiteralType) {
         self.init(int: value)
     }
     
@@ -42,12 +42,19 @@ public struct BigFrac: Equatable, Comparable, Addable, Negatable, Subtractable, 
         bigFracOBJC = BigFrac_OBJC(unsignedLongNumerator: numerator, denominator: denominator)
     }
     
-    public init(uint: UInt) {
+    public convenience init(uint: UInt) {
         self.init(numerator: uint, denominator: 1)
     }
     
     public init(string: String, base: Int32 = 10) {
         bigFracOBJC = BigFrac_OBJC(string: string.cStringUsingEncoding(NSUTF8StringEncoding)!, inBase: base)
+    }
+    
+    
+    // MARK: Deinit
+    
+    deinit {
+        bigFracOBJC.clear()
     }
     
     
@@ -117,7 +124,7 @@ public struct BigFrac: Equatable, Comparable, Addable, Negatable, Subtractable, 
         return result
     }
     
-    public mutating func addInPlace(bigFrac: BigFrac) {
+    public func addInPlace(bigFrac: BigFrac) {
         BigFrac_OBJC.set(self.bigFracOBJC, toSumOf: self.bigFracOBJC, and: bigFrac.bigFracOBJC)
     }
     
@@ -127,7 +134,7 @@ public struct BigFrac: Equatable, Comparable, Addable, Negatable, Subtractable, 
         return result
     }
     
-    public mutating func negateInPlace() {
+    public func negateInPlace() {
         BigFrac_OBJC.set(self.bigFracOBJC, toNegationOf: self.bigFracOBJC)
     }
     
@@ -137,7 +144,7 @@ public struct BigFrac: Equatable, Comparable, Addable, Negatable, Subtractable, 
         return result
     }
     
-    public mutating func subtractInPlace(bigFrac: BigFrac) {
+    public func subtractInPlace(bigFrac: BigFrac) {
         BigFrac_OBJC.set(self.bigFracOBJC, toDifferenceOf: self.bigFracOBJC, and: bigFrac.bigFracOBJC)
     }
     
@@ -147,7 +154,7 @@ public struct BigFrac: Equatable, Comparable, Addable, Negatable, Subtractable, 
         return result
     }
     
-    public mutating func multiplyInPlace(bigFrac: BigFrac) {
+    public func multiplyInPlace(bigFrac: BigFrac) {
         BigFrac_OBJC.set(self.bigFracOBJC, toProductOf: self.bigFracOBJC, and: bigFrac.bigFracOBJC)
     }
     
@@ -157,7 +164,7 @@ public struct BigFrac: Equatable, Comparable, Addable, Negatable, Subtractable, 
         return result
     }
     
-    public mutating func divideInPlace(bigFrac: BigFrac) {
+    public func divideInPlace(bigFrac: BigFrac) {
         BigFrac_OBJC.set(self.bigFracOBJC, toQuotientOf: self.bigFracOBJC, and: bigFrac.bigFracOBJC)
     }
     
@@ -167,7 +174,7 @@ public struct BigFrac: Equatable, Comparable, Addable, Negatable, Subtractable, 
         return result
     }
     
-    public mutating func absoluteValueInPlace() {
+    public func absoluteValueInPlace() {
         BigFrac_OBJC.set(self.bigFracOBJC, toAbsoluteValueOf: self.bigFracOBJC)
     }
     
