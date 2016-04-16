@@ -10,6 +10,7 @@
 #import "gmp.h"
 
 @interface BigInt_OBJC : NSObject {
+    @public
     mpz_t mpzBigInt;
 }
 
