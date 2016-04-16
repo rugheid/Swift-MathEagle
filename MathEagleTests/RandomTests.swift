@@ -132,7 +132,7 @@ class RandomTests: XCTestCase {
         
         for element in array {
             
-            if element > 0 { positiveCount++ }
+            if element > 0 { positiveCount += 1 }
         }
         
         let positiveFraction = Double(positiveCount)/Double(length)

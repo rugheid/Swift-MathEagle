@@ -27,7 +27,7 @@ public func * <T: MatrixCompatible> (left: Vector<T>, right: Matrix<T>) -> Vecto
         
         elements.append(left.dotProduct(right.column(i)))
         
-        i++
+        i += 1
     }
     
     return Vector(elements)
@@ -50,7 +50,7 @@ public func * <T: MatrixCompatible> (left: Matrix<T>, right: Vector<T>) -> Vecto
         
         elements.append(right.dotProduct(left.row(i)))
         
-        i++
+        i += 1
     }
     
     return Vector(elements)

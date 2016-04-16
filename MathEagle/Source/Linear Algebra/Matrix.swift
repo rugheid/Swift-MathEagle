@@ -710,8 +710,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         while row < self.dimensions.rows && col < self.dimensions.columns {
             
             returnElements.append(self.element(row, col))
-            row++
-            col++
+            row += 1
+            col += 1
         }
         
         return returnElements
@@ -768,8 +768,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
                     elementsList[row * self.dimensions.columns + c] = self.element(row, c)
                 }
                 
-                row++
-                col++
+                row += 1
+                col += 1
             }
             
             return Matrix(elementsList: elementsList, dimensions: self.dimensions)
@@ -785,8 +785,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
                     elementsList[r * self.dimensions.columns + col] = 0
                 }
                 
-                row++
-                col++
+                row += 1
+                col += 1
             }
             
             return Matrix(elementsList: elementsList, dimensions: self.dimensions)
@@ -827,6 +827,10 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     */
     public func lowerTriangle(n: Int = 0) -> Matrix<T> {
         
+        if n == 0 && self.dimensions.isEmpty {
+            return Matrix()
+        }
+        
         if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
             NSException(name: "Index out the bounds.", reason: "The given index is out of bounds.", userInfo: nil).raise()
@@ -846,8 +850,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
                     elementsList[row * self.dimensions.columns + c] = 0
                 }
                 
-                row++
-                col++
+                row += 1
+                col += 1
             }
             
             return Matrix(elementsList: elementsList, dimensions: dimensions)
@@ -863,8 +867,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
                     elementsList[r * self.dimensions.columns + col] = self.element(r, col)
                 }
                 
-                row++
-                col++
+                row += 1
+                col += 1
             }
             
             return Matrix(elementsList: elementsList, dimensions: self.dimensions)
@@ -1020,7 +1024,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
                 
                 let j = i - k
                 if self.element(k, j) != self.element(j, k) { return false }
-                k++
+                k += 1
             }
         }
         
@@ -1076,8 +1080,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
                 if self.element(r, col) != 0 { return false }
             }
             
-            row++
-            col++
+            row += 1
+            col += 1
         }
         
         return true
@@ -1142,8 +1146,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
                 if self.element(row, c) != 0 { return false }
             }
             
-            row++
-            col++
+            row += 1
+            col += 1
         }
         
         return true
@@ -1179,8 +1183,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
                 }
             }
             
-            row++
-            col++
+            row += 1
+            col += 1
         }
         
         return true

@@ -178,7 +178,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         var rank = self.dimensions.minimum
         
         for element in self.elementsStructure {
-            if element == 0 { rank-- }
+            if element == 0 { rank -= 1 }
         }
         
         return rank

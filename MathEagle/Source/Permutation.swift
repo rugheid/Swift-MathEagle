@@ -273,7 +273,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
         
         for (index, element) in self.arrayRepresentation.enumerate() {
             
-            if index == element { count++ }
+            if index == element { count += 1 }
         }
         
         return count

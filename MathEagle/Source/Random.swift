@@ -12,7 +12,7 @@ import Foundation
 
 public protocol Randomizable {
     
-    typealias RandomIntervalType: Comparable
+    associatedtype RandomIntervalType: Comparable
     static func random() -> Self
     static func randomInInterval(intervals: ClosedInterval<RandomIntervalType>...) -> Self
     static func randomInInterval(intervals: [ClosedInterval<RandomIntervalType>]) -> Self

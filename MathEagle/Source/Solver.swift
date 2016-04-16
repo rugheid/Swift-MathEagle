@@ -104,7 +104,7 @@ public class Solver {
             x = x - f(x)/diff
             converged = abs(x - xprev) <= error
             
-            k++
+            k += 1
         }
         
         return x

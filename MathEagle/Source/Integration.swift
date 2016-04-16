@@ -62,7 +62,7 @@ public class Integration {
             
             I = I/3 + h*S
             
-            k++
+            k += 1
         }
         
         return I

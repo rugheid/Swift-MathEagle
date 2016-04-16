@@ -40,33 +40,33 @@ public func digits(bigInt: BigInt) -> [Int] {
  
  - parameter number: The number to get the number of digits of.
 */
-public func numberOfDigits(var number: Int) -> Int {
+public func numberOfDigits(number: Int) -> Int {
     
-    number = abs(number)
+    var n = abs(number)
     
-    var n = 1
+    var nr = 1
     
-    while number > 10 {
+    while n > 10 {
         
-        if number > 100_000_000 {
-            n += 8
-            number /= 100_000_000
+        if n > 100_000_000 {
+            nr += 8
+            n /= 100_000_000
         }
-        if number > 10_000 {
-            n += 4
-            number /= 10_000
+        if n > 10_000 {
+            nr += 4
+            n /= 10_000
         }
-        if number > 100 {
-            n += 2
-            number /= 100
+        if n > 100 {
+            nr += 2
+            n /= 100
         }
-        if number > 10 {
-            n += 1
-            number /= 10
+        if n > 10 {
+            nr += 1
+            n /= 10
         }
     }
     
-    return n
+    return nr
 }
 
 
@@ -86,7 +86,7 @@ public func isPandigital(number: Int, includeZero: Bool = false) -> Bool {
     let digitsArray = digits(number)
     var max = digitsArray.count
     
-    if includeZero { max-- }
+    if includeZero { max -= 1 }
     
     for digit in digitsArray {
         

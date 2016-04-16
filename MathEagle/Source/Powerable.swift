@@ -14,7 +14,7 @@ infix operator ** {associativity left precedence 160}
 
 public protocol NaturalPowerable {
     
-    typealias NaturalPowerType
+    associatedtype NaturalPowerType
     func ** (_: Self, _: UInt) -> NaturalPowerType
     init(_: NaturalPowerType)
 }
@@ -60,7 +60,7 @@ public func ** (left: Double, right: UInt) -> Double {
 
 public protocol IntegerPowerable {
     
-    typealias IntegerPowerType
+    associatedtype IntegerPowerType
     func ** (_: Self, _: Int) -> IntegerPowerType
     init(_: IntegerPowerType)
 }
@@ -106,7 +106,7 @@ public func ** (left: Double, right: Int) -> Double {
 
 public protocol RealPowerable {
     
-    typealias RealPowerType
+    associatedtype RealPowerType
     func ** (_: Self, _: Double) -> RealPowerType
     init(_: RealPowerType)
 }
