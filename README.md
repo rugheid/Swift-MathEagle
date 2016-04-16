@@ -38,6 +38,5 @@ Here are some plots for Vector addition:
 
 # To Do
 - [ ] Documentation
-- [ ] Big Integer and Big Float
 - [ ] Further General Development
 - [ ] Incorporate Accelerate for all applications
