@@ -79,6 +79,13 @@
 }
 
 
+#pragma mark - Basic Methods
+
+- (void)canonicalize {
+    mpq_canonicalize(mpqBigFrac);
+}
+
+
 #pragma mark - Conversions
 
 - (double)getDoubleValue {

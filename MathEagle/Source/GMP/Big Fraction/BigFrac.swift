@@ -75,6 +75,17 @@ public final class BigFrac: Equatable, Comparable, Addable, Negatable, Subtracta
     }
     
     
+    // MARK: Basic Methods
+    
+    /**
+     Canonicalizes the fraction. This means the numerator and denominator don't have common factors and
+     that the denominator is positive.
+     */
+    public func canonicalize() {
+        self.bigFracOBJC.canonicalize()
+    }
+    
+    
     // MARK: Conversions
     
     /**

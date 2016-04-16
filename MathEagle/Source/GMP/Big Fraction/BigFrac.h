@@ -26,6 +26,9 @@
 #pragma mark - Deallocation
 - (void)clear;
 
+#pragma mark - Basic Methods
+- (void)canonicalize;
+
 #pragma mark - Conversions
 - (double)getDoubleValue;
 - (char*)getStringValueInBase:(int)base;
