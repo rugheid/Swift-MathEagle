@@ -74,6 +74,24 @@ public final class BigFrac: Equatable, Comparable, Addable, Negatable, Subtracta
         return self.doubleValue.hashValue
     }
     
+    /**
+     Returns the numerator of the fraction.
+     */
+    public var numerator: BigInt {
+        var bigInt = BigInt()
+        bigInt.bigIntOBJC = self.bigFracOBJC.numerator()
+        return bigInt
+    }
+    
+    /**
+     Returns the denominator of the fraction.
+     */
+    public var denominator: BigInt {
+        var bigInt = BigInt()
+        bigInt.bigIntOBJC = self.bigFracOBJC.denominator()
+        return bigInt
+    }
+    
     
     // MARK: Basic Methods
     

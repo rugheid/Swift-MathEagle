@@ -29,6 +29,10 @@
 #pragma mark - Basic Methods
 - (void)canonicalize;
 
+#pragma mark - Basic Properties
+- (BigInt_OBJC*)numerator;
+- (BigInt_OBJC*)denominator;
+
 #pragma mark - Conversions
 - (double)getDoubleValue;
 - (char*)getStringValueInBase:(int)base;

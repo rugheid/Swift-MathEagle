@@ -86,6 +86,21 @@
 }
 
 
+#pragma mark - Basic Properties
+
+- (BigInt_OBJC *)numerator {
+    BigInt_OBJC *bigIntOBJC = [[BigInt_OBJC alloc] init];
+    mpz_set(bigIntOBJC->mpzBigInt, mpq_numref(mpqBigFrac));
+    return bigIntOBJC;
+}
+
+- (BigInt_OBJC *)denominator {
+    BigInt_OBJC *bigIntOBJC = [[BigInt_OBJC alloc] init];
+    mpz_set(bigIntOBJC->mpzBigInt, mpq_denref(mpqBigFrac));
+    return bigIntOBJC;
+}
+
+
 #pragma mark - Conversions
 
 - (double)getDoubleValue {
