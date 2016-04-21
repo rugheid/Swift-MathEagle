@@ -25,6 +25,7 @@
 		988B441D1B1CB4A40010C5FF /* DiagonalMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988B441C1B1CB4A40010C5FF /* DiagonalMatrixTests.swift */; };
 		988B7CCD1ACAD2F600CDEEF7 /* MatrixVectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988B7CCB1ACAD2F600CDEEF7 /* MatrixVectorTests.swift */; };
 		989729431B18B0550046D951 /* PermutationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989729421B18B0550046D951 /* PermutationTest.swift */; };
+		98AB21051CC814780005C280 /* Fraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AB21041CC814780005C280 /* Fraction.swift */; };
 		98B546EF1B33305D00360F0D /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B546EE1B33305D00360F0D /* Random.swift */; };
 		98B546F21B3330EA00360F0D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B546F11B3330EA00360F0D /* Constants.swift */; };
 		98B546F41B33313600360F0D /* BasicOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B546F31B33313600360F0D /* BasicOperations.swift */; };
@@ -109,6 +110,7 @@
 		988B441C1B1CB4A40010C5FF /* DiagonalMatrixTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagonalMatrixTests.swift; sourceTree = "<group>"; };
 		988B7CCB1ACAD2F600CDEEF7 /* MatrixVectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixVectorTests.swift; sourceTree = "<group>"; };
 		989729421B18B0550046D951 /* PermutationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermutationTest.swift; sourceTree = "<group>"; };
+		98AB21041CC814780005C280 /* Fraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fraction.swift; path = Source/Fraction.swift; sourceTree = "<group>"; };
 		98B546EE1B33305D00360F0D /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Random.swift; path = Source/Random.swift; sourceTree = "<group>"; };
 		98B546F11B3330EA00360F0D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Source/Constants.swift; sourceTree = "<group>"; };
 		98B546F31B33313600360F0D /* BasicOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicOperations.swift; path = Source/BasicOperations.swift; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 				98F598681A7B8BED0058DF53 /* Extensions.swift */,
 				9885B2C31B1C47600028FC9A /* Parity.swift */,
 				98E671761AA8F00600C88DCE /* Complex.swift */,
+				98AB21041CC814780005C280 /* Fraction.swift */,
 				98E743971C1E003C00B43898 /* GMP */,
 				9837B8521B258F6C00E6EE1B /* Functions */,
 				9837B8531B258FA200E6EE1B /* Analysis */,
@@ -570,6 +573,7 @@
 				98E743BB1C1F36E000B43898 /* BigInt.m in Sources */,
 				98E743B71C1E109600B43898 /* BigInt.swift in Sources */,
 				9885B2C41B1C47600028FC9A /* Parity.swift in Sources */,
+				98AB21051CC814780005C280 /* Fraction.swift in Sources */,
 				98F598781A7B8BED0058DF53 /* Optimization.swift in Sources */,
 				98F5987E1A7B8BED0058DF53 /* MatrixVector.swift in Sources */,
 				98B546F61B33319E00360F0D /* Powerable.swift in Sources */,
