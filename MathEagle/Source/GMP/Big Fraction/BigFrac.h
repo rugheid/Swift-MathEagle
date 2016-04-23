@@ -11,6 +11,7 @@
 #import "BigInt.h"
 
 @interface BigFrac_OBJC : NSObject {
+    @public
     mpq_t mpqBigFrac;
 }
 

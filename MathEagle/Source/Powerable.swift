@@ -19,6 +19,10 @@ public protocol NaturalPowerable {
     init(_: NaturalPowerType)
 }
 
+public func pow <T: NaturalPowerable> (left: T, right: UInt) -> T.NaturalPowerType {
+    return left ** right
+}
+
 public func ** (left: Int, right: UInt) -> Int {
     return Int(pow(Double(left), Double(right)))
 }
