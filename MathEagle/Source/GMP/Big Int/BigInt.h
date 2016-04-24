@@ -37,5 +37,6 @@
 + (void)set:(BigInt_OBJC*)result toProductOf:(BigInt_OBJC*)left and:(BigInt_OBJC*)right;
 + (void)set:(BigInt_OBJC*)result toQuotientOf:(BigInt_OBJC*)left and:(BigInt_OBJC*)right;
 + (void)set:(BigInt_OBJC*)result toAbsoluteValueOf:(BigInt_OBJC*)bigIntNumber;
++ (void)set:(BigInt_OBJC*)result toSquareRootOf:(BigInt_OBJC*)bigIntNumber;
 
 @end

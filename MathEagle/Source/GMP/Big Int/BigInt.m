@@ -118,4 +118,8 @@
     mpz_abs(result->mpzBigInt, bigIntNumber->mpzBigInt);
 }
 
++ (void)set:(BigInt_OBJC *)result toSquareRootOf:(BigInt_OBJC *)bigIntNumber {
+    mpz_sqrt(result->mpzBigInt, bigIntNumber->mpzBigInt);
+}
+
 @end

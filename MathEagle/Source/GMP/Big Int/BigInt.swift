@@ -183,6 +183,16 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, M
         BigInt_OBJC.set(self.bigIntOBJC, toAbsoluteValueOf: self.bigIntOBJC)
     }
     
+    public var squareRoot: BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, toSquareRootOf: self.bigIntOBJC)
+        return result
+    }
+    
+    public func squareRootInPlace() {
+        BigInt_OBJC.set(self.bigIntOBJC, toSquareRootOf: self.bigIntOBJC)
+    }
+    
     
     // MARK: SetCompliant
     
