@@ -22,6 +22,8 @@
 		986AF3081C13858E00A186B4 /* NumberPropertiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986AF3071C13858E00A186B4 /* NumberPropertiesTests.swift */; };
 		9885B2C41B1C47600028FC9A /* Parity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9885B2C31B1C47600028FC9A /* Parity.swift */; };
 		9885B2C61B1C7E990028FC9A /* PermutationMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9885B2C51B1C7E990028FC9A /* PermutationMatrixTests.swift */; };
+		988882CF1CDBA79D007B0E19 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988882CE1CDBA79D007B0E19 /* Graph.swift */; };
+		988882D21CDBC9C6007B0E19 /* GraphTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988882D11CDBC9C6007B0E19 /* GraphTests.swift */; };
 		988B441D1B1CB4A40010C5FF /* DiagonalMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988B441C1B1CB4A40010C5FF /* DiagonalMatrixTests.swift */; };
 		988B7CCD1ACAD2F600CDEEF7 /* MatrixVectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988B7CCB1ACAD2F600CDEEF7 /* MatrixVectorTests.swift */; };
 		989729431B18B0550046D951 /* PermutationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989729421B18B0550046D951 /* PermutationTest.swift */; };
@@ -110,6 +112,8 @@
 		986AF3071C13858E00A186B4 /* NumberPropertiesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberPropertiesTests.swift; sourceTree = "<group>"; };
 		9885B2C31B1C47600028FC9A /* Parity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Parity.swift; path = Source/Parity.swift; sourceTree = "<group>"; };
 		9885B2C51B1C7E990028FC9A /* PermutationMatrixTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermutationMatrixTests.swift; sourceTree = "<group>"; };
+		988882CE1CDBA79D007B0E19 /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Graph.swift; path = MathEagleTests/Graphs/Graph.swift; sourceTree = SOURCE_ROOT; };
+		988882D11CDBC9C6007B0E19 /* GraphTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GraphTests.swift; path = Graphs/GraphTests.swift; sourceTree = "<group>"; };
 		988B441C1B1CB4A40010C5FF /* DiagonalMatrixTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagonalMatrixTests.swift; sourceTree = "<group>"; };
 		988B7CCB1ACAD2F600CDEEF7 /* MatrixVectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixVectorTests.swift; sourceTree = "<group>"; };
 		989729421B18B0550046D951 /* PermutationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermutationTest.swift; sourceTree = "<group>"; };
@@ -239,6 +243,22 @@
 				9885B2C51B1C7E990028FC9A /* PermutationMatrixTests.swift */,
 			);
 			name = Matrix;
+			sourceTree = "<group>";
+		};
+		988882CD1CDBA77F007B0E19 /* Graphs */ = {
+			isa = PBXGroup;
+			children = (
+				988882CE1CDBA79D007B0E19 /* Graph.swift */,
+			);
+			name = Graphs;
+			sourceTree = "<group>";
+		};
+		988882D01CDBC9A2007B0E19 /* Graphs */ = {
+			isa = PBXGroup;
+			children = (
+				988882D11CDBC9C6007B0E19 /* GraphTests.swift */,
+			);
+			name = Graphs;
 			sourceTree = "<group>";
 		};
 		98AB216D1CCA65020005C280 /* Big Float */ = {
@@ -391,6 +411,7 @@
 				9837B8531B258FA200E6EE1B /* Analysis */,
 				98F558851B1AFBCA009AECD5 /* Permutation */,
 				98F598821A7B8BFB0058DF53 /* Linear Algebra */,
+				988882CD1CDBA77F007B0E19 /* Graphs */,
 				98E25E431B19DE73008435B7 /* Objective-C Bridgers */,
 				98F5984E1A7B8BD20058DF53 /* Supporting Files */,
 			);
@@ -424,6 +445,7 @@
 				98DE55DD1C201B0000DBD3D6 /* GMP */,
 				98F558891B1B10C0009AECD5 /* Permutation */,
 				98F598A11A7B8C370058DF53 /* Linear Algebra */,
+				988882D01CDBC9A2007B0E19 /* Graphs */,
 				98F5988C1A7B8C2A0058DF53 /* Helper.swift */,
 				98F5985B1A7B8BD20058DF53 /* Supporting Files */,
 			);
@@ -608,6 +630,7 @@
 				986AF3061C13783E00A186B4 /* NumberProperties.swift in Sources */,
 				98F598801A7B8BED0058DF53 /* Vector.swift in Sources */,
 				98F558841B1AFBC2009AECD5 /* Cycle.swift in Sources */,
+				988882CF1CDBA79D007B0E19 /* Graph.swift in Sources */,
 				98F598741A7B8BED0058DF53 /* Functions.swift in Sources */,
 				981ED68D1B164B7600B190FA /* Permutation.swift in Sources */,
 				98B546EF1B33305D00360F0D /* Random.swift in Sources */,
@@ -629,6 +652,7 @@
 				98E671751AA8C4B400C88DCE /* PrimeTests.swift in Sources */,
 				989729431B18B0550046D951 /* PermutationTest.swift in Sources */,
 				9843568F1ACC79F100B988CB /* RandomTests.swift in Sources */,
+				988882D21CDBC9C6007B0E19 /* GraphTests.swift in Sources */,
 				98DE55DF1C201B7D00DBD3D6 /* BigIntTests.swift in Sources */,
 				98F598A01A7B8C2A0058DF53 /* Helper.swift in Sources */,
 				98F5989A1A7B8C2A0058DF53 /* IntegrationTests.swift in Sources */,

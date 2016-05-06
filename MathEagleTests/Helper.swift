@@ -8,6 +8,7 @@
 
 import Foundation
 import MathEagle
+import XCTest
 
 
 // MARK: Constants
@@ -92,4 +93,18 @@ func calculateBenchmarkingTimes(base: Int, maxPower k: Int, title: String = "", 
     
     print("")
     print("")
+}
+
+
+// MARK: XCT Extensions
+
+func XCTAssertContentEqual <T: Equatable> (expression1: [T], _ expression2: [T]) {
+    
+    XCTAssertEqual(expression1.count, expression2.count)
+    
+    for element in expression1 {
+        XCTAssertTrue(expression2.contains{ (value) -> Bool in
+            return value == element
+        })
+    }
 }
