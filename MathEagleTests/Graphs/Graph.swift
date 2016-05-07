@@ -330,58 +330,6 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
         }
         
         return nil
-        
-//        // Get indices of from and to vertices
-//        size_t source = indexOfVertex(fromVertex);
-//        size_t target = indexOfVertex(toVertex);
-//        
-//        // Define a struct for the minimum distances to a certain vertex
-//        struct MinDistance {
-//            size_t from;
-//            EdgeWeightType distance;
-//        };
-//        
-//        // Create a vector to hold the minimum distances to all nodes
-//        // The index corresponds to the index of the node
-//        std::vector<MinDistance> minDistance(numberOfVertices(), {source, std::numeric_limits<EdgeWeightType>::max()});
-//        minDistance[source] = {source, EdgeWeightType()};
-//        
-//        // Create a set to hold the vertices we're processing
-//        std::set<std::pair<EdgeWeightType, size_t>> activeVertices;
-//        activeVertices.insert({EdgeWeightType(), source});
-//        
-//        // Keep looping as long as we're processing
-//        while (!activeVertices.empty()) {
-//            
-//            // Get one of the vertices we're processing
-//            std::size_t where = activeVertices.begin()->second;
-//            
-//            // If we're at the target, we got the best distance, so create the path and return it
-//            if (where == target) {
-//                size_t nextVertexIndex = minDistance[target].from;
-//                std::vector<VertexNameType> path = {toVertex, nameOfVertexAtIndex(nextVertexIndex)};
-//                while (nextVertexIndex != source) {
-//                    nextVertexIndex = minDistance[nextVertexIndex].from;
-//                    path.push_back(nameOfVertexAtIndex(nextVertexIndex));
-//                }
-//                std::reverse(path.begin(), path.end());
-//                return {true, minDistance[where].distance, path};
-//            }
-//            
-//            // Remove the vertex we're processing from the set
-//            activeVertices.erase(activeVertices.begin());
-//            
-//            // Loop over the edges of vertex we're processing
-//            for (auto edge : adjacencyList[where])
-//            if (minDistance[edge.to].distance > minDistance[where].distance + edge.weight) {
-//                activeVertices.erase( {minDistance[edge.to].distance, edge.to} );
-//                minDistance[edge.to] = {where, minDistance[where].distance + edge.weight};
-//                activeVertices.insert( {minDistance[edge.to].distance, edge.to} );
-//            }
-//        }
-//        
-//        // If it did not finish yet, there was no path to the end, so return an empty path
-//        return {false, EdgeWeightType(), {}};
     }
 }
 

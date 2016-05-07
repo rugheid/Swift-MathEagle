@@ -85,5 +85,8 @@ class GraphTests: XCTestCase {
         XCTAssertNotNil(shortestPathResult)
         XCTAssertEqual(shortestPathResult!.path, ["Amsterdam", "Brussels", "Charleroi", "Eindhoven"])
         XCTAssertEqual(shortestPathResult!.totalDistance, 356)
+        
+        shortestPathResult = undirectedGraph.shortestPath(fromVertex: "Amsterdam", toVertex: "Waterloo")
+        XCTAssertNil(shortestPathResult)
     }
 }
