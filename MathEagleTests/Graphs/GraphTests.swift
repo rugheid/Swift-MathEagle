@@ -81,12 +81,12 @@ class GraphTests: XCTestCase {
     
     func testShortestPathUndirectedGraph() {
         
-        var shortestPathResult = undirectedGraph.shortestPath(fromVertex: "Amsterdam", toVertex: "Eindhoven")
+        var shortestPathResult = undirectedGraph.dijkstra(fromVertex: "Amsterdam", toVertex: "Eindhoven")
         XCTAssertNotNil(shortestPathResult)
         XCTAssertEqual(shortestPathResult!.path, ["Amsterdam", "Brussels", "Charleroi", "Eindhoven"])
         XCTAssertEqual(shortestPathResult!.totalDistance, 356)
         
-        shortestPathResult = undirectedGraph.shortestPath(fromVertex: "Amsterdam", toVertex: "Waterloo")
+        shortestPathResult = undirectedGraph.dijkstra(fromVertex: "Amsterdam", toVertex: "Waterloo")
         XCTAssertNil(shortestPathResult)
     }
 }

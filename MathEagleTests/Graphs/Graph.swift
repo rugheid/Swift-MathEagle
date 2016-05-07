@@ -281,7 +281,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      - parameter from: The source vertex.
      - parameter to:   The destination vertex.
      */
-    public func shortestPath(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> ShortestPathResult? {
+    public func dijkstra(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> ShortestPathResult? {
         
         var minimumDistances = [VertexNameType: MinDistance]()
         for vertex in lazyVertices {
