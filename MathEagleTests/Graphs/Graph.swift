@@ -254,7 +254,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      
      - parameter countTwice: Determines whether bidirectional edges should be counted twice.
      */
-    public func numberOfEdges(countBidirectionalEdgesTwice countTwice: Bool = false) -> Int {
+    private func numberOfEdges(countBidirectionalEdgesTwice countTwice: Bool = false) -> Int {
         // TODO: Implement this
         var count = 0
         for vertex in lazyVertices {
@@ -273,10 +273,11 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
     // MARK: Shortest Path
     
     public typealias ShortestPathResult = GraphShortestPathResult<VertexNameType, EdgeWeightType>
-    private typealias MinDistance = GraphMinDistance<VertexNameType, EdgeWeightType>
+    public typealias MinDistance = GraphMinDistance<VertexNameType, EdgeWeightType>
     
     /**
      Returns the shortest path between the two given nodes, or nil if no path exists.
+     This uses Dijkstra's algorithm. Note that it can't handle negative edge weights.
      
      - parameter from: The source vertex.
      - parameter to:   The destination vertex.
@@ -330,6 +331,59 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
         }
         
         return nil
+    }
+    
+    /**
+     Calculates the minimal distances to all vertices using the Bellman-Ford algorithm.
+     Note that Bellman-Ford can handle negative weights, but not negative cycles.
+     
+     - parameter from: The vertex to calculate the distances from.
+     
+     - throws: Throws a `GraphError.NegativeCycle` error when the graph contains a negative cycle.
+     
+     - returns: Returns a dictionary mapping every vertex to it's minimal distance.
+     */
+    public func bellmanFord(fromVertex from: VertexNameType) throws -> [VertexNameType: MinDistance] {
+        
+        var minimumDistances = [VertexNameType: MinDistance]()
+        for vertex in lazyVertices {
+            minimumDistances[vertex] = MinDistance()
+        }
+        minimumDistances[from] = MinDistance(vertex: from, distance: 0)
+        
+        for _ in 1 ..< numberOfVertices {
+            for beginVertex in lazyVertices {
+                for endVertex in lazyVertices {
+                    if let edge = getEdge(fromVertex: beginVertex, toVertex: endVertex) {
+                        guard let minDistanceBegin = minimumDistances[beginVertex]!.distance else {
+                            continue
+                        }
+                        let minDistanceEnd = minimumDistances[endVertex]!.distance
+                        if minDistanceEnd == nil || (minDistanceEnd! > minDistanceBegin + edge.weight) {
+                            minimumDistances[endVertex] = MinDistance(
+                                vertex: beginVertex,
+                                distance: minDistanceBegin + edge.weight)
+                        }
+                    }
+                }
+            }
+        }
+        
+        for beginVertex in lazyVertices {
+            for endVertex in lazyVertices {
+                if let edge = getEdge(fromVertex: beginVertex, toVertex: endVertex) {
+                    guard let minDistanceBegin = minimumDistances[beginVertex]!.distance,
+                        let minDistanceEnd = minimumDistances[endVertex]!.distance else {
+                        continue
+                    }
+                    if minDistanceBegin + edge.weight < minDistanceEnd {
+                        throw GraphError.NegativeCycle
+                    }
+                }
+            }
+        }
+        
+        return minimumDistances
     }
 }
 
@@ -402,10 +456,10 @@ public struct GraphShortestPathResult <VertexNameType, DistanceType: protocol<In
 
 
 /**
- *  A private struct to holde the minimum distance to a vertex.
+ *  A struct to hold the minimum distance to a vertex.
  *  This struct is used in shortest path algorithms.
  */
-private struct GraphMinDistance <VertexNameType, DistanceType: protocol<Comparable>> {
+public struct GraphMinDistance <VertexNameType, DistanceType: protocol<Comparable>> {
     
     
     // MARK: Properties
@@ -413,20 +467,33 @@ private struct GraphMinDistance <VertexNameType, DistanceType: protocol<Comparab
     /**
      The name of the vertex from which the shortest path comes.
      */
-    var vertex: VertexNameType?
+    public var vertex: VertexNameType?
     
     /**
      The distance of the shortest path to the vertex.
      */
-    var distance: DistanceType?
+    public var distance: DistanceType?
     
     
     // MARK: Initialisers
     
-    init() {}
+    public init() {}
     
-    init(vertex: VertexNameType?, distance: DistanceType?) {
+    public init(vertex: VertexNameType?, distance: DistanceType?) {
         self.vertex = vertex
         self.distance = distance
     }
+}
+
+
+// MARK: Errors
+
+/**
+ An enum to hold errors for the Graph class.
+ 
+ - NegativeCycle: Means the graph contains a negative cycle.
+ */
+public enum GraphError: ErrorType {
+    
+    case NegativeCycle
 }

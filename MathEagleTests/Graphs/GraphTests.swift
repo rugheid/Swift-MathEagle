@@ -79,7 +79,7 @@ class GraphTests: XCTestCase {
     
     // MARK: Shortest Path Tests
     
-    func testShortestPathUndirectedGraph() {
+    func testDijkstraUndirectedGraph() {
         
         var shortestPathResult = undirectedGraph.dijkstra(fromVertex: "Amsterdam", toVertex: "Eindhoven")
         XCTAssertNotNil(shortestPathResult)
@@ -88,5 +88,20 @@ class GraphTests: XCTestCase {
         
         shortestPathResult = undirectedGraph.dijkstra(fromVertex: "Amsterdam", toVertex: "Waterloo")
         XCTAssertNil(shortestPathResult)
+    }
+    
+    func testBellmanFordUndirectedGraph() {
+        
+        var minimumDistances = try! undirectedGraph.bellmanFord(fromVertex: "Amsterdam")
+        XCTAssertEqual(minimumDistances["Amsterdam"]!.distance, 0.0)
+        XCTAssertEqual(minimumDistances["Amsterdam"]!.vertex!, "Amsterdam")
+        XCTAssertEqual(minimumDistances["Brussels"]!.distance, 173.4)
+        XCTAssertEqual(minimumDistances["Brussels"]!.vertex!, "Amsterdam")
+        XCTAssertEqual(minimumDistances["Charleroi"]!.distance, 220.2)
+        XCTAssertEqual(minimumDistances["Charleroi"]!.vertex!, "Brussels")
+        XCTAssertEqual(minimumDistances["Dublin"]!.distance, 757.1)
+        XCTAssertEqual(minimumDistances["Dublin"]!.vertex!, "Amsterdam")
+        XCTAssertEqual(minimumDistances["Eindhoven"]!.distance, 356)
+        XCTAssertEqual(minimumDistances["Eindhoven"]!.vertex!, "Charleroi")
     }
 }
