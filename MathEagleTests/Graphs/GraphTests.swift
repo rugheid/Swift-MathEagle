@@ -12,6 +12,8 @@ import MathEagle
 
 class GraphTests: XCTestCase {
     
+    // TODO: Add more test graphs (negative weights, directed, ...)
+    
     var undirectedGraph = Graph<String, Double, Double>()
 
     override func setUp() {
