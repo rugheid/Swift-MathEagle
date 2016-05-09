@@ -53,6 +53,9 @@ class GraphTests: XCTestCase {
     
     func testEdgeManagement() {
         
+        XCTAssertEqual(undirectedGraph.numberOfEdges, 5)
+        XCTAssertEqual(undirectedGraph.numberOfEdges(countBidirectionalEdgesTwice: true), 10)
+        
         XCTAssertEqual(undirectedGraph.getEdgeWeight(fromVertex: "Amsterdam", toVertex: "Brussels"), 173.4)
         XCTAssertEqual(undirectedGraph.getEdgeWeight(fromVertex: "Amsterdam", toVertex: "Charleroi"), 0.0)
         

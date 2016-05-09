@@ -250,19 +250,35 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
     }
     
     /**
+     Returns the number of edges. Bidirectional edges are counted once.
+     If you want bidirectional edges counted twice, use `numberOfEdges(countBidirectionalEdgesTwice:)`.
+     */
+    public var numberOfEdges: Int {
+        return numberOfEdges()
+    }
+    
+    /**
      Returns the number of edges.
      
      - parameter countTwice: Determines whether bidirectional edges should be counted twice.
      */
-    private func numberOfEdges(countBidirectionalEdgesTwice countTwice: Bool = false) -> Int {
-        // TODO: Implement this
+    public func numberOfEdges(countBidirectionalEdgesTwice countTwice: Bool = false) -> Int {
         var count = 0
-        for vertex in lazyVertices {
-            if countTwice {
+        if countTwice {
+            for vertex in lazyVertices {
                 count += adjacencyList[vertex]!.count
-            } else {
-                for to in adjacencyList[vertex]! {
-                    
+            }
+        } else {
+            var done = [VertexNameType: Set<VertexNameType>]()
+            for vertex in lazyVertices {
+                done[vertex] = []
+            }
+            for vertex in lazyVertices {
+                for (to, _) in adjacencyList[vertex]! {
+                    if !done[to]!.contains(vertex) {
+                        done[vertex]!.insert(to)
+                        count += 1
+                    }
                 }
             }
         }
@@ -281,6 +297,8 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      
      - parameter from: The source vertex.
      - parameter to:   The destination vertex.
+     
+     - complexity: O(E + V*log(V))
      */
     public func dijkstra(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> ShortestPathResult? {
         
@@ -342,6 +360,8 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      - throws: Throws a `GraphError.NegativeCycle` error when the graph contains a negative cycle.
      
      - returns: Returns a dictionary mapping every vertex to it's minimal distance.
+     
+     - complexity: O(VE)
      */
     public func bellmanFord(fromVertex from: VertexNameType) throws -> [VertexNameType: MinDistance] {
         
