@@ -15,6 +15,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
     
     public typealias Edge = GraphEdge<EdgeWeightType, EdgeCapacityType>
     
+    
     // MARK: Internal Properties
     
     private var adjacencyList: [VertexNameType: [VertexNameType: Edge]]
@@ -405,6 +406,56 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
         
         return minimumDistances
     }
+    
+    public typealias FloydWarshallResult = GraphFloydWarshallResult<VertexNameType, EdgeWeightType>
+    
+    /**
+     Calculates the shortest paths between all nodes in the graph using
+     the Floyd-Warshal algorithm.
+     Note that Floyd-Warshal can handle negative values, but not negative cycles.
+     
+     - throws: Throws a `GraphError.NegativeCycle` error when the graph contains a negative cycle.
+     
+     - returns: Returns a FloydWarshallResult object. You can use this object to get the shortest
+                paths between nodes.
+     */
+    public func floydWarshall() throws -> FloydWarshallResult {
+        
+        var minimumDistances = [VertexNameType: [VertexNameType: MinDistance]]()
+        for from in lazyVertices {
+            minimumDistances[from] = [VertexNameType: MinDistance]()
+            for to in lazyVertices {
+                if from == to {
+                    minimumDistances[from]![to] = MinDistance(vertex: nil, distance: 0)
+                    continue
+                }
+                if containsEdge(fromVertex: from, toVertex: to) {
+                    let weight = getEdgeWeight(fromVertex: from, toVertex: to)
+                    minimumDistances[from]![to] = MinDistance(vertex: to, distance: weight)
+                } else {
+                    minimumDistances[from]![to] = MinDistance()
+                }
+            }
+        }
+        
+        for k in lazyVertices {
+            for from in lazyVertices {
+                for to in lazyVertices {
+                    if let fromToKDist = minimumDistances[from]![k]!.distance,
+                        let kToToDist = minimumDistances[k]![to]!.distance where
+                        minimumDistances[from]![to]!.distance == nil ||
+                        minimumDistances[from]![to]!.distance > fromToKDist + kToToDist {
+                        minimumDistances[from]![to]!.distance = fromToKDist + kToToDist
+                        minimumDistances[from]![to]!.vertex = minimumDistances[from]![k]!.vertex
+                    }
+                }
+            }
+        }
+        
+        // TODO: Detect negative cycles
+        
+        return FloydWarshallResult(minimumDistances: minimumDistances)
+    }
 }
 
 
@@ -479,7 +530,7 @@ public struct GraphShortestPathResult <VertexNameType, DistanceType: protocol<In
  *  A struct to hold the minimum distance to a vertex.
  *  This struct is used in shortest path algorithms.
  */
-public struct GraphMinDistance <VertexNameType, DistanceType: protocol<Comparable>> {
+public struct GraphMinDistance <VertexNameType, DistanceType> {
     
     
     // MARK: Properties
@@ -502,6 +553,53 @@ public struct GraphMinDistance <VertexNameType, DistanceType: protocol<Comparabl
     public init(vertex: VertexNameType?, distance: DistanceType?) {
         self.vertex = vertex
         self.distance = distance
+    }
+}
+
+
+/**
+ *  A struct to represent the result of the Floyd-Warshall algorithm.
+ */
+public struct GraphFloydWarshallResult <VertexNameType: protocol<Hashable>, DistanceType: protocol<IntegerLiteralConvertible>> {
+    
+    public typealias MinDistance = GraphMinDistance<VertexNameType, DistanceType>
+    public typealias ShortestPathResult = GraphShortestPathResult<VertexNameType, DistanceType>
+    
+    
+    // MARK: Properties
+    
+    /**
+     Represents the minimum distances between all vertices.
+     You can get a MinDistance instance like `minimumDistances[from][to]`.
+     This object contains the minimum distance from vertex `from` to vertex `to`.
+     `minimumDistances[from][to].distance` gives the minimal distance from `from`
+     to `to. If it is nil, it means `to` is not reachable.
+     `minimumDistances[from][to].vertex` gives the next vertex in the shortest path
+     from `from` to `to`.
+     */
+    public var minimumDistances: [VertexNameType: [VertexNameType: MinDistance]]
+    
+    
+    // MARK: Methods
+    
+    /**
+     Returns the shortest path between the two given vertices.
+     
+     - parameter from: The start node.
+     - parameter to:   The end node.
+     
+     - returns: An array containing the shortest path. The begin and end nodes are also included.
+     */
+    public func shortestPath(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> ShortestPathResult {
+        guard var nextVertex = minimumDistances[from]![to]!.vertex else {
+            return ShortestPathResult()
+        }
+        var path = [from, nextVertex]
+        while nextVertex != to {
+            nextVertex = minimumDistances[nextVertex]![to]!.vertex!
+            path.append(nextVertex)
+        }
+        return ShortestPathResult(path: path, totalDistance: minimumDistances[from]![to]!.distance!)
     }
 }
 

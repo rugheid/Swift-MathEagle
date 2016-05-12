@@ -109,4 +109,24 @@ class GraphTests: XCTestCase {
         XCTAssertEqual(minimumDistances["Eindhoven"]!.distance, 356)
         XCTAssertEqual(minimumDistances["Eindhoven"]!.vertex!, "Charleroi")
     }
+    
+    func testFloydWarshallUndirectedGraph() {
+        
+        let result = try! undirectedGraph.floydWarshall()
+        var shortestPathResult = result.shortestPath(fromVertex: "Amsterdam", toVertex: "Amsterdam")
+        XCTAssertEqual(shortestPathResult.totalDistance, 0.0)
+        XCTAssertEqual(shortestPathResult.path, [])
+        shortestPathResult = result.shortestPath(fromVertex: "Amsterdam", toVertex: "Brussels")
+        XCTAssertEqual(shortestPathResult.totalDistance, 173.4)
+        XCTAssertEqual(shortestPathResult.path, ["Amsterdam", "Brussels"])
+        shortestPathResult = result.shortestPath(fromVertex: "Amsterdam", toVertex: "Charleroi")
+        XCTAssertEqual(shortestPathResult.totalDistance, 220.2)
+        XCTAssertEqual(shortestPathResult.path, ["Amsterdam", "Brussels", "Charleroi"])
+        shortestPathResult = result.shortestPath(fromVertex: "Amsterdam", toVertex: "Dublin")
+        XCTAssertEqual(shortestPathResult.totalDistance, 757.1)
+        XCTAssertEqual(shortestPathResult.path, ["Amsterdam", "Dublin"])
+        shortestPathResult = result.shortestPath(fromVertex: "Amsterdam", toVertex: "Eindhoven")
+        XCTAssertEqual(shortestPathResult.totalDistance, 356)
+        XCTAssertEqual(shortestPathResult.path, ["Amsterdam", "Brussels", "Charleroi", "Eindhoven"])
+    }
 }
