@@ -418,6 +418,8 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      
      - returns: Returns a FloydWarshallResult object. You can use this object to get the shortest
                 paths between nodes.
+     
+     - complexity: O(V^3)
      */
     public func floydWarshall() throws -> FloydWarshallResult {
         
@@ -453,6 +455,19 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
         }
         
         // TODO: Detect negative cycles
+        /*
+         This can be achieved in a couple of ways. We could check the minimum distances of 
+         vertices to themselves. If they are negative, there exists a negative cycle.
+         The problem with this implementation is that distances in Floyd-Warshall can grow
+         exponentially when there are negative cycles. That's why we should do that
+         check in every iteration of the inner loop. That takes some work!
+         However, it won't change the worst case time complexity.
+         We could also use Bellman-Ford first to detect negative cycles. This
+         would take O(VE) which also doesn't affect O(V^3)
+         
+         See this paper:
+         http://www.or.uni-bonn.de/~hougardy/paper/Floyd-Warshall.pdf
+        */
         
         return FloydWarshallResult(minimumDistances: minimumDistances)
     }
