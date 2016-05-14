@@ -14,6 +14,20 @@ class GraphTests: XCTestCase {
     
     // TODO: Add more test graphs (negative weights, directed, ...)
     
+    /*
+     Undirected graph:
+     
+     Amsterdam --- 173.4 --- Brussels
+         |                       |
+         |                       |
+         |                       |
+       757.1                   46.8
+         |                       |
+         |                       |
+         |                       |
+       Dublin --- 800.8 --- Charleroi --- 135.8 --- Eindhoven
+     
+     */
     var undirectedGraph = Graph<String, Double, Double>()
 
     override func setUp() {
@@ -79,6 +93,8 @@ class GraphTests: XCTestCase {
         
         XCTAssertFalse(undirectedGraph.containsEdge(fromVertex: "Amsterdam", toVertex: "Brussels"))
         XCTAssertFalse(undirectedGraph.containsEdge(fromVertex: "Brussels", toVertex: "Amsterdam"))
+        
+        // TODO: Test getEdges(fromVertex:)
     }
     
     
@@ -128,5 +144,28 @@ class GraphTests: XCTestCase {
         shortestPathResult = result.shortestPath(fromVertex: "Amsterdam", toVertex: "Eindhoven")
         XCTAssertEqual(shortestPathResult.totalDistance, 356)
         XCTAssertEqual(shortestPathResult.path, ["Amsterdam", "Brussels", "Charleroi", "Eindhoven"])
+    }
+    
+    
+    // MARK: Bipartite
+    
+    func testBipartitionUndirectedGraph() {
+        
+        /*
+         Bipartition should be:
+         Amsterdam, Charleroi in one set
+         Brussels, Dublin, Eindhoven in another set
+        */
+        let bipartition = undirectedGraph.bipartition()
+        XCTAssertNotNil(bipartition)
+        XCTAssertNotNil(bipartition!.setNumberOfVertex("Amsterdam"))
+        XCTAssertNotNil(bipartition!.setNumberOfVertex("Brussels"))
+        XCTAssertNotNil(bipartition!.setNumberOfVertex("Charleroi"))
+        XCTAssertNotNil(bipartition!.setNumberOfVertex("Dublin"))
+        XCTAssertNotNil(bipartition!.setNumberOfVertex("Eindhoven"))
+        XCTAssertTrue(bipartition!.inDifferentSets("Amsterdam", "Brussels"))
+        XCTAssertTrue(bipartition!.inDifferentSets("Amsterdam", "Dublin"))
+        XCTAssertTrue(bipartition!.inDifferentSets("Amsterdam", "Eindhoven"))
+        XCTAssertTrue(bipartition!.inSameSet("Amsterdam", "Charleroi"))
     }
 }

@@ -18,6 +18,9 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
     
     // MARK: Internal Properties
     
+    /**
+     An adjacency list to store the edges of the graph.
+     */
     private var adjacencyList: [VertexNameType: [VertexNameType: Edge]]
     
     
@@ -228,6 +231,23 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      */
     public func getEdgeCapacity(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> EdgeCapacityType {
         return getEdge(fromVertex: from, toVertex: to)?.capacity ?? 0
+    }
+    
+    /**
+     Returns the edges starting from a given vertex.
+     
+     - parameter from: The vertex to start from.
+     
+     - returns: A dictionary where the keys are the to vertices.
+     */
+    public func getEdges(fromVertex from: VertexNameType) -> [VertexNameType: Edge] {
+        var edges = [VertexNameType: Edge]()
+        for to in lazyVertices {
+            if let edge = getEdge(fromVertex: from, toVertex: to) {
+                edges[to] = edge
+            }
+        }
+        return edges
     }
     
     /**
@@ -471,6 +491,45 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
         
         return FloydWarshallResult(minimumDistances: minimumDistances)
     }
+    
+    
+    // MARK: Bipartite
+    
+    public typealias Bipartition = GraphBipartition<VertexNameType>
+    
+    /**
+     Returns a bipartition of the graph, or nil if it's not bipartite.
+     */
+    public func bipartition() -> Bipartition? {
+        
+        var bipartition = Bipartition()
+        
+        if numberOfVertices == 0 {
+            return bipartition
+        }
+        
+        bipartition.firstSet.insert(lazyVertices.first!)
+        var queue = [lazyVertices.first!]
+        
+        while !queue.isEmpty {
+            
+            let from = queue.popLast()!
+            for (to, _) in getEdges(fromVertex: from) {
+                
+                if let setNumber = bipartition.setNumberOfVertex(to) {
+                    let fromSetNumber = bipartition.setNumberOfVertex(from)!
+                    if fromSetNumber == setNumber {
+                        return nil
+                    }
+                } else {
+                    bipartition.addVertex(to, toOppositeSetOfVertex: from)
+                    queue.append(to)
+                }
+            }
+        }
+        
+        return bipartition
+    }
 }
 
 
@@ -615,6 +674,116 @@ public struct GraphFloydWarshallResult <VertexNameType: protocol<Hashable>, Dist
             path.append(nextVertex)
         }
         return ShortestPathResult(path: path, totalDistance: minimumDistances[from]![to]!.distance!)
+    }
+}
+
+
+/**
+ *  A struct to represent a biparition of a graph.
+ */
+public struct GraphBipartition <VertexNameType: protocol<Hashable>> {
+    
+    
+    // MARK: Properties
+    
+    /**
+     The first set of the bipartition.
+     */
+    public var firstSet: Set<VertexNameType>
+    
+    /**
+     The second set of the bipartition.
+     */
+    public var secondSet: Set<VertexNameType>
+    
+    
+    // MARK: Initialisers
+    
+    public init() {
+        firstSet = []
+        secondSet = []
+    }
+    
+    public init(firstSet: Set<VertexNameType>, secondSet: Set<VertexNameType>) {
+        self.firstSet = firstSet
+        self.secondSet = secondSet
+    }
+    
+    
+    // MARK: Methods
+    
+    /**
+     Returns the set number of a given vertex.
+     
+     - parameter vertex: The vertex to get the set number for.
+     
+     - returns: 1 if the vertex is in the first set, 2 if it's in the second and nil
+                if it's not in any set.
+     */
+    public func setNumberOfVertex(vertex: VertexNameType) -> Int? {
+        if self.firstSet.contains(vertex) {
+            return 1
+        } else if self.secondSet.contains(vertex) {
+            return 2
+        } else {
+            return nil
+        }
+    }
+    
+    /**
+     Adds the given vertex to the set with the given set number.
+     
+     - parameter vertex:    The vertex to add.
+     - parameter setNumber: The number of the set to add the vertex to. This should be either 1 or 2.
+     */
+    public mutating func addVertex(vertex: VertexNameType, toSetWithNumber setNumber: Int) {
+        if setNumber == 1 {
+            self.firstSet.insert(vertex)
+        } else if setNumber == 2 {
+            self.secondSet.insert(vertex)
+        } else {
+            NSException(name: "Invalid set number", reason: "The set number \(setNumber) is invalid.", userInfo: nil).raise()
+        }
+    }
+    
+    /**
+     Adds the given vertex to the set the given other vertex is not in.
+     
+     - parameter vertex: The vertex to add.
+     - parameter other:  A vertex in the set where the vertex should not be added to.
+     */
+    public mutating func addVertex(vertex: VertexNameType, toOppositeSetOfVertex other: VertexNameType) {
+        guard var setNumber = setNumberOfVertex(other) else {
+            NSException(name: "Unknown vertex", reason: "The bipartition doesn't contain the given vertex.", userInfo: nil).raise()
+            return
+        }
+        setNumber = setNumber % 2 + 1
+        self.addVertex(vertex, toSetWithNumber: setNumber)
+    }
+    
+    /**
+     Returns whether the two given vertices are in the same set of the bipartition.
+     If one or both of the vertices are not in the bipartition, an exception is thrown.
+     
+     - parameter firstVertex:  The first vertex.
+     - parameter secondVertex: The second vertex.
+     */
+    public func inSameSet(firstVertex: VertexNameType, _ secondVertex: VertexNameType) -> Bool {
+        guard let firstSetNumber = setNumberOfVertex(firstVertex), let secondSetNumber = setNumberOfVertex(secondVertex) else {
+            fatalError("One or both of the vertices are not in the bipartition.")
+        }
+        return firstSetNumber == secondSetNumber
+    }
+    
+    /**
+     Returns whether the two given vertices are in different sets of the bipartition.
+     If one or both of the vertices are not in the bipartition, an exception is thrown.
+     
+     - parameter firstVertex:  The first vertex.
+     - parameter secondVertex: The second vertex.
+     */
+    public func inDifferentSets(firstVertex: VertexNameType, _ secondVertex: VertexNameType) -> Bool {
+        return !inSameSet(firstVertex, secondVertex)
     }
 }
 
