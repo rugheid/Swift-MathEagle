@@ -512,13 +512,12 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
         var queue = [lazyVertices.first!]
         
         while !queue.isEmpty {
-            
+
             let from = queue.popLast()!
             for (to, _) in getEdges(fromVertex: from) {
                 
-                if let setNumber = bipartition.setNumberOfVertex(to) {
-                    let fromSetNumber = bipartition.setNumberOfVertex(from)!
-                    if fromSetNumber == setNumber {
+                if bipartition.containsVertex(to) {
+                    if bipartition.inSameSet(from, to) {
                         return nil
                     }
                 } else {
@@ -711,6 +710,15 @@ public struct GraphBipartition <VertexNameType: protocol<Hashable>> {
     
     
     // MARK: Methods
+    
+    /**
+     Returns whether the bipartition contains the given vertex.
+     
+     - parameter vertex: The vertex to check.
+     */
+    public func containsVertex(vertex: VertexNameType) -> Bool {
+        return self.firstSet.contains(vertex) || self.secondSet.contains(vertex)
+    }
     
     /**
      Returns the set number of a given vertex.
