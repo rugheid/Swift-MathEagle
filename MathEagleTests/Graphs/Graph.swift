@@ -499,6 +499,8 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
     
     /**
      Returns a bipartition of the graph, or nil if it's not bipartite.
+     
+     - complexity: O(V)
      */
     public func bipartition() -> Bipartition? {
         
