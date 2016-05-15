@@ -139,6 +139,8 @@ class GraphTests: XCTestCase {
         XCTAssertEqual(minimumDistances["Dublin"]!.vertex!, "Amsterdam")
         XCTAssertEqual(minimumDistances["Eindhoven"]!.distance, 356)
         XCTAssertEqual(minimumDistances["Eindhoven"]!.vertex!, "Charleroi")
+        
+        // TODO: Test negative cycle detection in Bellman-Ford
     }
     
     func testFloydWarshallUndirectedGraph() {

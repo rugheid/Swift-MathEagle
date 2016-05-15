@@ -434,7 +434,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
         minimumDistances[from] = MinDistance(vertex: from, distance: 0)
         
         for _ in 1 ..< numberOfVertices {
-            for edge in self.edges {
+            for edge in self.generateEdges() {
                 guard let minDistanceBegin = minimumDistances[edge.fromVertex]!.distance else {
                     continue
                 }
@@ -445,34 +445,15 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
                         distance: minDistanceBegin + edge.weight)
                 }
             }
-//            for beginVertex in self.generateVertices() {
-//                for endVertex in self.generateVertices() {
-//                    if let edge = getEdge(fromVertex: beginVertex, toVertex: endVertex) {
-//                        guard let minDistanceBegin = minimumDistances[beginVertex]!.distance else {
-//                            continue
-//                        }
-//                        let minDistanceEnd = minimumDistances[endVertex]!.distance
-//                        if minDistanceEnd == nil || (minDistanceEnd! > minDistanceBegin + edge.weight) {
-//                            minimumDistances[endVertex] = MinDistance(
-//                                vertex: beginVertex,
-//                                distance: minDistanceBegin + edge.weight)
-//                        }
-//                    }
-//                }
-//            }
         }
         
-        for beginVertex in self.generateVertices() {
-            for endVertex in self.generateVertices() {
-                if let edge = getEdge(fromVertex: beginVertex, toVertex: endVertex) {
-                    guard let minDistanceBegin = minimumDistances[beginVertex]!.distance,
-                        let minDistanceEnd = minimumDistances[endVertex]!.distance else {
-                        continue
-                    }
-                    if minDistanceBegin + edge.weight < minDistanceEnd {
-                        throw GraphError.NegativeCycle
-                    }
-                }
+        for edge in self.generateEdges() {
+            guard let minDistanceBegin = minimumDistances[edge.fromVertex]!.distance,
+                let minDistanceEnd = minimumDistances[edge.toVertex]!.distance else {
+                    continue
+            }
+            if minDistanceBegin + edge.weight < minDistanceEnd {
+                throw GraphError.NegativeCycle
             }
         }
         
