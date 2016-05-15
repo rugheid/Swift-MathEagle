@@ -13,7 +13,10 @@
  */
 public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightType: protocol<IntegerLiteralConvertible, Addable, Comparable>, EdgeCapacityType: protocol<IntegerLiteralConvertible>> {
     
-    public typealias Edge = GraphEdge<EdgeWeightType, EdgeCapacityType>
+    public typealias Edge = GraphEdge<VertexNameType, EdgeWeightType, EdgeCapacityType>
+    public typealias EdgeProperties = GraphEdgeProperties<EdgeWeightType, EdgeCapacityType>
+    public typealias VerticesGenerator = GraphVerticesGenerator<VertexNameType, EdgeWeightType, EdgeCapacityType>
+    public typealias EdgesGenerator = GraphEdgesGenerator<VertexNameType, EdgeWeightType, EdgeCapacityType>
     
     
     // MARK: Internal Properties
@@ -21,7 +24,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
     /**
      An adjacency list to store the edges of the graph.
      */
-    private var adjacencyList: [VertexNameType: [VertexNameType: Edge]]
+    private var adjacencyList: [VertexNameType: [VertexNameType: EdgeProperties]]
     
     
     // MARK: Initialisers
@@ -35,20 +38,32 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
     
     /**
      Returns an array containg all vertices in the graph.
+     
+     This method should not be used to iterate over the vertices of the graph.
      */
     public var vertices: [VertexNameType] {
         var vert = [VertexNameType]()
-        for vertex in lazyVertices {
+        for vertex in adjacencyList.keys {
             vert.append(vertex)
         }
         return vert
     }
     
     /**
-     Returns a lazy collection map to loop over the vertices of the the graph.
+     Returns a generator that generates the vertices of the graph.
+     
+     This method should be used if you want to iterate over the vertices of the graph, because otherwise
+     the entire vertices array will be stored in memory.
      */
-    public var lazyVertices: LazyMapCollection<[VertexNameType: [VertexNameType: Edge]], VertexNameType> {
-        return adjacencyList.keys
+    public func generateVertices() -> VerticesGenerator {
+        return VerticesGenerator(adjacencyListGenerator: self.adjacencyList.generate())
+    }
+    
+    /**
+     Returns any vertex of the graph, or nil if the graph does not contain any vertices.
+     */
+    public func anyVertex() -> VertexNameType? {
+        return self.adjacencyList.keys.first
     }
     
     /**
@@ -80,7 +95,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      */
     public func removeVertex(name: VertexNameType) {
         adjacencyList.removeValueForKey(name)
-        for vertex in lazyVertices {
+        for vertex in generateVertices() {
             removeEdge(fromVertex: vertex, toVertex: name)
         }
     }
@@ -110,7 +125,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      */
     public var numberOfVerticesWithOddDegree: Int {
         var count = 0
-        for vertex in lazyVertices {
+        for vertex in self.generateVertices() {
             if degreeOfVertex(vertex) % 2 != 0 {
                 count += 1
             }
@@ -122,6 +137,32 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
     // MARK: Edge Management
     
     /**
+     Returns a list of all edges in the graph. The edges are unidirectional.
+     */
+    public var edges: [Edge] {
+        var edgesList = [Edge]()
+        for from in self.generateVertices() {
+            for to in self.generateVertices() {
+                if let properties = getEdge(fromVertex: from, toVertex: to) {
+                    edgesList.append(Edge(fromVertex: from, toVertex: to, properties: properties))
+                }
+            }
+        }
+        return edgesList
+    }
+    
+    /**
+     Returns a generator that generates the edges of the graph.
+     
+     This should be used to iterate over the edges of the graph. If you
+     would use `edges`, the entire edges array would be constructed first.
+     */
+    public func generateEdges() -> EdgesGenerator {
+        return EdgesGenerator(graph: self,
+                              firstVerticesGenerator: generateVertices())
+    }
+    
+    /**
      Adds the given unidirectional edge to the graph.
      If the from or to vertices do not exist, they are added.
      
@@ -129,7 +170,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      - parameter from: The vertex the edge is coming from.
      - parameter to:   The vertex the edge is going to.
      */
-    public func addUnidirectionalEdge(edge: Edge, fromVertex from: VertexNameType, toVertex to: VertexNameType) {
+    public func addUnidirectionalEdge(edge: EdgeProperties, fromVertex from: VertexNameType, toVertex to: VertexNameType) {
         self.addVertex(from)
         self.addVertex(to)
         adjacencyList[from]![to] = edge
@@ -145,7 +186,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      - parameter to:       The vertex the edge is going to.
      */
     public func addUnidirectionalEdge(weight: EdgeWeightType = 1, capacity: EdgeCapacityType = 1, fromVertex from: VertexNameType, toVertex to: VertexNameType) {
-        let edge = Edge(weight: weight, capacity: capacity)
+        let edge = EdgeProperties(weight: weight, capacity: capacity)
         self.addUnidirectionalEdge(edge, fromVertex: from, toVertex: to)
     }
     
@@ -157,7 +198,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      - parameter from: The vertex the edge is coming from.
      - parameter to:   The vertex the edge is going to.
      */
-    public func addBidirectionalEdge(edge: Edge, fromVertex from: VertexNameType, toVertex to: VertexNameType) {
+    public func addBidirectionalEdge(edge: EdgeProperties, fromVertex from: VertexNameType, toVertex to: VertexNameType) {
         addUnidirectionalEdge(edge, fromVertex: from, toVertex: to)
         addUnidirectionalEdge(edge, fromVertex: to, toVertex: from)
     }
@@ -172,7 +213,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      - parameter to:       The vertex the edge is going to.
      */
     public func addBidirectionalEdge(weight: EdgeWeightType = 1, capacity: EdgeCapacityType = 1, fromVertex from: VertexNameType, toVertex to: VertexNameType) {
-        let edge = Edge(weight: weight, capacity: capacity)
+        let edge = EdgeProperties(weight: weight, capacity: capacity)
         addBidirectionalEdge(edge, fromVertex: from, toVertex: to)
     }
     
@@ -183,7 +224,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      - parameter from: The vertex the edge is coming from.
      - parameter to:   The vertex the edge is going to.
      */
-    public func removeEdge(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> Edge? {
+    public func removeEdge(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> EdgeProperties? {
         return adjacencyList[from]?.removeValueForKey(to)
     }
     
@@ -195,7 +236,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      - parameter from: The first vertex.
      - parameter to:   The second vertex.
      */
-    public func removeBidirectionalEdge(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> Edge? {
+    public func removeBidirectionalEdge(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> EdgeProperties? {
         let firstEdge = removeEdge(fromVertex: from, toVertex: to)
         let secondEdge = removeEdge(fromVertex: to, toVertex: from)
         return firstEdge ?? secondEdge
@@ -209,7 +250,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      
      - returns: The edge between the two given vertices, or nil if it doesn't exist.
      */
-    public func getEdge(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> Edge? {
+    public func getEdge(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> EdgeProperties? {
         return adjacencyList[from]?[to]
     }
     
@@ -240,9 +281,9 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      
      - returns: A dictionary where the keys are the to vertices.
      */
-    public func getEdges(fromVertex from: VertexNameType) -> [VertexNameType: Edge] {
-        var edges = [VertexNameType: Edge]()
-        for to in lazyVertices {
+    public func getEdges(fromVertex from: VertexNameType) -> [VertexNameType: EdgeProperties] {
+        var edges = [VertexNameType: EdgeProperties]()
+        for to in self.generateVertices() {
             if let edge = getEdge(fromVertex: from, toVertex: to) {
                 edges[to] = edge
             }
@@ -286,15 +327,15 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
     public func numberOfEdges(countBidirectionalEdgesTwice countTwice: Bool = false) -> Int {
         var count = 0
         if countTwice {
-            for vertex in lazyVertices {
+            for vertex in self.generateVertices() {
                 count += adjacencyList[vertex]!.count
             }
         } else {
             var done = [VertexNameType: Set<VertexNameType>]()
-            for vertex in lazyVertices {
+            for vertex in self.generateVertices() {
                 done[vertex] = []
             }
-            for vertex in lazyVertices {
+            for vertex in self.generateVertices() {
                 for (to, _) in adjacencyList[vertex]! {
                     if !done[to]!.contains(vertex) {
                         done[vertex]!.insert(to)
@@ -324,7 +365,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
     public func dijkstra(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> ShortestPathResult? {
         
         var minimumDistances = [VertexNameType: MinDistance]()
-        for vertex in lazyVertices {
+        for vertex in self.generateVertices() {
             minimumDistances[vertex] = MinDistance()
         }
         minimumDistances[from] = MinDistance(vertex: from, distance: 0)
@@ -353,7 +394,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
             
             activeVertices.removeFirst()
             
-            for edgeVertex in lazyVertices {
+            for edgeVertex in self.generateVertices() {
                 
                 guard let edge = getEdge(fromVertex: vertex, toVertex: edgeVertex) else {
                     continue
@@ -387,31 +428,42 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
     public func bellmanFord(fromVertex from: VertexNameType) throws -> [VertexNameType: MinDistance] {
         
         var minimumDistances = [VertexNameType: MinDistance]()
-        for vertex in lazyVertices {
+        for vertex in self.generateVertices() {
             minimumDistances[vertex] = MinDistance()
         }
         minimumDistances[from] = MinDistance(vertex: from, distance: 0)
         
         for _ in 1 ..< numberOfVertices {
-            for beginVertex in lazyVertices {
-                for endVertex in lazyVertices {
-                    if let edge = getEdge(fromVertex: beginVertex, toVertex: endVertex) {
-                        guard let minDistanceBegin = minimumDistances[beginVertex]!.distance else {
-                            continue
-                        }
-                        let minDistanceEnd = minimumDistances[endVertex]!.distance
-                        if minDistanceEnd == nil || (minDistanceEnd! > minDistanceBegin + edge.weight) {
-                            minimumDistances[endVertex] = MinDistance(
-                                vertex: beginVertex,
-                                distance: minDistanceBegin + edge.weight)
-                        }
-                    }
+            for edge in self.edges {
+                guard let minDistanceBegin = minimumDistances[edge.fromVertex]!.distance else {
+                    continue
+                }
+                let minDistanceEnd = minimumDistances[edge.toVertex]!.distance
+                if minDistanceEnd == nil || (minDistanceEnd! > minDistanceBegin + edge.weight) {
+                    minimumDistances[edge.toVertex] = MinDistance(
+                        vertex: edge.fromVertex,
+                        distance: minDistanceBegin + edge.weight)
                 }
             }
+//            for beginVertex in self.generateVertices() {
+//                for endVertex in self.generateVertices() {
+//                    if let edge = getEdge(fromVertex: beginVertex, toVertex: endVertex) {
+//                        guard let minDistanceBegin = minimumDistances[beginVertex]!.distance else {
+//                            continue
+//                        }
+//                        let minDistanceEnd = minimumDistances[endVertex]!.distance
+//                        if minDistanceEnd == nil || (minDistanceEnd! > minDistanceBegin + edge.weight) {
+//                            minimumDistances[endVertex] = MinDistance(
+//                                vertex: beginVertex,
+//                                distance: minDistanceBegin + edge.weight)
+//                        }
+//                    }
+//                }
+//            }
         }
         
-        for beginVertex in lazyVertices {
-            for endVertex in lazyVertices {
+        for beginVertex in self.generateVertices() {
+            for endVertex in self.generateVertices() {
                 if let edge = getEdge(fromVertex: beginVertex, toVertex: endVertex) {
                     guard let minDistanceBegin = minimumDistances[beginVertex]!.distance,
                         let minDistanceEnd = minimumDistances[endVertex]!.distance else {
@@ -444,9 +496,9 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
     public func floydWarshall() throws -> FloydWarshallResult {
         
         var minimumDistances = [VertexNameType: [VertexNameType: MinDistance]]()
-        for from in lazyVertices {
+        for from in self.generateVertices() {
             minimumDistances[from] = [VertexNameType: MinDistance]()
-            for to in lazyVertices {
+            for to in self.generateVertices() {
                 if from == to {
                     minimumDistances[from]![to] = MinDistance(vertex: nil, distance: 0)
                     continue
@@ -460,9 +512,9 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
             }
         }
         
-        for k in lazyVertices {
-            for from in lazyVertices {
-                for to in lazyVertices {
+        for k in self.generateVertices() {
+            for from in self.generateVertices() {
+                for to in self.generateVertices() {
                     if let fromToKDist = minimumDistances[from]![k]!.distance,
                         let kToToDist = minimumDistances[k]![to]!.distance where
                         minimumDistances[from]![to]!.distance == nil ||
@@ -510,8 +562,9 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
             return bipartition
         }
         
-        bipartition.firstSet.insert(lazyVertices.first!)
-        var queue = [lazyVertices.first!]
+        let beginVertex = self.anyVertex()!
+        bipartition.firstSet.insert(beginVertex)
+        var queue = [beginVertex]
         
         while !queue.isEmpty {
 
@@ -534,13 +587,109 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
 }
 
 
-// MARK: Edge
+// MARK: - Vertices
+
+/**
+ *  A generator that generates the vertices of a graph.
+ */
+public struct GraphVerticesGenerator <VertexNameType: protocol<Hashable>, WeightType: protocol<IntegerLiteralConvertible>, CapacityType: protocol<IntegerLiteralConvertible>> : SequenceType, GeneratorType {
+    
+    private typealias AdjacencyListGenerator = DictionaryGenerator<VertexNameType, [VertexNameType: GraphEdgeProperties<WeightType, CapacityType>]>
+    
+    
+    // MARK: Properties
+    
+    /**
+     The graph to generate the vertices of.
+     */
+    private var adjacencyListGenerator: AdjacencyListGenerator
+    
+    
+    // MARK: Initialisers
+    
+    private init(adjacencyListGenerator: AdjacencyListGenerator) {
+        self.adjacencyListGenerator = adjacencyListGenerator
+    }
+    
+    
+    // MARK: GeneratorType
+    
+    public mutating func next() -> VertexNameType? {
+        if let (vertex, _) = self.adjacencyListGenerator.next() {
+            return vertex
+        } else {
+            return nil
+        }
+    }
+}
+
+
+// MARK: Edges
 
 /**
  A struct representing an edge in a graph.
  The edge can have a weight and a capacity.
  */
-public struct GraphEdge <WeightType: protocol<IntegerLiteralConvertible>, CapacityType: protocol<IntegerLiteralConvertible>> {
+public struct GraphEdge <VertexNameType, WeightType: protocol<IntegerLiteralConvertible>, CapacityType: protocol<IntegerLiteralConvertible>> {
+    
+    public typealias Properties = GraphEdgeProperties<WeightType, CapacityType>
+    
+    
+    // MARK: Properties
+    
+    /**
+     The vertex the edge comes from.
+     */
+    public var fromVertex: VertexNameType
+    
+    /**
+     The vertex the edge goes to.
+     */
+    public var toVertex: VertexNameType
+    
+    /**
+     The properties of the edge. (weight, capacity)
+     */
+    public var properties: Properties
+    
+    
+    // MARK: Initialisers
+    
+    public init(fromVertex from: VertexNameType, toVertex to: VertexNameType, properties: Properties) {
+        self.fromVertex = from
+        self.toVertex = to
+        self.properties = properties
+    }
+    
+    public init(fromVertex from: VertexNameType, toVertex to: VertexNameType, weight: WeightType = 1, capacity: CapacityType = 1) {
+        self.fromVertex = from
+        self.toVertex = to
+        self.properties = Properties(weight: weight, capacity: capacity)
+    }
+    
+    
+    // MARK: Computed Properties
+    
+    /**
+     Returns the weight of the edge. This is shorthand for `properties.weight`.
+     */
+    public var weight: WeightType {
+        return properties.weight
+    }
+    
+    /**
+     Returns the capacity of the edge. This is shorthand for `properties.capacity`.
+     */
+    public var capacity: CapacityType {
+        return properties.capacity
+    }
+}
+
+/**
+ A struct representing the properties of an edge in a graph.
+ The edge can have a weight and a capacity.
+ */
+public struct GraphEdgeProperties <WeightType: protocol<IntegerLiteralConvertible>, CapacityType: protocol<IntegerLiteralConvertible>> {
     
     
     // MARK: Properties
@@ -561,6 +710,68 @@ public struct GraphEdge <WeightType: protocol<IntegerLiteralConvertible>, Capaci
     public init(weight: WeightType = 1, capacity: CapacityType = 1) {
         self.weight = weight
         self.capacity = capacity
+    }
+}
+
+/**
+ A generator that generates all the edges of a graph.
+ */
+public class GraphEdgesGenerator <VertexNameType: protocol<Hashable>, WeightType: protocol<IntegerLiteralConvertible, Addable, Comparable>, CapacityType: protocol<IntegerLiteralConvertible>> : SequenceType, GeneratorType {
+    
+    private typealias VerticesGenerator = GraphVerticesGenerator<VertexNameType, WeightType, CapacityType>
+    private typealias GraphType = Graph<VertexNameType, WeightType, CapacityType>
+    public typealias Edge = GraphEdge<VertexNameType, WeightType, CapacityType>
+    
+    
+    // MARK: Properties
+    
+    private var graph: GraphType
+    
+    /**
+     The first vertices generator.
+     */
+    private var firstVerticesGenerator: VerticesGenerator
+    
+    /**
+     The current vertex the edges are coming from.
+     */
+    private var from: VertexNameType?
+    
+    /**
+     The second vertices generator.
+     */
+    private var secondVerticesGenerator: VerticesGenerator
+    
+    /**
+     A unused vertices generator.
+     */
+    private let unusedVerticesGenerator: VerticesGenerator
+    
+    
+    // MARK: Initialisers
+    
+    private init(graph: GraphType, firstVerticesGenerator: VerticesGenerator) {
+        self.graph = graph
+        self.firstVerticesGenerator = firstVerticesGenerator
+        self.secondVerticesGenerator = firstVerticesGenerator
+        self.unusedVerticesGenerator = firstVerticesGenerator
+        self.from = self.firstVerticesGenerator.next()
+    }
+    
+    
+    // MARK: GeneratorType
+    
+    @warn_unused_result public func next() -> Edge? {
+        while from != nil {
+            while let to = secondVerticesGenerator.next() {
+                if let edge = graph.getEdge(fromVertex: from!, toVertex: to) {
+                    return Edge(fromVertex: from!, toVertex: to, properties: edge)
+                }
+            }
+            self.secondVerticesGenerator = self.unusedVerticesGenerator
+            from = self.firstVerticesGenerator.next()
+        }
+        return nil
     }
 }
 

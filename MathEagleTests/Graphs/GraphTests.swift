@@ -47,6 +47,13 @@ class GraphTests: XCTestCase {
         XCTAssertContentEqual(undirectedGraph.vertices, ["Amsterdam", "Brussels", "Charleroi", "Dublin", "Eindhoven"])
         XCTAssertEqual(undirectedGraph.numberOfVertices, 5)
         
+        var verticesSet = Set<String>()
+        for vertex in undirectedGraph.generateVertices() {
+            verticesSet.insert(vertex)
+        }
+        
+        XCTAssertEqual(verticesSet, Set(["Amsterdam", "Brussels", "Charleroi", "Dublin", "Eindhoven"]))
+        
         XCTAssertTrue(undirectedGraph.containsVertex("Amsterdam"))
         XCTAssertFalse(undirectedGraph.containsVertex("Waterloo"))
         
@@ -66,6 +73,13 @@ class GraphTests: XCTestCase {
     }
     
     func testEdgeManagement() {
+        
+        var nrOfEdges = 0
+        for edge in undirectedGraph.generateEdges() {
+            print(edge.weight, edge.fromVertex, edge.toVertex)
+            nrOfEdges += 1
+        }
+        XCTAssertEqual(nrOfEdges, 10)
         
         XCTAssertEqual(undirectedGraph.numberOfEdges, 5)
         XCTAssertEqual(undirectedGraph.numberOfEdges(countBidirectionalEdgesTwice: true), 10)
@@ -95,6 +109,7 @@ class GraphTests: XCTestCase {
         XCTAssertFalse(undirectedGraph.containsEdge(fromVertex: "Brussels", toVertex: "Amsterdam"))
         
         // TODO: Test getEdges(fromVertex:)
+        // TODO: Test edges
     }
     
     
