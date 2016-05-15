@@ -550,6 +550,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
         while !queue.isEmpty {
 
             let from = queue.popLast()!
+            // TODO: getEdges(fromVertex:) creates the entire array, while that's not necessary
             for (to, _) in getEdges(fromVertex: from) {
                 
                 if bipartition.containsVertex(to) {
