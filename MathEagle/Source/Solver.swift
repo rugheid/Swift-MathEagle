@@ -3,17 +3,20 @@
 //  SwiftMath
 //
 //  Created by Rugen Heidbuchel on 26/01/15.
+//  Contributed by Benzi Ahamed on 23/05/16.
 //  Copyright (c) 2015 Jorestha Solutions. All rights reserved.
 //
 
 import Foundation
 
-public class Solver {
+
+/**
+ *  A structs that provides static methods for solving functions.
+ */
+public struct Solver {
     
     //MARK: Parameters
-    public static var accuracy = 1e-7
     public static var maxTime = 10.0
-    
     
     /**
         Returns the zero value of f with the given accuracy, starting with the given interval [a,b] and using the bisection rule. The signs of f(a) and f(b) should not be equal.
@@ -30,7 +33,7 @@ public class Solver {
     
         :exception: An exception will be thrown if a > b.
     */
-    public class func bisection(a: Double, _ b: Double, accuracy err: Double? = nil, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
+    public static func bisection <T: protocol<Addable, Subtractable, Equatable, Comparable, IntegerLiteralConvertible, Negatable, Multiplicable, FloatLiteralConvertible>> (a: T, _ b: T, accuracy error: T = 1e-7, maxTime t_m: Double? = nil, _ f: (T) -> T) -> T {
         
         if a > b {
             
@@ -39,7 +42,6 @@ public class Solver {
         
         let start = NSDate()
         
-        let error = err ?? accuracy
         let t_max = t_m ?? maxTime
         
         var fa = f(a), fb = f(b)
@@ -84,11 +86,10 @@ public class Solver {
     
         - returns: The zero value of f.
     */
-    public class func newton(x0: Double, df: ((Double) -> Double)? = nil, accuracy err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, f: (Double) -> Double) -> Double {
+    public static func newton <T: protocol<Addable, Subtractable, Negatable, Multiplicable, Dividable, IntegerLiteralConvertible, FloatLiteralConvertible, Equatable, Comparable>> (x0: T, df: ((T) -> T)? = nil, accuracy error: T = 1e-7, k_max: Int = 100, maxTime t_m: Double? = nil, f: (T) -> T) -> T {
         
         let start = NSDate()
         
-        let error = err ?? accuracy
         let t_max = t_m ?? maxTime
         let shouldApproximateDf = (df == nil)
         
@@ -99,7 +100,7 @@ public class Solver {
         while k <= k_max && NSDate().timeIntervalSinceDate(start) < t_max && !converged {
             
             let xprev = x
-            let diff = shouldApproximateDf ? (f(x + accuracy) - f(x - accuracy))/(2 * accuracy) : df!(x)
+            let diff = shouldApproximateDf ? (f(x + error) - f(x - error))/(2 * error) : df!(x)
             
             x = x - f(x)/diff
             converged = abs(x - xprev) <= error

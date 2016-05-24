@@ -25,6 +25,23 @@ public func sign <X: protocol<Equatable, Comparable, IntegerLiteralConvertible>>
 
 
 /**
+ Returns the absolute value of the given value.
+ 
+ - parameter x: The value to get the absolute value from.
+ */
+public func abs <X: protocol<Equatable, Comparable, IntegerLiteralConvertible, Negatable>> (x: X) -> X {
+    let sgn = sign(x)
+    if sgn == 0 {
+        return 0
+    } else if sgn == -1 {
+        return -x
+    } else {
+        return x
+    }
+}
+
+
+/**
     Returns the factorial of the given value, aka x!
     
     - parameter x:   The value to caculate the factorial of

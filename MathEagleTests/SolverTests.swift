@@ -102,7 +102,7 @@ class SolverTests: XCTestCase {
         
         let time = timeBlock(n: 1000){
             
-            return Solver.newton(-0.5, f: { ($0**4 - 1)/exp(2*$0) })
+            return Solver.newton(-0.5, f: { ($0**4 - 1.0)/exp(2*$0) })
         }
         
         let baseline = 3.23200225830078e-06

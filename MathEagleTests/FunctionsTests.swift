@@ -26,6 +26,26 @@ class FunctionsTests: XCTestCase {
     }
     
     
+    func testAbs() {
+        
+        XCTAssertEqualWithAccuracy(2.3, abs(2.3), accuracy: 0)
+        XCTAssertEqualWithAccuracy(2.3, abs(-2.3), accuracy: 0)
+        XCTAssertEqualWithAccuracy(0.0, abs(0.0), accuracy: 0)
+        var x = 2
+        XCTAssertEqual(2, abs(x))
+        XCTAssertEqual(2, abs(-x))
+        x = 0
+        XCTAssertEqual(0, abs(x))
+        
+        var y: Float = 2.3
+        XCTAssertEqualWithAccuracy(2.3, abs(y), accuracy: 0)
+        y = -2.3
+        XCTAssertEqualWithAccuracy(2.3, abs(y), accuracy: 0)
+        y = 0
+        XCTAssertEqual(0, abs(y))
+    }
+    
+    
     func testFactorial() {
         
         let fact = Vector(length: 10, generator: factorial)
