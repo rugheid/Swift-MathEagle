@@ -17,15 +17,16 @@ class GraphTests: XCTestCase {
     /*
      Undirected graph:
      
-     Amsterdam --- 173.4 --- Brussels
-         |                       |
-         |                       |
-         |                       |
-       757.1                   46.8
-         |                       |
-         |                       |
-         |                       |
-       Dublin --- 800.8 --- Charleroi --- 135.8 --- Eindhoven
+     Amsterdam --- 173.4 (20.0) --- Brussels
+         |                             |
+         |                             |
+         |                             |
+       757.1                         46.8
+       (38.4)                       (13.5)
+         |                             |
+         |                             |
+         |                             |
+       Dublin ---  800.8 (7.2) --- Charleroi --- 135.8 (26.8) --- Eindhoven
      
      */
     var undirectedGraph = Graph<String, Double, Double>()
