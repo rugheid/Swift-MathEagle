@@ -63,3 +63,7 @@ extension Double: Conjugatable {
     
     public var conjugate: Double { return self }
 }
+extension CGFloat: Conjugatable {
+    
+    public var conjugate: CGFloat { return self }
+}

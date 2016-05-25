@@ -94,5 +94,15 @@ extension Double: Addable, Negatable, Subtractable, Multiplicable, Dividable, Mo
     public typealias IntegerPowerType = Double
     public typealias RealPowerType = Double
 }
+extension CGFloat: Addable, Negatable, Subtractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {
+    
+    public typealias NaturalPowerType = CGFloat
+    public typealias IntegerPowerType = CGFloat
+    public typealias RealPowerType = CGFloat
+    
+    public init(_ float: CGFloat) {
+        self = CGFloat(float)
+    }
+}
 extension String: Addable {}
 

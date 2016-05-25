@@ -331,6 +331,8 @@ extension UInt64: Randomizable {
     }
 }
 
+// TODO: Improve random implementations of Float, Double and CGFloat
+
 extension Float: Randomizable {
     
     public typealias RandomIntervalType = Float
@@ -389,6 +391,38 @@ extension Double: Randomizable {
         var array = [Double](count: length, repeatedValue: 0)
         
         Random_OBJC.randomDoubleArrayOfLength(length, inArray: &array)
+        
+        return array
+    }
+}
+
+extension CGFloat: Randomizable {
+    
+    public typealias RandomIntervalType = CGFloat
+    
+    public static func random() -> CGFloat {
+        
+        let sign: CGFloat = arc4random_uniform(2) == 0 ? 1 : -1
+        return CGFloat(arc4random()) * sign
+    }
+    
+    public static func randomInInterval(intervals: ClosedInterval<CGFloat>...) -> CGFloat {
+        
+        return randomInInterval(intervals)
+    }
+    
+    public static func randomInInterval(intervals: [ClosedInterval<CGFloat>]) -> CGFloat {
+        
+        return 0
+    }
+    
+    public static func randomArrayOfLength(length: Int) -> [CGFloat] {
+        
+        var array = [CGFloat](count: length, repeatedValue: 0)
+        
+        for i in 0..<length {
+            array[i] = random()
+        }
         
         return array
     }

@@ -75,3 +75,8 @@ extension Double: IntCastable {
         return Int(self)
     }
 }
+extension CGFloat: IntCastable {
+    public var asInt: Int {
+        return Int(self)
+    }
+}

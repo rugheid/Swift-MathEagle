@@ -59,6 +59,9 @@ public func ** (left: Float, right: UInt) -> Float {
 public func ** (left: Double, right: UInt) -> Double {
     return pow(left, Double(right))
 }
+public func ** (left: CGFloat, right: UInt) -> CGFloat {
+    return pow(left, CGFloat(right))
+}
 
 
 
@@ -105,6 +108,9 @@ public func ** (left: Float, right: Int) -> Float {
 public func ** (left: Double, right: Int) -> Double {
     return pow(left, Double(right))
 }
+public func ** (left: CGFloat, right: Int) -> CGFloat {
+    return pow(left, CGFloat(right))
+}
 
 
 
@@ -149,6 +155,12 @@ public func ** (left: Float, right: Double) -> Double {
     return pow(Double(left), right)
 }
 public func ** (left: Double, right: Double) -> Double {
+    return pow(left, right)
+}
+public func ** (left: CGFloat, right: Double) -> CGFloat {
+    return pow(left, CGFloat(right))
+}
+public func ** (left: CGFloat, right: CGFloat) -> CGFloat {
     return pow(left, right)
 }
 

@@ -89,6 +89,39 @@ extension Float {
 
 
 
+// MARK: CGFloat Extensions
+
+extension CGFloat {
+    
+    
+    // MARK: Basic Properties
+    
+    public var isNegative: Bool {
+        
+        return self < 0
+    }
+    
+    public var isPositive: Bool {
+        
+        return self >= 0
+    }
+    
+    
+    // MARK: Set Compliance
+    
+    public var isNatural: Bool {
+        
+        return self % 1.0 == 0.0 && self >= 0.0
+    }
+    
+    public var isInteger: Bool {
+        
+        return self % 1.0 == 0.0
+    }
+}
+
+
+
 // MARK: Int Extensions
 
 extension Int {
