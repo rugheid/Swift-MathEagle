@@ -3,7 +3,7 @@
 //  MathEagle
 //
 //  Created by Rugen Heidbuchel on 20/04/16.
-//  Copyright © 2016 Jorestha Solutions. All rights reserved.
+//  Copyright © 2016 Rugen Heidbuchel. All rights reserved.
 //
 
 public struct Fraction: CustomStringConvertible {

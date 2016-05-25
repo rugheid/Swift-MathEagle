@@ -3,7 +3,7 @@
 //  SwiftMath
 //
 //  Created by Rugen Heidbuchel on 30/12/14.
-//  Copyright (c) 2014 Jorestha Solutions. All rights reserved.
+//  Copyright (c) 2014 Rugen Heidbuchel. All rights reserved.
 //
 
 import Foundation

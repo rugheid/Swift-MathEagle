@@ -3,7 +3,7 @@
 //  MathEagle
 //
 //  Created by Rugen Heidbuchel on 05/03/15.
-//  Copyright (c) 2015 Jorestha Solutions. All rights reserved.
+//  Copyright (c) 2015 Rugen Heidbuchel. All rights reserved.
 //
 
 import Accelerate

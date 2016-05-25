@@ -3,7 +3,7 @@
 //  MathEagle
 //
 //  Created by Rugen Heidbuchel on 16/04/16.
-//  Copyright © 2015 Jorestha Solutions. All rights reserved.
+//  Copyright © 2015 Rugen Heidbuchel. All rights reserved.
 //
 
 #import "BigFrac.h"

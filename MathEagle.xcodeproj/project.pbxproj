@@ -548,7 +548,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = "Jorestha Solutions";
+				ORGANIZATIONNAME = "Rugen Heidbuchel";
 				TargetAttributes = {
 					98F5984A1A7B8BD20058DF53 = {
 						CreatedOnToolsVersion = 6.1.1;

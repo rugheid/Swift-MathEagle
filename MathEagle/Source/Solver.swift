@@ -4,7 +4,7 @@
 //
 //  Created by Rugen Heidbuchel on 26/01/15.
 //  Contributed by Benzi Ahamed on 23/05/16.
-//  Copyright (c) 2015 Jorestha Solutions. All rights reserved.
+//  Copyright (c) 2015 Rugen Heidbuchel. All rights reserved.
 //
 
 import Foundation
