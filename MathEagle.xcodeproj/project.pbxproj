@@ -97,44 +97,44 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9808C8C31B149B0100D82572 /* DiagonalMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiagonalMatrix.swift; path = "Source/Linear Algebra/DiagonalMatrix.swift"; sourceTree = "<group>"; };
-		9808C8C61B1502BD00D82572 /* Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dimensions.swift; path = "Source/Linear Algebra/Dimensions.swift"; sourceTree = "<group>"; };
-		98109D1B1B236568002AD5C0 /* Divisors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Divisors.swift; path = Source/Divisors.swift; sourceTree = "<group>"; };
+		9808C8C31B149B0100D82572 /* DiagonalMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiagonalMatrix.swift; path = "Sources/Linear Algebra/DiagonalMatrix.swift"; sourceTree = "<group>"; };
+		9808C8C61B1502BD00D82572 /* Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dimensions.swift; path = "Sources/Linear Algebra/Dimensions.swift"; sourceTree = "<group>"; };
+		98109D1B1B236568002AD5C0 /* Divisors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Divisors.swift; path = Sources/Divisors.swift; sourceTree = "<group>"; };
 		98109D1D1B23818E002AD5C0 /* DivisorsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DivisorsTests.swift; sourceTree = "<group>"; };
-		981ED6891B16496000B190FA /* PermutationMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PermutationMatrix.swift; path = "Source/Linear Algebra/PermutationMatrix.swift"; sourceTree = "<group>"; };
-		981ED68C1B164B7600B190FA /* Permutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Permutation.swift; path = Source/Permutation.swift; sourceTree = "<group>"; };
-		982E014C1B3403750009E6C7 /* Castable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Castable.swift; path = Source/Castable.swift; sourceTree = "<group>"; };
+		981ED6891B16496000B190FA /* PermutationMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PermutationMatrix.swift; path = "Sources/Linear Algebra/PermutationMatrix.swift"; sourceTree = "<group>"; };
+		981ED68C1B164B7600B190FA /* Permutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Permutation.swift; path = Sources/Permutation.swift; sourceTree = "<group>"; };
+		982E014C1B3403750009E6C7 /* Castable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Castable.swift; path = Sources/Castable.swift; sourceTree = "<group>"; };
 		983106251AFB628C0074FBC8 /* Numpy Times */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Numpy Times"; sourceTree = "<group>"; };
 		983106271AFB62AE0074FBC8 /* Benchmarking Files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Benchmarking Files"; sourceTree = "<group>"; };
-		9837B8501B258ED000E6EE1B /* SequenceFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceFunctions.swift; path = Source/SequenceFunctions.swift; sourceTree = "<group>"; };
+		9837B8501B258ED000E6EE1B /* SequenceFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SequenceFunctions.swift; path = Sources/SequenceFunctions.swift; sourceTree = "<group>"; };
 		9843568E1ACC79F100B988CB /* RandomTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomTests.swift; sourceTree = "<group>"; };
-		986AF3051C13783E00A186B4 /* NumberProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NumberProperties.swift; path = Source/NumberProperties.swift; sourceTree = "<group>"; };
+		986AF3051C13783E00A186B4 /* NumberProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NumberProperties.swift; path = Sources/NumberProperties.swift; sourceTree = "<group>"; };
 		986AF3071C13858E00A186B4 /* NumberPropertiesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberPropertiesTests.swift; sourceTree = "<group>"; };
-		9885B2C31B1C47600028FC9A /* Parity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Parity.swift; path = Source/Parity.swift; sourceTree = "<group>"; };
+		9885B2C31B1C47600028FC9A /* Parity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Parity.swift; path = Sources/Parity.swift; sourceTree = "<group>"; };
 		9885B2C51B1C7E990028FC9A /* PermutationMatrixTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermutationMatrixTests.swift; sourceTree = "<group>"; };
 		988882CE1CDBA79D007B0E19 /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Graph.swift; path = MathEagleTests/Graphs/Graph.swift; sourceTree = SOURCE_ROOT; };
 		988882D11CDBC9C6007B0E19 /* GraphTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GraphTests.swift; path = Graphs/GraphTests.swift; sourceTree = "<group>"; };
 		988B441C1B1CB4A40010C5FF /* DiagonalMatrixTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagonalMatrixTests.swift; sourceTree = "<group>"; };
 		988B7CCB1ACAD2F600CDEEF7 /* MatrixVectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixVectorTests.swift; sourceTree = "<group>"; };
 		989729421B18B0550046D951 /* PermutationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermutationTest.swift; sourceTree = "<group>"; };
-		98AB21041CC814780005C280 /* Fraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fraction.swift; path = Source/Fraction.swift; sourceTree = "<group>"; };
+		98AB21041CC814780005C280 /* Fraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fraction.swift; path = Sources/Fraction.swift; sourceTree = "<group>"; };
 		98AB216E1CCA65270005C280 /* BigFloat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BigFloat.h; path = "Big Float/BigFloat.h"; sourceTree = "<group>"; };
 		98AB216F1CCA65270005C280 /* BigFloat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BigFloat.m; path = "Big Float/BigFloat.m"; sourceTree = "<group>"; };
 		98AB21721CCAB6D10005C280 /* BigFloat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BigFloat.swift; path = "Big Float/BigFloat.swift"; sourceTree = "<group>"; };
-		98B546EE1B33305D00360F0D /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Random.swift; path = Source/Random.swift; sourceTree = "<group>"; };
-		98B546F11B3330EA00360F0D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Source/Constants.swift; sourceTree = "<group>"; };
-		98B546F31B33313600360F0D /* BasicOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicOperations.swift; path = Source/BasicOperations.swift; sourceTree = "<group>"; };
-		98B546F51B33319E00360F0D /* Powerable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Powerable.swift; path = Source/Powerable.swift; sourceTree = "<group>"; };
-		98B546F71B3331E500360F0D /* Conjugatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Conjugatable.swift; path = Source/Conjugatable.swift; sourceTree = "<group>"; };
+		98B546EE1B33305D00360F0D /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Random.swift; path = Sources/Random.swift; sourceTree = "<group>"; };
+		98B546F11B3330EA00360F0D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Sources/Constants.swift; sourceTree = "<group>"; };
+		98B546F31B33313600360F0D /* BasicOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicOperations.swift; path = Sources/BasicOperations.swift; sourceTree = "<group>"; };
+		98B546F51B33319E00360F0D /* Powerable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Powerable.swift; path = Sources/Powerable.swift; sourceTree = "<group>"; };
+		98B546F71B3331E500360F0D /* Conjugatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Conjugatable.swift; path = Sources/Conjugatable.swift; sourceTree = "<group>"; };
 		98B927451B277F70006C4C73 /* SequenceFunctionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceFunctionsTests.swift; sourceTree = "<group>"; };
 		98DE55DE1C201B7D00DBD3D6 /* BigIntTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigIntTests.swift; sourceTree = "<group>"; };
-		98E25E3F1B19DE6D008435B7 /* Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Random.h; path = Source/Random.h; sourceTree = "<group>"; };
-		98E25E401B19DE6D008435B7 /* Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Random.m; path = Source/Random.m; sourceTree = "<group>"; };
-		98E25E441B19DE88008435B7 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Matrix.h; path = "Source/Linear Algebra/Matrix.h"; sourceTree = "<group>"; };
-		98E25E451B19DE88008435B7 /* Matrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Matrix.m; path = "Source/Linear Algebra/Matrix.m"; sourceTree = "<group>"; };
-		98E671711AA8C02100C88DCE /* Prime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Prime.swift; path = Source/Prime.swift; sourceTree = "<group>"; };
+		98E25E3F1B19DE6D008435B7 /* Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Random.h; path = Sources/Random.h; sourceTree = "<group>"; };
+		98E25E401B19DE6D008435B7 /* Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Random.m; path = Sources/Random.m; sourceTree = "<group>"; };
+		98E25E441B19DE88008435B7 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Matrix.h; path = "Sources/Linear Algebra/Matrix.h"; sourceTree = "<group>"; };
+		98E25E451B19DE88008435B7 /* Matrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Matrix.m; path = "Sources/Linear Algebra/Matrix.m"; sourceTree = "<group>"; };
+		98E671711AA8C02100C88DCE /* Prime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Prime.swift; path = Sources/Prime.swift; sourceTree = "<group>"; };
 		98E671741AA8C4B400C88DCE /* PrimeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeTests.swift; sourceTree = "<group>"; };
-		98E671761AA8F00600C88DCE /* Complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Complex.swift; path = Source/Complex.swift; sourceTree = "<group>"; };
+		98E671761AA8F00600C88DCE /* Complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Complex.swift; path = Sources/Complex.swift; sourceTree = "<group>"; };
 		98E671791AA99AB500C88DCE /* ComplexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexTests.swift; sourceTree = "<group>"; };
 		98E743A51C1E00EF00B43898 /* libgmp.10.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libgmp.10.dylib; sourceTree = "<group>"; };
 		98E743A61C1E00EF00B43898 /* libgmp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgmp.a; sourceTree = "<group>"; };
@@ -150,24 +150,24 @@
 		98EE53DA1CC2C11700A50DDB /* BigFrac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BigFrac.h; path = "Big Fraction/BigFrac.h"; sourceTree = "<group>"; };
 		98EE53DC1CC2C12200A50DDB /* BigFrac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BigFrac.m; path = "Big Fraction/BigFrac.m"; sourceTree = "<group>"; };
 		98EE53DE1CC2C13200A50DDB /* BigFrac.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BigFrac.swift; path = "Big Fraction/BigFrac.swift"; sourceTree = "<group>"; };
-		98F558831B1AFBC2009AECD5 /* Cycle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Cycle.swift; path = Source/Cycle.swift; sourceTree = "<group>"; };
+		98F558831B1AFBC2009AECD5 /* Cycle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Cycle.swift; path = Sources/Cycle.swift; sourceTree = "<group>"; };
 		98F558871B1B10B8009AECD5 /* CycleTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CycleTest.swift; sourceTree = "<group>"; };
-		98F5588C1B1B92C4009AECD5 /* ArrayGenerators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArrayGenerators.swift; path = Source/ArrayGenerators.swift; sourceTree = "<group>"; };
+		98F5588C1B1B92C4009AECD5 /* ArrayGenerators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArrayGenerators.swift; path = Sources/ArrayGenerators.swift; sourceTree = "<group>"; };
 		98F5588E1B1B94AE009AECD5 /* ArrayGeneratorsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayGeneratorsTests.swift; sourceTree = "<group>"; };
 		98F5984B1A7B8BD20058DF53 /* MathEagle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MathEagle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F5984F1A7B8BD20058DF53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98F598501A7B8BD20058DF53 /* MathEagle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MathEagle.h; sourceTree = "<group>"; };
 		98F598561A7B8BD20058DF53 /* MathEagleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MathEagleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F5985C1A7B8BD20058DF53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		98F598671A7B8BED0058DF53 /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Math.swift; path = Source/Math.swift; sourceTree = "<group>"; };
-		98F598681A7B8BED0058DF53 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Source/Extensions.swift; sourceTree = "<group>"; };
-		98F598691A7B8BED0058DF53 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Functions.swift; path = Source/Functions.swift; sourceTree = "<group>"; };
-		98F5986A1A7B8BED0058DF53 /* Solver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Solver.swift; path = Source/Solver.swift; sourceTree = "<group>"; };
-		98F5986B1A7B8BED0058DF53 /* Optimization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Optimization.swift; path = Source/Optimization.swift; sourceTree = "<group>"; };
-		98F5986C1A7B8BED0058DF53 /* Integration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Integration.swift; path = Source/Integration.swift; sourceTree = "<group>"; };
-		98F5986D1A7B8BED0058DF53 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Matrix.swift; path = "Source/Linear Algebra/Matrix.swift"; sourceTree = "<group>"; };
-		98F5986E1A7B8BED0058DF53 /* MatrixVector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MatrixVector.swift; path = "Source/Linear Algebra/MatrixVector.swift"; sourceTree = "<group>"; };
-		98F5986F1A7B8BED0058DF53 /* Vector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vector.swift; path = "Source/Linear Algebra/Vector.swift"; sourceTree = "<group>"; };
+		98F598671A7B8BED0058DF53 /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Math.swift; path = Sources/Math.swift; sourceTree = "<group>"; };
+		98F598681A7B8BED0058DF53 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Sources/Extensions.swift; sourceTree = "<group>"; };
+		98F598691A7B8BED0058DF53 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Functions.swift; path = Sources/Functions.swift; sourceTree = "<group>"; };
+		98F5986A1A7B8BED0058DF53 /* Solver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Solver.swift; path = Sources/Solver.swift; sourceTree = "<group>"; };
+		98F5986B1A7B8BED0058DF53 /* Optimization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Optimization.swift; path = Sources/Optimization.swift; sourceTree = "<group>"; };
+		98F5986C1A7B8BED0058DF53 /* Integration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Integration.swift; path = Sources/Integration.swift; sourceTree = "<group>"; };
+		98F5986D1A7B8BED0058DF53 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Matrix.swift; path = "Sources/Linear Algebra/Matrix.swift"; sourceTree = "<group>"; };
+		98F5986E1A7B8BED0058DF53 /* MatrixVector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MatrixVector.swift; path = "Sources/Linear Algebra/MatrixVector.swift"; sourceTree = "<group>"; };
+		98F5986F1A7B8BED0058DF53 /* Vector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vector.swift; path = "Sources/Linear Algebra/Vector.swift"; sourceTree = "<group>"; };
 		98F598841A7B8C2A0058DF53 /* MathTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathTests.swift; sourceTree = "<group>"; };
 		98F598851A7B8C2A0058DF53 /* ExtensionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionsTests.swift; sourceTree = "<group>"; };
 		98F598861A7B8C2A0058DF53 /* FunctionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionsTests.swift; sourceTree = "<group>"; };
@@ -311,7 +311,7 @@
 				98E743981C1E004400B43898 /* GMP Source */,
 			);
 			name = GMP;
-			path = Source/GMP;
+			path = Sources/GMP;
 			sourceTree = "<group>";
 		};
 		98E743981C1E004400B43898 /* GMP Source */ = {
@@ -779,7 +779,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/MathEagle/Source/GMP/GMP\\ Source",
+					"$(PROJECT_DIR)/MathEagle/Sources/GMP/GMP\\ Source",
 				);
 				MODULEMAP_PRIVATE_FILE = "";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -807,7 +807,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/MathEagle/Source/GMP/GMP\\ Source",
+					"$(PROJECT_DIR)/MathEagle/Sources/GMP/GMP\\ Source",
 				);
 				MODULEMAP_PRIVATE_FILE = "";
 				OTHER_LDFLAGS = "$(inherited)";
