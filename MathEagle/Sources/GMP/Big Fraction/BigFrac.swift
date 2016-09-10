@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class BigFrac: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, SetCompliant, CustomStringConvertible, Hashable, IntegerLiteralConvertible {
+public final class BigFrac: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, SetCompliant, CustomStringConvertible, Hashable, ExpressibleByIntegerLiteral {
     
     
     // MARK: Private Properties
@@ -47,7 +47,7 @@ public final class BigFrac: Equatable, Comparable, Addable, Negatable, Subtracta
     }
     
     public init(string: String, base: Int32 = 10) {
-        bigFracOBJC = BigFrac_OBJC(string: string.cStringUsingEncoding(NSUTF8StringEncoding)!, inBase: base)
+        bigFracOBJC = BigFrac_OBJC(string: string.cString(using: String.Encoding.utf8)!, inBase: base)
     }
     
     
@@ -126,34 +126,34 @@ public final class BigFrac: Equatable, Comparable, Addable, Negatable, Subtracta
      - parameter base: The base in which to express the string. 10 is the default value. When 0 or 1 is passed, 10 will
      be used as well. Negative values are converted to their absolute value.
      */
-    public func stringValue(base: Int32 = 10) -> String {
-        return String(CString: self.bigFracOBJC.getStringValueInBase(base), encoding: NSUTF8StringEncoding)!
+    public func stringValue(_ base: Int32 = 10) -> String {
+        return String(cString: self.bigFracOBJC.getStringValue(inBase: base), encoding: String.Encoding.utf8)!
     }
     
     
     // MARK: Comparisons
     
-    public func compare(bigFrac: BigFrac) -> NSComparisonResult {
-        let cmp = self.bigFracOBJC.compareWithBigFracOBJC(bigFrac.bigFracOBJC)
+    public func compare(_ bigFrac: BigFrac) -> ComparisonResult {
+        let cmp = self.bigFracOBJC.compare(withBigFracOBJC: bigFrac.bigFracOBJC)
         if cmp < 0 {
-            return .OrderedAscending
+            return .orderedAscending
         } else if cmp > 0 {
-            return .OrderedDescending
+            return .orderedDescending
         } else {
-            return .OrderedSame
+            return .orderedSame
         }
     }
     
     
     // MARK: Operations
     
-    public func add(bigFrac: BigFrac) -> BigFrac {
+    public func add(_ bigFrac: BigFrac) -> BigFrac {
         let result = BigFrac()
         BigFrac_OBJC.set(result.bigFracOBJC, toSumOf: self.bigFracOBJC, and: bigFrac.bigFracOBJC)
         return result
     }
     
-    public func addInPlace(bigFrac: BigFrac) {
+    public func addInPlace(_ bigFrac: BigFrac) {
         BigFrac_OBJC.set(self.bigFracOBJC, toSumOf: self.bigFracOBJC, and: bigFrac.bigFracOBJC)
     }
     
@@ -167,33 +167,33 @@ public final class BigFrac: Equatable, Comparable, Addable, Negatable, Subtracta
         BigFrac_OBJC.set(self.bigFracOBJC, toNegationOf: self.bigFracOBJC)
     }
     
-    public func subtract(bigFrac: BigFrac) -> BigFrac {
+    public func subtract(_ bigFrac: BigFrac) -> BigFrac {
         let result = BigFrac()
         BigFrac_OBJC.set(result.bigFracOBJC, toDifferenceOf: self.bigFracOBJC, and: bigFrac.bigFracOBJC)
         return result
     }
     
-    public func subtractInPlace(bigFrac: BigFrac) {
+    public func subtractInPlace(_ bigFrac: BigFrac) {
         BigFrac_OBJC.set(self.bigFracOBJC, toDifferenceOf: self.bigFracOBJC, and: bigFrac.bigFracOBJC)
     }
     
-    public func multiply(bigFrac: BigFrac) -> BigFrac {
+    public func multiply(_ bigFrac: BigFrac) -> BigFrac {
         let result = BigFrac()
         BigFrac_OBJC.set(result.bigFracOBJC, toProductOf: self.bigFracOBJC, and: bigFrac.bigFracOBJC)
         return result
     }
     
-    public func multiplyInPlace(bigFrac: BigFrac) {
+    public func multiplyInPlace(_ bigFrac: BigFrac) {
         BigFrac_OBJC.set(self.bigFracOBJC, toProductOf: self.bigFracOBJC, and: bigFrac.bigFracOBJC)
     }
     
-    public func divide(bigFrac: BigFrac) -> BigFrac {
+    public func divide(_ bigFrac: BigFrac) -> BigFrac {
         let result = BigFrac()
         BigFrac_OBJC.set(result.bigFracOBJC, toQuotientOf: self.bigFracOBJC, and: bigFrac.bigFracOBJC)
         return result
     }
     
-    public func divideInPlace(bigFrac: BigFrac) {
+    public func divideInPlace(_ bigFrac: BigFrac) {
         BigFrac_OBJC.set(self.bigFracOBJC, toQuotientOf: self.bigFracOBJC, and: bigFrac.bigFracOBJC)
     }
     
@@ -224,18 +224,18 @@ public final class BigFrac: Equatable, Comparable, Addable, Negatable, Subtracta
 // MARK: Equatable
 
 public func == (left: BigFrac, right: BigFrac) -> Bool {
-    return left.compare(right) == .OrderedSame
+    return left.compare(right) == .orderedSame
 }
 
 
 // MARK: Comparable
 
 public func < (left: BigFrac, right: BigFrac) -> Bool {
-    return left.compare(right) == .OrderedAscending
+    return left.compare(right) == .orderedAscending
 }
 
 public func > (left: BigFrac, right: BigFrac) -> Bool {
-    return left.compare(right) == .OrderedDescending
+    return left.compare(right) == .orderedDescending
 }
 
 
@@ -245,7 +245,7 @@ public func + (left: BigFrac, right: BigFrac) -> BigFrac {
     return left.add(right)
 }
 
-public func += (inout left: BigFrac, right: BigFrac) {
+public func += (left: inout BigFrac, right: BigFrac) {
     left.addInPlace(right)
 }
 
@@ -263,7 +263,7 @@ public func - (left: BigFrac, right: BigFrac) -> BigFrac {
     return left.subtract(right)
 }
 
-public func -= (inout left: BigFrac, right: BigFrac) {
+public func -= (left: inout BigFrac, right: BigFrac) {
     left.subtractInPlace(right)
 }
 
@@ -274,7 +274,7 @@ public func * (left: BigFrac, right: BigFrac) -> BigFrac {
     return left.multiply(right)
 }
 
-public func *= (inout left: BigFrac, right: BigFrac) {
+public func *= (left: inout BigFrac, right: BigFrac) {
     left.multiplyInPlace(right)
 }
 
@@ -285,13 +285,13 @@ public func / (left: BigFrac, right: BigFrac) -> BigFrac {
     return left.divide(right)
 }
 
-public func /= (inout left: BigFrac, right: BigFrac) {
+public func /= (left: inout BigFrac, right: BigFrac) {
     left.divideInPlace(right)
 }
 
 
 // MARK: Absolute Value
 
-public func abs(bigInt: BigFrac) -> BigFrac {
+public func abs(_ bigInt: BigFrac) -> BigFrac {
     return bigInt.absoluteValue
 }

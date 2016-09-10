@@ -44,13 +44,13 @@ class CycleTest: XCTestCase {
     func testParity() {
         
         var cycle = Cycle([3, 4, 7])
-        XCTAssertEqual(Parity.Even, cycle.parity)
+        XCTAssertEqual(Parity.even, cycle.parity)
         
         cycle = Cycle()
-        XCTAssertEqual(Parity.Odd, cycle.parity)
+        XCTAssertEqual(Parity.odd, cycle.parity)
         
         cycle = Cycle([5])
-        XCTAssertEqual(Parity.Even, cycle.parity)
+        XCTAssertEqual(Parity.even, cycle.parity)
 
     }
     

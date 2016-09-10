@@ -18,7 +18,7 @@ let ACCURACY = 1e-7
 
 // MARK: Time Helper Functions
 
-func getCoefficients(n0 n0: Int, numberOfIterations k: Int, timeBlock: Int -> Double) -> (Double, Double) {
+func getCoefficients(n0: Int, numberOfIterations k: Int, timeBlock: (Int) -> Double) -> (Double, Double) {
     
     var prev: Double = 0
     var a: Double = 0, b: Double = 0
@@ -45,21 +45,21 @@ func getCoefficients(n0 n0: Int, numberOfIterations k: Int, timeBlock: Int -> Do
     return (a, b)
 }
 
-func timeBlock(n n: Int = 1, block: Void -> Any) -> Double {
+func timeBlock(n: Int = 1, block: (Void) -> Any) -> Double {
     
-    let start = NSDate()
+    let start = Date()
     
     for _ in 1 ... n {
         
-        block()
+        let _ = block()
     }
     
-    let end = NSDate()
+    let end = Date()
     
-    return Double(end.timeIntervalSinceDate(start)) / Double(n)
+    return Double(end.timeIntervalSince(start)) / Double(n)
 }
 
-func compareBaseline(baseline: Double, title: String = "", n: Int = 1, block: Void -> Any) {
+func compareBaseline(_ baseline: Double, title: String = "", n: Int = 1, block: (Void) -> Any) {
     
     let time = timeBlock(n: n, block: block)
     
@@ -67,7 +67,7 @@ func compareBaseline(baseline: Double, title: String = "", n: Int = 1, block: Vo
     print("")
     if !title.isEmpty {
         print(title)
-        print(String(count: title.characters.count, repeatedValue: Character("-")))
+        print(String(repeating: "-", count: title.characters.count))
     }
     print("Baseline:\t\t\t\t\t\(baseline)")
     print("Time:\t\t\t\t\t\t\(time)")
@@ -76,13 +76,13 @@ func compareBaseline(baseline: Double, title: String = "", n: Int = 1, block: Vo
     print("")
 }
 
-func calculateBenchmarkingTimes(base: Int, maxPower k: Int, title: String = "", timeBlock: (Int) -> Double) {
+func calculateBenchmarkingTimes(_ base: Int, maxPower k: Int, title: String = "", timeBlock: (Int) -> Double) {
     
     print("")
     print("")
     if !title.isEmpty {
         print(title)
-        print(String(count: title.characters.count, repeatedValue: Character("-")))
+        print(String(repeating: "-", count: title.characters.count))
     }
     
     for i in 1 ... k {
@@ -98,7 +98,14 @@ func calculateBenchmarkingTimes(base: Int, maxPower k: Int, title: String = "", 
 
 // MARK: XCT Extensions
 
-func XCTAssertContentEqual <T: Equatable> (expression1: [T], _ expression2: [T]) {
+func XCTAssertEqual <T: Equatable> (_ expression1: [[T]], _ expression2: [[T]]) {
+    XCTAssertEqual(expression1.count, expression2.count)
+    for i in 0 ..< expression1.count {
+        XCTAssertEqual(expression1[i], expression2[i])
+    }
+}
+
+func XCTAssertContentEqual <T: Equatable> (_ expression1: [T], _ expression2: [T]) {
     
     XCTAssertEqual(expression1.count, expression2.count)
     

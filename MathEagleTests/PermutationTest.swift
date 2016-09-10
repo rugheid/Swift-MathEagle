@@ -96,13 +96,13 @@ class PermutationTest: XCTestCase {
     func testParity() {
         
         var perm = Permutation(arrayRepresentation: [3, 1, 6, 5, 4, 7, 0, 2])
-        XCTAssertEqual(Parity.Odd, perm.parity)
+        XCTAssertEqual(Parity.odd, perm.parity)
         
         perm = Permutation()
-        XCTAssertEqual(Parity.Even, perm.parity)
+        XCTAssertEqual(Parity.even, perm.parity)
         
         perm = Permutation(arrayRepresentation: [1, 4, 3, 2, 0])
-        XCTAssertEqual(Parity.Odd, perm.parity)
+        XCTAssertEqual(Parity.odd, perm.parity)
     }
     
     

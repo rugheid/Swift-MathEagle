@@ -31,18 +31,18 @@ extension Double {
     
     public var isNatural: Bool {
         
-        return self % 1.0 == 0.0 && self >= 0.0
+        return self.truncatingRemainder(dividingBy: 1.0) == Double(0.0) && self >= 0.0
     }
     
     public var isInteger: Bool {
         
-        return self % 1.0 == 0.0
+        return self.truncatingRemainder(dividingBy: 1.0) == Double(0.0)
     }
     
     
     // MARK: Fuzzy Equals
     
-    public func equals(x: Double, accuracy: Double) -> Bool {
+    public func equals(_ x: Double, accuracy: Double) -> Bool {
         
         let absSelf = abs(self)
         let absX = abs(x)
@@ -78,12 +78,12 @@ extension Float {
     
     public var isNatural: Bool {
         
-        return self % 1.0 == 0.0 && self >= 0.0
+        return self.truncatingRemainder(dividingBy: 1.0) == 0.0 && self >= 0.0
     }
     
     public var isInteger: Bool {
         
-        return self % 1.0 == 0.0
+        return self.truncatingRemainder(dividingBy: 1.0) == 0.0
     }
 }
 
@@ -111,12 +111,12 @@ extension CGFloat {
     
     public var isNatural: Bool {
         
-        return self % 1.0 == 0.0 && self >= 0.0
+        return self.truncatingRemainder(dividingBy: 1.0) == 0.0 && self >= 0.0
     }
     
     public var isInteger: Bool {
         
-        return self % 1.0 == 0.0
+        return self.truncatingRemainder(dividingBy: 1.0) == 0.0
     }
 }
 

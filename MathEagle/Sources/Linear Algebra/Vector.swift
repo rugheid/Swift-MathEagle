@@ -12,12 +12,12 @@ import Accelerate
 /**
     A generic class representing a vector with the given type.
 */
-public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, SequenceType, CustomStringConvertible {
+open class Vector <T: MatrixCompatible> : ExpressibleByArrayLiteral, Equatable, Sequence, CustomStringConvertible {
     
     /**
         Returns a list of all elements of the vector.
     */
-    public var elements = [T]()
+    open var elements = [T]()
     
     /**
         Creates an empty vector. elements will be [], length will be 0.
@@ -96,7 +96,55 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         - parameter intervals: The intervals in which the random generated
                     elements may lie.
     */
-    public convenience init(randomWithLength length: Int, intervals: ClosedInterval<T.RandomIntervalType>...) {
+    public convenience init(randomWithLength length: Int, intervals: Range<T.RandomRangeType>...) {
+        
+        self.init(length: length, generator: { _ in T.randomInInterval(intervals) })
+    }
+    
+    /**
+     Creates a random vector with the given length.
+     The elements in the vector are generated with
+     the randomInInterval function of the vector's
+     type T. This means the generated values will
+     lie within the given interval(s).
+     
+     - parameter length: The number of elements the vector should have.
+     - parameter intervals: The intervals in which the random generated
+     elements may lie.
+     */
+    public convenience init(randomWithLength length: Int, intervals: ClosedRange<T.RandomRangeType>...) {
+        
+        self.init(length: length, generator: { _ in T.randomInInterval(intervals) })
+    }
+    
+    /**
+     Creates a random vector with the given length.
+     The elements in the vector are generated with
+     the randomInInterval function of the vector's
+     type T. This means the generated values will
+     lie within the given interval(s).
+     
+     - parameter length: The number of elements the vector should have.
+     - parameter intervals: The intervals in which the random generated
+     elements may lie.
+     */
+    public convenience init(randomWithLength length: Int, intervals: CountableRange<T.RandomCountableRangeType>...) {
+        
+        self.init(length: length, generator: { _ in T.randomInInterval(intervals) })
+    }
+    
+    /**
+     Creates a random vector with the given length.
+     The elements in the vector are generated with
+     the randomInInterval function of the vector's
+     type T. This means the generated values will
+     lie within the given interval(s).
+     
+     - parameter length: The number of elements the vector should have.
+     - parameter intervals: The intervals in which the random generated
+     elements may lie.
+     */
+    public convenience init(randomWithLength length: Int, intervals: CountableClosedRange<T.RandomCountableRangeType>...) {
         
         self.init(length: length, generator: { _ in T.randomInInterval(intervals) })
     }
@@ -109,13 +157,13 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         - parameter index: The index of the element to get/set.
     */
-    public subscript(index: Int) -> T {
+    open subscript(index: Int) -> T {
         
         get {
             
             if index < 0 || index >= self.length {
                 
-                NSException(name: "Index out of bounds", reason: "The index \(index) is out of bounds.", userInfo: nil).raise()
+                NSException(name: NSExceptionName(rawValue: "Index out of bounds"), reason: "The index \(index) is out of bounds.", userInfo: nil).raise()
             }
             
             return self.elements[index]
@@ -125,11 +173,39 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
             
             if index < -1 || index > self.length {
                 
-                NSException(name: "Index out of bounds", reason: "The index \(index) is out of bounds.", userInfo: nil).raise()
+                NSException(name: NSExceptionName(rawValue: "Index out of bounds"), reason: "The index \(index) is out of bounds.", userInfo: nil).raise()
             }
             
             
         }
+    }
+    
+    /**
+     Returns the subvector at the given index range.
+     
+     - parameter indexRange: A range representing the indices
+     of the subvector.
+     */
+    open subscript(indexRange: CountableRange<Int>) -> Vector<T> {
+        
+        if indexRange.lowerBound < 0 {
+            
+            NSException(name: NSExceptionName(rawValue: "Lower index out of bounds"), reason: "The range's startIndex \(indexRange.lowerBound) is out of bounds.", userInfo: nil).raise()
+        }
+        
+        if indexRange.upperBound >= self.length {
+            
+            NSException(name: NSExceptionName(rawValue: "Upper index out of bounds"), reason: "The range's endIndex is out of bounds.", userInfo: nil).raise()
+        }
+        
+        var returnElements = [T]()
+        
+        for i in indexRange {
+            
+            returnElements.append(self.elements[i])
+        }
+        
+        return Vector(returnElements)
     }
     
     /**
@@ -138,16 +214,16 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         - parameter indexRange: A range representing the indices
                     of the subvector.
     */
-    public subscript(indexRange: Range<Int>) -> Vector<T> {
+    open subscript(indexRange: CountableClosedRange<Int>) -> Vector<T> {
         
-        if indexRange.startIndex < 0 {
+        if indexRange.lowerBound < 0 {
             
-            NSException(name: "Lower index out of bounds", reason: "The range's startIndex \(indexRange.startIndex) is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Lower index out of bounds"), reason: "The range's startIndex \(indexRange.lowerBound) is out of bounds.", userInfo: nil).raise()
         }
         
-        if indexRange.endIndex >= self.length {
+        if indexRange.upperBound >= self.length {
             
-            NSException(name: "Upper index out of bounds", reason: "The range's endIndex is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Upper index out of bounds"), reason: "The range's endIndex is out of bounds.", userInfo: nil).raise()
         }
         
         var returnElements = [T]()
@@ -166,7 +242,7 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns a generator for the vector.
     */
-    public func generate() -> VectorGenerator<T> {
+    open func makeIterator() -> VectorGenerator<T> {
         
         return VectorGenerator(vector: self)
     }
@@ -178,7 +254,7 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns a copy of the vector.
     */
-    public var copy: Vector<T> {
+    open var copy: Vector<T> {
         
         return Vector(self.elements)
     }
@@ -188,7 +264,7 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         :example: [1, 2, 3]
     */
-    public var description: String {
+    open var description: String {
         
         return self.elements.description
     }
@@ -196,7 +272,7 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns the length, the number of elements.
     */
-    public var length: Int {
+    open var length: Int {
         
         return self.elements.count
     }
@@ -205,11 +281,11 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Returns the 2-norm. This means
         sqrt(element_0^2 + element_1^2 + ... + element_n^2).
     */
-    public var norm: T.RealPowerType {
+    open var norm: T.RealPowerType {
         
         if self.length == 0 {
             
-            NSException(name: "No elements", reason: "A vector with no elements has no norm.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "No elements"), reason: "A vector with no elements has no norm.", userInfo: nil).raise()
         }
         
         var sum = self.elements[0]*self.elements[0]
@@ -231,7 +307,7 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         conjugate a - bi. Non-complex values are left
         untouched.
     */
-    public var conjugate: Vector<T> {
+    open var conjugate: Vector<T> {
         
         return vmap(self){ $0.conjugate }
     }
@@ -247,7 +323,7 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Returns whether the vector is empty. This means
         it doesn't contain any elements, so it's length equals zero.
     */
-    public var isEmpty: Bool {
+    open var isEmpty: Bool {
         
         return self.length == 0
     }
@@ -256,7 +332,7 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns whether the vector contains only zeros.
     */
-    public var isZero: Bool {
+    open var isZero: Bool {
         
         for element in self {
             
@@ -279,7 +355,7 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         - returns: A scalar of the same type as the two vectors.
     */
-    public func dotProduct(vector: Vector<T>) -> T {
+    open func dotProduct(_ vector: Vector<T>) -> T {
         
         return vectorDotProduct(self, vector)
     }
@@ -295,7 +371,7 @@ public class Vector <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         - returns: A square matrix of the same type as the two vectors with
                     size equal to the vector's length.
     */
-    public func directProduct(vector: Vector<T>) -> Matrix<T> {
+    open func directProduct(_ vector: Vector<T>) -> Matrix<T> {
         
         return vectorDirectProduct(self, vector)
     }
@@ -337,7 +413,7 @@ public func + <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Vecto
     
     if left.length != right.length {
         
-        NSException(name: "Unequal lengths", reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal lengths"), reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
     }
     
     return vcombine(left, right){ $0 + $1 }
@@ -352,7 +428,7 @@ public func + (left: Vector<Float>, right: Vector<Float>) -> Vector<Float> {
     
     if left.length != right.length {
         
-        NSException(name: "Unequal lengths", reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal lengths"), reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
     }
     
 //    var elements = [Float](count: left.length, repeatedValue: 0)
@@ -383,7 +459,7 @@ public func + (left: Vector<Double>, right: Vector<Double>) -> Vector<Double> {
     
     if left.length != right.length {
         
-        NSException(name: "Unequal lengths", reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal lengths"), reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
     }
     
 //    var elements = [Double](count: left.length, repeatedValue: 0)
@@ -490,7 +566,7 @@ public func - <T: MatrixCompatible> (left: Vector<T>, right: Vector<T>) -> Vecto
     
     if left.length != right.length {
         
-        NSException(name: "Unequal lengths", reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal lengths"), reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
     }
     
     return vcombine(left, right){ $0 - $1 }
@@ -506,7 +582,7 @@ public func - (left: Vector<Float>, right: Vector<Float>) -> Vector<Float> {
     
     if left.length != right.length {
         
-        NSException(name: "Unequal lengths", reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal lengths"), reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
     }
     
 //    var elements = [Float](count: left.length, repeatedValue: 0)
@@ -538,7 +614,7 @@ public func - (left: Vector<Double>, right: Vector<Double>) -> Vector<Double> {
     
     if left.length != right.length {
         
-        NSException(name: "Unequal lengths", reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal lengths"), reason: "The left vector's length (\(left.length)) is not equal to the right vector's length (\(right.length))", userInfo: nil).raise()
     }
     
 //    var elements = [Double](count: left.length, repeatedValue: 0)
@@ -684,7 +760,7 @@ public func / <T: MatrixCompatible> (vector: Vector<T>, scalar: T) -> Vector<T> 
 */
 public func / (vector: Vector<Float>, scalar: Float) -> Vector<Float> {
     
-    var elements = [Float](count: vector.length, repeatedValue: 0)
+    var elements = [Float](repeating: 0, count: vector.length)
     
     vDSP_vsdiv(vector.elements, 1, [scalar], &elements, 1, vDSP_Length(vector.length))
     
@@ -705,7 +781,7 @@ public func / (vector: Vector<Float>, scalar: Float) -> Vector<Float> {
 */
 public func / (vector: Vector<Double>, scalar: Double) -> Vector<Double> {
     
-    var elements = [Double](count: vector.length, repeatedValue: 0)
+    var elements = [Double](repeating: 0, count: vector.length)
     
     vDSP_vsdivD(vector.elements, 1, [scalar], &elements, 1, vDSP_Length(vector.length))
     
@@ -729,11 +805,11 @@ public func / (vector: Vector<Double>, scalar: Double) -> Vector<Double> {
     :exception: An exception will be thrown when the two vectors
                     are not of equal length.
 */
-public func vectorDotProduct <T: MatrixCompatible> (left: Vector<T>, _ right: Vector<T>) -> T {
+public func vectorDotProduct <T: MatrixCompatible> (_ left: Vector<T>, _ right: Vector<T>) -> T {
     
     if left.length != right.length {
         
-        NSException(name: "Unequal lengths", reason: "The two given vectors have uneqaul lengths.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal lengths"), reason: "The two given vectors have uneqaul lengths.", userInfo: nil).raise()
     }
     
     return sum(vcombine(left, right){ $0 * $1 })
@@ -747,11 +823,11 @@ public func vectorDotProduct <T: MatrixCompatible> (left: Vector<T>, _ right: Ve
     :exception: An exception will be thrown when the two vectors
                     are not of equal length.
 */
-public func vectorDotProduct(left: Vector<Float>, _ right: Vector<Float>) -> Float {
+public func vectorDotProduct(_ left: Vector<Float>, _ right: Vector<Float>) -> Float {
     
     if left.length != right.length {
         
-        NSException(name: "Unequal lengths", reason: "The two given vectors have uneqaul lengths.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal lengths"), reason: "The two given vectors have uneqaul lengths.", userInfo: nil).raise()
     }
     
     var result: Float = 0
@@ -769,11 +845,11 @@ public func vectorDotProduct(left: Vector<Float>, _ right: Vector<Float>) -> Flo
     :exception: An exception will be thrown when the two vectors
                     are not of equal length.
 */
-public func vectorDotProduct(left: Vector<Double>, _ right: Vector<Double>) -> Double {
+public func vectorDotProduct(_ left: Vector<Double>, _ right: Vector<Double>) -> Double {
     
     if left.length != right.length {
         
-        NSException(name: "Unequal lengths", reason: "The two given vectors have uneqaul lengths.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal lengths"), reason: "The two given vectors have uneqaul lengths.", userInfo: nil).raise()
     }
     
     var result: Double = 0
@@ -838,11 +914,11 @@ public func * (left: Vector<Double>, right: Vector<Double>) -> Matrix<Double> {
     :exception: An exception will be thrown when the two
                     given vectors are not of equal length.
 */
-public func vectorDirectProduct <T: MatrixCompatible> (left: Vector<T>, _ right: Vector<T>) -> Matrix<T> {
+public func vectorDirectProduct <T: MatrixCompatible> (_ left: Vector<T>, _ right: Vector<T>) -> Matrix<T> {
     
     if left.length != right.length {
         
-        NSException(name: "Unequal lengths", reason: "The lengths of the two vectors are not equal.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal lengths"), reason: "The lengths of the two vectors are not equal.", userInfo: nil).raise()
     }
     
     return Matrix(elementsList: left.elements, columns: 1) * Matrix(elementsList: right.elements, rows: 1)
@@ -857,18 +933,18 @@ public func vectorDirectProduct <T: MatrixCompatible> (left: Vector<T>, _ right:
     :exception: An exception will be thrown when the two
                     given vectors are not of equal length.
 */
-public func vectorDirectProduct(left: Vector<Float>, _ right: Vector<Float>) -> Matrix<Float> {
+public func vectorDirectProduct(_ left: Vector<Float>, _ right: Vector<Float>) -> Matrix<Float> {
     
     if left.length != right.length {
         
-        NSException(name: "Unequal lengths", reason: "The lengths of the two vectors are not equal.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal lengths"), reason: "The lengths of the two vectors are not equal.", userInfo: nil).raise()
     }
     
     if left.length == 0 {
         return Matrix<Float>()
     }
     
-    var elements = [Float](count: left.length*left.length, repeatedValue: 0)
+    var elements = [Float](repeating: 0, count: left.length*left.length)
     
     cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(left.length), Int32(left.length), 1, 1, left.elements, 1, right.elements, Int32(left.length), 1, &elements, Int32(left.length))
     
@@ -884,18 +960,18 @@ public func vectorDirectProduct(left: Vector<Float>, _ right: Vector<Float>) -> 
     :exception: An exception will be thrown when the two
                     given vectors are not of equal length.
 */
-public func vectorDirectProduct(left: Vector<Double>, _ right: Vector<Double>) -> Matrix<Double> {
+public func vectorDirectProduct(_ left: Vector<Double>, _ right: Vector<Double>) -> Matrix<Double> {
     
     if left.length != right.length {
         
-        NSException(name: "Unequal lengths", reason: "The lengths of the two vectors are not equal.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal lengths"), reason: "The lengths of the two vectors are not equal.", userInfo: nil).raise()
     }
     
     if left.length == 0 {
         return Matrix<Double>()
     }
     
-    var elements = [Double](count: left.length*left.length, repeatedValue: 0)
+    var elements = [Double](repeating: 0, count: left.length*left.length)
     
     cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, Int32(left.length), Int32(left.length), 1, 1, left.elements, 1, right.elements, Int32(left.length), 1, &elements, Int32(left.length))
     
@@ -914,7 +990,7 @@ public func vectorDirectProduct(left: Vector<Double>, _ right: Vector<Double>) -
     - parameter transform: The function used to transform
                 the elements in the given vector.
 */
-public func vmap <T: MatrixCompatible, U: MatrixCompatible> (vector: Vector<T>, transform: (T) -> U) -> Vector<U> {
+public func vmap <T: MatrixCompatible, U: MatrixCompatible> (_ vector: Vector<T>, transform: (T) -> U) -> Vector<U> {
     
     return Vector(vector.elements.map(transform))
 }
@@ -934,9 +1010,9 @@ public func vmap <T: MatrixCompatible, U: MatrixCompatible> (vector: Vector<T>, 
     - parameter combine: The function used to combine two
                 values and reduce the vector.
 */
-public func vreduce <T: MatrixCompatible, U> (vector: Vector<T>, initial: U, combine: (U, T) -> U) -> U {
+public func vreduce <T: MatrixCompatible, U> (_ vector: Vector<T>, initial: U, combine: (U, T) -> U) -> U {
     
-    return vector.elements.reduce(initial, combine: combine)
+    return vector.elements.reduce(initial, combine)
 }
 
 /**
@@ -962,11 +1038,11 @@ public func vreduce <T: MatrixCompatible, U> (vector: Vector<T>, initial: U, com
                     two given vectors are not of equal
                     length.
 */
-public func vcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (left: Vector<T>, _ right: Vector<U>, combine: (T, U) -> V) -> Vector<V> {
+public func vcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (_ left: Vector<T>, _ right: Vector<U>, combine: (T, U) -> V) -> Vector<V> {
     
     if left.length != right.length {
         
-        NSException(name: "Unequal lengths", reason: "The lengths of the two vectors are not equal.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal lengths"), reason: "The lengths of the two vectors are not equal.", userInfo: nil).raise()
     }
     
     var vectorElements = [V]()
@@ -991,9 +1067,9 @@ public func vcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompati
                 ascending order, otherwise it's sorted in
                 descending order.
 */
-public func vsort <T: MatrixCompatible> (inout vector: Vector<T>, ascending: Bool = true) {
+public func vsort <T: MatrixCompatible> (_ vector: inout Vector<T>, ascending: Bool = true) {
     
-    vector.elements.sortInPlace { ascending ? $0 < $1 : $0 > $1 }
+    vector.elements.sort { ascending ? $0 < $1 : $0 > $1 }
 }
 
 
@@ -1007,12 +1083,12 @@ public func vsort <T: MatrixCompatible> (inout vector: Vector<T>, ascending: Boo
     A struct representing a vector generator. This is used to
     iterate over the vector.
 */
-public struct VectorGenerator <T: MatrixCompatible> : GeneratorType {
+public struct VectorGenerator <T: MatrixCompatible> : IteratorProtocol {
     
     /**
         The generator of the elements array of the vector.
     */
-    private var generator: IndexingGenerator<Array<T>>
+    fileprivate var generator: IndexingIterator<Array<T>>
     
     /**
         Creates a new generator with the given vector.
@@ -1021,7 +1097,7 @@ public struct VectorGenerator <T: MatrixCompatible> : GeneratorType {
     */
     public init(vector: Vector<T>) {
         
-        self.generator = vector.elements.generate()
+        self.generator = vector.elements.makeIterator()
     }
     
     /**

@@ -45,7 +45,7 @@ class GraphTests: XCTestCase {
     
     func testVertexManagement() {
         
-        XCTAssertContentEqual(undirectedGraph.vertices, ["Amsterdam", "Brussels", "Charleroi", "Dublin", "Eindhoven"])
+        XCTAssertContentEqual(["Amsterdam", "Brussels", "Charleroi", "Dublin", "Eindhoven"], undirectedGraph.vertices)
         XCTAssertEqual(undirectedGraph.numberOfVertices, 5)
         
         var verticesSet = Set<String>()

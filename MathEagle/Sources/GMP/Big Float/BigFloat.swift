@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct BigFloat: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, SetCompliant, NaturalPowerable, CustomStringConvertible, Hashable, IntegerLiteralConvertible {
+public struct BigFloat: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, SetCompliant, NaturalPowerable, CustomStringConvertible, Hashable, ExpressibleByIntegerLiteral {
     
     
     // MARK: Private Properties
@@ -28,7 +28,7 @@ public struct BigFloat: Equatable, Comparable, Addable, Negatable, Subtractable,
     }
     
     public init(_ bigFloat: BigFloat) {
-        bigFloatOBJC = BigFloat_OBJC(bigFloatOBJC: bigFloat.bigFloatOBJC)
+        bigFloatOBJC = BigFloat_OBJC(bigFloat: bigFloat.bigFloatOBJC)
     }
     
     public init(bigInt: BigInt) {
@@ -56,7 +56,7 @@ public struct BigFloat: Equatable, Comparable, Addable, Negatable, Subtractable,
     }
     
     public init(string: String, base: Int32 = 10) {
-        bigFloatOBJC = BigFloat_OBJC(string: string.cStringUsingEncoding(NSUTF8StringEncoding)!, inBase: base)
+        bigFloatOBJC = BigFloat_OBJC(string: string.cString(using: String.Encoding.utf8)!, inBase: base)
     }
     
     
@@ -115,83 +115,83 @@ public struct BigFloat: Equatable, Comparable, Addable, Negatable, Subtractable,
      - parameter base: The base in which to express the string. 10 is the default value. When 0 or 1 is passed, 10 will
      be used as well. Negative values are converted to their absolute value.
      */
-    public func stringValue(base: Int32 = 10, maxNumberOfDigits: Int = 18) -> String {
+    public func stringValue(_ base: Int32 = 10, maxNumberOfDigits: Int = 18) -> String {
         var exponent = 0;
-        var string = String(CString: self.bigFloatOBJC.getStringValueInBase(base,
+        var string = String(cString: self.bigFloatOBJC.getStringValue(inBase: base,
             exponentReference: &exponent,
             maxNumberOfDigits: maxNumberOfDigits),
-                            encoding: NSUTF8StringEncoding)!
-        string.insert(".", atIndex: string.startIndex.successor())
+                            encoding: String.Encoding.utf8)!
+        string.insert(".", at: string.index(after: string.startIndex))
         return string
     }
     
     
     // MARK: Comparisons
     
-    public func compare(bigFloat: BigFloat) -> NSComparisonResult {
-        let cmp = self.bigFloatOBJC.compareWithBigFloatOBJC(bigFloat.bigFloatOBJC)
+    public func compare(_ bigFloat: BigFloat) -> ComparisonResult {
+        let cmp = self.bigFloatOBJC.compare(withBigFloat: bigFloat.bigFloatOBJC)
         if cmp < 0 {
-            return .OrderedAscending
+            return .orderedAscending
         } else if cmp > 0 {
-            return .OrderedDescending
+            return .orderedDescending
         } else {
-            return .OrderedSame
+            return .orderedSame
         }
     }
     
-    public func compare(double: Double) -> NSComparisonResult {
-        let cmp = self.bigFloatOBJC.compareWithDouble(double)
+    public func compare(_ double: Double) -> ComparisonResult {
+        let cmp = self.bigFloatOBJC.compare(with: double)
         if cmp < 0 {
-            return .OrderedAscending
+            return .orderedAscending
         } else if cmp > 0 {
-            return .OrderedDescending
+            return .orderedDescending
         } else {
-            return .OrderedSame
+            return .orderedSame
         }
     }
     
-    public func compare(uint: UInt) -> NSComparisonResult {
-        let cmp = self.bigFloatOBJC.compareWithUnsignedLong(uint)
+    public func compare(_ uint: UInt) -> ComparisonResult {
+        let cmp = self.bigFloatOBJC.compare(withUnsignedLong: uint)
         if cmp < 0 {
-            return .OrderedAscending
+            return .orderedAscending
         } else if cmp > 0 {
-            return .OrderedDescending
+            return .orderedDescending
         } else {
-            return .OrderedSame
+            return .orderedSame
         }
     }
     
-    public func compare(int: Int) -> NSComparisonResult {
-        let cmp = self.bigFloatOBJC.compareWithLong(int)
+    public func compare(_ int: Int) -> ComparisonResult {
+        let cmp = self.bigFloatOBJC.compare(withLong: int)
         if cmp < 0 {
-            return .OrderedAscending
+            return .orderedAscending
         } else if cmp > 0 {
-            return .OrderedDescending
+            return .orderedDescending
         } else {
-            return .OrderedSame
+            return .orderedSame
         }
     }
     
     
     // MARK: Operations
     
-    public func add(bigFloat: BigFloat) -> BigFloat {
+    public func add(_ bigFloat: BigFloat) -> BigFloat {
         let result = BigFloat()
         BigFloat_OBJC.set(result.bigFloatOBJC, toSumOf: self.bigFloatOBJC, and: bigFloat.bigFloatOBJC)
         return result
     }
     
-    public mutating func addInPlace(bigFloat: BigFloat) {
+    public mutating func addInPlace(_ bigFloat: BigFloat) {
         BigFloat_OBJC.set(self.bigFloatOBJC, toSumOf: self.bigFloatOBJC, and: bigFloat.bigFloatOBJC)
     }
     
-    public func add(uint: UInt) -> BigFloat {
+    public func add(_ uint: UInt) -> BigFloat {
         let result = BigFloat()
         BigFloat_OBJC.set(result.bigFloatOBJC, toSumOf: self.bigFloatOBJC, andUnsignedLong: uint)
         return result
     }
     
-    public mutating func addInPlace(uint: UInt) {
+    public mutating func addInPlace(_ uint: UInt) {
         BigFloat_OBJC.set(self.bigFloatOBJC, toSumOf: self.bigFloatOBJC, andUnsignedLong: uint)
     }
     
@@ -205,73 +205,73 @@ public struct BigFloat: Equatable, Comparable, Addable, Negatable, Subtractable,
         BigFloat_OBJC.set(self.bigFloatOBJC, toNegationOf: self.bigFloatOBJC)
     }
     
-    public func subtract(bigFloat: BigFloat) -> BigFloat {
+    public func subtract(_ bigFloat: BigFloat) -> BigFloat {
         let result = BigFloat()
         BigFloat_OBJC.set(result.bigFloatOBJC, toDifferenceOf: self.bigFloatOBJC, and: bigFloat.bigFloatOBJC)
         return result
     }
     
-    public mutating func subtractInPlace(bigFloat: BigFloat) {
+    public mutating func subtractInPlace(_ bigFloat: BigFloat) {
         BigFloat_OBJC.set(self.bigFloatOBJC, toDifferenceOf: self.bigFloatOBJC, and: bigFloat.bigFloatOBJC)
     }
     
-    public func subtract(uint: UInt) -> BigFloat {
+    public func subtract(_ uint: UInt) -> BigFloat {
         let result = BigFloat()
         BigFloat_OBJC.set(result.bigFloatOBJC, toDifferenceOf: self.bigFloatOBJC, andUnsignedLong: uint)
         return result
     }
     
-    public mutating func subtractInPlace(uint: UInt) {
+    public mutating func subtractInPlace(_ uint: UInt) {
         BigFloat_OBJC.set(self.bigFloatOBJC, toDifferenceOf: self.bigFloatOBJC, andUnsignedLong: uint)
     }
     
-    public func subtractFromUInt(uint: UInt) -> BigFloat {
+    public func subtractFromUInt(_ uint: UInt) -> BigFloat {
         let result = BigFloat()
         BigFloat_OBJC.set(result.bigFloatOBJC, toDifferenceOfUnsignedLong: uint, and: self.bigFloatOBJC)
         return result
     }
     
-    public mutating func subtractFromUIntInPlace(uint: UInt) {
+    public mutating func subtractFromUIntInPlace(_ uint: UInt) {
         BigFloat_OBJC.set(self.bigFloatOBJC, toDifferenceOfUnsignedLong: uint, and: self.bigFloatOBJC)
     }
     
-    public func multiply(bigFloat: BigFloat) -> BigFloat {
+    public func multiply(_ bigFloat: BigFloat) -> BigFloat {
         let result = BigFloat()
         BigFloat_OBJC.set(result.bigFloatOBJC, toProductOf: self.bigFloatOBJC, and: bigFloat.bigFloatOBJC)
         return result
     }
     
-    public mutating func multiplyInPlace(bigFloat: BigFloat) {
+    public mutating func multiplyInPlace(_ bigFloat: BigFloat) {
         BigFloat_OBJC.set(self.bigFloatOBJC, toProductOf: self.bigFloatOBJC, and: bigFloat.bigFloatOBJC)
     }
     
-    public func multiply(uint: UInt) -> BigFloat {
+    public func multiply(_ uint: UInt) -> BigFloat {
         let result = BigFloat()
         BigFloat_OBJC.set(result.bigFloatOBJC, toProductOf: self.bigFloatOBJC, andUnsignedLong: uint)
         return result
     }
     
-    public mutating func multiplyInPlace(uint: UInt) {
+    public mutating func multiplyInPlace(_ uint: UInt) {
         BigFloat_OBJC.set(self.bigFloatOBJC, toProductOf: self.bigFloatOBJC, andUnsignedLong: uint)
     }
     
-    public func divide(bigFloat: BigFloat) -> BigFloat {
+    public func divide(_ bigFloat: BigFloat) -> BigFloat {
         let result = BigFloat()
         BigFloat_OBJC.set(result.bigFloatOBJC, toQuotientOf: self.bigFloatOBJC, and: bigFloat.bigFloatOBJC)
         return result
     }
     
-    public mutating func divideInPlace(bigFloat: BigFloat) {
+    public mutating func divideInPlace(_ bigFloat: BigFloat) {
         BigFloat_OBJC.set(self.bigFloatOBJC, toQuotientOf: self.bigFloatOBJC, and: bigFloat.bigFloatOBJC)
     }
     
-    public func divide(uint: UInt) -> BigFloat {
+    public func divide(_ uint: UInt) -> BigFloat {
         let result = BigFloat()
         BigFloat_OBJC.set(result.bigFloatOBJC, toQuotientOf: self.bigFloatOBJC, andUnsignedLong: uint)
         return result
     }
     
-    public mutating func divideInPlace(uint: UInt) {
+    public mutating func divideInPlace(_ uint: UInt) {
         BigFloat_OBJC.set(self.bigFloatOBJC, toQuotientOf: self.bigFloatOBJC, andUnsignedLong: uint)
     }
     
@@ -287,13 +287,13 @@ public struct BigFloat: Equatable, Comparable, Addable, Negatable, Subtractable,
         BigFloat_OBJC.set(self.bigFloatOBJC, toAbsoluteValueOf: self.bigFloatOBJC)
     }
     
-    public func power(exponent: UInt) -> BigFloat {
+    public func power(_ exponent: UInt) -> BigFloat {
         let result = BigFloat()
         BigFloat_OBJC.set(result.bigFloatOBJC, to: self.bigFloatOBJC, toThePower: exponent)
         return result
     }
     
-    public mutating func powerInPlace(exponent: UInt) {
+    public mutating func powerInPlace(_ exponent: UInt) {
         BigFloat_OBJC.set(self.bigFloatOBJC, to: self.bigFloatOBJC, toThePower: exponent)
     }
     
@@ -315,18 +315,18 @@ public struct BigFloat: Equatable, Comparable, Addable, Negatable, Subtractable,
 // MARK: Equatable
 
 public func == (left: BigFloat, right: BigFloat) -> Bool {
-    return left.compare(right) == .OrderedSame
+    return left.compare(right) == .orderedSame
 }
 
 
 // MARK: Comparable
 
 public func < (left: BigFloat, right: BigFloat) -> Bool {
-    return left.compare(right) == .OrderedAscending
+    return left.compare(right) == .orderedAscending
 }
 
 public func > (left: BigFloat, right: BigFloat) -> Bool {
-    return left.compare(right) == .OrderedDescending
+    return left.compare(right) == .orderedDescending
 }
 
 
@@ -336,7 +336,7 @@ public func + (left: BigFloat, right: BigFloat) -> BigFloat {
     return left.add(right)
 }
 
-public func += (inout left: BigFloat, right: BigFloat) {
+public func += (left: inout BigFloat, right: BigFloat) {
     left.addInPlace(right)
 }
 
@@ -354,7 +354,7 @@ public func - (left: BigFloat, right: BigFloat) -> BigFloat {
     return left.subtract(right)
 }
 
-public func -= (inout left: BigFloat, right: BigFloat) {
+public func -= (left: inout BigFloat, right: BigFloat) {
     left.subtractInPlace(right)
 }
 
@@ -365,7 +365,7 @@ public func * (left: BigFloat, right: BigFloat) -> BigFloat {
     return left.multiply(right)
 }
 
-public func *= (inout left: BigFloat, right: BigFloat) {
+public func *= (left: inout BigFloat, right: BigFloat) {
     left.multiplyInPlace(right)
 }
 
@@ -376,7 +376,7 @@ public func / (left: BigFloat, right: BigFloat) -> BigFloat {
     return left.divide(right)
 }
 
-public func /= (inout left: BigFloat, right: BigFloat) {
+public func /= (left: inout BigFloat, right: BigFloat) {
     left.divideInPlace(right)
 }
 
@@ -390,14 +390,14 @@ public func ** (left: BigFloat, right: UInt) -> BigFloat {
 
 // MARK: Absolute Value
 
-public func abs(bigFloat: BigFloat) -> BigFloat {
+public func abs(_ bigFloat: BigFloat) -> BigFloat {
     return bigFloat.absoluteValue
 }
 
 
 // MARK: Sqrt
 
-public func sqrt(bigFloat: BigFloat) -> BigFloat {
+public func sqrt(_ bigFloat: BigFloat) -> BigFloat {
     let result = BigFloat()
     BigFloat_OBJC.set(result.bigFloatOBJC, toSquareRootOf: bigFloat.bigFloatOBJC)
     return result

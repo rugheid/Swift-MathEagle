@@ -16,7 +16,7 @@ import Foundation
 
     - returns: true if the given number is prime.
 */
-public func isPrime <X: protocol<Equatable, Comparable, Addable, Modulable, RealPowerable, IntegerLiteralConvertible>> (x: X) -> Bool {
+public func isPrime <X: Equatable & Comparable & Addable & Modulable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> Bool {
     
     if x <= 3 { return x >= 2 }
     
@@ -42,7 +42,7 @@ public func isPrime <X: protocol<Equatable, Comparable, Addable, Modulable, Real
  
  - returns: true if the given unsigned integer is composite.
  */
-public func isComposite <X: protocol<Equatable, Comparable, Addable, Modulable, RealPowerable, IntegerLiteralConvertible>> (x: X) -> Bool {
+public func isComposite <X: Equatable & Comparable & Addable & Modulable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> Bool {
     
     return !isPrime(x)
 }
@@ -56,9 +56,9 @@ public func isComposite <X: protocol<Equatable, Comparable, Addable, Modulable, 
 
     - returns: true if the given unsigned integers are coprime.
 */
-public func areCoprime <X: protocol<Equatable, Comparable, Negatable, Modulable, IntegerLiteralConvertible>> (a: X, _ b: X) -> Bool {
+public func areCoprime <X: Equatable & Comparable & Negatable & Modulable & ExpressibleByIntegerLiteral> (_ a: X, _ b: X) -> Bool {
     
-    return gcd(a, b) == 1
+    return gcd(b, a) == 1
 }
 
 
@@ -69,11 +69,11 @@ public func areCoprime <X: protocol<Equatable, Comparable, Negatable, Modulable,
 
     - returns: All primes up to (and including) the given integer.
 */
-public func primesUpTo <X: protocol<Comparable, Addable, Subtractable, Multiplicable, RealPowerable, IntegerLiteralConvertible, IntCastable>> (x: X) -> [X] {
+public func primesUpTo <X: Comparable & Addable & Subtractable & Multiplicable & RealPowerable & ExpressibleByIntegerLiteral & IntCastable> (_ x: X) -> [X] {
     
     if x <= 1 { return [] }
     
-    var sieve = [Bool](count: (x - 1).asInt, repeatedValue: true)
+    var sieve = [Bool](repeating: true, count: (x - 1).asInt)
     
     var i: X = 2
     while i <= X(root(x, order: 2)) {
@@ -114,7 +114,7 @@ public func primesUpTo <X: protocol<Comparable, Addable, Subtractable, Multiplic
 
     - returns: The prime factors of the given integer in ascending order.
 */
-public func primeFactors <X: protocol<Equatable, Comparable, Addable, Modulable, Dividable, IntegerLiteralConvertible>> (x: X) -> [X] {
+public func primeFactors <X: Equatable & Comparable & Addable & Modulable & Dividable & ExpressibleByIntegerLiteral> (_ x: X) -> [X] {
     
     if x <= 1 { return [] }
     
@@ -144,7 +144,7 @@ private var primeFactors = [Int:[Int]]()
  
  - returns: The prime factors of the given integer in ascending order.
  */
-public func primeFactors(x: Int) -> [Int] {
+public func primeFactors(_ x: Int) -> [Int] {
     
     if x <= 1 { return [] }
     

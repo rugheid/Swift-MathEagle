@@ -10,16 +10,17 @@
 
 // MARK: Powerable Protocols
 
-infix operator ** {associativity left precedence 160}
+//infix operator ** associativity left precedence 180
+infix operator ** : BitwiseShiftPrecedence
 
 public protocol NaturalPowerable {
     
     associatedtype NaturalPowerType
-    func ** (_: Self, _: UInt) -> NaturalPowerType
+    static func ** (_: Self, _: UInt) -> NaturalPowerType
     init(_: NaturalPowerType)
 }
 
-public func pow <T: NaturalPowerable> (left: T, right: UInt) -> T.NaturalPowerType {
+public func pow <T: NaturalPowerable> (_ left: T, right: UInt) -> T.NaturalPowerType {
     return left ** right
 }
 
@@ -68,7 +69,7 @@ public func ** (left: CGFloat, right: UInt) -> CGFloat {
 public protocol IntegerPowerable {
     
     associatedtype IntegerPowerType
-    func ** (_: Self, _: Int) -> IntegerPowerType
+    static func ** (_: Self, _: Int) -> IntegerPowerType
     init(_: IntegerPowerType)
 }
 
@@ -117,7 +118,7 @@ public func ** (left: CGFloat, right: Int) -> CGFloat {
 public protocol RealPowerable {
     
     associatedtype RealPowerType
-    func ** (_: Self, _: Double) -> RealPowerType
+    static func ** (_: Self, _: Double) -> RealPowerType
     init(_: RealPowerType)
 }
 
@@ -166,7 +167,7 @@ public func ** (left: CGFloat, right: CGFloat) -> CGFloat {
 
 
 
-public func root <X: RealPowerable> (x: X, order: Int) -> X.RealPowerType {
+public func root <X: RealPowerable> (_ x: X, order: Int) -> X.RealPowerType {
     //FIXME: This function does not work properly for negative x'. root(-8, 3) returns NaN for example.
     return x ** (1.0 / Double(order))
 }

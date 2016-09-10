@@ -12,12 +12,12 @@ import Foundation
 
 // MARK: BasicMathValue Protocol
 
-public protocol BasicMathValue: Equatable, Comparable, Addable, Subtractable, Multiplicable, Dividable, SetCompliant, IntegerLiteralConvertible {}
+public protocol BasicMathValue: Equatable, Comparable, Addable, Subtractable, Multiplicable, Dividable, SetCompliant, ExpressibleByIntegerLiteral {}
 
 
 // MARK: FullMathValue Protocol
 
-public protocol FullMathValue: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, IntegerLiteralConvertible {}
+public protocol FullMathValue: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, ExpressibleByIntegerLiteral {}
 
 
 // MARK: Basic Type Protocol Adoptions

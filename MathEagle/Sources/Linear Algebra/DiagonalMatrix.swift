@@ -14,13 +14,13 @@ import Accelerate
     A class representing a diagonal matrix. This matrix stores it's elements in an efficient way.
     The matrix does not have to be square, but it will only have non-zero elements on it's main diagonal.
 */
-public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
+open class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
 
     /**
         Returns a row major ordered list of all elements in the array.
         This should be used for high performance applications.
     */
-    override public var elementsList: [T] {
+    override open var elementsList: [T] {
         
         get {
             
@@ -38,7 +38,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         set (newElementsList) {
             
             if newElementsList.count != self.dimensions.product {
-                NSException(name: "Wrong number of elements", reason: "The number of elements in the given elementsList is not correct. \(self.dimensions.product) elements expected, but got \(newElementsList.count).", userInfo: nil).raise()
+                NSException(name: NSExceptionName(rawValue: "Wrong number of elements"), reason: "The number of elements in the given elementsList is not correct. \(self.dimensions.product) elements expected, but got \(newElementsList.count).", userInfo: nil).raise()
             }
             
             for i in 0 ..< self.dimensions.minimum {
@@ -55,7 +55,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         :performance: This method scales O(n*m) for an nxm matrix, so elementsList should be used for
                         high performance applications.
     */
-    override public var elements: [[T]] {
+    override open var elements: [[T]] {
         
         get {
             var elements = [[T]]()
@@ -119,7 +119,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         super.init()
         
         if diagonal.count != dimensions.minimum {
-            NSException(name: "Wrong number of elements", reason: "The number of given diagonal elements (\(diagonal.count)) is not equal to the minimum dimension of the given dimensions (\(dimensions.minimum)).", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Wrong number of elements"), reason: "The number of given diagonal elements (\(diagonal.count)) is not equal to the minimum dimension of the given dimensions (\(dimensions.minimum)).", userInfo: nil).raise()
         }
         
         self.elementsStructure = diagonal
@@ -158,8 +158,12 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     override public init(filledWith element: T, dimensions: Dimensions) {
         super.init()
         
-        self.elementsStructure = [T](count: dimensions.minimum, repeatedValue: element)
+        self.elementsStructure = [T](repeating: element, count: dimensions.minimum)
         self.innerDimensions = dimensions
+    }
+
+    public required init(arrayLiteral elements: [T]...) {
+        fatalError("init(arrayLiteral:) has not been implemented")
     }
     
     
@@ -171,7 +175,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     
         - returns: The rank of the matrix.
     */
-    override public var rank: Int {
+    override open var rank: Int {
         
         //TODO: Improve this implementation using a general count function or something using diagonalElements
         
@@ -188,7 +192,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Returns the determinant of the matrix. This is the product of the diagonal elements.
     */
-    override public var determinant: T {
+    override open var determinant: T {
         
         return product(self.diagonalElements)
     }
@@ -209,7 +213,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
                 This means that when a 3x4 matrix is set using 2 elements it will shrink to a 2x4 matrix, but
                 when a 4x4 matrix is set using 2 elements it will shrink to a 2x2 matrix.
     */
-    override public var diagonalElements: [T] {
+    override open var diagonalElements: [T] {
         
         get {
             return self.elementsStructure
@@ -221,7 +225,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
             
             if elements.count >= self.dimensions.minimum {
                 
-                self.innerDimensions = Dimensions(max(elements.count, self.dimensions.rows), max(elements.count, self.dimensions.columns))
+                self.innerDimensions = Dimensions(Swift.max(elements.count, self.dimensions.rows), Swift.max(elements.count, self.dimensions.columns))
                 
             } else {
                 
@@ -260,17 +264,17 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         :exception: An exception will be raised if the diagonal at the given index does not exist.
                     This means -n > the number of rows or n > the number of columns.
     */
-    override public func diagonalElements(n: Int = 0) -> [T] {
+    override open func diagonalElements(_ n: Int = 0) -> [T] {
         
         if -n >= self.dimensions.rows || n >= self.dimensions.columns {
-            NSException(name: "Index out the bounds.", reason: "The given index is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Index out the bounds."), reason: "The given index is out of bounds.", userInfo: nil).raise()
         }
         
         if n == 0 {
             return elementsStructure
         } else {
-            let cnt = min(self.dimensions.minimum, n < 0 ? self.dimensions.rows + n : self.dimensions.columns - n)
-            return [T](count: cnt, repeatedValue: 0)
+            let cnt = Swift.min(self.dimensions.minimum, n < 0 ? self.dimensions.rows + n : self.dimensions.columns - n)
+            return [T](repeating: 0, count: cnt)
         }
     }
     
@@ -279,7 +283,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         Returns a copy of the matrix with all elements under the main diagonal set to zero.
         This also applies to non-square matrices.
     */
-    override public var upperTriangle: Matrix<T> {
+    override open var upperTriangle: Matrix<T> {
         
         return self
     }
@@ -304,11 +308,11 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         :exception: An exception will be raised if the diagonal at the given index does not exist.
                     This means -n > the number of rows or n > the number of columns.
     */
-    override public func upperTriangle(n: Int = 0) -> Matrix<T> {
+    override open func upperTriangle(_ n: Int = 0) -> Matrix<T> {
         
         if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
-            NSException(name: "Index out the bounds.", reason: "The given index is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Index out the bounds."), reason: "The given index is out of bounds.", userInfo: nil).raise()
         }
         
         if n == 0 {
@@ -338,11 +342,11 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         :exception: An exception will be raised if the diagonal at the given index does not exist.
                     This means -n >= the number of rows or n >= the number of columns.
     */
-    override public func lowerTriangle(n: Int = 0) -> Matrix<T> {
+    override open func lowerTriangle(_ n: Int = 0) -> Matrix<T> {
         
         if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
-            NSException(name: "Index out the bounds.", reason: "The given index is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Index out the bounds."), reason: "The given index is out of bounds.", userInfo: nil).raise()
         }
         
         if n == 0 {
@@ -357,7 +361,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         Returns the maximum element in the matrix if the matrix is not empty,
         otherwise it returns nil.
     */
-    override public var maxElement: T? {
+    override open var maxElement: T? {
         
         if self.isEmpty {
             
@@ -365,7 +369,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
             
         } else {
             
-            return max(max(self.elementsStructure), 0)
+            return Swift.max(MathEagle.max(self.elementsStructure), 0)
         }
     }
     
@@ -374,7 +378,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         Returns the minimum element in the matrix if the matrix is not empty,
         otherwise it returns nil.
     */
-    override public var minElement: T? {
+    override open var minElement: T? {
         
         if self.isEmpty {
             
@@ -382,7 +386,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
             
         } else {
             
-            return min(min(self.elementsStructure), 0)
+            return Swift.min(MathEagle.min(self.elementsStructure), 0)
         }
     }
     
@@ -390,7 +394,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Returns the transpose of the matrix.
     */
-    override public var transpose: Matrix<T> {
+    override open var transpose: Matrix<T> {
         
         return DiagonalMatrix(diagonal: self.elementsStructure, dimensions: self.dimensions.transpose)
     }
@@ -399,7 +403,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Returns the conjugate of the matrix.
     */
-    override public var conjugate: Matrix<T> {
+    override open var conjugate: Matrix<T> {
         
         return DiagonalMatrix(diagonal: self.elementsStructure.map{ $0.conjugate }, dimensions: self.dimensions)
     }
@@ -408,7 +412,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Returns the conjugate transpose of the matrix. This is also called the Hermitian transpose.
     */
-    override public var conjugateTranspose: Matrix<T> {
+    override open var conjugateTranspose: Matrix<T> {
         
         return DiagonalMatrix(diagonal: self.elementsStructure.map{ $0.conjugate }, dimensions: self.dimensions.transpose)
     }
@@ -417,7 +421,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Returns whether all elements are zero.
     */
-    override public var isZero: Bool {
+    override open var isZero: Bool {
         
         for element in self.diagonalElements {
             
@@ -431,7 +435,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Returns whether the matrix is diagonal. This means all elements that are not on the main diagonal are zero.
     */
-    override public var isDiagonal: Bool {
+    override open var isDiagonal: Bool {
         
         return true
     }
@@ -442,7 +446,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     
         - returns: true if the matrix is symmetrical.
     */
-    override public var isSymmetrical: Bool {
+    override open var isSymmetrical: Bool {
         
         return self.isSquare
     }
@@ -456,11 +460,11 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         - parameter n:               The diagonal's index.
         - parameter mustBeSquare:    Whether the matrix must be square to be upper triangular.
     */
-    override public func isUpperTriangular(n: Int = 0, mustBeSquare: Bool = true) -> Bool {
+    override open func isUpperTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
         
         if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
-            NSException(name: "Index out the bounds.", reason: "The given diagonal index is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Index out the bounds."), reason: "The given diagonal index is out of bounds.", userInfo: nil).raise()
         }
         
         return (!mustBeSquare || self.isSquare) && (n <= 0 || self.isZero)
@@ -471,7 +475,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         Returns whether the matrix is upper Hessenberg.
         This means all elements below the first subdiagonal are zero.
     */
-    override public var isUpperHessenberg: Bool {
+    override open var isUpperHessenberg: Bool {
         
         return self.isSquare
     }
@@ -485,11 +489,11 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         - parameter n: The diagonal's index.
         - parameter mustBeSquare: Whether the matrix must be square to be lower triangular.
     */
-    override public func isLowerTriangular(n: Int = 0, mustBeSquare: Bool = true) -> Bool {
+    override open func isLowerTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
         
         if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
-            NSException(name: "Index out the bounds.", reason: "The given diagonal index is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Index out the bounds."), reason: "The given diagonal index is out of bounds.", userInfo: nil).raise()
         }
         
         return (!mustBeSquare || self.isSquare) && (n >= 0 || self.isZero)
@@ -500,7 +504,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         Returns whether the matrix is a lower Hessenberg matrix.
         This means all elements above the first superdiagonal are zero.
     */
-    override public var isLowerHessenberg: Bool {
+    override open var isLowerHessenberg: Bool {
         
         return isLowerTriangular(1)
     }
@@ -517,16 +521,16 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     
         - returns: The element at the given index (row, column).
     */
-    override public func element(row: Int, _ column: Int) -> T {
+    override open func element(_ row: Int, _ column: Int) -> T {
         
         if row < 0 || row >= self.dimensions.rows {
             
-            NSException(name: "Row index out of bounds", reason: "The requested element's row index is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Row index out of bounds"), reason: "The requested element's row index is out of bounds.", userInfo: nil).raise()
         }
         
         if column < 0 || column >= self.dimensions.columns {
             
-            NSException(name: "Column index out of bounds", reason: "The requested element's column index is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Column index out of bounds"), reason: "The requested element's column index is out of bounds.", userInfo: nil).raise()
         }
         
         return row == column ? self.elementsStructure[row] : 0
@@ -540,21 +544,21 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         - parameter column: The column index of the element
         - parameter element: The element to set at the given indexes
     */
-    override public func setElement(atRow row: Int, atColumn column: Int, toElement element: T) {
+    override open func setElement(atRow row: Int, atColumn column: Int, toElement element: T) {
         
         if row < 0 || row >= self.dimensions.rows {
             
-            NSException(name: "Row index out of bounds", reason: "The row index at which the element should be set is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Row index out of bounds"), reason: "The row index at which the element should be set is out of bounds.", userInfo: nil).raise()
         }
         
         if column < 0 || column >= self.dimensions.columns {
             
-            NSException(name: "Column index out of bounds", reason: "The column index at which the element should be set is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Column index out of bounds"), reason: "The column index at which the element should be set is out of bounds.", userInfo: nil).raise()
         }
         
         if row != column {
             
-            NSException(name: "Unsettable element", reason: "Can't set a non-diagonal element.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Unsettable element"), reason: "Can't set a non-diagonal element.", userInfo: nil).raise()
         }
         
         self.elementsStructure[row] = element
@@ -566,14 +570,14 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     
         - returns: The row at the given index.
     */
-    override public func row(index: Int) -> Vector<T> {
+    override open func row(_ index: Int) -> Vector<T> {
         
         if index < 0 || index >= self.dimensions.rows {
             
-            NSException(name: "Row index out of bounds", reason: "The requested row's index is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Row index out of bounds"), reason: "The requested row's index is out of bounds.", userInfo: nil).raise()
         }
         
-        var elementsList = [T](count: self.dimensions.columns, repeatedValue: 0)
+        var elementsList = [T](repeating: 0, count: self.dimensions.columns)
         elementsList[index] = self.elementsStructure[index]
         
         return Vector(elementsList)
@@ -586,21 +590,21 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         - parameter index: The index of the row to change.
         - parameter newRow: The row to set at the given index.
     */
-    override public func setRow(atIndex index: Int, toRow newRow: Vector<T>) {
+    override open func setRow(atIndex index: Int, toRow newRow: Vector<T>) {
         
         // If the index is out of bounds
         if index < 0 || index >= self.dimensions.rows {
             
-            NSException(name: "Row index out of bounds", reason: "The index at which the row should be set is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Row index out of bounds"), reason: "The index at which the row should be set is out of bounds.", userInfo: nil).raise()
         }
         
         // If the row's length is not correct
         if newRow.length != self.dimensions.columns {
             
-            NSException(name: "New row wrong length", reason: "The new row's length is not equal to the matrix's number of columns.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "New row wrong length"), reason: "The new row's length is not equal to the matrix's number of columns.", userInfo: nil).raise()
         }
         
-        for (i, element) in newRow.enumerate() {
+        for (i, element) in newRow.enumerated() {
             
             if i == index {
                 
@@ -608,7 +612,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
                 
             } else if element != 0 {
                 
-                NSException(name: "Unsettable element", reason: "All elements at non-diagonal positions must be zero.", userInfo: nil).raise()
+                NSException(name: .invalidArgumentException, reason: "All elements at non-diagonal positions must be zero.", userInfo: nil).raise()
             }
         }
     }
@@ -620,9 +624,8 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         - parameter i: The index of the first row.
         - parameter j: The index of the second row.
     */
-    override public func switchRows(i: Int, _ j: Int) {
-        
-        NSException(name: "Can't switch rows", reason: "Rows can't be switched in a DiagonalMatrix.", userInfo: nil).raise()
+    override open func switchRows(_ i: Int, _ j: Int) {
+        fatalError("Rows can't be switched in a DiagonalMatrix.")
     }
     
     
@@ -631,14 +634,14 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     
         - returns: The column at the given index.
     */
-    override public func column(index: Int) -> Vector<T> {
+    override open func column(_ index: Int) -> Vector<T> {
         
         if index < 0 || index >= self.dimensions.columns {
             
-            NSException(name: "Column index out of bounds", reason: "The requested column's index is out of bounds.", userInfo: nil).raise()
+            fatalError("The requested column's index is out of bounds.")
         }
         
-        var elementsList = [T](count: self.dimensions.rows, repeatedValue: 0)
+        var elementsList = [T](repeating: 0, count: self.dimensions.rows)
         elementsList[index] = self.elementsStructure[index]
         
         return Vector(elementsList)
@@ -651,21 +654,21 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         - parameter index: The index of the column to change.
         - parameter column: The column to set at the given index.
     */
-    override public func setColumn(atIndex index: Int, toColumn newColumn: Vector<T>) {
+    override open func setColumn(atIndex index: Int, toColumn newColumn: Vector<T>) {
         
         // If the index is out of bounds
         if index < 0 || index >= self.dimensions.columns {
             
-            NSException(name: "Column index out of bounds", reason: "The index at which the column should be set is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Column index out of bounds"), reason: "The index at which the column should be set is out of bounds.", userInfo: nil).raise()
         }
         
         // If the column's length is not correct
         if newColumn.length != self.dimensions.rows {
             
-            NSException(name: "New column wrong length", reason: "The new column's length is not equal to the matrix's number of rows.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "New column wrong length"), reason: "The new column's length is not equal to the matrix's number of rows.", userInfo: nil).raise()
         }
         
-        for (i, element) in newColumn.enumerate() {
+        for (i, element) in newColumn.enumerated() {
             
             if i == index {
                 
@@ -673,7 +676,7 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
                 
             } else if element != 0 {
                 
-                NSException(name: "Unsettable element", reason: "All elements at non-diagonal positions must be zero.", userInfo: nil).raise()
+                fatalError("All elements at non-diagonal positions must be zero.")
             }
         }
     }
@@ -685,9 +688,9 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
         - parameter i:   The index of the first column.
         - parameter j:   The index of the second column.
     */
-    override public func switchColumns(i: Int, _ j: Int) {
+    override open func switchColumns(_ i: Int, _ j: Int) {
         
-        NSException(name: "Can't switch columns", reason: "Columns can't be switched in a DiagonalMatrix.", userInfo: nil).raise()
+        fatalError("Columns can't be switched in a DiagonalMatrix.")
     }
     
     
@@ -696,9 +699,9 @@ public class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     
         - parameter value:   The value to fill the diagonal with.
     */
-    override public func fillDiagonal(value: T) {
+    override open func fillDiagonal(_ value: T) {
         
-        self.elementsStructure = [T](count: self.dimensions.minimum, repeatedValue: value)
+        self.elementsStructure = [T](repeating: value, count: self.dimensions.minimum)
     }
 }
 
@@ -740,7 +743,7 @@ public func == <T: MatrixCompatible> (left: DiagonalMatrix<T>, right: DiagonalMa
 public func + <T: MatrixCompatible> (left: DiagonalMatrix<T>, right: DiagonalMatrix<T>) -> DiagonalMatrix<T> {
     
     if left.dimensions != right.dimensions {
-        NSException(name: "Unequal dimensions", reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal dimensions"), reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
     }
     
     return DiagonalMatrix(diagonal: (Vector(left.elementsStructure) + Vector(right.elementsStructure)).elements, dimensions: left.dimensions)
@@ -760,7 +763,7 @@ public func + <T: MatrixCompatible> (left: DiagonalMatrix<T>, right: DiagonalMat
 public func + (left: DiagonalMatrix<Float>, right: DiagonalMatrix<Float>) -> DiagonalMatrix<Float> {
     
     if left.dimensions != right.dimensions {
-        NSException(name: "Unequal dimensions", reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal dimensions"), reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
     }
     
     var diagonal = right.elementsStructure
@@ -784,7 +787,7 @@ public func + (left: DiagonalMatrix<Float>, right: DiagonalMatrix<Float>) -> Dia
 public func + (left: DiagonalMatrix<Double>, right: DiagonalMatrix<Double>) -> DiagonalMatrix<Double> {
     
     if left.dimensions != right.dimensions {
-        NSException(name: "Unequal dimensions", reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal dimensions"), reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
     }
     
     var diagonal = right.elementsStructure

@@ -140,7 +140,7 @@ public func + (left: Dimensions, right: Dimensions) -> Dimensions {
     return Dimensions(left[0] + right[0], left[1] + right[1])
 }
 
-public func += (inout left: Dimensions, right: Dimensions) {
+public func += (left: inout Dimensions, right: Dimensions) {
     
     left = left + right
 }

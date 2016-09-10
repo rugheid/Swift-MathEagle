@@ -12,7 +12,7 @@ Returns an array containing the digits of the given number from most to least si
 
 - parameter number:  The number to get the digits of.
 */
-public func digits(number: Int) -> [Int] {
+public func digits(_ number: Int) -> [Int] {
     
     //TODO: Benchmark this method.
     return "\(abs(number))".characters.map{ Int("\($0)")! }
@@ -23,12 +23,12 @@ public func digits(number: Int) -> [Int] {
  
  - parameter bigInt:  The big int to get the digits of.
  */
-public func digits(bigInt: BigInt) -> [Int] {
+public func digits(_ bigInt: BigInt) -> [Int] {
     
     var stringValue = bigInt.stringValue
     
     if stringValue.hasPrefix("-") {
-        stringValue.removeAtIndex(stringValue.characters.startIndex)
+        stringValue.remove(at: stringValue.characters.startIndex)
     }
     
     return stringValue.characters.map{ Int("\($0)")! }
@@ -40,7 +40,7 @@ public func digits(bigInt: BigInt) -> [Int] {
  
  - parameter number: The number to get the number of digits of.
 */
-public func numberOfDigits(number: Int) -> Int {
+public func numberOfDigits(_ number: Int) -> Int {
     
     var n = abs(number)
     
@@ -79,18 +79,18 @@ Returns whether the given number is pandigital.
  - examples: 12345678 is a pandigital number without zero.
  10234568 is a pandigtal number with zero.
 */
-public func isPandigital(number: Int, includeZero: Bool = false) -> Bool {
+public func isPandigital(_ number: Int, includeZero: Bool = false) -> Bool {
     
     var digitsPassed = Set<Int>()
     
     let digitsArray = digits(number)
-    var max = digitsArray.count
+    var maximum = digitsArray.count
     
-    if includeZero { max -= 1 }
+    if includeZero { maximum -= 1 }
     
     for digit in digitsArray {
         
-        if digitsPassed.contains(digit) || digit > max || (!includeZero && digit == 0) {
+        if digitsPassed.contains(digit) || digit > maximum || (!includeZero && digit == 0) {
             
             return false
         }

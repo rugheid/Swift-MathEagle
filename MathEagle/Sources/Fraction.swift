@@ -19,7 +19,7 @@ public struct Fraction: CustomStringConvertible {
     public init(numerator: Int, denominator: Int) {
         
         if denominator == 0 {
-            NSException(name: "Zero Denominator", reason: "The denominator of a Fraction can't be zero.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Zero Denominator"), reason: "The denominator of a Fraction can't be zero.", userInfo: nil).raise()
         }
         
         self.numerator = numerator
@@ -28,7 +28,7 @@ public struct Fraction: CustomStringConvertible {
     
     public init(string: String) {
         
-        let components = string.componentsSeparatedByString("/")
+        let components = string.components(separatedBy: "/")
         
         if components.count == 1 {
             self.numerator = Int(components.first!)!
@@ -37,7 +37,7 @@ public struct Fraction: CustomStringConvertible {
             self.numerator = Int(components.first!)!
             self.denominator = Int(components[1])!
         } else {
-            NSException(name: "Wrong format", reason: "The string provided for the fraction was not of proper format.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Wrong format"), reason: "The string provided for the fraction was not of proper format.", userInfo: nil).raise()
             fatalError()
         }
     }
@@ -59,7 +59,7 @@ public struct Fraction: CustomStringConvertible {
             self.denominator = 1
         }
         
-        let g = gcd(self.numerator, self.denominator)
+        let g = gcd(self.denominator, self.numerator)
         self.numerator /= g
         self.denominator /= g
     }

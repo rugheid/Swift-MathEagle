@@ -10,7 +10,7 @@
 /**
     A class representing a cycle in a permutation.
 */
-public class Cycle: ArrayLiteralConvertible, CustomStringConvertible, Hashable {
+open class Cycle: ExpressibleByArrayLiteral, CustomStringConvertible, Hashable {
     
     
     // MARK: Inner Structure
@@ -22,7 +22,7 @@ public class Cycle: ArrayLiteralConvertible, CustomStringConvertible, Hashable {
         :example: `[0, 1, 2]`:
                     When this is applied to the array `[1, 2, 3]` this gives `[2, 3, 1]`.
     */
-    public var cycleRepresentation: [Int] = []
+    open var cycleRepresentation: [Int] = []
     
     
 
@@ -60,13 +60,13 @@ public class Cycle: ArrayLiteralConvertible, CustomStringConvertible, Hashable {
     
         :example: (3 4 7) gives [3: 4, 4: 7, 7: 3]
     */
-    public var dictionaryRepresentation: [Int: Int] {
+    open var dictionaryRepresentation: [Int: Int] {
         
         get {
             
             var dict = [Int: Int]()
             
-            for (index, element) in self.cycleRepresentation.enumerate() {
+            for (index, element) in self.cycleRepresentation.enumerated() {
                 
                 dict[element] = self.cycleRepresentation[index == self.length-1 ? 0 : index+1]
             }
@@ -79,7 +79,7 @@ public class Cycle: ArrayLiteralConvertible, CustomStringConvertible, Hashable {
     /**
         Returns the length of the cycle.
     */
-    public var length: Int {
+    open var length: Int {
         
         return self.cycleRepresentation.count
     }
@@ -88,9 +88,9 @@ public class Cycle: ArrayLiteralConvertible, CustomStringConvertible, Hashable {
     /**
         Retursn the parity of the cycle. The cycle is even when it's length is odd.
     */
-    public var parity: Parity {
+    open var parity: Parity {
         
-        return self.length % 2 == 0 ? .Odd : .Even
+        return self.length % 2 == 0 ? .odd : .even
     }
     
     
@@ -99,18 +99,18 @@ public class Cycle: ArrayLiteralConvertible, CustomStringConvertible, Hashable {
     
         :example: (4 3 2)
     */
-    public var description: String {
+    open var description: String {
         
         let combine = { (a: String, b: Int) in a + (a == "" ? "" : " ") + "\(b)" }
         
-        return "(" + self.cycleRepresentation.reduce("", combine: combine) + ")"
+        return "(" + self.cycleRepresentation.reduce("", combine) + ")"
     }
     
     
     /**
         Returns a hash value for the cycle.
     */
-    public var hashValue: Int {
+    open var hashValue: Int {
         
         //FIXME: This is a bad implementation
         return sum(self.cycleRepresentation)

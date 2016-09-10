@@ -8,7 +8,7 @@
 
 import Accelerate
 
-public struct Complex: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, Conjugatable, MatrixCompatible, IntegerLiteralConvertible, FloatLiteralConvertible, CustomStringConvertible {
+public struct Complex: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, Conjugatable, MatrixCompatible, ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral, CustomStringConvertible {
     
     public typealias NaturalPowerType = Complex
     public typealias IntegerPowerType = Complex
@@ -25,9 +25,9 @@ public struct Complex: Equatable, Comparable, Addable, Negatable, Subtractable, 
     
     var DSPDoubleSplitComplexValue: DSPDoubleSplitComplex {
         
-        let r = UnsafeMutablePointer<Double>.alloc(1)
+        let r = UnsafeMutablePointer<Double>.allocate(capacity: 1)
         r[0] = real
-        let i = UnsafeMutablePointer<Double>.alloc(1)
+        let i = UnsafeMutablePointer<Double>.allocate(capacity: 1)
         i[0] = imaginary
         return DSPDoubleSplitComplex(realp: r, imagp: i)
     }
@@ -109,11 +109,11 @@ public struct Complex: Equatable, Comparable, Addable, Negatable, Subtractable, 
         
         if self.real >= 0 {
             
-            return self.imaginary >= 0 ? .First : .Fourth
+            return self.imaginary >= 0 ? .first : .fourth
             
         } else {
             
-            return self.imaginary >= 0 ? .Second : .Third
+            return self.imaginary >= 0 ? .second : .third
         }
     }
     
@@ -149,13 +149,13 @@ public struct Complex: Equatable, Comparable, Addable, Negatable, Subtractable, 
     /**
         Returns true if the real and imaginary parts are equal.
     */
-    public func equals(z: Complex) -> Bool {
+    public func equals(_ z: Complex) -> Bool {
         
         return self.real == z.real && self.imaginary == z.imaginary
     }
     
     
-    public func equals(z: Complex, accuracy: Double) -> Bool {
+    public func equals(_ z: Complex, accuracy: Double) -> Bool {
         
         return self.real.equals(z.real, accuracy: accuracy) && self.imaginary.equals(z.imaginary, accuracy: accuracy)
     }
@@ -164,7 +164,8 @@ public struct Complex: Equatable, Comparable, Addable, Negatable, Subtractable, 
     
     // MARK: Randomizable Conformance
     
-    public typealias RandomIntervalType = Double
+    public typealias RandomRangeType = Double
+    public typealias RandomCountableRangeType = Int
     
     /**
         Returns a random complex number.
@@ -174,35 +175,58 @@ public struct Complex: Equatable, Comparable, Addable, Negatable, Subtractable, 
         return Complex(Double.random(), Double.random())
     }
     
-    
     /**
         Returns a random complex number in the given interval(s). When no interval is provided, random() will be used.
-        When one interval is provided this interval will be used to restrict the real and imaginary parts.
+        When one interval is provided this interval will be used to restrict the real part, and the imaginary part will be zero.
         When two intervals are provided the first will be used for the real part, the second for the imaginary part.
     */
-    public static func randomInInterval(intervals: ClosedInterval<Double>...) -> Complex {
-        
-        return randomInInterval(intervals)
-    }
-    
-    
-    /**
-        Returns a random complex number in the given interval(s). When no interval is provided, random() will be used.
-        When one interval is provided this interval will be used to restrict the real and imaginary parts.
-        When two intervals are provided the first will be used for the real part, the second for the imaginary part.
-    */
-    public static func randomInInterval(intervals: [ClosedInterval<Double>]) -> Complex {
+    public static func randomInInterval(_ intervals: [Range<Double>]) -> Complex {
         
         if intervals.isEmpty { return self.random() }
         if intervals.count == 1 { return Complex(Double.randomInInterval([intervals[0]]), Double.randomInInterval([intervals[0]])) }
         return Complex(Double.randomInInterval([intervals[0]]), Double.randomInInterval([intervals[1]]))
     }
     
+    /**
+     Returns a random complex number in the given interval(s). When no interval is provided, random() will be used.
+     When one interval is provided this interval will be used to restrict the real part, and the imaginary part will be zero.
+     When two intervals are provided the first will be used for the real part, the second for the imaginary part.
+     */
+    public static func randomInInterval(_ intervals: [ClosedRange<Double>]) -> Complex {
+        
+        if intervals.isEmpty { return self.random() }
+        if intervals.count == 1 { return Complex(Double.randomInInterval([intervals[0]]), Double.randomInInterval([intervals[0]])) }
+        return Complex(Double.randomInInterval([intervals[0]]), Double.randomInInterval([intervals[1]]))
+    }
+    
+    /**
+     Returns a random complex number in the given interval(s). When no interval is provided, random() will be used.
+     When one interval is provided this interval will be used to restrict the real part, and the imaginary part will be zero.
+     When two intervals are provided the first will be used for the real part, the second for the imaginary part.
+     */
+    public static func randomInInterval(_ intervals: [CountableRange<Int>]) -> Complex {
+        
+        if intervals.isEmpty { return self.random() }
+        if intervals.count == 1 { return Complex(Double.randomInInterval([intervals[0]]), 0) }
+        return Complex(Double.randomInInterval([intervals[0]]), Double.randomInInterval([intervals[1]]))
+    }
+    
+    /**
+     Returns a random complex number in the given interval(s). When no interval is provided, random() will be used.
+     When one interval is provided this interval will be used to restrict the real part, and the imaginary part will be zero.
+     When two intervals are provided the first will be used for the real part, the second for the imaginary part.
+     */
+    public static func randomInInterval(_ intervals: [CountableClosedRange<Int>]) -> Complex {
+        
+        if intervals.isEmpty { return self.random() }
+        if intervals.count == 1 { return Complex(Double.randomInInterval([intervals[0]]), Double.randomInInterval([intervals[0]])) }
+        return Complex(Double.randomInInterval([intervals[0]]), Double.randomInInterval([intervals[1]]))
+    }
     
     /**
         Returns an array of random complex numbers of the given length.
     */
-    public static func randomArrayOfLength(length: Int) -> [Complex] {
+    public static func randomArrayOfLength(_ length: Int) -> [Complex] {
         
         var array = [Complex]()
         
@@ -219,18 +243,18 @@ public struct Complex: Equatable, Comparable, Addable, Negatable, Subtractable, 
 
 // MARK: Function Extensions
 
-public func sqrt(z: Complex) -> Complex {
+public func sqrt(_ z: Complex) -> Complex {
     
     return Complex(modulus: sqrt(z.modulus), argument: z.argument / 2)
 }
 
-public func exp(z: Complex) -> Complex {
+public func exp(_ z: Complex) -> Complex {
     
     let c = exp(z.real)
     return Complex(c * cos(z.imaginary), c * sin(z.imaginary))
 }
 
-public func log(z: Complex) -> Complex {
+public func log(_ z: Complex) -> Complex {
     
     return Complex(log(z.modulus), z.argument)
 }
@@ -244,15 +268,15 @@ public func == (left: Complex, right: Complex) -> Bool {
     return left.equals(right)
 }
 
-public func == (left: Double, right: Complex) -> Bool {
-    
-    return left == right.real && right.imaginary == 0.0
-}
-
-public func == (left: Complex, right: Double) -> Bool {
-    
-    return right == left
-}
+//public func == (left: Double, right: Complex) -> Bool {
+//    
+//    return left == right.real && right.imaginary == 0.0
+//}
+//
+//public func == (left: Complex, right: Double) -> Bool {
+//    
+//    return right == left
+//}
 
 
 
@@ -288,7 +312,7 @@ public func + (left: Complex, right: Double) -> Complex {
 }
 
 
-public func += (inout left: Complex, right: Complex) {
+public func += (left: inout Complex, right: Complex) {
     
     left.real += right.real
     left.imaginary += right.imaginary
@@ -418,7 +442,7 @@ public func ** (left: Complex, right: Double) -> Complex {
 // MARK: Quadrant Enum
 
 public enum Quadrant: Int {
-    case First = 1, Second, Third, Fourth
+    case first = 1, second, third, fourth
 }
 
 
@@ -430,10 +454,10 @@ extension DSPDoubleSplitComplex {
     
     init(_ complex: Complex) {
         
-        self.realp = UnsafeMutablePointer<Double>.alloc(1)
+        self.realp = UnsafeMutablePointer<Double>.allocate(capacity: 1)
         self.realp[0] = complex.real
         
-        self.imagp = UnsafeMutablePointer<Double>.alloc(1)
+        self.imagp = UnsafeMutablePointer<Double>.allocate(capacity: 1)
         self.imagp[0] = complex.imaginary
     }
 }

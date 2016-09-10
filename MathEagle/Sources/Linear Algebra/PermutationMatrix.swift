@@ -7,6 +7,26 @@
 //
 
 import Foundation
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
 
 
 /**
@@ -14,7 +34,7 @@ import Foundation
     1 in each row and column and 0s elsewhere. When a matrix is left-multiplied with a permuation
     matrix it's rows are permutated.
 */
-public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
+open class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     
     
     // MARK: Inner Structure
@@ -23,13 +43,13 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
         Returns the permutation defining the matrix. This is the permutation that will be performed
         on the rows of a matrix when it is left multiplied with this permutation matrix.
     */
-    public var permutation: Permutation
+    open var permutation: Permutation
     
     
     /**
         Returns the dimensions of matrix.
     */
-    override public var dimensions: Dimensions {
+    override open var dimensions: Dimensions {
         
         get {
             return Dimensions(size: permutation.length)
@@ -55,6 +75,10 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
         
         super.init()
     }
+
+    public required init(arrayLiteral elements: [T]...) {
+        fatalError("init(arrayLiteral:) has not been implemented")
+    }
     
     
     
@@ -64,13 +88,13 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
         Returns a row major ordered list of all elements in the array.
         This should be used for high performance applications.
     */
-    override public var elementsList: [T] {
+    override open var elementsList: [T] {
         
         get {
             
             let i = self.size!
             
-            var elementsList = [T](count: i * i, repeatedValue: 0)
+            var elementsList = [T](repeating: 0, count: i * i)
             for r in 0 ..< i {
                 elementsList[r * i + self.permutation[r]] = 1
             }
@@ -90,7 +114,7 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     
         - returns: The size of the matrix if the matrix is square or nil otherwise.
     */
-    override public var size: Int? {
+    override open var size: Int? {
         //TODO: This used to be of type Int! but this gave errors since swift 2.0
         return self.permutation.length
     }
@@ -101,7 +125,7 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     
         - returns: The rank of the matrix.
     */
-    override public var rank: Int {
+    override open var rank: Int {
         
         return self.size!
     }
@@ -110,7 +134,7 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     /**
         Returns the determinant of the matrix.
     */
-    override public var determinant: T {
+    override open var determinant: T {
         
         //TODO: Make sure there's no better solution for this, because T can't be initialised from an Int
         return self.permutation.sign == 1 ? 1 : -1
@@ -124,11 +148,11 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     
         :exception: Throws an exception when you try to set the diagonal elements.
     */
-    override public var diagonalElements: [T] {
+    override open var diagonalElements: [T] {
         
         get {
             
-            var returnElements = [T](count: self.size!, repeatedValue: 0)
+            var returnElements = [T](repeating: 0, count: self.size!)
             
             for index in self.permutation.fixedPoints {
                 returnElements[index] = 1
@@ -139,7 +163,7 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
         
         set(elements) {
             
-            NSException(name: "PermutationMatrix is unsettable", reason: "You can't directly set the diagonal elements of a permutation matrix.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "PermutationMatrix is unsettable"), reason: "You can't directly set the diagonal elements of a permutation matrix.", userInfo: nil).raise()
         }
     }
     
@@ -156,16 +180,16 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     
         - returns: The element at the given index (row, column).
     */
-    override public func element(row: Int, _ column: Int) -> T {
+    override open func element(_ row: Int, _ column: Int) -> T {
         
         if row < 0 || row >= self.size {
             
-            NSException(name: "Row index out of bounds", reason: "The requested element's row index is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Row index out of bounds"), reason: "The requested element's row index is out of bounds.", userInfo: nil).raise()
         }
         
         if column < 0 || column >= self.size {
             
-            NSException(name: "Column index out of bounds", reason: "The requested element's column index is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Column index out of bounds"), reason: "The requested element's column index is out of bounds.", userInfo: nil).raise()
         }
         
         return self.permutation[row] == column ? 1 : 0
@@ -179,9 +203,9 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
         - parameter column:  The column index of the element
         - parameter element: The element to set at the given indexes
     */
-    override public func setElement(atRow row: Int, atColumn column: Int, toElement element: T) {
+    override open func setElement(atRow row: Int, atColumn column: Int, toElement element: T) {
         
-        NSException(name: "PermutationMatrix is unsettable", reason: "You can't directly set the elements of a permutation matrix.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "PermutationMatrix is unsettable"), reason: "You can't directly set the elements of a permutation matrix.", userInfo: nil).raise()
     }
     
     
@@ -190,14 +214,14 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     
         - returns:   The row at the given index.
     */
-    override public func row(index: Int) -> Vector<T> {
+    override open func row(_ index: Int) -> Vector<T> {
         
         if index < 0 || index >= self.size {
             
-            NSException(name: "Row index out of bounds", reason: "The requested row's index is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Row index out of bounds"), reason: "The requested row's index is out of bounds.", userInfo: nil).raise()
         }
         
-        var elementsList = [T](count: self.size!, repeatedValue: 0)
+        var elementsList = [T](repeating: 0, count: self.size!)
         
         elementsList[index] = 1
         
@@ -211,9 +235,9 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
         - parameter index:   The index of the row to change.
         - parameter newRow:  The row to set at the given index.
     */
-    override public func setRow(atIndex index: Int, toRow newRow: Vector<T>) {
+    override open func setRow(atIndex index: Int, toRow newRow: Vector<T>) {
         
-        NSException(name: "PermutationMatrix is unsettable", reason: "You can't directly set the elements of a permutation matrix.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "PermutationMatrix is unsettable"), reason: "You can't directly set the elements of a permutation matrix.", userInfo: nil).raise()
     }
     
     
@@ -223,14 +247,14 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
         - parameter i:   The index of the first row.
         - parameter j:   The index of the second row.
     */
-    override public func switchRows(i: Int, _ j: Int) {
+    override open func switchRows(_ i: Int, _ j: Int) {
         
         if i < 0 || i >= self.size || j < 0 || j >= self.size {
             
-            NSException(name: "Row index out of bounds", reason: "The index of the row that should be switched is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Row index out of bounds"), reason: "The index of the row that should be switched is out of bounds.", userInfo: nil).raise()
         }
         
-        self.permutation.switchElements(i, j)
+        self.permutation.switchElements(j, i)
     }
     
     
@@ -239,14 +263,14 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     
         - returns: The column at the given index.
     */
-    override public func column(index: Int) -> Vector<T> {
+    override open func column(_ index: Int) -> Vector<T> {
         
         if index < 0 || index >= self.size {
             
-            NSException(name: "Column index out of bounds", reason: "The requested column's index is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Column index out of bounds"), reason: "The requested column's index is out of bounds.", userInfo: nil).raise()
         }
         
-        var column = [T](count: self.size!, repeatedValue: 0)
+        var column = [T](repeating: 0, count: self.size!)
         
         column[self.permutation.indexOfElement(index)] = 1
         
@@ -260,9 +284,9 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
         - parameter index:   The index of the column to change.
         - parameter column:  The column to set at the given index.
     */
-    override public func setColumn(atIndex index: Int, toColumn newColumn: Vector<T>) {
+    override open func setColumn(atIndex index: Int, toColumn newColumn: Vector<T>) {
         
-        NSException(name: "PermutationMatrix is unsettable", reason: "You can't directly set the elements of a permutation matrix.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "PermutationMatrix is unsettable"), reason: "You can't directly set the elements of a permutation matrix.", userInfo: nil).raise()
     }
     
     
@@ -272,7 +296,7 @@ public class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
         - parameter i:   The index of the first column.
         - parameter j:   The index of the second column.
     */
-    override public func switchColumns(i: Int, _ j: Int) {
+    override open func switchColumns(_ i: Int, _ j: Int) {
         
         let indexi = self.permutation.indexOfElement(i)
         let indexj = self.permutation.indexOfElement(j)

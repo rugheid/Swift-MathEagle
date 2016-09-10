@@ -8,17 +8,17 @@
 
 import Foundation
 
-public class Optimization {
+open class Optimization {
     
     
     //MARK: Parameters
-    public static var accuracy = 1e-7
-    public static var maxTime = 10.0
+    open static var accuracy = 1e-7
+    open static var maxTime = 10.0
     
     
-    public class func goldenSection(a0: Double, _ b0: Double, k_max: Int = 100, error err: Double? = nil, maxTime t_m: Double? = nil, f: (Double) -> Double) -> Double {
+    open class func goldenSection(_ a0: Double, _ b0: Double, k_max: Int = 100, error err: Double? = nil, maxTime t_m: Double? = nil, f: (Double) -> Double) -> Double {
         
-        let start = NSDate()
+        let start = Date()
         
         let error = err ?? accuracy
         let t_max = t_m ?? maxTime
@@ -31,7 +31,7 @@ public class Optimization {
         
         let k = 1
         
-        while k <= k_max && b-a > 2*error && NSDate().timeIntervalSinceDate(start) < t_max {
+        while k <= k_max && b-a > 2*error && Date().timeIntervalSince(start) < t_max {
             
             if fu >= fv {
                 

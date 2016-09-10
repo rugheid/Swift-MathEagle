@@ -9,12 +9,12 @@
 import Foundation
 import Accelerate
 
-public protocol MatrixCompatible: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, NaturalPowerable, IntegerPowerable, RealPowerable, Conjugatable, Randomizable, IntegerLiteralConvertible {}
+public protocol MatrixCompatible: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, NaturalPowerable, IntegerPowerable, RealPowerable, Conjugatable, Randomizable, ExpressibleByIntegerLiteral {}
 
 /**
     A generic class representing a 2-dimensional matrix of the given type.
 */
-public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, CustomStringConvertible, SequenceType {
+open class Matrix <T: MatrixCompatible> : ExpressibleByArrayLiteral, Equatable, CustomStringConvertible, Sequence {
     
     
     
@@ -23,7 +23,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         The variable to store the inner structure of the matrix.
     */
-    public var elementsStructure: [T] = []
+    open var elementsStructure: [T] = []
     
     
     /**
@@ -39,7 +39,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
                 simply be removed. When the dimensions are bigger, the matrix will
                 be padded with zeros.
     */
-    public var dimensions: Dimensions {
+    open var dimensions: Dimensions {
         
         get {
             return self.innerDimensions
@@ -49,24 +49,24 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
             
             if newDimensions.columns < self.dimensions.columns {
                 
-                for r in 0 ..< min(newDimensions.rows, self.dimensions.rows) {
-                    self.elementsStructure.removeRange((r + 1) * newDimensions.columns ..< r * newDimensions.columns + self.dimensions.columns)
+                for r in 0 ..< Swift.min(newDimensions.rows, self.dimensions.rows) {
+                    self.elementsStructure.removeSubrange((r + 1) * newDimensions.columns ..< r * newDimensions.columns + self.dimensions.columns)
                 }
                 
             } else if newDimensions.columns > self.dimensions.columns {
                 
-                for r in 0 ..< min(newDimensions.rows, self.dimensions.rows) {
-                    self.elementsStructure.insertContentsOf([T](count: newDimensions.columns - self.dimensions.columns, repeatedValue: 0), at: r * newDimensions.columns + self.dimensions.columns)
+                for r in 0 ..< Swift.min(newDimensions.rows, self.dimensions.rows) {
+                    self.elementsStructure.insert(contentsOf: [T](repeating: 0, count: newDimensions.columns - self.dimensions.columns), at: r * newDimensions.columns + self.dimensions.columns)
                 }
             }
             
             if newDimensions.rows < self.dimensions.rows {
                 
-                self.elementsStructure.removeRange(newDimensions.product ..< self.elementsStructure.count)
+                self.elementsStructure.removeSubrange(newDimensions.product ..< self.elementsStructure.count)
                 
             } else if newDimensions.rows > self.dimensions.rows {
                 
-                self.elementsStructure.appendContentsOf([T](count: (newDimensions.rows - self.dimensions.rows) * newDimensions.columns, repeatedValue: 0))
+                self.elementsStructure.append(contentsOf: [T](repeating: 0, count: (newDimensions.rows - self.dimensions.rows) * newDimensions.columns))
             }
             
             self.innerDimensions = newDimensions
@@ -78,7 +78,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Returns a row major ordered list of all elements in the array.
         This should be used for high performance applications.
     */
-    public var elementsList: [T] {
+    open var elementsList: [T] {
         
         get {
             return elementsStructure
@@ -97,7 +97,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         :performance: This method scales O(n*m) for an nxm matrix, so elementsList should be used for
                         high performance applications.
     */
-    public var elements: [[T]] {
+    open var elements: [[T]] {
         
         get {
             var elements = [[T]]()
@@ -125,7 +125,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
             elementsList = []
             
             for row in newElements {
-                elementsList.appendContentsOf(row)
+                elementsList.append(contentsOf: row)
             }
             
             if newElements.count == 0 || newElements[0].count == 0 {
@@ -188,7 +188,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     public init(elementsList: [T], rows: Int) {
         
         if elementsList.count != 0 && elementsList.count % rows != 0 {
-            NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not a multiple of rows.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Wrong number of elements"), reason: "The number of elements in the given list is not a multiple of rows.", userInfo: nil).raise()
         }
         
         self.innerDimensions = Dimensions(rows, rows == 0 ? 0 : elementsList.count / rows)
@@ -211,7 +211,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     public init(elementsList: [T], columns: Int) {
         
         if elementsList.count != 0 && elementsList.count % columns != 0 {
-            NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not a multiple of columns.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Wrong number of elements"), reason: "The number of elements in the given list is not a multiple of columns.", userInfo: nil).raise()
         }
         
         self.innerDimensions = Dimensions(columns == 0 ? 0 : elementsList.count / columns, columns)
@@ -234,7 +234,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     public init(elementsList: [T], dimensions: Dimensions) {
         
         if elementsList.count != dimensions.product {
-            NSException(name: "Wrong number of elements", reason: "The number of elements in the given list is not equal to the product of the dimensions.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Wrong number of elements"), reason: "The number of elements in the given list is not equal to the product of the dimensions.", userInfo: nil).raise()
         }
         
         self.innerDimensions = dimensions
@@ -292,7 +292,6 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         self.init(elementsList: T.randomArrayOfLength(dimensions.product), dimensions: dimensions)
     }
     
-    
     /**
         Creates a random square matrix with the given size. This uses
         the `random` function of the type of the matrix. Note that for
@@ -306,7 +305,6 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         
         self.init(randomWithDimensions: Dimensions(size, size))
     }
-    
     
     /**
         Creates a random matrix with the given dimensions. The values lie in
@@ -323,12 +321,74 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
                                 for the real part and the second interval represents
                                 the interval for the imaginary part.
     */
-    public convenience init(randomWithDimensions dimensions: Dimensions, intervals: ClosedInterval<T.RandomIntervalType>...) {
+    public convenience init(randomWithDimensions dimensions: Dimensions, intervals: Range<T.RandomRangeType>...) {
         
         //TODO: Improve this implementation.
         self.init(dimensions: dimensions, generator: { i in T.randomInInterval(intervals) })
     }
     
+    /**
+     Creates a random matrix with the given dimensions. The values lie in
+     the given interval. This uses the `randomInInterval` function of the
+     type of the matrix. Note that for this initialiser to work the type must
+     be known to the compiler. So you can either state the type of the
+     variable explicitly or call the initialiser with the specific type
+     like Matrix<Type>(...).
+     
+     - parameter dimensions:  The dimensions the matrix should have.
+     - parameter intervals:   The interval in which the values can lie. You should
+     only pass multiple intervals for Complex matrices.
+     Here the first interval represents the interval
+     for the real part and the second interval represents
+     the interval for the imaginary part.
+     */
+    public convenience init(randomWithDimensions dimensions: Dimensions, intervals: ClosedRange<T.RandomRangeType>...) {
+        
+        //TODO: Improve this implementation.
+        self.init(dimensions: dimensions, generator: { i in T.randomInInterval(intervals) })
+    }
+    
+    /**
+     Creates a random matrix with the given dimensions. The values lie in
+     the given interval. This uses the `randomInInterval` function of the
+     type of the matrix. Note that for this initialiser to work the type must
+     be known to the compiler. So you can either state the type of the
+     variable explicitly or call the initialiser with the specific type
+     like Matrix<Type>(...).
+     
+     - parameter dimensions:  The dimensions the matrix should have.
+     - parameter intervals:   The interval in which the values can lie. You should
+     only pass multiple intervals for Complex matrices.
+     Here the first interval represents the interval
+     for the real part and the second interval represents
+     the interval for the imaginary part.
+     */
+    public convenience init(randomWithDimensions dimensions: Dimensions, intervals: CountableRange<T.RandomCountableRangeType>...) {
+        
+        //TODO: Improve this implementation.
+        self.init(dimensions: dimensions, generator: { i in T.randomInInterval(intervals) })
+    }
+    
+    /**
+     Creates a random matrix with the given dimensions. The values lie in
+     the given interval. This uses the `randomInInterval` function of the
+     type of the matrix. Note that for this initialiser to work the type must
+     be known to the compiler. So you can either state the type of the
+     variable explicitly or call the initialiser with the specific type
+     like Matrix<Type>(...).
+     
+     - parameter dimensions:  The dimensions the matrix should have.
+     - parameter intervals:   The interval in which the values can lie. You should
+     only pass multiple intervals for Complex matrices.
+     Here the first interval represents the interval
+     for the real part and the second interval represents
+     the interval for the imaginary part.
+     */
+    public convenience init(randomWithDimensions dimensions: Dimensions, intervals: CountableClosedRange<T.RandomCountableRangeType>...) {
+        
+        //TODO: Improve this implementation.
+        self.init(dimensions: dimensions, generator: { i in T.randomInInterval(intervals) })
+    }
     
     /**
         Creates a random square matrix with the given size. The values lie in
@@ -345,7 +405,67 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
                                 for the real part and the second interval represents
                                 the interval for the imaginary part.
     */
-    public convenience init(randomWithSize size: Int, intervals: ClosedInterval<T.RandomIntervalType>...) {
+    public convenience init(randomWithSize size: Int, intervals: Range<T.RandomRangeType>...) {
+        
+        self.init(size: size, generator: { i in T.randomInInterval(intervals) })
+    }
+    
+    /**
+     Creates a random square matrix with the given size. The values lie in
+     the given interval. This uses the `randomInInterval` function of the
+     type of the matrix. Note that for this initialiser to work the type must
+     be known to the compiler. So you can either state the type of the
+     variable explicitly or call the initialiser with the specific type
+     like Matrix<Type>(...).
+     
+     - parameter size:  The dimensions the matrix should have.
+     - parameter intervals:   The interval in which the values can lie. You should
+     only pass multiple intervals for Complex matrices.
+     Here the first interval represents the interval
+     for the real part and the second interval represents
+     the interval for the imaginary part.
+     */
+    public convenience init(randomWithSize size: Int, intervals: ClosedRange<T.RandomRangeType>...) {
+        
+        self.init(size: size, generator: { i in T.randomInInterval(intervals) })
+    }
+    
+    /**
+     Creates a random square matrix with the given size. The values lie in
+     the given interval. This uses the `randomInInterval` function of the
+     type of the matrix. Note that for this initialiser to work the type must
+     be known to the compiler. So you can either state the type of the
+     variable explicitly or call the initialiser with the specific type
+     like Matrix<Type>(...).
+     
+     - parameter size:  The dimensions the matrix should have.
+     - parameter intervals:   The interval in which the values can lie. You should
+     only pass multiple intervals for Complex matrices.
+     Here the first interval represents the interval
+     for the real part and the second interval represents
+     the interval for the imaginary part.
+     */
+    public convenience init(randomWithSize size: Int, intervals: CountableRange<T.RandomCountableRangeType>...) {
+        
+        self.init(size: size, generator: { i in T.randomInInterval(intervals) })
+    }
+    
+    /**
+     Creates a random square matrix with the given size. The values lie in
+     the given interval. This uses the `randomInInterval` function of the
+     type of the matrix. Note that for this initialiser to work the type must
+     be known to the compiler. So you can either state the type of the
+     variable explicitly or call the initialiser with the specific type
+     like Matrix<Type>(...).
+     
+     - parameter size:  The dimensions the matrix should have.
+     - parameter intervals:   The interval in which the values can lie. You should
+     only pass multiple intervals for Complex matrices.
+     Here the first interval represents the interval
+     for the real part and the second interval represents
+     the interval for the imaginary part.
+     */
+    public convenience init(randomWithSize size: Int, intervals: CountableClosedRange<T.RandomCountableRangeType>...) {
         
         self.init(size: size, generator: { i in T.randomInInterval(intervals) })
     }
@@ -388,7 +508,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     public init(filledWith element: T, dimensions: Dimensions) {
         
         self.innerDimensions = dimensions
-        self.elementsList = [T](count: dimensions.rows * dimensions.columns, repeatedValue: element)
+        self.elementsList = [T](repeating: element, count: dimensions.rows * dimensions.columns)
     }
     
     
@@ -420,7 +540,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         :exception: An exception will be thrown when either of the indices
                         is out of bounds.
     */
-    public subscript(row: Int, column: Int) -> T {
+    open subscript(row: Int, column: Int) -> T {
     
         get {
             
@@ -443,7 +563,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         :exception: An exception will be thrown when the given index is out
                         of bounds.
     */
-    public subscript(index: Int) -> Vector<T>  {
+    open subscript(index: Int) -> Vector<T>  {
         
         get {
             
@@ -457,13 +577,13 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     }
     
     
-    public subscript(indexRange: Range<Int>) -> Matrix<T> {
+    open subscript(indices: AnyCollection<Int>) -> Matrix<T> {
         
         get {
             
             var matrixElements = [[T]]()
             
-            for i in indexRange {
+            for i in indices {
                 
                 matrixElements.append(self[i].elements)
             }
@@ -473,17 +593,43 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         
         set(newMatrix) {
             
-            if !indexRange.isEmpty {
+            if !indices.isEmpty {
                 
                 if newMatrix.isEmpty {
                     
-                    self.elements.removeRange(indexRange)
+                    for i in indices {
+                        self.removeRow(atIndex: i)
+                    }
                     
                 } else {
                     
-                    self.elements.replaceRange(indexRange, with: newMatrix.elements)
+                    for i in indices {
+                        self.setRow(atIndex: i, toRow: newMatrix.row(i))
+                    }
                 }
             }
+        }
+    }
+    
+    open subscript(indices: CountableRange<Int>) -> Matrix<T> {
+        
+        get {
+            return self[AnyCollection(AnyRandomAccessCollection(indices))]
+        }
+        
+        set(newMatrix) {
+            self[AnyCollection(AnyRandomAccessCollection(indices))] = newMatrix
+        }
+    }
+    
+    open subscript(indices: CountableClosedRange<Int>) -> Matrix<T> {
+        
+        get {
+            return self[AnyCollection(AnyRandomAccessCollection(indices))]
+        }
+        
+        set(newMatrix) {
+            self[AnyCollection(AnyRandomAccessCollection(indices))] = newMatrix
         }
     }
     
@@ -498,19 +644,38 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         :exception: Throws an exception when any of the index ranges is out of bounds.
     */
-    public subscript(rowRange: Range<Int>, columnRange: Range<Int>) -> Matrix<T> {
+    open subscript(rowRange: AnyCollection<Int>, columnRange: AnyCollection<Int>) -> Matrix<T> {
         
         get {
-            
             return self.submatrix(rowRange, columnRange)
         }
         
         set(newMatrix) {
-            
             self.setSubmatrix(rowRange, columnRange, toMatrix: newMatrix)
         }
     }
     
+    open subscript(rowRange: CountableRange<Int>, columnRange: CountableRange<Int>) -> Matrix<T> {
+        
+        get {
+            return self[AnyCollection(AnyRandomAccessCollection(rowRange)), AnyCollection(AnyRandomAccessCollection(columnRange))]
+        }
+        
+        set(newMatrix) {
+            self[AnyCollection(AnyRandomAccessCollection(rowRange)), AnyCollection(AnyRandomAccessCollection(columnRange))] = newMatrix
+        }
+    }
+    
+    open subscript(rowRange: CountableClosedRange<Int>, columnRange: CountableClosedRange<Int>) -> Matrix<T> {
+        
+        get {
+            return self[AnyCollection(AnyRandomAccessCollection(rowRange)), AnyCollection(AnyRandomAccessCollection(columnRange))]
+        }
+        
+        set(newMatrix) {
+            self[AnyCollection(AnyRandomAccessCollection(rowRange)), AnyCollection(AnyRandomAccessCollection(columnRange))] = newMatrix
+        }
+    }
     
     /**
         Gets or sets the subvector at the given row index range at the given column.
@@ -523,10 +688,9 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         :exception: Throws an exception when any of the indices is out of bounds.
     */
-    public subscript(rowRange: Range<Int>, column: Int) -> Vector<T> {
+    open subscript(rowRange: AnyCollection<Int>, column: Int) -> Vector<T> {
         
         get {
-            
             return self.subvector(rowRange, column)
         }
         
@@ -536,6 +700,51 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         }
     }
     
+    /**
+     Gets or sets the subvector at the given row index range at the given column.
+     
+     - parameter rowRange:    The row index range of the desired subvector.
+     - parameter column:      The column of the desired subvector.
+     
+     - returns: A vector representing the subvector at the given row index range at
+     the given column.
+     
+     :exception: Throws an exception when any of the indices is out of bounds.
+     */
+    open subscript(rowRange: CountableRange<Int>, column: Int) -> Vector<T> {
+        
+        // TODO: This implementation should not be necessary, since AnyCollection is supported?
+        get {
+            return self[AnyCollection(AnyRandomAccessCollection(rowRange)), column]
+        }
+        
+        set(newVector) {
+            self[AnyCollection(AnyRandomAccessCollection(rowRange)), column] = newVector
+        }
+    }
+    
+    /**
+     Gets or sets the subvector at the given row index range at the given column.
+     
+     - parameter rowRange:    The row index range of the desired subvector.
+     - parameter column:      The column of the desired subvector.
+     
+     - returns: A vector representing the subvector at the given row index range at
+     the given column.
+     
+     :exception: Throws an exception when any of the indices is out of bounds.
+     */
+    open subscript(rowRange: CountableClosedRange<Int>, column: Int) -> Vector<T> {
+        
+        // TODO: This implementation should not be necessary, since AnyCollection is supported?
+        get {
+            return self[AnyCollection(AnyRandomAccessCollection(rowRange)), column]
+        }
+        
+        set(newVector) {
+            self[AnyCollection(AnyRandomAccessCollection(rowRange)), column] = newVector
+        }
+    }
     
     /**
         Gets or sets the subvector at the given row at the given column index range.
@@ -548,16 +757,58 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         :exception: Throws an exception when any of the indices is out of bounds.
     */
-    public subscript(row: Int, columnRange: Range<Int>) -> Vector<T> {
+    open subscript(row: Int, columnRange: AnyCollection<Int>) -> Vector<T> {
         
         get {
-            
             return self.subvector(row, columnRange)
         }
         
         set(newVector) {
-            
             self.setSubvector(row, columnRange, toVector: newVector)
+        }
+    }
+    
+    /**
+     Gets or sets the subvector at the given row at the given column index range.
+     
+     - parameter row:         The row of the desired subvector.
+     - parameter columnRange: The column index range of the desired subvector.
+     
+     - returns: A vector representing the subvector at the given row at the given
+     columnn index range.
+     
+     :exception: Throws an exception when any of the indices is out of bounds.
+     */
+    open subscript(row: Int, columnRange: CountableRange<Int>) -> Vector<T> {
+        
+        get {
+            return self[row, AnyCollection(AnyRandomAccessCollection(columnRange))]
+        }
+        
+        set(newVector) {
+            self[row, AnyCollection(AnyRandomAccessCollection(columnRange))] = newVector
+        }
+    }
+    
+    /**
+     Gets or sets the subvector at the given row at the given column index range.
+     
+     - parameter row:         The row of the desired subvector.
+     - parameter columnRange: The column index range of the desired subvector.
+     
+     - returns: A vector representing the subvector at the given row at the given
+     columnn index range.
+     
+     :exception: Throws an exception when any of the indices is out of bounds.
+     */
+    open subscript(row: Int, columnRange: CountableClosedRange<Int>) -> Vector<T> {
+        
+        get {
+            return self[row, AnyCollection(AnyRandomAccessCollection(columnRange))]
+        }
+        
+        set(newVector) {
+            self[row, AnyCollection(AnyRandomAccessCollection(columnRange))] = newVector
         }
     }
     
@@ -567,7 +818,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns a generator for this matrix.
     */
-    public func generate() -> MatrixGenerator<T> {
+    open func makeIterator() -> MatrixGenerator<T> {
         
         return MatrixGenerator(matrix: self)
     }
@@ -578,7 +829,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns a copy of the matrix.
     */
-    public var copy: Matrix<T> {
+    open var copy: Matrix<T> {
         
         return Matrix(elementsList: self.elementsList, dimensions: self.dimensions)
     }
@@ -591,7 +842,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         :example: [[1, 2], [3, 4], [5, 6]]
     */
-    public var description: String {
+    open var description: String {
         
         return self.elements.description
     }
@@ -603,7 +854,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         - returns: The size of the matrix if the matrix is square or nil otherwise.
     */
-    public var size: Int? {
+    open var size: Int? {
         return self.dimensions.size
     }
     
@@ -613,7 +864,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         - returns: The rank of the matrix.
     */
-    public var rank: Int {
+    open var rank: Int {
         
         //FIXME: Implement this method!
         return 0
@@ -626,7 +877,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         - returns: The trace of the matrix if the matrix is not empty, otherwise nil.
     */
-    public var trace: T? {
+    open var trace: T? {
         
         return self.isEmpty ? nil : sum(self.diagonalElements)
     }
@@ -635,7 +886,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns the determinant of the matrix.
     */
-    public var determinant: T {
+    open var determinant: T {
         
         let (_, _, _, det) = self.LUDecomposition(pivoting: true, optimalPivoting: true)
         return det
@@ -649,7 +900,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         :exception: Throws an exception when the given array countains too many elements.
     */
-    public var diagonalElements: [T] {
+    open var diagonalElements: [T] {
         
         get {
             
@@ -669,7 +920,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
             
             if elements.count != nrOfDiagonals {
                 
-                NSException(name: "Diagonal elements out of bounds", reason: "\(elements.count) are too many diagonal elements, only \(nrOfDiagonals) needed.", userInfo: nil).raise()
+                NSException(name: NSExceptionName(rawValue: "Diagonal elements out of bounds"), reason: "\(elements.count) are too many diagonal elements, only \(nrOfDiagonals) needed.", userInfo: nil).raise()
             }
             
             for i in 0 ..< nrOfDiagonals {
@@ -695,17 +946,17 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         :exception: An exception will be raised if the diagonal at the given index does not exist.
                     This means -n >= the number of rows or n >= the number of columns.
     */
-    public func diagonalElements(n: Int = 0) -> [T] {
+    open func diagonalElements(_ n: Int = 0) -> [T] {
         
         if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
-            NSException(name: "Index out the bounds.", reason: "The given index is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Index out the bounds."), reason: "The given index is out of bounds.", userInfo: nil).raise()
         }
         
         var returnElements = [T]()
         
-        var row = max(-n, 0)
-        var col = max(n, 0)
+        var row = Swift.max(-n, 0)
+        var col = Swift.max(n, 0)
         
         while row < self.dimensions.rows && col < self.dimensions.columns {
             
@@ -722,7 +973,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Returns a copy of the matrix with all elements under the main diagonal set to zero.
         This also applies to non-square matrices.
     */
-    public var upperTriangle: Matrix<T> {
+    open var upperTriangle: Matrix<T> {
         
         return try! upperTriangle()
     }
@@ -747,19 +998,19 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         :exception: An exception will be raised if the diagonal at the given index does not exist.
                     This means -n >= the number of rows or n >= the number of columns.
     */
-    public func upperTriangle(n: Int = 0) throws -> Matrix<T> {
+    open func upperTriangle(_ n: Int = 0) throws -> Matrix<T> {
         
         if n != 0 && (-n >= self.dimensions.rows || n >= self.dimensions.columns) {
             
-            throw MatrixError.IndexOutOfBounds(received: n, allowedRange: -(self.dimensions.rows + 1) ... self.dimensions.columns - 1, description: nil)
+            throw MatrixError.indexOutOfBounds(received: n, allowedRange: -(self.dimensions.rows + 1) ... self.dimensions.columns - 1, description: nil)
         }
         
-        var row = max(-n, 0)
-        var col = max(n, 0)
+        var row = Swift.max(-n, 0)
+        var col = Swift.max(n, 0)
         
         if n > 0 {
             
-            var elementsList = [T](count: self.dimensions.product, repeatedValue: 0)
+            var elementsList = [T](repeating: 0, count: self.dimensions.product)
             
             while row < self.dimensions.rows && col < self.dimensions.columns {
                 
@@ -798,7 +1049,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Returns a copy of the matrix with all elements above the main diagonal set to zero.
         This also applies to non-square matrices.
     */
-    public var lowerTriangle: Matrix<T> {
+    open var lowerTriangle: Matrix<T> {
         
         get {
             return lowerTriangle()
@@ -825,7 +1076,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         :exception: An exception will be raised if the diagonal at the given index does not exist.
                     This means -n >= the number of rows or n >= the number of columns.
     */
-    public func lowerTriangle(n: Int = 0) -> Matrix<T> {
+    open func lowerTriangle(_ n: Int = 0) -> Matrix<T> {
         
         if n == 0 && self.dimensions.isEmpty {
             return Matrix()
@@ -833,11 +1084,11 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         
         if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
-            NSException(name: "Index out the bounds.", reason: "The given index is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Index out the bounds."), reason: "The given index is out of bounds.", userInfo: nil).raise()
         }
         
-        var row = max(-n, 0)
-        var col = max(n, 0)
+        var row = Swift.max(-n, 0)
+        var col = Swift.max(n, 0)
         
         if n >= 0 {
             
@@ -858,7 +1109,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
             
         } else {
             
-            var elementsList = [T](count: self.dimensions.product, repeatedValue: 0)
+            var elementsList = [T](repeating: 0, count: self.dimensions.product)
             
             while row < self.dimensions.rows && col < self.dimensions.columns {
                 
@@ -880,7 +1131,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Returns the maximum element in the matrix if the matrix is not empty,
         otherwise it returns nil.
     */
-    public var maxElement: T? {
+    open var maxElement: T? {
         
         if self.isEmpty {
             
@@ -888,7 +1139,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
             
         } else {
             
-            return max(self.elementsList)
+            return MathEagle.max(self.elementsList)
         }
     }
     
@@ -897,7 +1148,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Returns the minimum element in the matrix if the matrix is not empty,
         otherwise it returns nil.
     */
-    public var minElement: T? {
+    open var minElement: T? {
         
         if self.isEmpty {
             
@@ -905,7 +1156,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
             
         } else {
             
-            return min(self.elementsList)
+            return MathEagle.min(self.elementsList)
         }
     }
     
@@ -913,7 +1164,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns the transpose of the matrix.
     */
-    public var transpose: Matrix<T> {
+    open var transpose: Matrix<T> {
         
         var elementsList = [T]()
         
@@ -931,7 +1182,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns the conjugate of the matrix.
     */
-    public var conjugate: Matrix<T> {
+    open var conjugate: Matrix<T> {
         
         return mmap(self){ $0.conjugate }
     }
@@ -940,7 +1191,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns the conjugate transpose of the matrix. This is also called the Hermitian transpose.
     */
-    public var conjugateTranspose: Matrix<T> {
+    open var conjugateTranspose: Matrix<T> {
         
         return self.transpose.conjugate
     }
@@ -951,7 +1202,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         - returns: true if the matrix is empty.
     */
-    public var isEmpty: Bool {
+    open var isEmpty: Bool {
         
         return self.dimensions.isEmpty
     }
@@ -960,7 +1211,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns whether all elements are zero.
     */
-    public var isZero: Bool {
+    open var isZero: Bool {
         
         for element in self.elementsList {
             
@@ -976,7 +1227,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         - returns: true if the matrix is square.
     */
-    public var isSquare: Bool {
+    open var isSquare: Bool {
         
         return self.dimensions.isSquare
     }
@@ -985,9 +1236,9 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     /**
         Returns whether the matrix is diagonal. This means all elements that are not on the main diagonal are zero.
     */
-    public var isDiagonal: Bool {
+    open var isDiagonal: Bool {
         
-        for (index, element) in self.enumerate() {
+        for (index, element) in self.enumerated() {
             
             if index / self.dimensions.rows != index % self.dimensions.rows && element != 0 {
                 
@@ -1004,7 +1255,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         - returns: true if the matrix is symmetrical.
     */
-    public var isSymmetrical: Bool {
+    open var isSymmetrical: Bool {
         
         // If it's not square, it's impossible to be symmetrical
         if !self.isSquare { return false }
@@ -1019,7 +1270,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         for i in 1 ..< nrOfSecondDiagonals - 1 {
             
             var k = i/2 + 1
-            let d = min(i, size-1)
+            let d = Swift.min(i, size-1)
             while k <= d {
                 
                 let j = i - k
@@ -1036,7 +1287,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Returns whether the matrix is upper triangular.
         This means the matrix is square and all elements below the main diagonal are zero.
     */
-    public var isUpperTriangular: Bool {
+    open var isUpperTriangular: Bool {
         
         return isUpperTriangular()
     }
@@ -1050,11 +1301,11 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         - parameter n:               The diagonal's index.
         - parameter mustBeSquare:    Whether the matrix must be square to be upper triangular.
     */
-    public func isUpperTriangular(n: Int = 0, mustBeSquare: Bool = true) -> Bool {
+    open func isUpperTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
         
         if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
-            NSException(name: "Index out the bounds.", reason: "The given diagonal index is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Index out the bounds."), reason: "The given diagonal index is out of bounds.", userInfo: nil).raise()
         }
         
         // A non-square matrix can't be upper triangular
@@ -1062,8 +1313,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         
         if self.dimensions.rows <= 1 { return true }
         
-        var row = max(-n, 0)
-        var col = max(n, 0)
+        var row = Swift.max(-n, 0)
+        var col = Swift.max(n, 0)
         
         for c in 0 ..< col {
             
@@ -1092,7 +1343,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Returns whether the matrix is upper Hessenberg.
         This means all elements below the first subdiagonal are zero.
     */
-    public var isUpperHessenberg: Bool {
+    open var isUpperHessenberg: Bool {
         
         return isUpperTriangular(-1)
     }
@@ -1102,7 +1353,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Returns whether the matrix is lower triangular.
         This means the matrix is square and all elements above the main diagonal are zero.
     */
-    public var isLowerTriangular: Bool {
+    open var isLowerTriangular: Bool {
         
         return isLowerTriangular()
     }
@@ -1116,11 +1367,11 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         - parameter n: The diagonal's index.
         - parameter mustBeSquare: Whether the matrix must be square to be lower triangular.
     */
-    public func isLowerTriangular(n: Int = 0, mustBeSquare: Bool = true) -> Bool {
+    open func isLowerTriangular(_ n: Int = 0, mustBeSquare: Bool = true) -> Bool {
         
         if -n >= self.dimensions.rows || n >= self.dimensions.columns {
             
-            NSException(name: "Index out the bounds.", reason: "The given diagonal index is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Index out the bounds."), reason: "The given diagonal index is out of bounds.", userInfo: nil).raise()
         }
         
         // A non-square matrix can't be upper triangular
@@ -1128,8 +1379,8 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         
         if self.dimensions.rows <= 1 { return true }
         
-        var row = max(-n, 0)
-        var col = max(n, 0)
+        var row = Swift.max(-n, 0)
+        var col = Swift.max(n, 0)
         
         for r in 0 ..< row {
             
@@ -1158,7 +1409,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Returns whether the matrix is a lower Hessenberg matrix.
         This means all elements above the first superdiagonal are zero.
     */
-    public var isLowerHessenberg: Bool {
+    open var isLowerHessenberg: Bool {
         
         return isLowerTriangular(1)
     }
@@ -1168,7 +1419,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         Returns whether the matrix is Hermitian.
         This means the matrix is equal to it's own conjugate transpose.
     */
-    public var isHermitian: Bool {
+    open var isHermitian: Bool {
         
         if !self.isSquare { return false }
         
@@ -1204,16 +1455,16 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         :exception: Throws an exception when either of the given indices is out of bounds.
     */
-    public func element(row: Int, _ column: Int) -> T {
+    open func element(_ row: Int, _ column: Int) -> T {
         
         if row < 0 || row >= self.dimensions.rows {
             
-            NSException(name: "Row index out of bounds", reason: "The requested element's row index is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Row index out of bounds"), reason: "The requested element's row index is out of bounds.", userInfo: nil).raise()
         }
         
         if column < 0 || column >= self.dimensions.columns {
             
-            NSException(name: "Column index out of bounds", reason: "The requested element's column index is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Column index out of bounds"), reason: "The requested element's column index is out of bounds.", userInfo: nil).raise()
         }
         
         return self.elementsList[row * self.dimensions.columns + column]
@@ -1229,16 +1480,16 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         :exception: Throws an exception when either of the given indices is out of bounds.
     */
-    public func setElement(atRow row: Int, atColumn column: Int, toElement element: T) {
+    open func setElement(atRow row: Int, atColumn column: Int, toElement element: T) {
         
         if row < 0 || row >= self.dimensions.rows {
             
-            NSException(name: "Row index out of bounds", reason: "The row index at which the element should be set is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Row index out of bounds"), reason: "The row index at which the element should be set is out of bounds.", userInfo: nil).raise()
         }
         
         if column < 0 || column >= self.dimensions.columns {
             
-            NSException(name: "Column index out of bounds", reason: "The column index at which the element should be set is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Column index out of bounds"), reason: "The column index at which the element should be set is out of bounds.", userInfo: nil).raise()
         }
         
         self.elementsList[row * self.dimensions.columns + column] = element
@@ -1253,7 +1504,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         :exception: Throws an exception when either of the given indices is out of bounds.
     */
-    public func setElement(atIndex index: (Int, Int), toElement element: T) {
+    open func setElement(atIndex index: (Int, Int), toElement element: T) {
         
         let (row, column) = index
         
@@ -1268,11 +1519,11 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         :exception: Throws an exception when the given index is out of bounds.
     */
-    public func row(index: Int) -> Vector<T> {
+    open func row(_ index: Int) -> Vector<T> {
         
         if index < 0 || index >= self.dimensions.rows {
             
-            NSException(name: "Row index out of bounds", reason: "The requested row's index is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Row index out of bounds"), reason: "The requested row's index is out of bounds.", userInfo: nil).raise()
         }
         
         var elementsList = [T]()
@@ -1294,21 +1545,49 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         :exception: Throws an exception when the given index is out of bounds.
         :exception: Throws an exception when the given vector is of the wrong length.
     */
-    public func setRow(atIndex index: Int, toRow newRow: Vector<T>) {
+    open func setRow(atIndex index: Int, toRow newRow: Vector<T>) {
         
         // If the index is out of bounds
         if index < 0 || index >= self.dimensions.rows {
             
-            NSException(name: "Row index out of bounds", reason: "The index at which the row should be set is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Row index out of bounds"), reason: "The index at which the row should be set is out of bounds.", userInfo: nil).raise()
         }
         
         // If the row's length is not correct
         if newRow.length != self.dimensions.columns {
             
-            NSException(name: "New row wrong length", reason: "The new row's length is not equal to the matrix's number of columns.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "New row wrong length"), reason: "The new row's length is not equal to the matrix's number of columns.", userInfo: nil).raise()
         }
         
-        self.elementsList.replaceRange(index * self.dimensions.columns ..< (index + 1) * self.dimensions.columns, with: newRow.elements)
+        self.elementsList.replaceSubrange(index * self.dimensions.columns ..< (index + 1) * self.dimensions.columns, with: newRow.elements)
+    }
+    
+    
+    /**
+     Removes the row at the given index.
+     
+     - parameter index: The index of the row to remove.
+     
+     :exception: Throws an exception when the given index is out of bounds.
+     */
+    open func removeRow(atIndex index: Int) {
+        
+        // If the index is out of bounds
+        if index < 0 || index >= self.dimensions.rows {
+            fatalError("The index of the row that should be removed is out of bounds.")
+        }
+        
+        if self.dimensions.rows == 1 {
+            
+            self.elementsList = []
+            self.innerDimensions = Dimensions()
+            
+        } else {
+            
+            self.elementsList.removeSubrange(self.dimensions.columns * index ..< self.dimensions.columns * (index + 1))
+            
+            self.innerDimensions = Dimensions(self.dimensions.rows - 1, self.dimensions.columns)
+        }
     }
     
     
@@ -1320,11 +1599,11 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         :exception: Throws an exception when the given index is out of bounds.
     */
-    public func switchRows(i: Int, _ j: Int) {
+    open func switchRows(_ i: Int, _ j: Int) {
         
         if i < 0 || i >= self.dimensions.rows || j < 0 || j >= self.dimensions.rows {
             
-            NSException(name: "Row index out of bounds", reason: "The index of the row that should be switched is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Row index out of bounds"), reason: "The index of the row that should be switched is out of bounds.", userInfo: nil).raise()
         }
         
         let intermediate = self[i]
@@ -1341,11 +1620,11 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         :exception: Throws an exception when the given index is out of bounds.
     */
-    public func column(index: Int) -> Vector<T> {
+    open func column(_ index: Int) -> Vector<T> {
         
         if index < 0 || index >= self.dimensions.columns {
             
-            NSException(name: "Column index out of bounds", reason: "The requested column's index is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Column index out of bounds"), reason: "The requested column's index is out of bounds.", userInfo: nil).raise()
         }
             
         var column = [T]()
@@ -1368,18 +1647,18 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         :exception: Throws an exception when the given index is out of bounds.
         :exception: Throws an exception when the given vector is of the wrong length.
     */
-    public func setColumn(atIndex index: Int, toColumn newColumn: Vector<T>) {
+    open func setColumn(atIndex index: Int, toColumn newColumn: Vector<T>) {
         
         // If the index is out of bounds
         if index < 0 || index >= self.dimensions.columns {
             
-            NSException(name: "Column index out of bounds", reason: "The index at which the column should be set is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Column index out of bounds"), reason: "The index at which the column should be set is out of bounds.", userInfo: nil).raise()
         }
         
         // If the column's length is not correct
         if newColumn.length != self.dimensions.rows {
             
-            NSException(name: "New column wrong length", reason: "The new column's length is not equal to the matrix's number of rows.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "New column wrong length"), reason: "The new column's length is not equal to the matrix's number of rows.", userInfo: nil).raise()
         }
         
         for i in 0 ..< self.dimensions.rows {
@@ -1396,11 +1675,11 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         :exception: Throws an exception when the given index is out of bounds.
     */
-    public func removeColumn(atIndex index: Int) {
+    open func removeColumn(atIndex index: Int) {
         
         if index < 0 || index >= self.dimensions.columns {
             
-            NSException(name: "Column index out of bounds", reason: "The index of the column that should be removed is out of bounds.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Column index out of bounds"), reason: "The index of the column that should be removed is out of bounds.", userInfo: nil).raise()
         }
         
         if self.dimensions.columns == 1 {
@@ -1412,13 +1691,12 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
             
             for r in 0 ..< self.dimensions.rows {
                 
-                self.elementsList.removeAtIndex(r * (self.dimensions.columns - 1) + index)
+                self.elementsList.remove(at: r * (self.dimensions.columns - 1) + index)
             }
             
             self.innerDimensions = Dimensions(self.dimensions.rows, self.dimensions.columns - 1)
         }
     }
-    
     
     /**
         Switches the columns at the given indexes.
@@ -1426,7 +1704,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         - parameter i: The index of the first column.
         - parameter j: The index of the second column.
     */
-    public func switchColumns(i: Int, _ j: Int) {
+    open func switchColumns(_ i: Int, _ j: Int) {
         
         let intermediate = self.column(i)
         
@@ -1434,39 +1712,53 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         self.setColumn(atIndex: j, toColumn: intermediate)
     }
     
-    
     /**
         Returns the submatrix for the given row and column ranges.
     
-        - parameter rowRange: The range with rows included in the submatrix.
-        - parameter columnRange: The range with columns included in the submatrix.
+        - parameter rowCollection: The range with rows included in the submatrix.
+        - parameter columnCollection: The range with columns included in the submatrix.
     
         - returns: The submatrix for the given row and column ranges.
     */
-    public func submatrix(rowRange: Range<Int>, _ columnRange: Range<Int>) -> Matrix<T> {
-        
-        if rowRange.startIndex < 0 || rowRange.endIndex > self.dimensions.rows {
-            
-            NSException(name: "Row index out of bound", reason: "The row index range is out of bounds. Range \(rowRange) given, but matrix row range is \(0..<self.dimensions.rows) .", userInfo: nil).raise()
-        }
-        
-        if columnRange.startIndex < 0 || columnRange.endIndex > self.dimensions.columns {
-            
-            NSException(name: "Column index out of bound", reason: "The column index range is out of bounds. Range \(columnRange) given, but matrix column range is \(0..<self.dimensions.columns) .", userInfo: nil).raise()
-        }
+    open func submatrix(_ rowCollection: AnyCollection<Int>, _ columnCollection: AnyCollection<Int>) -> Matrix<T> {
         
         var elementsList = [T]()
         
-        for row in rowRange {
-            for column in columnRange {
+        for row in rowCollection {
+            for column in columnCollection {
                 
                 elementsList.append(self.element(row, column))
             }
         }
         
-        return Matrix(elementsList: elementsList, rows: rowRange.endIndex - rowRange.startIndex)
+        return Matrix(elementsList: elementsList, rows: Int(rowCollection.count))
     }
     
+    /**
+     Returns the submatrix for the given row and column ranges.
+     
+     - parameter rowCollection: The range with rows included in the submatrix.
+     - parameter columnCollection: The range with columns included in the submatrix.
+     
+     - returns: The submatrix for the given row and column ranges.
+     */
+    open func submatrix(_ rowRange: CountableRange<Int>, _ columnRange: CountableRange<Int>) -> Matrix<T> {
+        
+        return self.submatrix(AnyCollection(AnyRandomAccessCollection(rowRange)), AnyCollection(AnyRandomAccessCollection(columnRange)))
+    }
+    
+    /**
+     Returns the submatrix for the given row and column ranges.
+     
+     - parameter rowCollection: The range with rows included in the submatrix.
+     - parameter columnCollection: The range with columns included in the submatrix.
+     
+     - returns: The submatrix for the given row and column ranges.
+     */
+    open func submatrix(_ rowRange: CountableClosedRange<Int>, _ columnRange: CountableClosedRange<Int>) -> Matrix<T> {
+        
+        return self.submatrix(AnyCollection(AnyRandomAccessCollection(rowRange)), AnyCollection(AnyRandomAccessCollection(columnRange)))
+    }
     
     /**
         Replaces the current submatrix for the given row and column ranges with the given matrix.
@@ -1477,31 +1769,46 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         :exceptions: Expections will be thrown if the given ranges are out of bounds or if the given matrix's dimensions don't match the given ranges' lengths.
     */
-    public func setSubmatrix(rowRange: Range<Int>, _ columnRange: Range<Int>, toMatrix matrix: Matrix<T>) {
+    open func setSubmatrix(_ rowRange: AnyCollection<Int>, _ columnRange: AnyCollection<Int>, toMatrix matrix: Matrix<T>) {
         
-        if rowRange.startIndex < 0 || rowRange.endIndex > self.dimensions.rows {
-            
-            NSException(name: "Row index out of bound", reason: "The row index range is out of bounds. Range \(rowRange) given, but matrix row range is \(0..<self.dimensions.rows) .", userInfo: nil).raise()
+        if matrix.dimensions.rows != Int(rowRange.count) || matrix.dimensions.columns != Int(columnRange.count) {
+            fatalError("The dimensions of the given matrix don't match the dimensions of the row and/or column ranges.")
         }
         
-        if columnRange.startIndex < 0 || columnRange.endIndex > self.dimensions.columns {
-            
-            NSException(name: "Column index out of bound", reason: "The column index range is out of bounds. Range \(columnRange) given, but matrix column range is \(0..<self.dimensions.columns) .", userInfo: nil).raise()
-        }
-        
-        if matrix.dimensions.rows != rowRange.endIndex - rowRange.startIndex || matrix.dimensions.columns != columnRange.endIndex - columnRange.startIndex {
-            
-            NSException(name: "Matrix dimensions don't match", reason: "The dimensions of the given matrix don't match the dimensions of the row and/or column ranges.", userInfo: nil).raise()
-        }
-        
-        for row in rowRange {
-            for column in columnRange {
-                
-                self.setElement(atRow: row, atColumn: column, toElement: matrix.element(row - rowRange.startIndex, column - columnRange.startIndex))
+        for (rowIndex, row) in rowRange.enumerated() {
+            for (columnIndex, column) in columnRange.enumerated() {
+                self.setElement(atRow: row, atColumn: column, toElement: matrix.element(rowIndex, columnIndex))
             }
         }
     }
     
+    /**
+     Replaces the current submatrix for the given row and column ranges with the given matrix.
+     
+     - parameter rowRange: The range with rows included in the submatrix.
+     - parameter columnRange: The range with columns included in the submatrix.
+     - parameter matrix: The matrix to replace the submatrix with.
+     
+     :exceptions: Expections will be thrown if the given ranges are out of bounds or if the given matrix's dimensions don't match the given ranges' lengths.
+     */
+    open func setSubmatrix(_ rowRange: CountableRange<Int>, _ columnRange: CountableRange<Int>, toMatrix matrix: Matrix<T>) {
+        
+        self.setSubmatrix(AnyCollection(AnyRandomAccessCollection(rowRange)), AnyCollection(AnyRandomAccessCollection(columnRange)), toMatrix: matrix)
+    }
+    
+    /**
+     Replaces the current submatrix for the given row and column ranges with the given matrix.
+     
+     - parameter rowRange: The range with rows included in the submatrix.
+     - parameter columnRange: The range with columns included in the submatrix.
+     - parameter matrix: The matrix to replace the submatrix with.
+     
+     :exceptions: Expections will be thrown if the given ranges are out of bounds or if the given matrix's dimensions don't match the given ranges' lengths.
+     */
+    open func setSubmatrix(_ rowRange: CountableClosedRange<Int>, _ columnRange: CountableClosedRange<Int>, toMatrix matrix: Matrix<T>) {
+        
+        self.setSubmatrix(AnyCollection(AnyRandomAccessCollection(rowRange)), AnyCollection(AnyRandomAccessCollection(columnRange)), toMatrix: matrix)
+    }
     
     /**
         Returns the subvector for the given row range at the given column.
@@ -1511,28 +1818,42 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         :exceptions: Exceptions will be thrown if the given row range and/or column are out of bounds.
     */
-    public func subvector(rowRange: Range<Int>, _ column: Int) -> Vector<T> {
-        
-        if rowRange.startIndex < 0 || rowRange.endIndex > self.dimensions.rows {
-            
-            NSException(name: "Row index out of bound", reason: "The row index range is out of bounds. Range \(rowRange) given, but matrix row range is \(0..<self.dimensions.rows) .", userInfo: nil).raise()
-        }
-        
-        if column < 0 || column > self.dimensions.columns {
-            
-            NSException(name: "Column index out of bound", reason: "The column index is out of bounds. Index \(column) given, but matrix column range is \(0..<self.dimensions.columns) .", userInfo: nil).raise()
-        }
+    open func subvector(_ rowRange: AnyCollection<Int>, _ column: Int) -> Vector<T> {
         
         var vectorElements = [T]()
         
         for row in rowRange {
-            
             vectorElements.append(self.element(row, column))
         }
         
         return Vector(vectorElements)
     }
     
+    /**
+     Returns the subvector for the given row range at the given column.
+     
+     - parameter rowRange: The range with rows included in the subvector.
+     - parameter column: The column of the subvector.
+     
+     :exceptions: Exceptions will be thrown if the given row range and/or column are out of bounds.
+     */
+    open func subvector(_ rowRange: CountableRange<Int>, _ column: Int) -> Vector<T> {
+        
+        return self.subvector(AnyCollection(AnyRandomAccessCollection(rowRange)), column)
+    }
+    
+    /**
+     Returns the subvector for the given row range at the given column.
+     
+     - parameter rowRange: The range with rows included in the subvector.
+     - parameter column: The column of the subvector.
+     
+     :exceptions: Exceptions will be thrown if the given row range and/or column are out of bounds.
+     */
+    open func subvector(_ rowRange: CountableClosedRange<Int>, _ column: Int) -> Vector<T> {
+        
+        return self.subvector(AnyCollection(AnyRandomAccessCollection(rowRange)), column)
+    }
     
     /**
         Replaces the current subvector for the given row range and column with the given vector.
@@ -1543,29 +1864,44 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         :exceptions: Exceptions will be thrown if the given row range and/or column are out of bounds or if the vector's length does not match the row range's length.
     */
-    public func setSubvector(rowRange: Range<Int>, _ column: Int, toVector vector: Vector<T>) {
+    open func setSubvector(_ rowRange: AnyCollection<Int>, _ column: Int, toVector vector: Vector<T>) {
         
-        if rowRange.startIndex < 0 || rowRange.endIndex > self.dimensions.rows {
-            
-            NSException(name: "Row index out of bound", reason: "The row index range is out of bounds. Range \(rowRange) given, but matrix row range is \(0..<self.dimensions.rows) .", userInfo: nil).raise()
+        if vector.length != Int(rowRange.count) {
+            fatalError("The length of the given vector is not equal to the length in the given row range. Vector length = \(vector.length), row range length = \(rowRange.count).")
         }
         
-        if column < 0 || column > self.dimensions.columns {
-            
-            NSException(name: "Column index out of bound", reason: "The column index is out of bounds. Index \(column) given, but matrix column range is \(0..<self.dimensions.columns) .", userInfo: nil).raise()
-        }
-        
-        if vector.length != rowRange.endIndex - rowRange.startIndex {
-            
-            NSException(name: "Unequal length", reason: "The length of the given vector is not equal to the length in the given row range. Vector length = \(vector.length), row range = \(rowRange).", userInfo: nil).raise()
-        }
-        
-        for row in rowRange {
-            
-            self.setElement(atRow: row, atColumn: column, toElement: vector[row - rowRange.startIndex])
+        for (rowIndex, row) in rowRange.enumerated() {
+            self.setElement(atRow: row, atColumn: column, toElement: vector[rowIndex])
         }
     }
     
+    /**
+     Replaces the current subvector for the given row range and column with the given vector.
+     
+     - parameter rowRange: The range with rows included in the subvector.
+     - parameter column: The column of the subvector.
+     - parameter vector: The vector to replace the subvector with.
+     
+     :exceptions: Exceptions will be thrown if the given row range and/or column are out of bounds or if the vector's length does not match the row range's length.
+     */
+    open func setSubvector(_ rowRange: CountableRange<Int>, _ column: Int, toVector vector: Vector<T>) {
+        
+        self.setSubvector(AnyCollection(AnyRandomAccessCollection(rowRange)), column, toVector: vector)
+    }
+    
+    /**
+     Replaces the current subvector for the given row range and column with the given vector.
+     
+     - parameter rowRange: The range with rows included in the subvector.
+     - parameter column: The column of the subvector.
+     - parameter vector: The vector to replace the subvector with.
+     
+     :exceptions: Exceptions will be thrown if the given row range and/or column are out of bounds or if the vector's length does not match the row range's length.
+     */
+    open func setSubvector(_ rowRange: CountableClosedRange<Int>, _ column: Int, toVector vector: Vector<T>) {
+        
+        self.setSubvector(AnyCollection(AnyRandomAccessCollection(rowRange)), column, toVector: vector)
+    }
     
     /**
     Returns the subvector for the given column range at the given row.
@@ -1575,28 +1911,42 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
     :exceptions: Exceptions will be thrown if the given row and/or column range are out of bounds.
     */
-    public func subvector(row: Int, _ columnRange: Range<Int>) -> Vector<T> {
-        
-        if row < 0 || row > self.dimensions.rows {
-            
-            NSException(name: "Row index out of bound", reason: "The row index is out of bounds. Index \(row) given, but matrix row range is \(0..<self.dimensions.rows) .", userInfo: nil).raise()
-        }
-        
-        if columnRange.startIndex < 0 || columnRange.endIndex > self.dimensions.columns {
-            
-            NSException(name: "Column index out of bound", reason: "The column index range is out of bounds. Range \(columnRange) given, but matrix column range is \(0..<self.dimensions.columns) .", userInfo: nil).raise()
-        }
+    open func subvector(_ row: Int, _ columnRange: AnyCollection<Int>) -> Vector<T> {
         
         var vectorElements = [T]()
         
         for column in columnRange {
-            
             vectorElements.append(self.element(row, column))
         }
         
         return Vector(vectorElements)
     }
     
+    /**
+     Returns the subvector for the given column range at the given row.
+     
+     - parameter row: The row of the subvector.
+     - parameter columnRange: The range with columns included in the subvector.
+     
+     :exceptions: Exceptions will be thrown if the given row and/or column range are out of bounds.
+     */
+    open func subvector(_ row: Int, _ columnRange: CountableRange<Int>) -> Vector<T> {
+        
+        return self.subvector(row, AnyCollection(AnyRandomAccessCollection(columnRange)))
+    }
+    
+    /**
+     Returns the subvector for the given column range at the given row.
+     
+     - parameter row: The row of the subvector.
+     - parameter columnRange: The range with columns included in the subvector.
+     
+     :exceptions: Exceptions will be thrown if the given row and/or column range are out of bounds.
+     */
+    open func subvector(_ row: Int, _ columnRange: CountableClosedRange<Int>) -> Vector<T> {
+        
+        return self.subvector(row, AnyCollection(AnyRandomAccessCollection(columnRange)))
+    }
     
     /**
     Replaces the current subvector for the given row and column range with the given vector.
@@ -1607,36 +1957,52 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
     :exceptions: Exceptions will be thrown if the given row and/or column range are out of bounds or if the vector's length does not match the column range's length.
     */
-    public func setSubvector(row: Int, _ columnRange: Range<Int>, toVector vector: Vector<T>) {
+    open func setSubvector(_ row: Int, _ columnRange: AnyCollection<Int>, toVector vector: Vector<T>) {
         
-        if row < 0 || row > self.dimensions.rows {
+        if vector.length != Int(columnRange.count) {
             
-            NSException(name: "Row index out of bound", reason: "The row index is out of bounds. Index \(row) given, but matrix row range is \(0..<self.dimensions.rows) .", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Unequal length"), reason: "The length of the given vector is not equal to the length in the given column range. Vector length = \(vector.length), column range = \(columnRange).", userInfo: nil).raise()
         }
         
-        if columnRange.startIndex < 0 || columnRange.endIndex > self.dimensions.columns {
-            
-            NSException(name: "Column index out of bound", reason: "The column index range is out of bounds. Range \(columnRange) given, but matrix column range is \(0..<self.dimensions.columns) .", userInfo: nil).raise()
-        }
-        
-        if vector.length != columnRange.endIndex - columnRange.startIndex {
-            
-            NSException(name: "Unequal length", reason: "The length of the given vector is not equal to the length in the given column range. Vector length = \(vector.length), column range = \(columnRange).", userInfo: nil).raise()
-        }
-        
-        for column in columnRange {
-            
-            self.setElement(atRow: row, atColumn: column, toElement: vector[column - columnRange.startIndex])
+        for (columnIndex, column) in columnRange.enumerated() {
+            self.setElement(atRow: row, atColumn: column, toElement: vector[columnIndex])
         }
     }
     
+    /**
+     Replaces the current subvector for the given row and column range with the given vector.
+     
+     - parameter row: The row of the subvector.
+     - parameter columnRange: The range with columns included in the subvector.
+     - parameter vector: The vector to replace the subvector with.
+     
+     :exceptions: Exceptions will be thrown if the given row and/or column range are out of bounds or if the vector's length does not match the column range's length.
+     */
+    open func setSubvector(_ row: Int, _ columnRange: CountableRange<Int>, toVector vector: Vector<T>) {
+        
+        self.setSubvector(row, AnyCollection(AnyRandomAccessCollection(columnRange)), toVector: vector)
+    }
+    
+    /**
+     Replaces the current subvector for the given row and column range with the given vector.
+     
+     - parameter row: The row of the subvector.
+     - parameter columnRange: The range with columns included in the subvector.
+     - parameter vector: The vector to replace the subvector with.
+     
+     :exceptions: Exceptions will be thrown if the given row and/or column range are out of bounds or if the vector's length does not match the column range's length.
+     */
+    open func setSubvector(_ row: Int, _ columnRange: CountableClosedRange<Int>, toVector vector: Vector<T>) {
+        
+        self.setSubvector(row, AnyCollection(AnyRandomAccessCollection(columnRange)), toVector: vector)
+    }
     
     /**
         Fills the diagonal with the given value.
     
         - parameter value: The value to fill the diagonal with.
     */
-    public func fillDiagonal(value: T) {
+    open func fillDiagonal(_ value: T) {
         
         for i in 0 ..< self.dimensions.minimum {
             
@@ -1653,7 +2019,7 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
     
         - returns: (L, U, P) with L being a lower triangular matrix with 1 on the diagonal, U an upper triangular matrix and P a permutation matrix. This way PA = LU.
     */
-    public var LUDecomposition: (Matrix<T>, Matrix<T>, Matrix<T>) {
+    open var LUDecomposition: (Matrix<T>, Matrix<T>, Matrix<T>) {
         
         let (L, U, P, _) = self.LUDecomposition()
         return (L, U, P)
@@ -1668,11 +2034,11 @@ public class Matrix <T: MatrixCompatible> : ArrayLiteralConvertible, Equatable, 
         
         - returns: (L, U, P, det) with L being a lower triangular matrix with 1 on the diagonal, U an upper triangular matrix and P a permutation matrix. This way PA = LU. det gives the determinant of the matrix
     */
-    public func LUDecomposition(pivoting pivoting: Bool = true, optimalPivoting: Bool = true) -> (Matrix<T>, Matrix<T>, Matrix<T>, T) {
+    open func LUDecomposition(pivoting: Bool = true, optimalPivoting: Bool = true) -> (Matrix<T>, Matrix<T>, Matrix<T>, T) {
         
         if !self.isSquare {
             
-            NSException(name: "Not square", reason: "A non-square matrix does not have a LU decomposition.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Not square"), reason: "A non-square matrix does not have a LU decomposition.", userInfo: nil).raise()
         }
         
         let n = self.size!
@@ -1756,7 +2122,7 @@ public func == <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Bool
 public func + <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
     
     if left.dimensions != right.dimensions {
-        NSException(name: "Unequal dimensions", reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal dimensions"), reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
     }
     
     return mcombine(left, right){ $0 + $1 }
@@ -1776,7 +2142,7 @@ public func + <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matri
 public func + (left: Matrix<Float>, right: Matrix<Float>) -> Matrix<Float> {
     
     if left.dimensions != right.dimensions {
-        NSException(name: "Unequal dimensions", reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal dimensions"), reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
     }
     
 //    var elementsList = [Float](count: left.dimensions.product, repeatedValue: 0)
@@ -1812,7 +2178,7 @@ public func + (left: Matrix<Float>, right: Matrix<Float>) -> Matrix<Float> {
 public func + (left: Matrix<Double>, right: Matrix<Double>) -> Matrix<Double> {
     
     if left.dimensions != right.dimensions {
-        NSException(name: "Unequal dimensions", reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal dimensions"), reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
     }
     
     //    var elementsList = [Float](count: left.dimensions.product, repeatedValue: 0)
@@ -1870,7 +2236,7 @@ public prefix func - <T: MatrixCompatible> (matrix: Matrix<T>) -> Matrix<T> {
 public func - <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
     
     if left.dimensions != right.dimensions {
-        NSException(name: "Unequal dimensions", reason: "The dimensions of the two given matrices are not equal. Left dimensions: \(left.dimensions), right dimensions: \(right.dimensions).", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal dimensions"), reason: "The dimensions of the two given matrices are not equal. Left dimensions: \(left.dimensions), right dimensions: \(right.dimensions).", userInfo: nil).raise()
     }
     
     return mcombine(left, right){ $0 - $1 }
@@ -1927,7 +2293,7 @@ public func * <T: MatrixCompatible> (matrix: Matrix<T>, scalar: T) -> Matrix<T> 
 public func * <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matrix<T> {
     
     if left.dimensions.columns != right.dimensions.rows {
-        NSException(name: "Wrong dimensions", reason: "The left matrix's number of columns is not equal to the right matrix's rows.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Wrong dimensions"), reason: "The left matrix's number of columns is not equal to the right matrix's rows.", userInfo: nil).raise()
     }
     
     var matrixElements = [[T]]()
@@ -1963,7 +2329,7 @@ public func * <T: MatrixCompatible> (left: Matrix<T>, right: Matrix<T>) -> Matri
     - parameter matrix: The matrix to map with the original elements.
     - parameter transform: The transform to map on the elements of matrix.
 */
-public func mmap <T: MatrixCompatible, U: MatrixCompatible> (matrix: Matrix<T>, transform: T -> U) -> Matrix<U> {
+public func mmap <T: MatrixCompatible, U: MatrixCompatible> (_ matrix: Matrix<T>, transform: (T) -> U) -> Matrix<U> {
     
     let elementsList = matrix.elementsList.map(transform)
     
@@ -1978,9 +2344,9 @@ public func mmap <T: MatrixCompatible, U: MatrixCompatible> (matrix: Matrix<T>, 
     - parameter initial: The element to combine with the first element of the matrix.
     - parameter combine: The closure to combine two values to generate a new value.
 */
-public func mreduce <T: MatrixCompatible, U> (matrix: Matrix<T>, initial: U, combine: (U, T) -> U) -> U {
+public func mreduce <T: MatrixCompatible, U> (_ matrix: Matrix<T>, initial: U, combine: (U, T) -> U) -> U {
     
-    return matrix.elementsList.reduce(initial, combine: combine)
+    return matrix.elementsList.reduce(initial, combine)
 }
 
 /**
@@ -1992,11 +2358,11 @@ public func mreduce <T: MatrixCompatible, U> (matrix: Matrix<T>, initial: U, com
 
     :exceptions: Throws an exception when the dimensions of the two given matrices are not equal.
 */
-public func mcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (left: Matrix<T>, _ right: Matrix<U>, combine: (T, U) -> V) -> Matrix<V> {
+public func mcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompatible> (_ left: Matrix<T>, _ right: Matrix<U>, combine: (T, U) -> V) -> Matrix<V> {
 
     if left.dimensions != right.dimensions {
         
-        NSException(name: "Unequal dimensions", reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal dimensions"), reason: "The dimensions of the two matrices are not equal.", userInfo: nil).raise()
     }
     
     var elementsList = [V]()
@@ -2019,9 +2385,9 @@ public func mcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompati
 
     - returns: The transpose of the given matrix.
 */
-public func transpose(matrix: Matrix<Float>) -> Matrix<Float> {
+public func transpose(_ matrix: Matrix<Float>) -> Matrix<Float> {
     
-    var elementsList = [Float](count: matrix.dimensions.product, repeatedValue: 0)
+    var elementsList = [Float](repeating: 0, count: matrix.dimensions.product)
     
     vDSP_mtrans(matrix.elementsList, 1, &elementsList, 1, vDSP_Length(matrix.dimensions.columns), vDSP_Length(matrix.dimensions.rows))
     
@@ -2036,9 +2402,9 @@ public func transpose(matrix: Matrix<Float>) -> Matrix<Float> {
 
     - returns: The transpose of the given matrix.
 */
-public func transpose(matrix: Matrix<Double>) -> Matrix<Double> {
+public func transpose(_ matrix: Matrix<Double>) -> Matrix<Double> {
     
-    var elementsList = [Double](count: matrix.dimensions.product, repeatedValue: 0)
+    var elementsList = [Double](repeating: 0, count: matrix.dimensions.product)
     
     vDSP_mtransD(matrix.elementsList, 1, &elementsList, 1, vDSP_Length(matrix.dimensions.columns), vDSP_Length(matrix.dimensions.rows))
     
@@ -2061,13 +2427,13 @@ public func transpose(matrix: Matrix<Double>) -> Matrix<Double> {
                 The second matrix is an upper triangular matrix and the third
                 matrix is a permutations matrix. Here is A = PLU.
 */
-public func LUDecomposition(matrix: Matrix<Float>) -> (Matrix<Float>, Matrix<Float>, Matrix<Float>)? {
+public func LUDecomposition(_ matrix: Matrix<Float>) -> (Matrix<Float>, Matrix<Float>, Matrix<Float>)? {
     
     var elementsList = transpose(matrix).elementsList
-    var pivotArray = [Int32](count: matrix.dimensions.minimum, repeatedValue: 0)
+    var pivotArray = [Int32](repeating: 0, count: matrix.dimensions.minimum)
     var info: Int32 = 0
     
-    Matrix_OBJC.LUDecompositionOfMatrix(&elementsList, nrOfRows: Int32(matrix.dimensions.rows), nrOfColumns: Int32(matrix.dimensions.columns), withPivotArray: &pivotArray, withInfo: &info)
+    Matrix_OBJC.luDecomposition(ofMatrix: &elementsList, nrOfRows: Int32(matrix.dimensions.rows), nrOfColumns: Int32(matrix.dimensions.columns), withPivotArray: &pivotArray, withInfo: &info)
     
     if info != 0 { return nil }
     
@@ -2080,8 +2446,8 @@ public func LUDecomposition(matrix: Matrix<Float>) -> (Matrix<Float>, Matrix<Flo
     
     let permutation = Permutation(identityOfLength: matrix.dimensions.columns)
     
-    for (index, element) in pivotArray.enumerate() {
-        permutation.switchElements(index, Int(element-1))
+    for (index, element) in pivotArray.enumerated() {
+        permutation.switchElements(Int(element-1), index)
     }
     
     return (L, result.upperTriangle, PermutationMatrix(permutation: permutation))
@@ -2096,12 +2462,12 @@ public func LUDecomposition(matrix: Matrix<Float>) -> (Matrix<Float>, Matrix<Flo
 /**
     A struct representing a generator for iterating over a matrix.
 */
-public struct MatrixGenerator <T: MatrixCompatible> : GeneratorType {
+public struct MatrixGenerator <T: MatrixCompatible> : IteratorProtocol {
     
     /**
         The generator of the elements list of the matrix.
     */
-    private var generator: IndexingGenerator<Array<T>>
+    fileprivate var generator: IndexingIterator<Array<T>>
     
     /**
         Creates a new matrix generator to iterator over the given matrix.
@@ -2110,7 +2476,7 @@ public struct MatrixGenerator <T: MatrixCompatible> : GeneratorType {
     */
     public init(matrix: Matrix<T>) {
         
-        self.generator = matrix.elementsList.generate()
+        self.generator = matrix.elementsList.makeIterator()
     }
     
     /**
@@ -2124,7 +2490,7 @@ public struct MatrixGenerator <T: MatrixCompatible> : GeneratorType {
 
 // MARK: - Index
 
-public struct Index: ArrayLiteralConvertible {
+public struct Index: ExpressibleByArrayLiteral {
     
     public let row, column: Int
     
@@ -2132,12 +2498,12 @@ public struct Index: ArrayLiteralConvertible {
         
         if elements.count < 2 {
             
-            NSException(name: "Not enough elements provided", reason: "Only \(elements.count) elements provided, but 2 elements needed for Index initialisation.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Not enough elements provided"), reason: "Only \(elements.count) elements provided, but 2 elements needed for Index initialisation.", userInfo: nil).raise()
         }
         
         if elements.count > 2 {
             
-            NSException(name: "Too many elements provided", reason: "\(elements.count) elements provided, but only 2 elements needed for Index initialisation.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Too many elements provided"), reason: "\(elements.count) elements provided, but only 2 elements needed for Index initialisation.", userInfo: nil).raise()
         }
         
         self.row = elements[0]
@@ -2153,7 +2519,7 @@ public struct Index: ArrayLiteralConvertible {
 /**
     A struct containing the different types of Matrix errors.
 */
-public enum MatrixError: ErrorType {
+public enum MatrixError: Error {
     
     /**
     Caused by an index being out of bounds.
@@ -2163,7 +2529,7 @@ public enum MatrixError: ErrorType {
                                 does not lie in this range.
     - parameter description:    A description describing what exactly went wrong.
     */
-    case IndexOutOfBounds(received: Int, allowedRange: Range<Int>, description: String?)
+    case indexOutOfBounds(received: Int, allowedRange: CountableClosedRange<Int>, description: String?)
     
     /**
     Caused by providing a wrong number of elements.
@@ -2172,5 +2538,5 @@ public enum MatrixError: ErrorType {
     - parameter expected:       The expected number.
     - parameter description:    A description describing what exactly went wrong.
     */
-    case WrongNumberOfElements(received: Int, expected: Int, description: String?)
+    case wrongNumberOfElements(received: Int, expected: Int, description: String?)
 }

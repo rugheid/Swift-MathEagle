@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, SetCompliant, CustomStringConvertible, Hashable, IntegerLiteralConvertible {
+public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, SetCompliant, CustomStringConvertible, Hashable, ExpressibleByIntegerLiteral {
     
     
     // MARK: Private Properties
@@ -43,7 +43,7 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, M
     }
     
     public init(string: String, base: Int32 = 10) {
-        bigIntOBJC = BigInt_OBJC(string: string.cStringUsingEncoding(NSUTF8StringEncoding)!, inBase: base)
+        bigIntOBJC = BigInt_OBJC(string: string.cString(using: String.Encoding.utf8)!, inBase: base)
     }
     
     
@@ -102,34 +102,34 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, M
      - parameter base: The base in which to express the string. 10 is the default value. When 0 or 1 is passed, 10 will
         be used as well. Negative values are converted to their absolute value.
      */
-    public func stringValue(base: Int32 = 10) -> String {
-        return String(CString: self.bigIntOBJC.getStringValueInBase(base), encoding: NSUTF8StringEncoding)!
+    public func stringValue(_ base: Int32 = 10) -> String {
+        return String(cString: self.bigIntOBJC.getStringValue(inBase: base), encoding: String.Encoding.utf8)!
     }
     
     
     // MARK: Comparisons
     
-    public func compare(bigInt: BigInt) -> NSComparisonResult {
-        let cmp = self.bigIntOBJC.compareWithBigIntOBJC(bigInt.bigIntOBJC)
+    public func compare(_ bigInt: BigInt) -> ComparisonResult {
+        let cmp = self.bigIntOBJC.compare(withBigIntOBJC: bigInt.bigIntOBJC)
         if cmp < 0 {
-            return .OrderedAscending
+            return .orderedAscending
         } else if cmp > 0 {
-            return .OrderedDescending
+            return .orderedDescending
         } else {
-            return .OrderedSame
+            return .orderedSame
         }
     }
     
     
     // MARK: Operations
     
-    public func add(bigInt: BigInt) -> BigInt {
+    public func add(_ bigInt: BigInt) -> BigInt {
         let result = BigInt()
         BigInt_OBJC.set(result.bigIntOBJC, toSumOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
         return result
     }
     
-    public mutating func addInPlace(bigInt: BigInt) {
+    public mutating func addInPlace(_ bigInt: BigInt) {
         BigInt_OBJC.set(self.bigIntOBJC, toSumOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
     }
     
@@ -143,33 +143,33 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, M
         BigInt_OBJC.set(self.bigIntOBJC, toNegationOf: self.bigIntOBJC)
     }
     
-    public func subtract(bigInt: BigInt) -> BigInt {
+    public func subtract(_ bigInt: BigInt) -> BigInt {
         let result = BigInt()
         BigInt_OBJC.set(result.bigIntOBJC, toDifferenceOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
         return result
     }
     
-    public mutating func subtractInPlace(bigInt: BigInt) {
+    public mutating func subtractInPlace(_ bigInt: BigInt) {
         BigInt_OBJC.set(self.bigIntOBJC, toDifferenceOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
     }
     
-    public func multiply(bigInt: BigInt) -> BigInt {
+    public func multiply(_ bigInt: BigInt) -> BigInt {
         let result = BigInt()
         BigInt_OBJC.set(result.bigIntOBJC, toProductOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
         return result
     }
     
-    public mutating func multiplyInPlace(bigInt: BigInt) {
+    public mutating func multiplyInPlace(_ bigInt: BigInt) {
         BigInt_OBJC.set(self.bigIntOBJC, toProductOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
     }
     
-    public func divide(bigInt: BigInt) -> BigInt {
+    public func divide(_ bigInt: BigInt) -> BigInt {
         let result = BigInt()
         BigInt_OBJC.set(result.bigIntOBJC, toQuotientOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
         return result
     }
     
-    public mutating func divideInPlace(bigInt: BigInt) {
+    public mutating func divideInPlace(_ bigInt: BigInt) {
         BigInt_OBJC.set(self.bigIntOBJC, toQuotientOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
     }
     
@@ -209,18 +209,18 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, M
 // MARK: Equatable
 
 public func == (left: BigInt, right: BigInt) -> Bool {
-    return left.compare(right) == .OrderedSame
+    return left.compare(right) == .orderedSame
 }
 
 
 // MARK: Comparable
 
 public func < (left: BigInt, right: BigInt) -> Bool {
-    return left.compare(right) == .OrderedAscending
+    return left.compare(right) == .orderedAscending
 }
 
 public func > (left: BigInt, right: BigInt) -> Bool {
-    return left.compare(right) == .OrderedDescending
+    return left.compare(right) == .orderedDescending
 }
 
 
@@ -230,7 +230,7 @@ public func + (left: BigInt, right: BigInt) -> BigInt {
     return left.add(right)
 }
 
-public func += (inout left: BigInt, right: BigInt) {
+public func += (left: inout BigInt, right: BigInt) {
     left.addInPlace(right)
 }
 
@@ -248,7 +248,7 @@ public func - (left: BigInt, right: BigInt) -> BigInt {
     return left.subtract(right)
 }
 
-public func -= (inout left: BigInt, right: BigInt) {
+public func -= (left: inout BigInt, right: BigInt) {
     left.subtractInPlace(right)
 }
 
@@ -259,7 +259,7 @@ public func * (left: BigInt, right: BigInt) -> BigInt {
     return left.multiply(right)
 }
 
-public func *= (inout left: BigInt, right: BigInt) {
+public func *= (left: inout BigInt, right: BigInt) {
     left.multiplyInPlace(right)
 }
 
@@ -270,13 +270,13 @@ public func / (left: BigInt, right: BigInt) -> BigInt {
     return left.divide(right)
 }
 
-public func /= (inout left: BigInt, right: BigInt) {
+public func /= (left: inout BigInt, right: BigInt) {
     left.divideInPlace(right)
 }
 
 
 // MARK: Absolute Value
 
-public func abs(bigInt: BigInt) -> BigInt {
+public func abs(_ bigInt: BigInt) -> BigInt {
     return bigInt.absoluteValue
 }

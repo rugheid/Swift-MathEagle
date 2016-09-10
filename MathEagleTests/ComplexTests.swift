@@ -88,16 +88,16 @@ class ComplexTests: XCTestCase {
     func testQuadrant() {
         
         var z = Complex(1, 2)
-        XCTAssertEqual(Quadrant.First, z.quadrant)
+        XCTAssertEqual(Quadrant.first, z.quadrant)
         
         z = Complex(-1, 2)
-        XCTAssertEqual(Quadrant.Second, z.quadrant)
+        XCTAssertEqual(Quadrant.second, z.quadrant)
         
         z = Complex(-1, -2)
-        XCTAssertEqual(Quadrant.Third, z.quadrant)
+        XCTAssertEqual(Quadrant.third, z.quadrant)
         
         z = Complex(1, -2)
-        XCTAssertEqual(Quadrant.Fourth, z.quadrant)
+        XCTAssertEqual(Quadrant.fourth, z.quadrant)
     }
     
     

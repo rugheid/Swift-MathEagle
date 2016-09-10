@@ -15,7 +15,7 @@ public func * <T: MatrixCompatible> (left: Vector<T>, right: Matrix<T>) -> Vecto
     
     if left.length != right.dimensions.rows {
         
-        NSException(name: "Unequal dimensions", reason: "The vector's length (\(left.length)) is not equal to the matrix's number of rows (\(right.dimensions.rows)).", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal dimensions"), reason: "The vector's length (\(left.length)) is not equal to the matrix's number of rows (\(right.dimensions.rows)).", userInfo: nil).raise()
     }
     
     if left.length == 0 { return Vector() }
@@ -38,7 +38,7 @@ public func * <T: MatrixCompatible> (left: Matrix<T>, right: Vector<T>) -> Vecto
     
     if right.length != left.dimensions.columns {
         
-        NSException(name: "Unequal dimensions", reason: "The vector's length (\(right.length)) is not equal to the matrix's number of columns (\(left.dimensions.columns)).", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Unequal dimensions"), reason: "The vector's length (\(right.length)) is not equal to the matrix's number of columns (\(left.dimensions.columns)).", userInfo: nil).raise()
     }
     
     if right.length == 0 { return Vector() }

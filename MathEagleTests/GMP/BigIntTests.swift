@@ -75,9 +75,9 @@ class BigIntTests: XCTestCase {
         let a = BigInt(int: 53103)
         let b = BigInt(int: 53103)
         let c = BigInt(int: -47801842)
-        XCTAssertEqual(a.compare(b), NSComparisonResult.OrderedSame)
-        XCTAssertEqual(a.compare(c), NSComparisonResult.OrderedDescending)
-        XCTAssertEqual(c.compare(a), NSComparisonResult.OrderedAscending)
+        XCTAssertEqual(a.compare(b), ComparisonResult.orderedSame)
+        XCTAssertEqual(a.compare(c), ComparisonResult.orderedDescending)
+        XCTAssertEqual(c.compare(a), ComparisonResult.orderedAscending)
     }
     
     func testEqualityOperator() {

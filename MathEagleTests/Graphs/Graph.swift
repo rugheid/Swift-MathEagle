@@ -11,7 +11,7 @@
  The edges can be unidirectional.
  The edges can have weights and capacities.
  */
-public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightType: protocol<IntegerLiteralConvertible, Addable, Comparable>, EdgeCapacityType: protocol<IntegerLiteralConvertible>> {
+open class Graph <VertexNameType: Equatable & Hashable, EdgeWeightType: ExpressibleByIntegerLiteral & Addable & Comparable, EdgeCapacityType: ExpressibleByIntegerLiteral> {
     
     public typealias Edge = GraphEdge<VertexNameType, EdgeWeightType, EdgeCapacityType>
     public typealias EdgeProperties = GraphEdgeProperties<EdgeWeightType, EdgeCapacityType>
@@ -24,7 +24,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
     /**
      An adjacency list to store the edges of the graph.
      */
-    private var adjacencyList: [VertexNameType: [VertexNameType: EdgeProperties]]
+    fileprivate var adjacencyList: [VertexNameType: [VertexNameType: EdgeProperties]]
     
     
     // MARK: Initialisers
@@ -41,7 +41,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      
      This method should not be used to iterate over the vertices of the graph.
      */
-    public var vertices: [VertexNameType] {
+    open var vertices: [VertexNameType] {
         var vert = [VertexNameType]()
         for vertex in adjacencyList.keys {
             vert.append(vertex)
@@ -55,21 +55,21 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      This method should be used if you want to iterate over the vertices of the graph, because otherwise
      the entire vertices array will be stored in memory.
      */
-    public func generateVertices() -> VerticesGenerator {
-        return VerticesGenerator(adjacencyListGenerator: self.adjacencyList.generate())
+    open func generateVertices() -> VerticesGenerator {
+        return VerticesGenerator(adjacencyListGenerator: self.adjacencyList.makeIterator())
     }
     
     /**
      Returns any vertex of the graph, or nil if the graph does not contain any vertices.
      */
-    public func anyVertex() -> VertexNameType? {
+    open func anyVertex() -> VertexNameType? {
         return self.adjacencyList.keys.first
     }
     
     /**
      Returns the number of vertices the graph contains.
      */
-    public var numberOfVertices: Int {
+    open var numberOfVertices: Int {
         return adjacencyList.count
     }
     
@@ -79,7 +79,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      
      - parameter name: The name of the vertex.
      */
-    public func addVertex(name: VertexNameType) {
+    open func addVertex(_ name: VertexNameType) {
         if adjacencyList[name] != nil {
             return
         }
@@ -93,10 +93,10 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      
      - parameter name: The name of the vertex.
      */
-    public func removeVertex(name: VertexNameType) {
-        adjacencyList.removeValueForKey(name)
+    open func removeVertex(_ name: VertexNameType) {
+        adjacencyList.removeValue(forKey: name)
         for vertex in generateVertices() {
-            removeEdge(fromVertex: vertex, toVertex: name)
+            let _ = removeEdge(fromVertex: vertex, toVertex: name)
         }
     }
     
@@ -105,7 +105,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      
      - parameter name: The name of the vertex.
      */
-    public func containsVertex(name: VertexNameType) -> Bool {
+    open func containsVertex(_ name: VertexNameType) -> Bool {
         return adjacencyList[name] != nil
     }
     
@@ -116,14 +116,14 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      
      - parameter name: The name of the vertex.
      */
-    public func degreeOfVertex(name: VertexNameType) -> Int {
+    open func degreeOfVertex(_ name: VertexNameType) -> Int {
         return adjacencyList[name]?.count ?? 0
     }
     
     /**
      Returns the number of vertices with odd degree.
      */
-    public var numberOfVerticesWithOddDegree: Int {
+    open var numberOfVerticesWithOddDegree: Int {
         var count = 0
         for vertex in self.generateVertices() {
             if degreeOfVertex(vertex) % 2 != 0 {
@@ -139,7 +139,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
     /**
      Returns a list of all edges in the graph. The edges are unidirectional.
      */
-    public var edges: [Edge] {
+    open var edges: [Edge] {
         var edgesList = [Edge]()
         for from in self.generateVertices() {
             for to in self.generateVertices() {
@@ -157,7 +157,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      This should be used to iterate over the edges of the graph. If you
      would use `edges`, the entire edges array would be constructed first.
      */
-    public func generateEdges() -> EdgesGenerator {
+    open func generateEdges() -> EdgesGenerator {
         return EdgesGenerator(graph: self,
                               firstVerticesGenerator: generateVertices())
     }
@@ -170,7 +170,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      - parameter from: The vertex the edge is coming from.
      - parameter to:   The vertex the edge is going to.
      */
-    public func addUnidirectionalEdge(edge: EdgeProperties, fromVertex from: VertexNameType, toVertex to: VertexNameType) {
+    open func addUnidirectionalEdge(_ edge: EdgeProperties, fromVertex from: VertexNameType, toVertex to: VertexNameType) {
         self.addVertex(from)
         self.addVertex(to)
         adjacencyList[from]![to] = edge
@@ -185,7 +185,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      - parameter from:     The vertex the edge is coming from.
      - parameter to:       The vertex the edge is going to.
      */
-    public func addUnidirectionalEdge(weight: EdgeWeightType = 1, capacity: EdgeCapacityType = 1, fromVertex from: VertexNameType, toVertex to: VertexNameType) {
+    open func addUnidirectionalEdge(_ weight: EdgeWeightType = 1, capacity: EdgeCapacityType = 1, fromVertex from: VertexNameType, toVertex to: VertexNameType) {
         let edge = EdgeProperties(weight: weight, capacity: capacity)
         self.addUnidirectionalEdge(edge, fromVertex: from, toVertex: to)
     }
@@ -198,7 +198,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      - parameter from: The vertex the edge is coming from.
      - parameter to:   The vertex the edge is going to.
      */
-    public func addBidirectionalEdge(edge: EdgeProperties, fromVertex from: VertexNameType, toVertex to: VertexNameType) {
+    open func addBidirectionalEdge(_ edge: EdgeProperties, fromVertex from: VertexNameType, toVertex to: VertexNameType) {
         addUnidirectionalEdge(edge, fromVertex: from, toVertex: to)
         addUnidirectionalEdge(edge, fromVertex: to, toVertex: from)
     }
@@ -212,7 +212,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      - parameter from:     The vertex the edge is coming from.
      - parameter to:       The vertex the edge is going to.
      */
-    public func addBidirectionalEdge(weight: EdgeWeightType = 1, capacity: EdgeCapacityType = 1, fromVertex from: VertexNameType, toVertex to: VertexNameType) {
+    open func addBidirectionalEdge(_ weight: EdgeWeightType = 1, capacity: EdgeCapacityType = 1, fromVertex from: VertexNameType, toVertex to: VertexNameType) {
         let edge = EdgeProperties(weight: weight, capacity: capacity)
         addBidirectionalEdge(edge, fromVertex: from, toVertex: to)
     }
@@ -224,8 +224,8 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      - parameter from: The vertex the edge is coming from.
      - parameter to:   The vertex the edge is going to.
      */
-    public func removeEdge(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> EdgeProperties? {
-        return adjacencyList[from]?.removeValueForKey(to)
+    open func removeEdge(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> EdgeProperties? {
+        return adjacencyList[from]?.removeValue(forKey: to)
     }
     
     /**
@@ -236,7 +236,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      - parameter from: The first vertex.
      - parameter to:   The second vertex.
      */
-    public func removeBidirectionalEdge(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> EdgeProperties? {
+    open func removeBidirectionalEdge(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> EdgeProperties? {
         let firstEdge = removeEdge(fromVertex: from, toVertex: to)
         let secondEdge = removeEdge(fromVertex: to, toVertex: from)
         return firstEdge ?? secondEdge
@@ -250,7 +250,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      
      - returns: The edge between the two given vertices, or nil if it doesn't exist.
      */
-    public func getEdge(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> EdgeProperties? {
+    open func getEdge(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> EdgeProperties? {
         return adjacencyList[from]?[to]
     }
     
@@ -260,7 +260,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      - parameter from: The vertex the edge is coming from.
      - parameter to:   The vertex the edge is going to.
      */
-    public func getEdgeWeight(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> EdgeWeightType {
+    open func getEdgeWeight(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> EdgeWeightType {
         return getEdge(fromVertex: from, toVertex: to)?.weight ?? 0
     }
     
@@ -270,7 +270,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      - parameter from: The vertex the edge is coming from.
      - parameter to:   The vertex the edge is going to.
      */
-    public func getEdgeCapacity(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> EdgeCapacityType {
+    open func getEdgeCapacity(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> EdgeCapacityType {
         return getEdge(fromVertex: from, toVertex: to)?.capacity ?? 0
     }
     
@@ -281,7 +281,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      
      - returns: A dictionary where the keys are the to vertices.
      */
-    public func getEdges(fromVertex from: VertexNameType) -> [VertexNameType: EdgeProperties] {
+    open func getEdges(fromVertex from: VertexNameType) -> [VertexNameType: EdgeProperties] {
         var edges = [VertexNameType: EdgeProperties]()
         for to in self.generateVertices() {
             if let edge = getEdge(fromVertex: from, toVertex: to) {
@@ -297,7 +297,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      - parameter from: The vertex the edge is coming from.
      - parameter to:   The vertex the edge is going to.
      */
-    public func containsEdge(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> Bool {
+    open func containsEdge(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> Bool {
         return adjacencyList[from]?[to] != nil
     }
     
@@ -307,7 +307,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      - parameter from: The first vertex.
      - parameter to:   The second vertex.
      */
-    public func containsBidirectionalEdge(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> Bool {
+    open func containsBidirectionalEdge(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> Bool {
         return containsEdge(fromVertex: from, toVertex: to) && containsEdge(fromVertex: to, toVertex: from)
     }
     
@@ -315,7 +315,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      Returns the number of edges. Bidirectional edges are counted once.
      If you want bidirectional edges counted twice, use `numberOfEdges(countBidirectionalEdgesTwice:)`.
      */
-    public var numberOfEdges: Int {
+    open var numberOfEdges: Int {
         return numberOfEdges()
     }
     
@@ -324,7 +324,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      
      - parameter countTwice: Determines whether bidirectional edges should be counted twice.
      */
-    public func numberOfEdges(countBidirectionalEdgesTwice countTwice: Bool = false) -> Int {
+    open func numberOfEdges(countBidirectionalEdgesTwice countTwice: Bool = false) -> Int {
         var count = 0
         if countTwice {
             for vertex in self.generateVertices() {
@@ -362,7 +362,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      
      - complexity: O(E + V*log(V))
      */
-    public func dijkstra(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> ShortestPathResult? {
+    open func dijkstra(fromVertex from: VertexNameType, toVertex to: VertexNameType) -> ShortestPathResult? {
         
         var minimumDistances = [VertexNameType: MinDistance]()
         for vertex in self.generateVertices() {
@@ -387,7 +387,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
                     path.append(nextVertex)
                 }
                 
-                path = path.reverse()
+                path = path.reversed()
                 
                 return ShortestPathResult(path: path, totalDistance: minimumDistances[to]!.distance!)
             }
@@ -425,7 +425,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      
      - complexity: O(VE)
      */
-    public func bellmanFord(fromVertex from: VertexNameType) throws -> [VertexNameType: MinDistance] {
+    open func bellmanFord(fromVertex from: VertexNameType) throws -> [VertexNameType: MinDistance] {
         
         var minimumDistances = [VertexNameType: MinDistance]()
         for vertex in self.generateVertices() {
@@ -453,7 +453,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
                     continue
             }
             if minDistanceBegin + edge.weight < minDistanceEnd {
-                throw GraphError.NegativeCycle
+                throw GraphError.negativeCycle
             }
         }
         
@@ -474,7 +474,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      
      - complexity: O(V^3)
      */
-    public func floydWarshall() throws -> FloydWarshallResult {
+    open func floydWarshall() throws -> FloydWarshallResult {
         
         var minimumDistances = [VertexNameType: [VertexNameType: MinDistance]]()
         for from in self.generateVertices() {
@@ -497,9 +497,9 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
             for from in self.generateVertices() {
                 for to in self.generateVertices() {
                     if let fromToKDist = minimumDistances[from]![k]!.distance,
-                        let kToToDist = minimumDistances[k]![to]!.distance where
+                        let kToToDist = minimumDistances[k]![to]!.distance ,
                         minimumDistances[from]![to]!.distance == nil ||
-                        minimumDistances[from]![to]!.distance > fromToKDist + kToToDist {
+                        minimumDistances[from]![to]!.distance! > fromToKDist + kToToDist {
                         minimumDistances[from]![to]!.distance = fromToKDist + kToToDist
                         minimumDistances[from]![to]!.vertex = minimumDistances[from]![k]!.vertex
                     }
@@ -535,7 +535,7 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
      
      - complexity: O(V)
      */
-    public func bipartition() -> Bipartition? {
+    open func bipartition() -> Bipartition? {
         
         var bipartition = Bipartition()
         
@@ -574,9 +574,9 @@ public class Graph <VertexNameType: protocol<Equatable, Hashable>, EdgeWeightTyp
 /**
  *  A generator that generates the vertices of a graph.
  */
-public struct GraphVerticesGenerator <VertexNameType: protocol<Hashable>, WeightType: protocol<IntegerLiteralConvertible>, CapacityType: protocol<IntegerLiteralConvertible>> : SequenceType, GeneratorType {
+public struct GraphVerticesGenerator <VertexNameType: Hashable, WeightType: ExpressibleByIntegerLiteral, CapacityType: ExpressibleByIntegerLiteral> : Sequence, IteratorProtocol {
     
-    private typealias AdjacencyListGenerator = DictionaryGenerator<VertexNameType, [VertexNameType: GraphEdgeProperties<WeightType, CapacityType>]>
+    fileprivate typealias AdjacencyListGenerator = DictionaryIterator<VertexNameType, [VertexNameType: GraphEdgeProperties<WeightType, CapacityType>]>
     
     
     // MARK: Properties
@@ -584,12 +584,12 @@ public struct GraphVerticesGenerator <VertexNameType: protocol<Hashable>, Weight
     /**
      The graph to generate the vertices of.
      */
-    private var adjacencyListGenerator: AdjacencyListGenerator
+    fileprivate var adjacencyListGenerator: AdjacencyListGenerator
     
     
     // MARK: Initialisers
     
-    private init(adjacencyListGenerator: AdjacencyListGenerator) {
+    fileprivate init(adjacencyListGenerator: AdjacencyListGenerator) {
         self.adjacencyListGenerator = adjacencyListGenerator
     }
     
@@ -612,7 +612,7 @@ public struct GraphVerticesGenerator <VertexNameType: protocol<Hashable>, Weight
  A struct representing an edge in a graph.
  The edge can have a weight and a capacity.
  */
-public struct GraphEdge <VertexNameType, WeightType: protocol<IntegerLiteralConvertible>, CapacityType: protocol<IntegerLiteralConvertible>> {
+public struct GraphEdge <VertexNameType, WeightType: ExpressibleByIntegerLiteral, CapacityType: ExpressibleByIntegerLiteral> {
     
     public typealias Properties = GraphEdgeProperties<WeightType, CapacityType>
     
@@ -671,7 +671,7 @@ public struct GraphEdge <VertexNameType, WeightType: protocol<IntegerLiteralConv
  A struct representing the properties of an edge in a graph.
  The edge can have a weight and a capacity.
  */
-public struct GraphEdgeProperties <WeightType: protocol<IntegerLiteralConvertible>, CapacityType: protocol<IntegerLiteralConvertible>> {
+public struct GraphEdgeProperties <WeightType: ExpressibleByIntegerLiteral, CapacityType: ExpressibleByIntegerLiteral> {
     
     
     // MARK: Properties
@@ -698,41 +698,41 @@ public struct GraphEdgeProperties <WeightType: protocol<IntegerLiteralConvertibl
 /**
  A generator that generates all the edges of a graph.
  */
-public class GraphEdgesGenerator <VertexNameType: protocol<Hashable>, WeightType: protocol<IntegerLiteralConvertible, Addable, Comparable>, CapacityType: protocol<IntegerLiteralConvertible>> : SequenceType, GeneratorType {
+open class GraphEdgesGenerator <VertexNameType: Hashable, WeightType: ExpressibleByIntegerLiteral & Addable & Comparable, CapacityType: ExpressibleByIntegerLiteral> : Sequence, IteratorProtocol {
     
-    private typealias VerticesGenerator = GraphVerticesGenerator<VertexNameType, WeightType, CapacityType>
-    private typealias GraphType = Graph<VertexNameType, WeightType, CapacityType>
+    fileprivate typealias VerticesGenerator = GraphVerticesGenerator<VertexNameType, WeightType, CapacityType>
+    fileprivate typealias GraphType = Graph<VertexNameType, WeightType, CapacityType>
     public typealias Edge = GraphEdge<VertexNameType, WeightType, CapacityType>
     
     
     // MARK: Properties
     
-    private var graph: GraphType
+    fileprivate var graph: GraphType
     
     /**
      The first vertices generator.
      */
-    private var firstVerticesGenerator: VerticesGenerator
+    fileprivate var firstVerticesGenerator: VerticesGenerator
     
     /**
      The current vertex the edges are coming from.
      */
-    private var from: VertexNameType?
+    fileprivate var from: VertexNameType?
     
     /**
      The second vertices generator.
      */
-    private var secondVerticesGenerator: VerticesGenerator
+    fileprivate var secondVerticesGenerator: VerticesGenerator
     
     /**
      A unused vertices generator.
      */
-    private let unusedVerticesGenerator: VerticesGenerator
+    fileprivate let unusedVerticesGenerator: VerticesGenerator
     
     
     // MARK: Initialisers
     
-    private init(graph: GraphType, firstVerticesGenerator: VerticesGenerator) {
+    fileprivate init(graph: GraphType, firstVerticesGenerator: VerticesGenerator) {
         self.graph = graph
         self.firstVerticesGenerator = firstVerticesGenerator
         self.secondVerticesGenerator = firstVerticesGenerator
@@ -743,7 +743,7 @@ public class GraphEdgesGenerator <VertexNameType: protocol<Hashable>, WeightType
     
     // MARK: GeneratorType
     
-    @warn_unused_result public func next() -> Edge? {
+    open func next() -> Edge? {
         while from != nil {
             while let to = secondVerticesGenerator.next() {
                 if let edge = graph.getEdge(fromVertex: from!, toVertex: to) {
@@ -763,7 +763,7 @@ public class GraphEdgesGenerator <VertexNameType: protocol<Hashable>, WeightType
 /**
  *  A struct representing the result of a shortest path algorithm.
  */
-public struct GraphShortestPathResult <VertexNameType, DistanceType: protocol<IntegerLiteralConvertible>> {
+public struct GraphShortestPathResult <VertexNameType, DistanceType: ExpressibleByIntegerLiteral> {
     
     
     // MARK: Properties
@@ -828,7 +828,7 @@ public struct GraphMinDistance <VertexNameType, DistanceType> {
 /**
  *  A struct to represent the result of the Floyd-Warshall algorithm.
  */
-public struct GraphFloydWarshallResult <VertexNameType: protocol<Hashable>, DistanceType: protocol<IntegerLiteralConvertible>> {
+public struct GraphFloydWarshallResult <VertexNameType: Hashable, DistanceType: ExpressibleByIntegerLiteral> {
     
     public typealias MinDistance = GraphMinDistance<VertexNameType, DistanceType>
     public typealias ShortestPathResult = GraphShortestPathResult<VertexNameType, DistanceType>
@@ -875,7 +875,7 @@ public struct GraphFloydWarshallResult <VertexNameType: protocol<Hashable>, Dist
 /**
  *  A struct to represent a biparition of a graph.
  */
-public struct GraphBipartition <VertexNameType: protocol<Hashable>> {
+public struct GraphBipartition <VertexNameType: Hashable> {
     
     
     // MARK: Properties
@@ -911,7 +911,7 @@ public struct GraphBipartition <VertexNameType: protocol<Hashable>> {
      
      - parameter vertex: The vertex to check.
      */
-    public func containsVertex(vertex: VertexNameType) -> Bool {
+    public func containsVertex(_ vertex: VertexNameType) -> Bool {
         return self.firstSet.contains(vertex) || self.secondSet.contains(vertex)
     }
     
@@ -923,7 +923,7 @@ public struct GraphBipartition <VertexNameType: protocol<Hashable>> {
      - returns: 1 if the vertex is in the first set, 2 if it's in the second and nil
                 if it's not in any set.
      */
-    public func setNumberOfVertex(vertex: VertexNameType) -> Int? {
+    public func setNumberOfVertex(_ vertex: VertexNameType) -> Int? {
         if self.firstSet.contains(vertex) {
             return 1
         } else if self.secondSet.contains(vertex) {
@@ -939,13 +939,13 @@ public struct GraphBipartition <VertexNameType: protocol<Hashable>> {
      - parameter vertex:    The vertex to add.
      - parameter setNumber: The number of the set to add the vertex to. This should be either 1 or 2.
      */
-    public mutating func addVertex(vertex: VertexNameType, toSetWithNumber setNumber: Int) {
+    public mutating func addVertex(_ vertex: VertexNameType, toSetWithNumber setNumber: Int) {
         if setNumber == 1 {
             self.firstSet.insert(vertex)
         } else if setNumber == 2 {
             self.secondSet.insert(vertex)
         } else {
-            NSException(name: "Invalid set number", reason: "The set number \(setNumber) is invalid.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Invalid set number"), reason: "The set number \(setNumber) is invalid.", userInfo: nil).raise()
         }
     }
     
@@ -955,9 +955,9 @@ public struct GraphBipartition <VertexNameType: protocol<Hashable>> {
      - parameter vertex: The vertex to add.
      - parameter other:  A vertex in the set where the vertex should not be added to.
      */
-    public mutating func addVertex(vertex: VertexNameType, toOppositeSetOfVertex other: VertexNameType) {
+    public mutating func addVertex(_ vertex: VertexNameType, toOppositeSetOfVertex other: VertexNameType) {
         guard var setNumber = setNumberOfVertex(other) else {
-            NSException(name: "Unknown vertex", reason: "The bipartition doesn't contain the given vertex.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Unknown vertex"), reason: "The bipartition doesn't contain the given vertex.", userInfo: nil).raise()
             return
         }
         setNumber = setNumber % 2 + 1
@@ -971,7 +971,7 @@ public struct GraphBipartition <VertexNameType: protocol<Hashable>> {
      - parameter firstVertex:  The first vertex.
      - parameter secondVertex: The second vertex.
      */
-    public func inSameSet(firstVertex: VertexNameType, _ secondVertex: VertexNameType) -> Bool {
+    public func inSameSet(_ firstVertex: VertexNameType, _ secondVertex: VertexNameType) -> Bool {
         guard let firstSetNumber = setNumberOfVertex(firstVertex), let secondSetNumber = setNumberOfVertex(secondVertex) else {
             fatalError("One or both of the vertices are not in the bipartition.")
         }
@@ -985,7 +985,7 @@ public struct GraphBipartition <VertexNameType: protocol<Hashable>> {
      - parameter firstVertex:  The first vertex.
      - parameter secondVertex: The second vertex.
      */
-    public func inDifferentSets(firstVertex: VertexNameType, _ secondVertex: VertexNameType) -> Bool {
+    public func inDifferentSets(_ firstVertex: VertexNameType, _ secondVertex: VertexNameType) -> Bool {
         return !inSameSet(firstVertex, secondVertex)
     }
 }
@@ -998,7 +998,7 @@ public struct GraphBipartition <VertexNameType: protocol<Hashable>> {
  
  - NegativeCycle: Means the graph contains a negative cycle.
  */
-public enum GraphError: ErrorType {
+public enum GraphError: Error {
     
-    case NegativeCycle
+    case negativeCycle
 }

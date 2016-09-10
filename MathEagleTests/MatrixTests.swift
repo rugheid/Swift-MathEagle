@@ -76,9 +76,9 @@ class MatrixTests: XCTestCase {
     
     func testSymmetricalInitPerformance() {
         
-        let diagonalElements = [Int](count: 50, repeatedValue: 4)
+        let diagonalElements = [Int](repeating: 4, count: 50)
         
-        self.measureBlock(){
+        self.measure(){
             
             _ = Matrix(symmetrical: diagonalElements)
         }
@@ -101,7 +101,7 @@ class MatrixTests: XCTestCase {
     
     func testFilledWithSizeInitPerformance() {
         
-        self.measureBlock(){
+        self.measure(){
             
             _ = Matrix(filledWith: 4, size: 10000)
         }
@@ -138,7 +138,7 @@ class MatrixTests: XCTestCase {
     
     func testIdentityPerformance() {
         
-        self.measureBlock(){
+        self.measure(){
             
             _ = Matrix<Int>(identityOfSize: 1000)
         }
@@ -580,7 +580,7 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(Matrix<Int>(), try! matrix.upperTriangle())
         
         do {
-            try matrix.upperTriangle(1)
+            let _ = try matrix.upperTriangle(1)
             XCTAssert(false)
         } catch {
             XCTAssert(true)
@@ -679,7 +679,7 @@ class MatrixTests: XCTestCase {
     
     func testMaxValuePerformance() {
         
-        getCoefficients(n0: 10, numberOfIterations: 5){
+        let _ = getCoefficients(n0: 10, numberOfIterations: 5){
             
             let matrix = Matrix<Int>(randomWithSize: $0, intervals: -1000 ... 1000)
             
@@ -694,9 +694,9 @@ class MatrixTests: XCTestCase {
         
         let matrix = Matrix<Int>(randomWithSize: 100, intervals: -1000 ... 1000)
         
-        self.measureBlock(){
+        self.measure(){
             
-            matrix.maxElement
+            let _ = matrix.maxElement
         }
     }
     
@@ -843,7 +843,7 @@ class MatrixTests: XCTestCase {
         
         let (_, b) = getCoefficients(n0: 10, numberOfIterations: 5){
             
-            let matrixElements = [Int](count: 2*$0 - 1, repeatedValue: 2)
+            let matrixElements = [Int](repeating: 2, count: 2*$0 - 1)
             
             let matrix = Matrix(symmetrical: matrixElements)
             
@@ -1209,14 +1209,14 @@ class MatrixTests: XCTestCase {
         
         let matrix = Matrix<Double>([[1, 2, 1], [2, 6, 5], [3, 14, 19]])
         
-        let start = NSDate()
+        let start = Date()
         
         for _ in 0 ..< 100 {
             
-            matrix.LUDecomposition
+            let _ = matrix.LUDecomposition
         }
         
-        let elapsed = NSDate().timeIntervalSinceDate(start)
+        let elapsed = Date().timeIntervalSince(start)
         let python = 0.011
         let slower = elapsed/python
         
@@ -1348,7 +1348,7 @@ class MatrixTests: XCTestCase {
     
     func testMatrixMultiplicationPerformance() {
         
-        getCoefficients(n0: 3, numberOfIterations: 3){
+        let _ = getCoefficients(n0: 3, numberOfIterations: 3){
             
             let left = Matrix<Int>(randomWithSize: $0, intervals: 0 ... 10)
             let right = Matrix<Int>(randomWithSize: $0, intervals: 0 ... 10)

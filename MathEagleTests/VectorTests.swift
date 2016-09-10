@@ -181,9 +181,9 @@ class VectorTests: XCTestCase {
         
         let vector = Vector<Double>(randomWithLength: 1000, intervals: -2...2)
         
-        self.measureBlock(){
+        self.measure(){
             
-            vector.norm
+            let _ = vector.norm
         }
     }
     

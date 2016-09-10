@@ -16,7 +16,7 @@ import Foundation
     
     - returns: -1 if the value is smaller than 0, 0 if the value is 0 and 1 if the value is bigger than 0
 */
-public func sign <X: protocol<Equatable, Comparable, IntegerLiteralConvertible>> (x: X) -> Int {
+public func sign <X: Equatable & Comparable & ExpressibleByIntegerLiteral> (_ x: X) -> Int {
     
     if x == 0 { return 0 }
     else if x < 0 { return -1 }
@@ -29,7 +29,7 @@ public func sign <X: protocol<Equatable, Comparable, IntegerLiteralConvertible>>
  
  - parameter x: The value to get the absolute value from.
  */
-public func abs <X: protocol<Equatable, Comparable, IntegerLiteralConvertible, Negatable>> (x: X) -> X {
+public func abs <X: Equatable & Comparable & ExpressibleByIntegerLiteral & Negatable> (_ x: X) -> X {
     let sgn = sign(x)
     if sgn == 0 {
         return 0
@@ -50,16 +50,16 @@ public func abs <X: protocol<Equatable, Comparable, IntegerLiteralConvertible, N
 
     :exceptions: Throws an exception if the given value is not a natural number.
 */
-public func factorial <X: protocol<Comparable, Addable, Subtractable, Multiplicable, SetCompliant, IntegerLiteralConvertible>> (x: X) -> X {
+public func factorial <X: Comparable & Addable & Subtractable & Multiplicable & SetCompliant & ExpressibleByIntegerLiteral> (_ x: X) -> X {
     
     if x < 0 {
         
-        NSException(name: "x < 0", reason: "The factorial does not exist for n < 0.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "x < 0"), reason: "The factorial does not exist for n < 0.", userInfo: nil).raise()
     }
     
     if !x.isInteger {
         
-        NSException(name: "x not integer", reason: "The factorial only exists for integers.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "x not integer"), reason: "The factorial only exists for integers.", userInfo: nil).raise()
     }
     
     if x <= 1 { return 1 }
@@ -88,7 +88,7 @@ public func factorial <X: protocol<Comparable, Addable, Subtractable, Multiplica
 
     :example: factorialsUpTo(5) returns [1, 1, 2, 6, 24, 120]
 */
-public func factorialsUpTo <X: protocol<Comparable, Addable, Subtractable, Multiplicable, SetCompliant, IntegerLiteralConvertible>> (x: X) -> [X] {
+public func factorialsUpTo <X: Comparable & Addable & Subtractable & Multiplicable & SetCompliant & ExpressibleByIntegerLiteral> (_ x: X) -> [X] {
     
     if x < 0 { return [] }
     
@@ -109,13 +109,13 @@ public func factorialsUpTo <X: protocol<Comparable, Addable, Subtractable, Multi
 /**
     Returns the n'th Fibonacci number, with fib(0) = 0 and fib(1) = 1
 */
-public func fib <X: protocol<Hashable, Addable, Subtractable, IntegerLiteralConvertible>> (n: X) -> X {
+public func fib <X: Hashable & Addable & Subtractable & ExpressibleByIntegerLiteral> (_ n: X) -> X {
     
     var memo: [X: X] = [0: 0, 1: 1]
     return memoFib(n, memo: &memo)
 }
 
-private func memoFib <X: protocol<Hashable, Addable, Subtractable, IntegerLiteralConvertible>> (n: X, inout memo: [X: X]) -> X {
+private func memoFib <X: Hashable & Addable & Subtractable & ExpressibleByIntegerLiteral> (_ n: X, memo: inout [X: X]) -> X {
     
     if let answer = memo[n] { return answer }
     
@@ -132,7 +132,7 @@ private func memoFib <X: protocol<Hashable, Addable, Subtractable, IntegerLitera
  - parameter z: The point to evaluate the gamma function in.
  - parameter precision: The number of fractional digits required.
 */
-public func gamma(z: Double, precision n: Int = 7) -> Double {
+public func gamma(_ z: Double, precision n: Int = 7) -> Double {
     // Some theory used from http://en.literateprograms.org/Gamma_function_with_Spouge's_formula_(Mathematica)
     
     // TODO: Benchmark this method + add checks for natural and half natural numbers

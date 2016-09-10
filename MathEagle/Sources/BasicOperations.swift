@@ -13,8 +13,8 @@ import Foundation
 
 public protocol Addable {
     
-    func + (left: Self, right: Self) -> Self
-    func += (inout left: Self, right: Self)
+    static func + (left: Self, right: Self) -> Self
+    static func += (left: inout Self, right: Self)
 }
 
 
@@ -22,7 +22,7 @@ public protocol Addable {
 
 public protocol Negatable {
     
-    prefix func - (instance: Self) -> Self
+    prefix static func - (instance: Self) -> Self
 }
 
 public prefix func - (x: UInt) -> UInt {
@@ -46,7 +46,7 @@ public prefix func - (x: UInt64) -> UInt64 {
 
 public protocol Subtractable {
     
-    func - (left: Self, right: Self) -> Self
+    static func - (left: Self, right: Self) -> Self
 }
 
 
@@ -54,7 +54,7 @@ public protocol Subtractable {
 
 public protocol Multiplicable {
     
-    func * (left: Self, right: Self) -> Self
+    static func * (left: Self, right: Self) -> Self
 }
 
 
@@ -62,7 +62,7 @@ public protocol Multiplicable {
 
 public protocol Dividable {
     
-    func / (left: Self, right: Self) -> Self
+    static func / (left: Self, right: Self) -> Self
 }
 
 
@@ -70,7 +70,7 @@ public protocol Dividable {
 
 public protocol Modulable {
     
-    func % (left: Self, right: Self) -> Self
+    static func % (left: Self, right: Self) -> Self
 }
 
 

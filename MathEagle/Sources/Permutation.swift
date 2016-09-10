@@ -12,7 +12,7 @@ import Foundation
 /**
     A class representing a permutation.
 */
-public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConvertible, Hashable {
+open class Permutation: ExpressibleByArrayLiteral, Equatable, CustomStringConvertible, Hashable {
     
     
     // MARK: Class Settings
@@ -20,7 +20,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
     /**
         Defines how the descriptions of Permuations are formatted.
     */
-    public static var descriptionType: DescriptionType = .ArrayRepresentation
+    open static var descriptionType: DescriptionType = .arrayRepresentation
     
     
     
@@ -33,7 +33,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
     
         :example: [3, 1, 0, 4]
     */
-    public var arrayRepresentation = [Int]()
+    open var arrayRepresentation = [Int]()
     
     
     
@@ -53,7 +53,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
     public init(arrayRepresentation: [Int]) {
         
         if !isValidArrayRepresentation(arrayRepresentation) {
-            NSException(name: "Invalid Array Representation", reason: "The given array representation is not a valid array representation.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Invalid Array Representation"), reason: "The given array representation is not a valid array representation.", userInfo: nil).raise()
         }
         
         self.arrayRepresentation = arrayRepresentation
@@ -81,7 +81,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
     public init(identityOfLength length: Int) {
         
         if length < 0 {
-            NSException(name: "Negative Length", reason: "A permutation can not have a negative length.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Negative Length"), reason: "A permutation can not have a negative length.", userInfo: nil).raise()
         }
         
         self.arrayRepresentation = []
@@ -102,7 +102,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
         
         - parameter index:   The index to take the element from.
     */
-    public subscript(index: Int) -> Int {
+    open subscript(index: Int) -> Int {
         
         return self.element(index)
     }
@@ -113,7 +113,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
     
         - parameter indexRange:  The indices to take the elements from.
     */
-    public subscript(indexRange: Range<Int>) -> [Int] {
+    open subscript(indexRange: CountableClosedRange<Int>) -> [Int] {
         
         get {
             var slice = [Int]()
@@ -126,7 +126,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
         }
         
         set(newElements) {
-            self.arrayRepresentation.replaceRange(indexRange, with: newElements)
+            self.arrayRepresentation.replaceSubrange(indexRange, with: newElements)
         }
     }
     
@@ -137,7 +137,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
     /**
         Returns the length of the permutation.
     */
-    public var length: Int {
+    open var length: Int {
         
         return self.arrayRepresentation.count
     }
@@ -147,15 +147,15 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
         Returns a description of the permutation. The formatting of this description can be set
         using Permutation's `descriptionType` property.
     */
-    public var description: String {
+    open var description: String {
         
         switch Permutation.descriptionType {
             
-        case .ArrayRepresentation:
+        case .arrayRepresentation:
             
             return self.arrayRepresentation.description
             
-        case .WordRepresentation:
+        case .wordRepresentation:
             
             return self.wordRepresentation
         }
@@ -165,7 +165,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
     /**
         Returns a hash value for the permutation.
     */
-    public var hashValue: Int {
+    open var hashValue: Int {
         
         //FIXME: This is a bad implementation, think of a better one.
         return sum(self.arrayRepresentation)
@@ -177,13 +177,13 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
     
         :example: [1, 0, 2] is represented as [0: 1, 1: 0, 2: 2]
     */
-    public var dictionaryRepresentation: [Int: Int] {
+    open var dictionaryRepresentation: [Int: Int] {
         
         get {
             
             var dict = [Int: Int]()
             
-            for (index, element) in self.arrayRepresentation.enumerate() {
+            for (index, element) in self.arrayRepresentation.enumerated() {
                 dict[index] = element
             }
             
@@ -197,7 +197,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
     
         :example: 3 2 0 1
     */
-    public var wordRepresentation: String {
+    open var wordRepresentation: String {
         
         return self.arrayRepresentation.reduce(""){ $0 + " \($1)" }
     }
@@ -206,7 +206,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
     /**
         Returns a set containing the cycles of this permutation.
     */
-    public var cycles: Set<Cycle> {
+    open var cycles: Set<Cycle> {
         
         get {
             
@@ -249,11 +249,11 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
     
         :example: The permutation [0, 2, 1, 3] returns [0, 3]
     */
-    public var fixedPoints: [Int] {
+    open var fixedPoints: [Int] {
         
         var fixedPoints = [Int]()
         
-        for (index, element) in self.arrayRepresentation.enumerate() {
+        for (index, element) in self.arrayRepresentation.enumerated() {
             
             if index == element { fixedPoints.append(index) }
         }
@@ -267,11 +267,11 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
     
         :example: The permutation [0, 2, 1, 3] has 2 fixed points (0 and 3).
     */
-    public var numberOfFixedPoints: Int {
+    open var numberOfFixedPoints: Int {
         
         var count = 0
         
-        for (index, element) in self.arrayRepresentation.enumerate() {
+        for (index, element) in self.arrayRepresentation.enumerated() {
             
             if index == element { count += 1 }
         }
@@ -284,7 +284,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
         Returns the parity of the permutation. This is the number of transpositions in the transposition
         decomposition.
     */
-    public var parity: Parity {
+    open var parity: Parity {
         
         return sum(self.cycles.map{ $0.parity })
     }
@@ -294,7 +294,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
         Returns the sign (aka signature) of the permutation. This is either 1 if the permutation has an even parity
         or -1 if the permutation has an odd parity.
     */
-    public var sign: Int {
+    open var sign: Int {
         
         return self.parity.sign
     }
@@ -310,10 +310,10 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
         :exception: Throws an exception when the given index is invalid. This means it's either
                     negative or bigger than the permutation's size.
     */
-    public func element(index: Int) -> Int {
+    open func element(_ index: Int) -> Int {
         
         if index < 0 || index >= self.length {
-            NSException(name: "Invalid Index", reason: "The given index is not valid.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Invalid Index"), reason: "The given index is not valid.", userInfo: nil).raise()
         }
         
         return self.arrayRepresentation[index]
@@ -330,13 +330,13 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
     
         :complexity: This method runs in O(n), where n is the size of the permutation.
     */
-    public func indexOfElement(element: Int) -> Int {
+    open func indexOfElement(_ element: Int) -> Int {
         
         if element < 0 || element >= self.length {
-            NSException(name: "Invalid Element", reason: "The given element is not valid.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Invalid Element"), reason: "The given element is not valid.", userInfo: nil).raise()
         }
         
-        return self.arrayRepresentation.indexOf(element)!
+        return self.arrayRepresentation.index(of: element)!
     }
     
     
@@ -349,7 +349,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
         - parameter fromIndex:   The index of the first element.
         - parameter toIndex:     The index of the second element.
     */
-    public func switchElements(i: Int, _ j: Int) {
+    open func switchElements(_ i: Int, _ j: Int) {
         
         let temp = self[i]
         self.arrayRepresentation[i] = self[j]
@@ -367,7 +367,7 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
     
         - returns: true if it would be a valid array representation.
     */
-    private func isValidArrayRepresentation(arrayRepresentation: [Int]) -> Bool {
+    fileprivate func isValidArrayRepresentation(_ arrayRepresentation: [Int]) -> Bool {
         
         var alreadySeen = Set<Int>()
         let n = arrayRepresentation.count
@@ -401,14 +401,14 @@ public class Permutation: ArrayLiteralConvertible, Equatable, CustomStringConver
             
             :example: [3, 2, 0, 1]
         */
-        case ArrayRepresentation
+        case arrayRepresentation
         
         /**
             Indicates one-line notation or a word representation.
         
             :example: 3 2 0 1
         */
-        case WordRepresentation
+        case wordRepresentation
         
         //TODO: Implement cycle notation and transposition notation.
     }

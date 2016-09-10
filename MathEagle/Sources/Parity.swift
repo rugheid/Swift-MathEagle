@@ -11,13 +11,13 @@ import Foundation
 /**
     Defines either even or odd.
 */
-public enum Parity: IntegerLiteralConvertible, Addable, Subtractable, Multiplicable {
+public enum Parity: ExpressibleByIntegerLiteral, Addable, Subtractable, Multiplicable {
     
     /// Denotes an even parity.
-    case Even
+    case even
     
     /// Denotes an odd parity.
-    case Odd
+    case odd
     
     
     
@@ -35,9 +35,9 @@ public enum Parity: IntegerLiteralConvertible, Addable, Subtractable, Multiplica
     /**
         Returns a parity from the value modulo 2.
     */
-    public static func fromMod2Remainder(value: Int) -> Parity {
+    public static func fromMod2Remainder(_ value: Int) -> Parity {
         
-        return value % 2 == 0 ? .Even : .Odd
+        return value % 2 == 0 ? .even : .odd
     }
     
     
@@ -46,13 +46,13 @@ public enum Parity: IntegerLiteralConvertible, Addable, Subtractable, Multiplica
     
         :exception: Throws an exception when the given value equals zero.
     */
-    public static func fromSign(value: Int) -> Parity {
+    public static func fromSign(_ value: Int) -> Parity {
         
         if value == 0 {
-            NSException(name: "Sign can't be 0.", reason: "The sign to initialise from can't be 0.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Sign can't be 0."), reason: "The sign to initialise from can't be 0.", userInfo: nil).raise()
         }
         
-        return value > 0 ? .Even : .Odd
+        return value > 0 ? .even : .odd
     }
     
     
@@ -64,7 +64,7 @@ public enum Parity: IntegerLiteralConvertible, Addable, Subtractable, Multiplica
     */
     public var mod2Remainder: Int {
         
-        return self == .Even ? 0 : 1
+        return self == .even ? 0 : 1
     }
     
     
@@ -73,7 +73,7 @@ public enum Parity: IntegerLiteralConvertible, Addable, Subtractable, Multiplica
     */
     public var sign: Int {
         
-        return self == .Even ? 1 : -1
+        return self == .even ? 1 : -1
     }
 }
 
@@ -86,10 +86,10 @@ public enum Parity: IntegerLiteralConvertible, Addable, Subtractable, Multiplica
 */
 public func + (left: Parity, right: Parity) -> Parity {
     
-    return left == right ? .Even : .Odd
+    return left == right ? .even : .odd
 }
 
-public func += (inout left: Parity, right: Parity) {
+public func += (left: inout Parity, right: Parity) {
     
     left = left + right
 }
@@ -117,5 +117,5 @@ public func - (left: Parity, right: Parity) -> Parity {
 */
 public func * (left: Parity, right: Parity) -> Parity {
     
-    return left == .Odd && right == .Odd ? .Odd : .Even
+    return left == .odd && right == .odd ? .odd : .even
 }

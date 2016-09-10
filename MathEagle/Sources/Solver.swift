@@ -33,14 +33,14 @@ public struct Solver {
     
         :exception: An exception will be thrown if a > b.
     */
-    public static func bisection <T: protocol<Addable, Subtractable, Equatable, Comparable, IntegerLiteralConvertible, Negatable, Multiplicable, FloatLiteralConvertible>> (a: T, _ b: T, accuracy error: T = 1e-7, maxTime t_m: Double? = nil, _ f: (T) -> T) -> T {
+    public static func bisection <T: Addable & Subtractable & Equatable & Comparable & ExpressibleByIntegerLiteral & Negatable & Multiplicable & ExpressibleByFloatLiteral> (_ a: T, _ b: T, accuracy error: T = 1e-7, maxTime t_m: Double? = nil, _ f: (T) -> T) -> T {
         
         if a > b {
             
-            NSException(name: "a > b", reason: "[\(a), \(b)] is not a valid interval. a should be smaller than b.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "a > b"), reason: "[\(a), \(b)] is not a valid interval. a should be smaller than b.", userInfo: nil).raise()
         }
         
-        let start = NSDate()
+        let start = Date()
         
         let t_max = t_m ?? maxTime
         
@@ -48,12 +48,12 @@ public struct Solver {
         
         if sign(fa) == sign(fb) {
             
-            NSException(name: "Not shure if given interval contains zero", reason: "The signs of f(a) and f(b) are equal, which means the bisection method cannot narrow the search. You have to provide a valid interval.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Not shure if given interval contains zero"), reason: "The signs of f(a) and f(b) are equal, which means the bisection method cannot narrow the search. You have to provide a valid interval.", userInfo: nil).raise()
         }
         
         var A = a, B = b, x = (A+B)*0.5
         
-        while NSDate().timeIntervalSinceDate(start) < t_max && abs(B-A) > 2*error {
+        while Date().timeIntervalSince(start) < t_max && abs(B-A) > 2*error {
             
             let fx = f(x)
             
@@ -86,9 +86,9 @@ public struct Solver {
     
         - returns: The zero value of f.
     */
-    public static func newton <T: protocol<Addable, Subtractable, Negatable, Multiplicable, Dividable, IntegerLiteralConvertible, FloatLiteralConvertible, Equatable, Comparable>> (x0: T, df: ((T) -> T)? = nil, accuracy error: T = 1e-7, k_max: Int = 100, maxTime t_m: Double? = nil, f: (T) -> T) -> T {
+    public static func newton <T: Addable & Subtractable & Negatable & Multiplicable & Dividable & ExpressibleByIntegerLiteral & ExpressibleByFloatLiteral & Equatable & Comparable> (_ x0: T, df: ((T) -> T)? = nil, accuracy error: T = 1e-7, k_max: Int = 100, maxTime t_m: Double? = nil, f: (T) -> T) -> T {
         
-        let start = NSDate()
+        let start = Date()
         
         let t_max = t_m ?? maxTime
         let shouldApproximateDf = (df == nil)
@@ -97,7 +97,7 @@ public struct Solver {
         var k = 1
         var x = x0
         
-        while k <= k_max && NSDate().timeIntervalSinceDate(start) < t_max && !converged {
+        while k <= k_max && Date().timeIntervalSince(start) < t_max && !converged {
             
             let xprev = x
             let diff = shouldApproximateDf ? (f(x + error) - f(x - error))/(2 * error) : df!(x)

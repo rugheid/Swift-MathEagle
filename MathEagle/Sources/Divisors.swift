@@ -19,7 +19,7 @@ An empty list will be returned for values smaller than or equal to zero.
 
 :example: divisors(10) returns [1, 2, 5, 10]
 */
-public func divisors <X: protocol<Equatable, Comparable, Modulable, Dividable, RealPowerable, IntegerLiteralConvertible> where X.RealPowerType: protocol<Comparable, Addable, IntegerLiteralConvertible>> (x: X) -> [X] {
+public func divisors <X: Equatable & Comparable & Modulable & Dividable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> [X] where X.RealPowerType: Comparable & Addable & ExpressibleByIntegerLiteral {
     
     if x <= 0 { return [] }
     if x == 1 { return [1] }
@@ -41,7 +41,7 @@ public func divisors <X: protocol<Equatable, Comparable, Modulable, Dividable, R
         i = i + 1
     }
     
-    return div.sort { $0 < $1 }
+    return div.sorted { $0 < $1 }
 }
 
 
@@ -56,7 +56,7 @@ An empty list will be returned for values smaller than or equal to 1.
 
 :example: divisors(10) returns [1, 2, 5]
 */
-public func properDivisors <X: protocol<Equatable, Comparable, Modulable, Dividable, RealPowerable, IntegerLiteralConvertible> where X.RealPowerType: protocol<Comparable, Addable, IntegerLiteralConvertible>> (x: X) -> [X] {
+public func properDivisors <X: Equatable & Comparable & Modulable & Dividable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> [X] where X.RealPowerType: Comparable & Addable & ExpressibleByIntegerLiteral {
     
     if x <= 1 { return [] }
     
@@ -77,7 +77,7 @@ public func properDivisors <X: protocol<Equatable, Comparable, Modulable, Divida
         i = i + 1
     }
     
-    return div.sort { $0 < $1 }
+    return div.sorted { $0 < $1 }
 }
 
 
@@ -88,7 +88,7 @@ Returns whether the given number is a perfect number. This means the sum of it's
 
 - returns: true if the given number is a perfect number.
 */
-public func isPerfect <X: protocol<Equatable, Comparable, Addable, Modulable, Dividable, RealPowerable, IntegerLiteralConvertible> where X.RealPowerType: protocol<Comparable, Addable, IntegerLiteralConvertible>> (x: X) -> Bool {
+public func isPerfect <X: Equatable & Comparable & Addable & Modulable & Dividable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> Bool where X.RealPowerType: Comparable & Addable & ExpressibleByIntegerLiteral {
     
     return sum(properDivisors(x)) == x
 }
@@ -102,7 +102,7 @@ greater than the number itself.
 
 - returns: true if the number is abundant.
 */
-public func isAbundant <X: protocol<Equatable, Comparable, Addable, Modulable, Dividable, RealPowerable, IntegerLiteralConvertible> where X.RealPowerType: protocol<Comparable, Addable, IntegerLiteralConvertible>> (x: X) -> Bool {
+public func isAbundant <X: Equatable & Comparable & Addable & Modulable & Dividable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> Bool where X.RealPowerType: Comparable & Addable & ExpressibleByIntegerLiteral {
     
     return sum(properDivisors(x)) > x
 }
@@ -114,7 +114,7 @@ included when it is abundant.
 
 - parameter x:   The maximum allowed number to include.
 */
-public func abundantsUpTo <X: protocol<Equatable, Comparable, Addable, Modulable, Dividable, RealPowerable, IntegerLiteralConvertible> where X.RealPowerType: protocol<Comparable, Addable, IntegerLiteralConvertible>> (x: X) -> Set<X> {
+public func abundantsUpTo <X: Equatable & Comparable & Addable & Modulable & Dividable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> Set<X> where X.RealPowerType: Comparable & Addable & ExpressibleByIntegerLiteral {
     
     if x < 12 { return [] }
     
@@ -153,7 +153,7 @@ less than the number itself.
 
 - returns: true if the number is deficient.
 */
-public func isDeficient <X: protocol<Equatable, Comparable, Addable, Modulable, Dividable, RealPowerable, IntegerLiteralConvertible> where X.RealPowerType: protocol<Comparable, Addable, IntegerLiteralConvertible>> (x: X) -> Bool {
+public func isDeficient <X: Equatable & Comparable & Addable & Modulable & Dividable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> Bool where X.RealPowerType: Comparable & Addable & ExpressibleByIntegerLiteral {
     
     return sum(properDivisors(x)) < x
 }
@@ -168,7 +168,7 @@ Returns the greatest common divisor of the two given numbers.
 - returns: The greatest common divisor of the two given numbers. When either a or b equals 0, the not-zero
 number is returned.
 */
-public func gcd <X: protocol<Equatable, Comparable, Negatable, Modulable, IntegerLiteralConvertible>> (a: X, _ b: X) -> X {
+public func gcd <X: Equatable & Comparable & Negatable & Modulable & ExpressibleByIntegerLiteral> (_ a: X, _ b: X) -> X {
     
     if a == 0 || b == 0 { return a == 0 ? b : a }
     
@@ -193,7 +193,7 @@ Returns the least common multiple of the two given numbers.
 
 - returns: The least common multiple of the two given numbers. When either a or b equals zero, zero is returned.
 */
-public func lcm <X: protocol<Equatable, Comparable, Negatable, Multiplicable, Dividable, Modulable, IntegerLiteralConvertible>> (a: X, _ b: X) -> X {
+public func lcm <X: Equatable & Comparable & Negatable & Multiplicable & Dividable & Modulable & ExpressibleByIntegerLiteral> (_ a: X, _ b: X) -> X {
     
     if a == 0 || b == 0 { return 0 }
     
@@ -211,7 +211,7 @@ public func lcm <X: protocol<Equatable, Comparable, Negatable, Multiplicable, Di
     - parameter exponent:        The exponent to which a number to be raised to become x.
     - parameter integersAllowed: Indicates whether the base should be natural or integer.
 */
-public func isPower <X: RealPowerable where X.RealPowerType: SetCompliant> (x:X, _ order: Int, integersAllowed: Bool = true) -> Bool {
+public func isPower <X: RealPowerable> (_ x:X, _ order: Int, integersAllowed: Bool = true) -> Bool where X.RealPowerType: SetCompliant {
     
     //TODO: Edge cases here? Negative exponents, non integer exponents?
     //FIXME: function doesn't work for some values, see tests. The problem lies with the root function

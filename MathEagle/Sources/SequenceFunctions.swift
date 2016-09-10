@@ -20,7 +20,7 @@ import Accelerate
     - returns: The sum of all elements in the sequence. When the sequence is
                 empty zero is returned.
 */
-public func sum <S: SequenceType where S.Generator.Element: protocol<Addable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
+public func sum <S: Sequence> (_ seq: S) -> S.Iterator.Element where S.Iterator.Element: Addable & ExpressibleByIntegerLiteral {
     
     return seq.reduce(0){ $0 + $1 }
 }
@@ -34,7 +34,7 @@ Returns the sum of all elements in the array.
 - returns: The sum of all elements in the array. When the array is empty
 zero is returned.
 */
-public func sum(seq: [Float]) -> Float {
+public func sum(_ seq: [Float]) -> Float {
     
     var result: Float = 0
     vDSP_sve(seq, 1, &result, vDSP_Length(seq.count))
@@ -50,7 +50,7 @@ Returns the sum of all elements in the vector.
 - returns: The sum of all elements in the vector. When the vector is empty
 zero is returned.
 */
-public func sum(vector: Vector<Float>) -> Float {
+public func sum(_ vector: Vector<Float>) -> Float {
     return sum(vector.elements)
 }
 
@@ -62,7 +62,7 @@ Returns the sum of all elements in the array.
 - returns: The sum of all elements in the array. When the array is empty
 zero is returned.
 */
-public func sum(seq: [Double]) -> Double {
+public func sum(_ seq: [Double]) -> Double {
     
     var result: Double = 0
     vDSP_sveD(seq, 1, &result, vDSP_Length(seq.count))
@@ -77,7 +77,7 @@ Returns the sum of all elements in the vector.
 - returns: The sum of all elements in the vector. When the vector is empty
 zero is returned.
 */
-public func sum(vector: Vector<Double>) -> Double {
+public func sum(_ vector: Vector<Double>) -> Double {
     return sum(vector.elements)
 }
 
@@ -91,7 +91,7 @@ Returns the product of all elements in the sequence.
 
 - parameter seq: The sequence to take the product of.
 */
-public func product <S: SequenceType where S.Generator.Element: protocol<Multiplicable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
+public func product <S: Sequence> (_ seq: S) -> S.Iterator.Element where S.Iterator.Element: Multiplicable & ExpressibleByIntegerLiteral {
     
     return seq.reduce(1){ $0 * $1 }
 }
@@ -110,13 +110,13 @@ Returns the minimal element in the given sequence.
 
 :exception: Throws an exception when the given sequence is empty.
 */
-public func min <S: SequenceType where S.Generator.Element: protocol<Comparable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
+public func min <S: Sequence> (_ seq: S) -> S.Iterator.Element where S.Iterator.Element: Comparable & ExpressibleByIntegerLiteral {
     
-    var generator = seq.generate()
+    var generator = seq.makeIterator()
     if let initial = generator.next() {
         return seq.reduce(initial){ $0 < $1 ? $0 : $1 }
     } else {
-        NSException(name: "Empty array", reason: "Can't compute minimum of an empty array.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Empty array"), reason: "Can't compute minimum of an empty array.", userInfo: nil).raise()
         return 0
     }
 }
@@ -130,10 +130,10 @@ Returns the minimal element in the given sequence.
 
 :exception: Throws an exception when the given sequence is empty.
 */
-public func min(seq: [Float]) -> Float {
+public func min(_ seq: [Float]) -> Float {
     
     if seq.count == 0 {
-        NSException(name: "Empty array", reason: "Can't compute minimum of an empty array.", userInfo: nil).raise()
+        NSException(name: NSExceptionName(rawValue: "Empty array"), reason: "Can't compute minimum of an empty array.", userInfo: nil).raise()
     }
     
     var result: Float = 0
@@ -150,7 +150,7 @@ Returns the minimal element in the given vector.
 
 :exception: Throws an exception when the given vector is empty.
 */
-public func min(vector: Vector<Float>) -> Float {
+public func min(_ vector: Vector<Float>) -> Float {
     
     return min(vector.elements)
 }
@@ -165,9 +165,9 @@ Returns the maximal element in the given sequence.
 
 - parameter seq: The sequence to get the maximum of.
 */
-public func max <S: SequenceType where S.Generator.Element: protocol<Comparable, IntegerLiteralConvertible>> (seq: S) -> S.Generator.Element {
+public func max <S: Sequence> (_ seq: S) -> S.Iterator.Element where S.Iterator.Element: Comparable & ExpressibleByIntegerLiteral {
     
-    var generator = seq.generate()
+    var generator = seq.makeIterator()
     let initial = generator.next()!
     return seq.reduce(initial){ $0 > $1 ? $0 : $1 }
 }

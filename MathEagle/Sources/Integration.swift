@@ -8,12 +8,12 @@
 
 import Foundation
 
-public class Integration {
+open class Integration {
     
     
     // MARK: Parameters
-    public static var accuracy = 1e-7
-    public static var maxTime = 10.0
+    open static var accuracy = 1e-7
+    open static var maxTime = 10.0
     
     
     // MARK: single integrals
@@ -30,9 +30,9 @@ public class Integration {
     
         - returns: The integral of f in the interval [a,b] with the given accuracy.
     */
-    public class func midpoint(a: Double, _ b: Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
+    open class func midpoint(_ a: Double, _ b: Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
         
-        let start = NSDate()
+        let start = Date()
         
         let error = err ?? accuracy
         let t_max = t_m ?? maxTime
@@ -43,7 +43,7 @@ public class Integration {
         var converged = false
         var k = 0
         
-        while k <= k_max && NSDate().timeIntervalSinceDate(start) < t_max && !converged {
+        while k <= k_max && Date().timeIntervalSince(start) < t_max && !converged {
             
             h = h/3
             
@@ -52,7 +52,7 @@ public class Integration {
             
             while a + i*0.5*h < b {
                 
-                if i%3 == 0.0 { i += 2; continue }
+                if i.truncatingRemainder(dividingBy: 3) == 0.0 { i += 2; continue }
                 
                 S += f(a + i*0.5*h)
                 i += 2
@@ -81,9 +81,9 @@ public class Integration {
     
     - returns: The integral of f in the interval [a,b] with the given accuracy.
     */
-    public class func trapezoid(a: Double, _ b: Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
+    open class func trapezoid(_ a: Double, _ b: Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
         
-        let start = NSDate()
+        let start = Date()
         
         let error = err ?? accuracy
         let t_max = t_m ?? maxTime
@@ -94,7 +94,7 @@ public class Integration {
         var converged = false
         var k = 0.0
         
-        while k <= Double(k_max) && NSDate().timeIntervalSinceDate(start) < t_max && !converged {
+        while k <= Double(k_max) && Date().timeIntervalSince(start) < t_max && !converged {
             
             h = 0.5 * h
             
@@ -132,9 +132,9 @@ public class Integration {
     
     - returns: The integral of f in the interval [a,b] with the given accuracy.
     */
-    public class func simpson(a: Double, _ b: Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
+    open class func simpson(_ a: Double, _ b: Double, error err: Double? = nil, k_max: Int = 100, maxTime t_m: Double? = nil, _ f: (Double) -> Double) -> Double {
         
-        let start = NSDate()
+        let start = Date()
         
         let error = err ?? accuracy
         let t_max = t_m ?? maxTime
@@ -146,7 +146,7 @@ public class Integration {
         var converged = false
         var k = 0.0
         
-        while k <= Double(k_max) && NSDate().timeIntervalSinceDate(start) < t_max && !converged {
+        while k <= Double(k_max) && Date().timeIntervalSince(start) < t_max && !converged {
             
             h = h * 0.5
             let S = S0
@@ -184,14 +184,14 @@ public class Integration {
     
     - returns: The integral of f in the interval [a,b] with the given accuracy.
     */
-    public class func adaptiveSimpson(a: Double, _ b: Double, error err: Double? = nil, _ f: (Double) -> Double) -> Double {
+    open class func adaptiveSimpson(_ a: Double, _ b: Double, error err: Double? = nil, _ f: (Double) -> Double) -> Double {
         
         let error = err ?? accuracy
         
         return adaptiveSimpson(a, b, f, error: error, whole: simpsons_rule(a, b, f))
     }
     
-    private class func adaptiveSimpson(a: Double, _ b: Double, _ f: (Double) -> Double, error: Double, whole: Double) -> Double {
+    fileprivate class func adaptiveSimpson(_ a: Double, _ b: Double, _ f: (Double) -> Double, error: Double, whole: Double) -> Double {
         
         let c = (a+b)*0.5
         
@@ -206,7 +206,7 @@ public class Integration {
         return adaptiveSimpson(a, c, f, error: error/2, whole: left) + adaptiveSimpson(c, b, f, error: error/2, whole: right)
     }
     
-    private class func simpsons_rule(a: Double, _ b: Double, _ f: (Double) -> Double) -> Double {
+    fileprivate class func simpsons_rule(_ a: Double, _ b: Double, _ f: (Double) -> Double) -> Double {
         
         let c = (a+b)*0.5
         let h = abs(b-a)/6.0
