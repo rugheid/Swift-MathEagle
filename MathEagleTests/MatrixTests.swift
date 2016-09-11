@@ -175,7 +175,7 @@ class MatrixTests: XCTestCase {
     
     func testSubscriptRangeGet() {
         
-        let matrix = Matrix([[1, 2], [3, 4], [5,6]])
+        let matrix = Matrix([[1, 2], [3, 4], [5, 6]])
         
         var expected = Matrix([[3, 4], [5, 6]])
         
@@ -192,12 +192,12 @@ class MatrixTests: XCTestCase {
     
     func testSubscriptRangeSet() {
         
-        var matrix = Matrix([[1, 2], [3, 4], [5,6]])
+        var matrix = Matrix([[1, 2], [3, 4], [5, 6]])
         
         // replace 2 rows
         matrix[0...1] = Matrix([[7, 8], [9, 10]])
         
-        var expected = Matrix([[7, 8], [9, 10], [5,6]])
+        var expected = Matrix([[7, 8], [9, 10], [5, 6]])
         
         XCTAssertEqual(expected, matrix)
         
@@ -216,7 +216,7 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(expected, matrix)
         
         
-        matrix = [[1, 2], [3, 4], [5,6]]
+        matrix = [[1, 2], [3, 4], [5, 6]]
         
         // replace 2 rows with 1 row
         matrix[1...2] = Matrix([[7, 8]])
@@ -226,7 +226,7 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(expected, matrix)
         
         
-        matrix = [[1, 2], [3, 4], [5,6]]
+        matrix = [[1, 2], [3, 4], [5, 6]]
         
         // remove rows
         matrix[1...2] = Matrix()

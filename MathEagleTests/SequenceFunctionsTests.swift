@@ -65,7 +65,7 @@ class SequenceFunctionsTests: XCTestCase {
     
     func testSumDoubleVector() {
         
-        let vector = Vector<Double>(randomWithLength: 10_000)
+        let vector = Vector<Double>(randomWithLength: 10_000, intervals: -10.0 ... 10.0)
         XCTAssertEqual(vector.reduce(0, +), sum(vector))
     }
     

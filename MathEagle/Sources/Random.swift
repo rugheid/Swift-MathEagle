@@ -113,7 +113,7 @@ extension Int: Randomizable {
         
         let interval = intervals[0]
         let length = interval.count
-        return interval.lowerBound + Int(UInt.randomInInterval(0 ... UInt(length)))
+        return interval.lowerBound + Int(UInt.randomInInterval(0 ... UInt(length-1)))
     }
     
     public static func randomArrayOfLength(_ length: Int) -> [Int] {

@@ -597,14 +597,20 @@ open class Matrix <T: MatrixCompatible> : ExpressibleByArrayLiteral, Equatable, 
                 
                 if newMatrix.isEmpty {
                     
-                    for i in indices {
+                    for i in indices.sorted(by: >) {
                         self.removeRow(atIndex: i)
                     }
                     
                 } else {
                     
-                    for i in indices {
-                        self.setRow(atIndex: i, toRow: newMatrix.row(i))
+                    var diff = 0
+                    for (index, i) in indices.enumerated() {
+                        if index < newMatrix.dimensions.rows {
+                            self.setRow(atIndex: i, toRow: newMatrix.row(index))
+                        } else {
+                            self.removeRow(atIndex: i - diff)
+                            diff += 1
+                        }
                     }
                 }
             }
