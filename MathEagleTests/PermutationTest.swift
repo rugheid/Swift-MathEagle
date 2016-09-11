@@ -117,4 +117,12 @@ class PermutationTest: XCTestCase {
         perm = Permutation(arrayRepresentation: [1, 4, 3, 2, 0])
         XCTAssertEqual(-1, perm.sign)
     }
+    
+    
+    func testInverse() {
+        
+        let perm = Permutation(arrayRepresentation: [1, 4, 3, 2, 0])
+        let expected = Permutation(arrayRepresentation: [4, 0, 3, 2, 1])
+        XCTAssertEqual(expected, perm.inverse())
+    }
 }

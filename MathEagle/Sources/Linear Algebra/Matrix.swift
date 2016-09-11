@@ -46,30 +46,7 @@ open class Matrix <T: MatrixCompatible> : ExpressibleByArrayLiteral, Equatable, 
         }
         
         set(newDimensions) {
-            
-            if newDimensions.columns < self.dimensions.columns {
-                
-                for r in 0 ..< Swift.min(newDimensions.rows, self.dimensions.rows) {
-                    self.elementsStructure.removeSubrange((r + 1) * newDimensions.columns ..< r * newDimensions.columns + self.dimensions.columns)
-                }
-                
-            } else if newDimensions.columns > self.dimensions.columns {
-                
-                for r in 0 ..< Swift.min(newDimensions.rows, self.dimensions.rows) {
-                    self.elementsStructure.insert(contentsOf: [T](repeating: 0, count: newDimensions.columns - self.dimensions.columns), at: r * newDimensions.columns + self.dimensions.columns)
-                }
-            }
-            
-            if newDimensions.rows < self.dimensions.rows {
-                
-                self.elementsStructure.removeSubrange(newDimensions.product ..< self.elementsStructure.count)
-                
-            } else if newDimensions.rows > self.dimensions.rows {
-                
-                self.elementsStructure.append(contentsOf: [T](repeating: 0, count: (newDimensions.rows - self.dimensions.rows) * newDimensions.columns))
-            }
-            
-            self.innerDimensions = newDimensions
+            self.resize(newDimensions)
         }
     }
     
@@ -1990,6 +1967,39 @@ open class Matrix <T: MatrixCompatible> : ExpressibleByArrayLiteral, Equatable, 
         }
     }
     
+    /**
+     Resizes the matrix to the given dimensions.
+     If elements need to be added, zeros will be added on the right and bottom sides of the matrix.
+     
+     - parameter newDimensions: The new dimensions for the matrix.
+     */
+    open func resize(_ newDimensions: Dimensions) {
+        
+        if newDimensions.columns < self.dimensions.columns {
+            
+            for r in 0 ..< Swift.min(newDimensions.rows, self.dimensions.rows) {
+                self.elementsStructure.removeSubrange((r + 1) * newDimensions.columns ..< r * newDimensions.columns + self.dimensions.columns)
+            }
+            
+        } else if newDimensions.columns > self.dimensions.columns {
+            
+            for r in 0 ..< Swift.min(newDimensions.rows, self.dimensions.rows) {
+                self.elementsStructure.insert(contentsOf: [T](repeating: 0, count: newDimensions.columns - self.dimensions.columns), at: r * newDimensions.columns + self.dimensions.columns)
+            }
+        }
+        
+        if newDimensions.rows < self.dimensions.rows {
+            
+            self.elementsStructure.removeSubrange(newDimensions.product ..< self.elementsStructure.count)
+            
+        } else if newDimensions.rows > self.dimensions.rows {
+            
+            self.elementsStructure.append(contentsOf: [T](repeating: 0, count: (newDimensions.rows - self.dimensions.rows) * newDimensions.columns))
+        }
+        
+        self.innerDimensions = newDimensions
+    }
+    
     
     
     // MARK: Factorisations
@@ -2449,13 +2459,16 @@ public func LUDecomposition(_ matrix: Matrix<Float>) -> (Matrix<Float>, Matrix<F
     //FIXME: L and U are always of the dimensions of result, which is not correct.
     
     let L = result.lowerTriangle
+    L.resize(Dimensions(size: matrix.dimensions.rows))
     L.fillDiagonal(1)
     
-    let permutation = Permutation(identityOfLength: matrix.dimensions.columns)
+    let permutation = Permutation(identityOfLength: matrix.dimensions.minimum)
     
     for (index, element) in pivotArray.enumerated() {
         permutation.switchElements(Int(element-1), index)
     }
+    
+    permutation.inverseInPlace()
     
     return (L, result.upperTriangle, PermutationMatrix(permutation: permutation))
 }

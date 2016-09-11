@@ -1416,6 +1416,7 @@ class MatrixTests: XCTestCase {
         
         matrix = [[1, 2, -3, 1], [2, 4, 0, 7], [-1, 3, 2, 0]]
         (L, U, P) = LUDecomposition(matrix)!
+        print(L*U)
         XCTAssertEqual(matrix, P*L*U)
     }
     

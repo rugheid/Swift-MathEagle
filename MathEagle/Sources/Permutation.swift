@@ -356,6 +356,28 @@ open class Permutation: ExpressibleByArrayLiteral, Equatable, CustomStringConver
         self.arrayRepresentation[j] = temp
     }
     
+    /**
+     Returns the inverse of the permutation.
+     */
+    open func inverse() -> Permutation {
+        var newArrayRepresentation = [Int](repeating: 0, count: self.length)
+        for (i, element) in self.arrayRepresentation.enumerated() {
+            newArrayRepresentation[element] = i
+        }
+        return Permutation(arrayRepresentation: newArrayRepresentation)
+    }
+    
+    /**
+     Inverses the permutation.
+     */
+    open func inverseInPlace() {
+        var newArrayRepresentation = [Int](repeating: 0, count: self.length)
+        for (i, element) in self.arrayRepresentation.enumerated() {
+            newArrayRepresentation[element] = i
+        }
+        self.arrayRepresentation = newArrayRepresentation
+    }
+    
     
     
     // MARK: Helper Methods
