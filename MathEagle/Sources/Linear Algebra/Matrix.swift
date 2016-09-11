@@ -1138,15 +1138,7 @@ open class Matrix <T: MatrixCompatible> : ExpressibleByArrayLiteral, Equatable, 
         otherwise it returns nil.
     */
     open var maxElement: T? {
-        
-        if self.isEmpty {
-            
-            return nil
-            
-        } else {
-            
-            return MathEagle.max(self.elementsList)
-        }
+        return self.isEmpty ? nil : MathEagle.max(self.elementsList)
     }
     
     
@@ -1155,15 +1147,7 @@ open class Matrix <T: MatrixCompatible> : ExpressibleByArrayLiteral, Equatable, 
         otherwise it returns nil.
     */
     open var minElement: T? {
-        
-        if self.isEmpty {
-            
-            return nil
-            
-        } else {
-            
-            return MathEagle.min(self.elementsList)
-        }
+        return self.isEmpty ? nil : MathEagle.min(self.elementsList)
     }
     
     
@@ -1171,17 +1155,7 @@ open class Matrix <T: MatrixCompatible> : ExpressibleByArrayLiteral, Equatable, 
         Returns the transpose of the matrix.
     */
     open var transpose: Matrix<T> {
-        
-        var elementsList = [T]()
-        
-        for col in 0 ..< self.dimensions.columns {
-            for row in 0 ..< self.dimensions.rows {
-                
-                elementsList.append(self.element(row, col))
-            }
-        }
-        
-        return Matrix(elementsList: elementsList, rows: self.dimensions.columns)
+        return MathEagle.transpose(self)
     }
     
     
@@ -2385,6 +2359,34 @@ public func mcombine <T: MatrixCompatible, U: MatrixCompatible, V: MatrixCompati
 // MARK: High Perfomance Functions
 
 /**
+ Returns the transpose of the given matrix.
+ 
+ - parameter matrix:  The matrix to transpose.
+ 
+ - returns: The transpose of the given matrix.
+ */
+public func transpose <T: MatrixCompatible> (_ matrix: Matrix<T>) -> Matrix<T> {
+    
+    if let floatMatrix = matrix as? Matrix<Float> {
+        return transpose(floatMatrix) as! Matrix<T>
+    }
+    if let doubleMatrix = matrix as? Matrix<Double> {
+        return transpose(doubleMatrix) as! Matrix<T>
+    }
+    
+    var elementsList = [T]()
+    
+    for col in 0 ..< matrix.dimensions.columns {
+        for row in 0 ..< matrix.dimensions.rows {
+            
+            elementsList.append(matrix.element(row, col))
+        }
+    }
+    
+    return Matrix(elementsList: elementsList, rows: matrix.dimensions.columns)
+}
+
+/**
     Returns the transpose of the given matrix.
 
     - parameter matrix:  The matrix to transpose.
@@ -2399,7 +2401,6 @@ public func transpose(_ matrix: Matrix<Float>) -> Matrix<Float> {
     
     return Matrix(elementsList: elementsList, columns: matrix.dimensions.rows)
 }
-
 
 /**
     Returns the transpose of the given matrix.

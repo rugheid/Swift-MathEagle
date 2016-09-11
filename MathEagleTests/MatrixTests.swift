@@ -1250,7 +1250,7 @@ class MatrixTests: XCTestCase {
         let A = Matrix<Int>(randomWithSize: 1000)
         let B = Matrix<Int>(randomWithSize: 1000)
         
-        compareBaseline(0.000926479697227478, title: "Testing equality of 2 1000x1000 matrices (Int)", n: 100){
+        compareBaseline(7.20024108886719e-07, title: "Testing equality of 2 1000x1000 matrices (Int)", n: 100){
             
             A == B
         }
@@ -1281,7 +1281,7 @@ class MatrixTests: XCTestCase {
         let left = Matrix<Float>(randomWithSize: 1000)
         let right = Matrix<Float>(randomWithSize: 1000)
         
-        compareBaseline(0.616482019424438, title: "Adding 2 1000x1000 matrices (Float)", n: 1){
+        compareBaseline(0.00294703245162964, title: "Adding 2 1000x1000 matrices (Float)", n: 1){
             
             left + right
         }
@@ -1377,7 +1377,7 @@ class MatrixTests: XCTestCase {
         
         let A = Matrix<Float>(randomWithSize: 10_000)
         
-        compareBaseline(61.5537649989128, title: "10_000x10_000 Float Matrix Tranpose Performance", n: 1){
+        compareBaseline(0.612118005752563, title: "10_000x10_000 Float Matrix Tranpose Performance", n: 1){
             
             transpose(A)
         }
@@ -1398,7 +1398,7 @@ class MatrixTests: XCTestCase {
         
         let A = Matrix<Double>(randomWithSize: 10_000)
         
-        compareBaseline(61.5537649989128, title: "10_000x10_000 Float Matrix Tranpose Performance", n: 1){
+        compareBaseline(2.12320303916931, title: "10_000x10_000 Float Matrix Tranpose Performance", n: 1){
             
             transpose(A)
         }
