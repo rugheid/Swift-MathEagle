@@ -48,7 +48,7 @@ public struct Solver {
         
         if sign(fa) == sign(fb) {
             
-            NSException(name: NSExceptionName(rawValue: "Not shure if given interval contains zero"), reason: "The signs of f(a) and f(b) are equal, which means the bisection method cannot narrow the search. You have to provide a valid interval.", userInfo: nil).raise()
+            NSException(name: NSExceptionName(rawValue: "Not sure if given interval contains zero"), reason: "The signs of f(a) and f(b) are equal, which means the bisection method cannot narrow the search. You have to provide a valid interval.", userInfo: nil).raise()
         }
         
         var A = a, B = b, x = (A+B)*0.5
