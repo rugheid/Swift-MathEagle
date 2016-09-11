@@ -1416,7 +1416,17 @@ class MatrixTests: XCTestCase {
         
         matrix = [[1, 2, -3, 1], [2, 4, 0, 7], [-1, 3, 2, 0]]
         (L, U, P) = LUDecomposition(matrix)!
-        print(L*U)
+        XCTAssertEqual(matrix, P*L*U)
+    }
+    
+    func testBridgedLUDecompositionDouble() {
+        
+        var matrix = Matrix<Double>([[1, 2], [3, 4]])
+        var (L, U, P) = LUDecomposition(matrix)!
+        XCTAssertEqual(matrix, P*L*U)
+        
+        matrix = [[1, 2, -3, 1], [2, 4, 0, 7], [-1, 3, 2, 0]]
+        (L, U, P) = LUDecomposition(matrix)!
         XCTAssertEqual(matrix, P*L*U)
     }
     

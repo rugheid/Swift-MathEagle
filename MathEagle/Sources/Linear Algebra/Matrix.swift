@@ -2444,13 +2444,52 @@ public func transpose(_ matrix: Matrix<Double>) -> Matrix<Double> {
                 The second matrix is an upper triangular matrix and the third
                 matrix is a permutations matrix. Here is A = PLU.
 */
-public func LUDecomposition(_ matrix: Matrix<Float>) -> (Matrix<Float>, Matrix<Float>, Matrix<Float>)? {
+public func LUDecomposition(_ matrix: Matrix<Float>) -> (Matrix<Float>, Matrix<Float>, PermutationMatrix<Float>)? {
     
     var elementsList = transpose(matrix).elementsList
     var pivotArray = [Int32](repeating: 0, count: matrix.dimensions.minimum)
     var info: Int32 = 0
     
-    Matrix_OBJC.luDecomposition(ofMatrix: &elementsList, nrOfRows: Int32(matrix.dimensions.rows), nrOfColumns: Int32(matrix.dimensions.columns), withPivotArray: &pivotArray, withInfo: &info)
+    Matrix_OBJC.luDecomposition(ofFloatMatrix: &elementsList, nrOfRows: Int32(matrix.dimensions.rows), nrOfColumns: Int32(matrix.dimensions.columns), withPivotArray: &pivotArray, withInfo: &info)
+    
+    if info != 0 { return nil }
+    
+    let result = Matrix(elementsList: elementsList, columns: matrix.dimensions.rows).transpose
+    
+    //FIXME: L and U are always of the dimensions of result, which is not correct.
+    
+    let L = result.lowerTriangle
+    L.resize(Dimensions(size: matrix.dimensions.rows))
+    L.fillDiagonal(1)
+    
+    let permutation = Permutation(identityOfLength: matrix.dimensions.minimum)
+    
+    for (index, element) in pivotArray.enumerated() {
+        permutation.switchElements(Int(element-1), index)
+    }
+    
+    permutation.inverseInPlace()
+    
+    return (L, result.upperTriangle, PermutationMatrix(permutation: permutation))
+}
+
+/**
+ Returns the LU decomposition of the given matrix.
+ 
+ - parameter matrix:  The matrix to compute the LU decomposition of.
+ 
+ - returns: (L, U, P) A tuple containing three matrices. The first matrix
+ is a lower triangular matrix with ones on the main diagonal.
+ The second matrix is an upper triangular matrix and the third
+ matrix is a permutations matrix. Here is A = PLU.
+ */
+public func LUDecomposition(_ matrix: Matrix<Double>) -> (Matrix<Double>, Matrix<Double>, PermutationMatrix<Double>)? {
+    
+    var elementsList = transpose(matrix).elementsList
+    var pivotArray = [Int32](repeating: 0, count: matrix.dimensions.minimum)
+    var info: Int32 = 0
+    
+    Matrix_OBJC.luDecomposition(ofDoubleMatrix: &elementsList, nrOfRows: Int32(matrix.dimensions.rows), nrOfColumns: Int32(matrix.dimensions.columns), withPivotArray: &pivotArray, withInfo: &info)
     
     if info != 0 { return nil }
     

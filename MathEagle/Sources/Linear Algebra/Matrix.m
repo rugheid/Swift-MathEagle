@@ -11,9 +11,14 @@
 
 @implementation Matrix_OBJC
 
-+ (void)LUDecompositionOfMatrix:(float *)matrix nrOfRows:(int)rows nrOfColumns:(int)columns withPivotArray:(int *)pivotArray withInfo:(int *)info {
++ (void)LUDecompositionOfFloatMatrix:(float *)matrix nrOfRows:(int)rows nrOfColumns:(int)columns withPivotArray:(int *)pivotArray withInfo:(int *)info {
     
     sgetrf_(&rows, &columns, matrix, &rows, pivotArray, info);
+}
+
++ (void)LUDecompositionOfDoubleMatrix:(double *)matrix nrOfRows:(int)rows nrOfColumns:(int)columns withPivotArray:(int *)pivotArray withInfo:(int *)info {
+    
+    dgetrf_(&rows, &columns, matrix, &rows, pivotArray, info);
 }
 
 @end
