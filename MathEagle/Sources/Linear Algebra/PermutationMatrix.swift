@@ -114,8 +114,7 @@ open class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     
         - returns: The size of the matrix if the matrix is square or nil otherwise.
     */
-    override open var size: Int? {
-        //TODO: This used to be of type Int! but this gave errors since swift 2.0
+    override open var size: Int! {
         return self.permutation.length
     }
     
