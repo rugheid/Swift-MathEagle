@@ -11,7 +11,8 @@ The fastest way to add MathEagle to your project is to download it as a zip file
 
 # Supported Xcode Versions
 MathEagle is fully compatible with:
-- Xcode 7 (this is the beta version using swift 2.0!)
+- Xcode 7 (take a look at the `swift-2` branch)
+- Xcode 8 and swift 3
 MathEagle is no longer compatible with swift 1.2.
 
 # Currently Supported
@@ -21,6 +22,7 @@ MathEagle is no longer compatible with swift 1.2.
 * Single variable function root solving
 * Single variable function optimization
 * Matrix and Vector math
+* Basic graph algorithms
 
 MathEagle is fully generic, so almost all classes and functions work with any type (even types you define). MathEagle vectors for example can also be of type Int, while the Float and Double type vectors use Accelerate in the background for speed.
 
