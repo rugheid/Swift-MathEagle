@@ -19,29 +19,28 @@ An empty list will be returned for values smaller than or equal to zero.
 
 :example: divisors(10) returns [1, 2, 5, 10]
 */
-public func divisors <X: Equatable & Comparable & Modulable & Dividable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> [X] where X.RealPowerType: Comparable & Addable & ExpressibleByIntegerLiteral {
+public func divisors <X: Hashable & Equatable & Comparable & Modulable & Dividable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> [X] where X.RealPowerType: Comparable & Addable & ExpressibleByIntegerLiteral {
     
     if x <= 0 { return [] }
     if x == 1 { return [1] }
     
-    var div = [1, x]
+    var div: Set<X> = [1, x]
     
     let d = root(x, order: 2)
-    if d < 2 { return div }
+    if d < 2 { return Array<X>(div) }
     
     var i: X.RealPowerType = 2
     
     while i <= d {
         
         if x % X(i) == 0 {
-            div.append(X(i))
-            div.append(x/X(i))
+            div.insert(X(i))
+            div.insert(x/X(i))
         }
         
         i = i + 1
     }
-    
-    return div.sorted { $0 < $1 }
+    return div.sorted()
 }
 
 
@@ -56,28 +55,28 @@ An empty list will be returned for values smaller than or equal to 1.
 
 :example: divisors(10) returns [1, 2, 5]
 */
-public func properDivisors <X: Equatable & Comparable & Modulable & Dividable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> [X] where X.RealPowerType: Comparable & Addable & ExpressibleByIntegerLiteral {
+public func properDivisors <X: Hashable & Equatable & Comparable & Modulable & Dividable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> [X] where X.RealPowerType: Comparable & Addable & ExpressibleByIntegerLiteral {
     
     if x <= 1 { return [] }
     
-    var div: [X] = [1]
+    var div: Set<X> = [1]
     
     let d = root(x, order: 2)
-    if d < 2 { return div }
+    if d < 2 { return Array<X>(div) }
     
     var i: X.RealPowerType = 2
     
     while i <= d {
         
         if x % X(i) == 0 {
-            div.append(X(i))
-            if x/X(i) != X(i) { div.append(x/X(i)) }
+            div.insert(X(i))
+            if x/X(i) != X(i) { div.insert(x/X(i)) }
         }
         
         i = i + 1
     }
     
-    return div.sorted { $0 < $1 }
+    return div.sorted()
 }
 
 
@@ -88,7 +87,7 @@ Returns whether the given number is a perfect number. This means the sum of it's
 
 - returns: true if the given number is a perfect number.
 */
-public func isPerfect <X: Equatable & Comparable & Addable & Modulable & Dividable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> Bool where X.RealPowerType: Comparable & Addable & ExpressibleByIntegerLiteral {
+public func isPerfect <X: Hashable & Equatable & Comparable & Addable & Modulable & Dividable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> Bool where X.RealPowerType: Comparable & Addable & ExpressibleByIntegerLiteral {
     
     return sum(properDivisors(x)) == x
 }
@@ -102,7 +101,7 @@ greater than the number itself.
 
 - returns: true if the number is abundant.
 */
-public func isAbundant <X: Equatable & Comparable & Addable & Modulable & Dividable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> Bool where X.RealPowerType: Comparable & Addable & ExpressibleByIntegerLiteral {
+public func isAbundant <X: Hashable & Equatable & Comparable & Addable & Modulable & Dividable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> Bool where X.RealPowerType: Comparable & Addable & ExpressibleByIntegerLiteral {
     
     return sum(properDivisors(x)) > x
 }
@@ -153,7 +152,7 @@ less than the number itself.
 
 - returns: true if the number is deficient.
 */
-public func isDeficient <X: Equatable & Comparable & Addable & Modulable & Dividable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> Bool where X.RealPowerType: Comparable & Addable & ExpressibleByIntegerLiteral {
+public func isDeficient <X: Hashable & Equatable & Comparable & Addable & Modulable & Dividable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> Bool where X.RealPowerType: Comparable & Addable & ExpressibleByIntegerLiteral {
     
     return sum(properDivisors(x)) < x
 }
