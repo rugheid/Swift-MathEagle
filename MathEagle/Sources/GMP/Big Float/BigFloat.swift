@@ -122,6 +122,7 @@ public struct BigFloat: Equatable, Comparable, Addable, Negatable, Subtractable,
             maxNumberOfDigits: maxNumberOfDigits),
                             encoding: String.Encoding.utf8)!
         string.insert(".", at: string.index(after: string.startIndex))
+        string.append("e\(exponent)")
         return string
     }
     
