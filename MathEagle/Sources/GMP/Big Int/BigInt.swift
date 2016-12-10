@@ -47,6 +47,8 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, M
     }
     
     
+    
+    
     // MARK: Properties
     
     /**
@@ -211,6 +213,39 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, M
     
     public mutating func powerInPlace(_ uint: UInt) {
         BigInt_OBJC.set(self.bigIntOBJC, toPowerOf: self.bigIntOBJC, and: uint)
+    }
+    
+    public static func factorial(_ uint: UInt) -> BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, toFactorial: uint)
+        return result
+    }
+    
+    /**
+     Returns the double factorial of the given number.
+     
+     - parameter n: The value to take the factorial of
+     
+     - returns: `n!!`
+     */
+    public static func doubleFactorial(_ n: UInt) -> BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, toDoubleFactorial: n)
+        return result
+    }
+    
+    /**
+     Returns the m-multi factorial of the given number.
+     
+     - parameter n: The value to take the factorial of
+     - parameter m: Defines the multi-grade
+     
+     - returns: `n!!...!` (m times factorial)
+     */
+    public static func factorial(_ n: UInt, multi m: UInt) -> BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, toFactorial: n, multi: m)
+        return result
     }
     
     

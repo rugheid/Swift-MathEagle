@@ -130,4 +130,16 @@
     mpz_pow_ui(result->mpzBigInt, bigIntNumber->mpzBigInt, uint);
 }
 
++ (void)set:(BigInt_OBJC *)result toFactorial:(unsigned long int)uint {
+    mpz_fac_ui(result->mpzBigInt, uint);
+}
+
++ (void)set:(BigInt_OBJC *)result toDoubleFactorial:(unsigned long int)uint {
+    mpz_2fac_ui(result->mpzBigInt, uint);
+}
+
++ (void)set:(BigInt_OBJC *)result toFactorial:(unsigned long int)uint multi:(unsigned long int)m {
+    mpz_mfac_uiui(result->mpzBigInt, uint, m);
+}
+
 @end

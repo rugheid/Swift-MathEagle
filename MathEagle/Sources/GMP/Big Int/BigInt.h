@@ -40,5 +40,8 @@
 + (void)set:(BigInt_OBJC*)result toSquareRootOf:(BigInt_OBJC*)bigIntNumber;
 + (void)set:(BigInt_OBJC *)result toPowerOf:(BigInt_OBJC *)left and:(BigInt_OBJC *)right modulo:(BigInt_OBJC *)modulo;
 + (void)set:(BigInt_OBJC *)result toPowerOf:(BigInt_OBJC *)bigIntNumber and:(unsigned long int)uint;
++ (void)set:(BigInt_OBJC *)result toFactorial:(unsigned long int)uint;
++ (void)set:(BigInt_OBJC *)result toDoubleFactorial:(unsigned long int)uint;
++ (void)set:(BigInt_OBJC *)result toFactorial:(unsigned long int)uint multi:(unsigned long int)m;
 
 @end
