@@ -189,8 +189,28 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, M
         return result
     }
     
-    public func squareRootInPlace() {
+    public mutating func squareRootInPlace() {
         BigInt_OBJC.set(self.bigIntOBJC, toSquareRootOf: self.bigIntOBJC)
+    }
+    
+    public func power(_ bigInt: BigInt, modulo: BigInt) -> BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, toPowerOf: self.bigIntOBJC, and: bigInt.bigIntOBJC, modulo: modulo.bigIntOBJC)
+        return result
+    }
+    
+    public mutating func powerInPlace(_ bigInt: BigInt, modulo: BigInt) {
+        BigInt_OBJC.set(self.bigIntOBJC, toPowerOf: self.bigIntOBJC, and: bigInt.bigIntOBJC, modulo: modulo.bigIntOBJC)
+    }
+    
+    public func power(_ uint: UInt) -> BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, toPowerOf: self.bigIntOBJC, and: uint)
+        return result
+    }
+    
+    public mutating func powerInPlace(_ uint: UInt) {
+        BigInt_OBJC.set(self.bigIntOBJC, toPowerOf: self.bigIntOBJC, and: uint)
     }
     
     

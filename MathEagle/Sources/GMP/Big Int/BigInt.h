@@ -38,5 +38,7 @@
 + (void)set:(BigInt_OBJC*)result toQuotientOf:(BigInt_OBJC*)left and:(BigInt_OBJC*)right;
 + (void)set:(BigInt_OBJC*)result toAbsoluteValueOf:(BigInt_OBJC*)bigIntNumber;
 + (void)set:(BigInt_OBJC*)result toSquareRootOf:(BigInt_OBJC*)bigIntNumber;
++ (void)set:(BigInt_OBJC *)result toPowerOf:(BigInt_OBJC *)left and:(BigInt_OBJC *)right modulo:(BigInt_OBJC *)modulo;
++ (void)set:(BigInt_OBJC *)result toPowerOf:(BigInt_OBJC *)bigIntNumber and:(unsigned long int)uint;
 
 @end

@@ -350,6 +350,50 @@ class BigIntTests: XCTestCase {
         XCTAssertEqual(BigInt(int: 47801842), abs(c))
     }
     
+    func testSquareRoot() {
+        var a = BigInt(int: 53103)
+        XCTAssertEqual(a.squareRoot, BigInt(int: 230))
+        
+        a = 0
+        XCTAssertEqual(a.squareRoot, BigInt(int: 0))
+    }
+    
+    func testSquareRootInPlace() {
+        var a = BigInt(int: 53103)
+        a.squareRootInPlace()
+        XCTAssertEqual(a, BigInt(int: 230))
+        
+        a = 0
+        a.squareRootInPlace()
+        XCTAssertEqual(a, BigInt(int: 0))
+    }
+    
+    func testPowerModulo() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: 234311)
+        let mod = BigInt(int: 1_000_000_000_000)
+        XCTAssertEqual(BigInt(uint: 919_447_180_047), a.power(b, modulo: mod))
+    }
+    
+    func testPowerModuloInPlace() {
+        var a = BigInt(int: 53103)
+        let b = BigInt(int: 234311)
+        let mod = BigInt(int: 1_000_000_000_000)
+        a.powerInPlace(b, modulo: mod)
+        XCTAssertEqual(BigInt(uint: 919_447_180_047), a)
+    }
+    
+    func testPower() {
+        let a = BigInt(int: 53103)
+        XCTAssertEqual(a.power(32), BigInt(string: "15988577176268060579004931089547253337461076707270626303439766786870881752448879429300926345888658367621823487912941530168589176115215538579849129034241"))
+    }
+    
+    func testPowerInPlace() {
+        var a = BigInt(int: 53103)
+        a.powerInPlace(32)
+        XCTAssertEqual(a, BigInt(string: "15988577176268060579004931089547253337461076707270626303439766786870881752448879429300926345888658367621823487912941530168589176115215538579849129034241"))
+    }
+    
     
     // MARK: SetCompliant tests
     

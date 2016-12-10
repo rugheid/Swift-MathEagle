@@ -122,4 +122,12 @@
     mpz_sqrt(result->mpzBigInt, bigIntNumber->mpzBigInt);
 }
 
++ (void)set:(BigInt_OBJC *)result toPowerOf:(BigInt_OBJC *)left and:(BigInt_OBJC *)right modulo:(BigInt_OBJC *)modulo {
+    mpz_powm(result->mpzBigInt, left->mpzBigInt, right->mpzBigInt, modulo->mpzBigInt);
+}
+
++ (void)set:(BigInt_OBJC *)result toPowerOf:(BigInt_OBJC *)bigIntNumber and:(unsigned long int)uint {
+    mpz_pow_ui(result->mpzBigInt, bigIntNumber->mpzBigInt, uint);
+}
+
 @end
