@@ -142,4 +142,8 @@
     mpz_mfac_uiui(result->mpzBigInt, uint, m);
 }
 
++ (void)set:(BigInt_OBJC *)result toGCDOf:(BigInt_OBJC *)left and:(BigInt_OBJC *)right {
+    mpz_gcd(result->mpzBigInt, left->mpzBigInt, right->mpzBigInt);
+}
+
 @end

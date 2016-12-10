@@ -417,6 +417,33 @@ class BigIntTests: XCTestCase {
         }
     }
     
+    func testGCD() {
+        XCTAssertEqual(BigInt.gcd(0, 0), BigInt(int: 0))
+        XCTAssertEqual(BigInt.gcd(20, 10), BigInt(int: 10))
+        XCTAssertEqual(BigInt.gcd(20, -10), BigInt(int: 10))
+        XCTAssertEqual(BigInt.gcd(123123123123, 123123123123123123), BigInt(int: 123123))
+        XCTAssertEqual(BigInt.gcd(-123123123123, 123123123123123123), BigInt(int: 123123))
+        XCTAssertEqual(BigInt.gcd(37279462087332, 366983722766), BigInt(int: 564958))
+    }
+    
+    func testGCDInPlace() {
+        var a = BigInt(int: 0)
+        a.gcdInPlace(0)
+        XCTAssertEqual(a, BigInt(int: 0))
+        
+        a = 20
+        a.gcdInPlace(10)
+        XCTAssertEqual(a, BigInt(int: 10))
+        
+        a = -20
+        a.gcdInPlace(10)
+        XCTAssertEqual(a, BigInt(int: 10))
+        
+        a = 37279462087332
+        a.gcdInPlace(366983722766)
+        XCTAssertEqual(a, BigInt(int: 564958))
+    }
+    
     
     // MARK: SetCompliant tests
     

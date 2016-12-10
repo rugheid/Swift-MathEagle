@@ -248,6 +248,29 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, M
         return result
     }
     
+    /**
+     Returns the greatest common dividor of the two given numbers.
+     
+     - parameter left: The first number
+     - parameter right: The second number
+     
+     - returns: `gcd(left, right)`
+     */
+    public static func gcd(_ left: BigInt, _ right: BigInt) -> BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, toGCDOf: left.bigIntOBJC, and: right.bigIntOBJC)
+        return result
+    }
+    
+    /**
+     Sets the value of the number to the gcd of the number and the given number.
+     
+     - parameter bigInt: The number to take the gcd with
+     */
+    public mutating func gcdInPlace(_ bigInt: BigInt) {
+        BigInt_OBJC.set(self.bigIntOBJC, toGCDOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
+    }
+    
     
     // MARK: SetCompliant
     

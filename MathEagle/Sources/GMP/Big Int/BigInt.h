@@ -43,5 +43,6 @@
 + (void)set:(BigInt_OBJC *)result toFactorial:(unsigned long int)uint;
 + (void)set:(BigInt_OBJC *)result toDoubleFactorial:(unsigned long int)uint;
 + (void)set:(BigInt_OBJC *)result toFactorial:(unsigned long int)uint multi:(unsigned long int)m;
++ (void)set:(BigInt_OBJC *)result toGCDOf:(BigInt_OBJC *)left and:(BigInt_OBJC *)right;
 
 @end
