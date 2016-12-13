@@ -444,6 +444,33 @@ class BigIntTests: XCTestCase {
         XCTAssertEqual(a, BigInt(int: 564958))
     }
     
+    func testNumberOfDigits() {
+        
+        var a = BigInt(int: 56789) // 0b1101110111010101, 0o156725, 0xDDD5
+        XCTAssertEqual(a.numberOfDigits, 5)
+        XCTAssertEqual(a.numberOfDigits(), 5)
+        XCTAssertEqual(numberOfDigits(a), 5)
+        XCTAssertEqual(a.numberOfDigits(inBase: 2), 16)
+        XCTAssertEqual(a.numberOfDigits(inBase: 8), 6)
+        XCTAssertEqual(a.numberOfDigits(inBase: 16), 4)
+        
+        a = -56789
+        XCTAssertEqual(a.numberOfDigits, 5)
+        XCTAssertEqual(a.numberOfDigits(), 5)
+        XCTAssertEqual(numberOfDigits(a), 5)
+        XCTAssertEqual(a.numberOfDigits(inBase: 2), 16)
+        XCTAssertEqual(a.numberOfDigits(inBase: 8), 6)
+        XCTAssertEqual(a.numberOfDigits(inBase: 16), 4)
+        
+        a = 0
+        XCTAssertEqual(a.numberOfDigits, 1)
+        XCTAssertEqual(a.numberOfDigits(), 1)
+        XCTAssertEqual(numberOfDigits(a), 1)
+        XCTAssertEqual(a.numberOfDigits(inBase: 2), 1)
+        XCTAssertEqual(a.numberOfDigits(inBase: 8), 1)
+        XCTAssertEqual(a.numberOfDigits(inBase: 16), 1)
+    }
+    
     
     // MARK: SetCompliant tests
     

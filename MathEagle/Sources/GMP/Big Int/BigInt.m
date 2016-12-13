@@ -146,4 +146,8 @@
     mpz_gcd(result->mpzBigInt, left->mpzBigInt, right->mpzBigInt);
 }
 
++ (size_t)getSizeOf:(BigInt_OBJC *)bigInt inBase:(int)base {
+    return mpz_sizeinbase(bigInt->mpzBigInt, base);
+}
+
 @end

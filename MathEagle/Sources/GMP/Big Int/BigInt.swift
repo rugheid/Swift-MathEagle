@@ -215,6 +215,9 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, M
         BigInt_OBJC.set(self.bigIntOBJC, toPowerOf: self.bigIntOBJC, and: uint)
     }
     
+    
+    // MARK: Special functions
+    
     public static func factorial(_ uint: UInt) -> BigInt {
         let result = BigInt()
         BigInt_OBJC.set(result.bigIntOBJC, toFactorial: uint)
@@ -280,6 +283,17 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, M
     
     public var isInteger: Bool {
         return true
+    }
+    
+    
+    // MARK: Additional Properties
+    
+    public var numberOfDigits: Int {
+        return self.numberOfDigits()
+    }
+    
+    public func numberOfDigits(inBase base: Int32 = 10) -> Int {
+        return BigInt_OBJC.getSizeOf(self.bigIntOBJC, inBase: base)
     }
 }
 
