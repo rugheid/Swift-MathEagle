@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, SetCompliant, CustomStringConvertible, Hashable, ExpressibleByIntegerLiteral {
+public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, Modulable, SetCompliant, CustomStringConvertible, Hashable, ExpressibleByIntegerLiteral {
     
     
     // MARK: Private Properties
@@ -173,6 +173,26 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, M
     
     public mutating func divideInPlace(_ bigInt: BigInt) {
         BigInt_OBJC.set(self.bigIntOBJC, toQuotientOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
+    }
+    
+    public func modulo(_ bigInt: BigInt) -> BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, to: self.bigIntOBJC, modulo: bigInt.bigIntOBJC)
+        return result
+    }
+    
+    public mutating func moduloInPlace(_ bigInt: BigInt) {
+        BigInt_OBJC.set(self.bigIntOBJC, to: self.bigIntOBJC, modulo: bigInt.bigIntOBJC)
+    }
+    
+    public func modulo(_ uint: UInt) -> BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, to: self.bigIntOBJC, moduloUInt: uint)
+        return result
+    }
+    
+    public mutating func moduloInPlace(_ uint: UInt) {
+        BigInt_OBJC.set(self.bigIntOBJC, to: self.bigIntOBJC, moduloUInt: uint)
     }
     
     public var absoluteValue: BigInt {
@@ -364,6 +384,25 @@ public func / (left: BigInt, right: BigInt) -> BigInt {
 
 public func /= (left: inout BigInt, right: BigInt) {
     left.divideInPlace(right)
+}
+
+
+// MARK: Modulable
+
+public func % (left: BigInt, right: BigInt) -> BigInt {
+    return left.modulo(right)
+}
+
+public func % (left: BigInt, right: UInt) -> BigInt {
+    return left.modulo(right)
+}
+
+public func %= (left: inout BigInt, right: BigInt) {
+    left.moduloInPlace(right)
+}
+
+public func %= (left: inout BigInt, right: UInt) {
+    left.moduloInPlace(right)
 }
 
 

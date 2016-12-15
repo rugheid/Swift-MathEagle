@@ -320,6 +320,78 @@ class BigIntTests: XCTestCase {
         XCTAssertEqual(BigInt(int: 0), b)
     }
     
+    func testModulo() {
+        let a = BigInt(int: 56789837)
+        let b = BigInt(int: 924720)
+        let c = BigInt(int: -924720)
+        let d = BigInt(int: 381917)
+        let zero = BigInt(int: 0)
+        XCTAssertEqual(d, a.modulo(b))
+        XCTAssertEqual(zero, zero.modulo(a))
+        XCTAssertEqual(b, b.modulo(a))
+        XCTAssertEqual(a + c, c.modulo(a))
+        XCTAssertEqual(d, a.modulo(c))
+    }
+    
+    func testModuloInPlace() {
+        var a = BigInt(int: 56789837)
+        let b = BigInt(int: 924720)
+        var c = BigInt(int: -924720)
+        let d = BigInt(int: 381917)
+        var zero = BigInt(int: 0)
+        
+        a.moduloInPlace(b)
+        XCTAssertEqual(d, a)
+        
+        zero.moduloInPlace(b)
+        XCTAssertEqual(BigInt(int: 0), zero)
+        
+        a = 56789837
+        a.moduloInPlace(c)
+        XCTAssertEqual(d, a)
+        
+        a = 56789837
+        let e = a + c
+        c.moduloInPlace(a)
+        XCTAssertEqual(e, c)
+    }
+    
+    func testModuloOperator() {
+        let a = BigInt(int: 56789837)
+        let b = BigInt(int: 924720)
+        let c = BigInt(int: -924720)
+        let d = BigInt(int: 381917)
+        let zero = BigInt(int: 0)
+        XCTAssertEqual(d, a % b)
+        XCTAssertEqual(zero, zero % a)
+        XCTAssertEqual(b, b % a)
+        XCTAssertEqual(a + c, c % a)
+        XCTAssertEqual(d, a % c)
+    }
+    
+    func testModuloAssignmentOperator() {
+        var a = BigInt(int: 56789837)
+        let b = BigInt(int: 924720)
+        var c = BigInt(int: -924720)
+        let d = BigInt(int: 381917)
+        var zero = BigInt(int: 0)
+        
+        a %= b
+        XCTAssertEqual(d, a)
+        
+        zero %= b
+        XCTAssertEqual(BigInt(int: 0), zero)
+        
+        a = 56789837
+        a %= c
+        XCTAssertEqual(d, a)
+        
+        a = 56789837
+        let e = a + c
+        c %= a
+        XCTAssertEqual(e, c)
+    }
+    
     func testAbsoluteValue() {
         let a = BigInt(int: 53103)
         let b = BigInt(int: 0)

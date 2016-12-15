@@ -114,6 +114,14 @@
     mpz_div(result->mpzBigInt, left->mpzBigInt, right->mpzBigInt);
 }
 
++ (void)set:(BigInt_OBJC *)result to:(BigInt_OBJC *)n modulo:(BigInt_OBJC *)d {
+    mpz_mod(result->mpzBigInt, n->mpzBigInt, d->mpzBigInt);
+}
+
++ (void)set:(BigInt_OBJC *)result to:(BigInt_OBJC *)n moduloUInt:(unsigned long int)d {
+    mpz_mod_ui(result->mpzBigInt, n->mpzBigInt, d);
+}
+
 + (void)set:(BigInt_OBJC *)result toAbsoluteValueOf:(BigInt_OBJC *)bigIntNumber {
     mpz_abs(result->mpzBigInt, bigIntNumber->mpzBigInt);
 }
