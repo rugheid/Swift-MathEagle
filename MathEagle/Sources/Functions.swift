@@ -161,3 +161,32 @@ public func gamma(_ z: Double, precision n: Int = 7) -> Double {
     
     return sum
 }
+
+
+/**
+ Returns the Euler totient (aka Euler phi) function for the given n.
+ 
+ - parameter n: The number to get the euler totient function for
+ */
+public func eulerTotient(_ nRaw: UInt) -> UInt {
+    
+    var n = nRaw
+    var result = n
+    
+    var p: UInt = 2
+    while p*p <= n {
+        if (n % p == 0) {
+            while (n % p == 0) {
+                n /= p
+            }
+            result -= result / p
+        }
+        p += 1
+    }
+    
+    if (n > 1) {
+        result -= result / n
+    }
+    
+    return result
+}
