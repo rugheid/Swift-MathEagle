@@ -168,24 +168,24 @@ public func gamma(_ z: Double, precision n: Int = 7) -> Double {
  
  - parameter n: The number to get the euler totient function for
  */
-public func eulerTotient(_ nRaw: UInt) -> UInt {
+public func eulerTotient <X: Multiplicable & Negatable & Subtractable & Addable & Equatable & Comparable & Modulable & Dividable & ExpressibleByIntegerLiteral> (_ nRaw: X) -> X {
     
-    var n = nRaw
+    var n = abs(nRaw)
     var result = n
     
-    var p: UInt = 2
+    var p: X = 2
     while p*p <= n {
         if (n % p == 0) {
             while (n % p == 0) {
-                n /= p
+                n = n / p
             }
-            result -= result / p
+            result = result - result / p
         }
         p += 1
     }
     
     if (n > 1) {
-        result -= result / n
+        result = result - result / n
     }
     
     return result
