@@ -99,4 +99,16 @@ class FunctionsTests: XCTestCase {
         XCTAssertEqualWithAccuracy(gamma(-2.3749), -1.17168614897932682180740075479679861986782655946903, accuracy: 10 ** -7)
     }
     
+    
+    func testEulerTotient() {
+        
+        let values = [0, 1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 10, 4, 12, 6, 8, 8, 16, 6, 18, 8, 12, 10, 22, 8, 20, 12, 18, 12, 28, 8, 30, 16, 20, 16, 24, 12, 36, 18, 24, 16, 40, 12, 42, 20, 24, 22, 46, 16, 42, 20, 32, 24, 52, 18, 40, 24, 36, 28, 58, 16, 60, 30, 36, 32, 48, 20, 66, 32, 44]
+        for (n, phi) in values.enumerated() {
+            XCTAssertEqual(eulerTotient(n), phi)
+            XCTAssertEqual(eulerTotient(-n), phi)
+        }
+        
+        XCTAssertEqual(eulerTotient(BigInt(string: "34567890987654567834")), BigInt(string: "11486768586384999600"))
+    }
+    
 }

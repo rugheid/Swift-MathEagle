@@ -41,6 +41,7 @@ public func digits(_ bigInt: BigInt) -> [Int] {
  - parameter number: The number to get the number of digits of.
 */
 public func numberOfDigits(_ number: Int) -> Int {
+    // TODO: Make generic?
     
     var n = abs(number)
     
@@ -67,6 +68,15 @@ public func numberOfDigits(_ number: Int) -> Int {
     }
     
     return nr
+}
+
+/**
+ Returns the number of digits of the given number.
+ 
+ - parameter number: The number to get the number of digits of.
+ */
+public func numberOfDigits(_ number: BigInt) -> Int {
+    return number.numberOfDigits
 }
 
 

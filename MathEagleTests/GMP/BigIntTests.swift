@@ -320,6 +320,78 @@ class BigIntTests: XCTestCase {
         XCTAssertEqual(BigInt(int: 0), b)
     }
     
+    func testModulo() {
+        let a = BigInt(int: 56789837)
+        let b = BigInt(int: 924720)
+        let c = BigInt(int: -924720)
+        let d = BigInt(int: 381917)
+        let zero = BigInt(int: 0)
+        XCTAssertEqual(d, a.modulo(b))
+        XCTAssertEqual(zero, zero.modulo(a))
+        XCTAssertEqual(b, b.modulo(a))
+        XCTAssertEqual(a + c, c.modulo(a))
+        XCTAssertEqual(d, a.modulo(c))
+    }
+    
+    func testModuloInPlace() {
+        var a = BigInt(int: 56789837)
+        let b = BigInt(int: 924720)
+        var c = BigInt(int: -924720)
+        let d = BigInt(int: 381917)
+        var zero = BigInt(int: 0)
+        
+        a.moduloInPlace(b)
+        XCTAssertEqual(d, a)
+        
+        zero.moduloInPlace(b)
+        XCTAssertEqual(BigInt(int: 0), zero)
+        
+        a = 56789837
+        a.moduloInPlace(c)
+        XCTAssertEqual(d, a)
+        
+        a = 56789837
+        let e = a + c
+        c.moduloInPlace(a)
+        XCTAssertEqual(e, c)
+    }
+    
+    func testModuloOperator() {
+        let a = BigInt(int: 56789837)
+        let b = BigInt(int: 924720)
+        let c = BigInt(int: -924720)
+        let d = BigInt(int: 381917)
+        let zero = BigInt(int: 0)
+        XCTAssertEqual(d, a % b)
+        XCTAssertEqual(zero, zero % a)
+        XCTAssertEqual(b, b % a)
+        XCTAssertEqual(a + c, c % a)
+        XCTAssertEqual(d, a % c)
+    }
+    
+    func testModuloAssignmentOperator() {
+        var a = BigInt(int: 56789837)
+        let b = BigInt(int: 924720)
+        var c = BigInt(int: -924720)
+        let d = BigInt(int: 381917)
+        var zero = BigInt(int: 0)
+        
+        a %= b
+        XCTAssertEqual(d, a)
+        
+        zero %= b
+        XCTAssertEqual(BigInt(int: 0), zero)
+        
+        a = 56789837
+        a %= c
+        XCTAssertEqual(d, a)
+        
+        a = 56789837
+        let e = a + c
+        c %= a
+        XCTAssertEqual(e, c)
+    }
+    
     func testAbsoluteValue() {
         let a = BigInt(int: 53103)
         let b = BigInt(int: 0)
@@ -348,6 +420,127 @@ class BigIntTests: XCTestCase {
         XCTAssertEqual(BigInt(int: 53103), abs(a))
         XCTAssertEqual(BigInt(int: 0), abs(b))
         XCTAssertEqual(BigInt(int: 47801842), abs(c))
+    }
+    
+    func testSquareRoot() {
+        var a = BigInt(int: 53103)
+        XCTAssertEqual(a.squareRoot, BigInt(int: 230))
+        
+        a = 0
+        XCTAssertEqual(a.squareRoot, BigInt(int: 0))
+    }
+    
+    func testSquareRootInPlace() {
+        var a = BigInt(int: 53103)
+        a.squareRootInPlace()
+        XCTAssertEqual(a, BigInt(int: 230))
+        
+        a = 0
+        a.squareRootInPlace()
+        XCTAssertEqual(a, BigInt(int: 0))
+    }
+    
+    func testPowerModulo() {
+        let a = BigInt(int: 53103)
+        let b = BigInt(int: 234311)
+        let mod = BigInt(int: 1_000_000_000_000)
+        XCTAssertEqual(BigInt(uint: 919_447_180_047), a.power(b, modulo: mod))
+    }
+    
+    func testPowerModuloInPlace() {
+        var a = BigInt(int: 53103)
+        let b = BigInt(int: 234311)
+        let mod = BigInt(int: 1_000_000_000_000)
+        a.powerInPlace(b, modulo: mod)
+        XCTAssertEqual(BigInt(uint: 919_447_180_047), a)
+    }
+    
+    func testPower() {
+        let a = BigInt(int: 53103)
+        XCTAssertEqual(a.power(32), BigInt(string: "15988577176268060579004931089547253337461076707270626303439766786870881752448879429300926345888658367621823487912941530168589176115215538579849129034241"))
+    }
+    
+    func testPowerInPlace() {
+        var a = BigInt(int: 53103)
+        a.powerInPlace(32)
+        XCTAssertEqual(a, BigInt(string: "15988577176268060579004931089547253337461076707270626303439766786870881752448879429300926345888658367621823487912941530168589176115215538579849129034241"))
+    }
+    
+    func testFactorial() {
+        for (n, f_n) in [1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800, 39916800, 479001600, 6227020800, 87178291200, 1307674368000, 20922789888000, 355687428096000, 6402373705728000, 121645100408832000, 2432902008176640000].enumerated() {
+            XCTAssertEqual(BigInt.factorial(UInt(n)), BigInt(int: f_n))
+        }
+        XCTAssertEqual(BigInt.factorial(21), BigInt(string: "51090942171709440000"))
+        XCTAssertEqual(BigInt.factorial(22), BigInt(string: "1124000727777607680000"))
+    }
+    
+    func testDoubleFactorial() {
+        for (n, f_n) in [1, 1, 2, 3, 8, 15, 48, 105, 384, 945, 3840, 10395, 46080, 135135, 645120, 2027025, 10321920, 34459425, 185794560, 654729075, 3715891200, 13749310575, 81749606400, 316234143225, 1961990553600, 7905853580625, 51011754393600].enumerated() {
+            XCTAssertEqual(BigInt.doubleFactorial(UInt(n)), BigInt(int: f_n))
+        }
+    }
+    
+    func testMultiFactorial() {
+        for (n, f_n) in [1, 1, 2, 3, 4, 10, 18, 28, 80, 162, 280, 880, 1944, 3640, 12320, 29160, 58240, 209440, 524880, 1106560, 4188800, 11022480, 24344320, 96342400, 264539520, 608608000, 2504902400, 7142567040, 17041024000, 72642169600].enumerated() {
+            XCTAssertEqual(BigInt.factorial(UInt(n), multi: 3), BigInt(int: f_n))
+        }
+        for (n, f_n) in [1, 1, 2, 3, 4, 5, 12, 21, 32, 45, 120, 231, 384, 585, 1680, 3465, 6144, 9945, 30240, 65835, 122880, 208845, 665280, 1514205, 2949120, 5221125, 17297280, 40883535, 82575360, 151412625, 518918400, 1267389585, 2642411520, 4996616625].enumerated() {
+            XCTAssertEqual(BigInt.factorial(UInt(n), multi: 4), BigInt(int: f_n))
+        }
+    }
+    
+    func testGCD() {
+        XCTAssertEqual(BigInt.gcd(0, 0), BigInt(int: 0))
+        XCTAssertEqual(BigInt.gcd(20, 10), BigInt(int: 10))
+        XCTAssertEqual(BigInt.gcd(20, -10), BigInt(int: 10))
+        XCTAssertEqual(BigInt.gcd(123123123123, 123123123123123123), BigInt(int: 123123))
+        XCTAssertEqual(BigInt.gcd(-123123123123, 123123123123123123), BigInt(int: 123123))
+        XCTAssertEqual(BigInt.gcd(37279462087332, 366983722766), BigInt(int: 564958))
+    }
+    
+    func testGCDInPlace() {
+        var a = BigInt(int: 0)
+        a.gcdInPlace(0)
+        XCTAssertEqual(a, BigInt(int: 0))
+        
+        a = 20
+        a.gcdInPlace(10)
+        XCTAssertEqual(a, BigInt(int: 10))
+        
+        a = -20
+        a.gcdInPlace(10)
+        XCTAssertEqual(a, BigInt(int: 10))
+        
+        a = 37279462087332
+        a.gcdInPlace(366983722766)
+        XCTAssertEqual(a, BigInt(int: 564958))
+    }
+    
+    func testNumberOfDigits() {
+        
+        var a = BigInt(int: 56789) // 0b1101110111010101, 0o156725, 0xDDD5
+        XCTAssertEqual(a.numberOfDigits, 5)
+        XCTAssertEqual(a.numberOfDigits(), 5)
+        XCTAssertEqual(numberOfDigits(a), 5)
+        XCTAssertEqual(a.numberOfDigits(inBase: 2), 16)
+        XCTAssertEqual(a.numberOfDigits(inBase: 8), 6)
+        XCTAssertEqual(a.numberOfDigits(inBase: 16), 4)
+        
+        a = -56789
+        XCTAssertEqual(a.numberOfDigits, 5)
+        XCTAssertEqual(a.numberOfDigits(), 5)
+        XCTAssertEqual(numberOfDigits(a), 5)
+        XCTAssertEqual(a.numberOfDigits(inBase: 2), 16)
+        XCTAssertEqual(a.numberOfDigits(inBase: 8), 6)
+        XCTAssertEqual(a.numberOfDigits(inBase: 16), 4)
+        
+        a = 0
+        XCTAssertEqual(a.numberOfDigits, 1)
+        XCTAssertEqual(a.numberOfDigits(), 1)
+        XCTAssertEqual(numberOfDigits(a), 1)
+        XCTAssertEqual(a.numberOfDigits(inBase: 2), 1)
+        XCTAssertEqual(a.numberOfDigits(inBase: 8), 1)
+        XCTAssertEqual(a.numberOfDigits(inBase: 16), 1)
     }
     
     

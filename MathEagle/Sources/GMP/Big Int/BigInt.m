@@ -114,12 +114,48 @@
     mpz_div(result->mpzBigInt, left->mpzBigInt, right->mpzBigInt);
 }
 
++ (void)set:(BigInt_OBJC *)result to:(BigInt_OBJC *)n modulo:(BigInt_OBJC *)d {
+    mpz_mod(result->mpzBigInt, n->mpzBigInt, d->mpzBigInt);
+}
+
++ (void)set:(BigInt_OBJC *)result to:(BigInt_OBJC *)n moduloUInt:(unsigned long int)d {
+    mpz_mod_ui(result->mpzBigInt, n->mpzBigInt, d);
+}
+
 + (void)set:(BigInt_OBJC *)result toAbsoluteValueOf:(BigInt_OBJC *)bigIntNumber {
     mpz_abs(result->mpzBigInt, bigIntNumber->mpzBigInt);
 }
 
 + (void)set:(BigInt_OBJC *)result toSquareRootOf:(BigInt_OBJC *)bigIntNumber {
     mpz_sqrt(result->mpzBigInt, bigIntNumber->mpzBigInt);
+}
+
++ (void)set:(BigInt_OBJC *)result toPowerOf:(BigInt_OBJC *)left and:(BigInt_OBJC *)right modulo:(BigInt_OBJC *)modulo {
+    mpz_powm(result->mpzBigInt, left->mpzBigInt, right->mpzBigInt, modulo->mpzBigInt);
+}
+
++ (void)set:(BigInt_OBJC *)result toPowerOf:(BigInt_OBJC *)bigIntNumber and:(unsigned long int)uint {
+    mpz_pow_ui(result->mpzBigInt, bigIntNumber->mpzBigInt, uint);
+}
+
++ (void)set:(BigInt_OBJC *)result toFactorial:(unsigned long int)uint {
+    mpz_fac_ui(result->mpzBigInt, uint);
+}
+
++ (void)set:(BigInt_OBJC *)result toDoubleFactorial:(unsigned long int)uint {
+    mpz_2fac_ui(result->mpzBigInt, uint);
+}
+
++ (void)set:(BigInt_OBJC *)result toFactorial:(unsigned long int)uint multi:(unsigned long int)m {
+    mpz_mfac_uiui(result->mpzBigInt, uint, m);
+}
+
++ (void)set:(BigInt_OBJC *)result toGCDOf:(BigInt_OBJC *)left and:(BigInt_OBJC *)right {
+    mpz_gcd(result->mpzBigInt, left->mpzBigInt, right->mpzBigInt);
+}
+
++ (size_t)getSizeOf:(BigInt_OBJC *)bigInt inBase:(int)base {
+    return mpz_sizeinbase(bigInt->mpzBigInt, base);
 }
 
 @end

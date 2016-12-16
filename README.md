@@ -1,4 +1,7 @@
 # Swift-MathEagle
+
+![Travis](https://travis-ci.org/rugheid/Swift-MathEagle.svg?branch=development)
+
 MathEagle is named after the golden eagle, since this is the fastest bird in the world (in horizontal flight).
 
 This project is meant to make math easy in swift without losing performance. The syntax is designed to be as simple as possible. Contributors are always welcome, the more the merrier!

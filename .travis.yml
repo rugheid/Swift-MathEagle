@@ -1,0 +1,6 @@
+language: objective-c
+osx_image: xcode8
+xcode_project: MathEagle.xcodeproj
+xcode_scheme: MathEagle
+script:
+  - xcodebuild -project MathEagle.xcodeproj -scheme "MathEagle" test

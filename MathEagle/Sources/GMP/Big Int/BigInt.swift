@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, SetCompliant, CustomStringConvertible, Hashable, ExpressibleByIntegerLiteral {
+public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, Modulable, SetCompliant, CustomStringConvertible, Hashable, ExpressibleByIntegerLiteral {
     
     
     // MARK: Private Properties
@@ -45,6 +45,8 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, M
     public init(string: String, base: Int32 = 10) {
         bigIntOBJC = BigInt_OBJC(string: string.cString(using: String.Encoding.utf8)!, inBase: base)
     }
+    
+    
     
     
     // MARK: Properties
@@ -173,6 +175,26 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, M
         BigInt_OBJC.set(self.bigIntOBJC, toQuotientOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
     }
     
+    public func modulo(_ bigInt: BigInt) -> BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, to: self.bigIntOBJC, modulo: bigInt.bigIntOBJC)
+        return result
+    }
+    
+    public mutating func moduloInPlace(_ bigInt: BigInt) {
+        BigInt_OBJC.set(self.bigIntOBJC, to: self.bigIntOBJC, modulo: bigInt.bigIntOBJC)
+    }
+    
+    public func modulo(_ uint: UInt) -> BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, to: self.bigIntOBJC, moduloUInt: uint)
+        return result
+    }
+    
+    public mutating func moduloInPlace(_ uint: UInt) {
+        BigInt_OBJC.set(self.bigIntOBJC, to: self.bigIntOBJC, moduloUInt: uint)
+    }
+    
     public var absoluteValue: BigInt {
         let result = BigInt()
         BigInt_OBJC.set(result.bigIntOBJC, toAbsoluteValueOf: self.bigIntOBJC)
@@ -189,8 +211,87 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, M
         return result
     }
     
-    public func squareRootInPlace() {
+    public mutating func squareRootInPlace() {
         BigInt_OBJC.set(self.bigIntOBJC, toSquareRootOf: self.bigIntOBJC)
+    }
+    
+    public func power(_ bigInt: BigInt, modulo: BigInt) -> BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, toPowerOf: self.bigIntOBJC, and: bigInt.bigIntOBJC, modulo: modulo.bigIntOBJC)
+        return result
+    }
+    
+    public mutating func powerInPlace(_ bigInt: BigInt, modulo: BigInt) {
+        BigInt_OBJC.set(self.bigIntOBJC, toPowerOf: self.bigIntOBJC, and: bigInt.bigIntOBJC, modulo: modulo.bigIntOBJC)
+    }
+    
+    public func power(_ uint: UInt) -> BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, toPowerOf: self.bigIntOBJC, and: uint)
+        return result
+    }
+    
+    public mutating func powerInPlace(_ uint: UInt) {
+        BigInt_OBJC.set(self.bigIntOBJC, toPowerOf: self.bigIntOBJC, and: uint)
+    }
+    
+    
+    // MARK: Special functions
+    
+    public static func factorial(_ uint: UInt) -> BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, toFactorial: uint)
+        return result
+    }
+    
+    /**
+     Returns the double factorial of the given number.
+     
+     - parameter n: The value to take the factorial of
+     
+     - returns: `n!!`
+     */
+    public static func doubleFactorial(_ n: UInt) -> BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, toDoubleFactorial: n)
+        return result
+    }
+    
+    /**
+     Returns the m-multi factorial of the given number.
+     
+     - parameter n: The value to take the factorial of
+     - parameter m: Defines the multi-grade
+     
+     - returns: `n!!...!` (m times factorial)
+     */
+    public static func factorial(_ n: UInt, multi m: UInt) -> BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, toFactorial: n, multi: m)
+        return result
+    }
+    
+    /**
+     Returns the greatest common dividor of the two given numbers.
+     
+     - parameter left: The first number
+     - parameter right: The second number
+     
+     - returns: `gcd(left, right)`
+     */
+    public static func gcd(_ left: BigInt, _ right: BigInt) -> BigInt {
+        let result = BigInt()
+        BigInt_OBJC.set(result.bigIntOBJC, toGCDOf: left.bigIntOBJC, and: right.bigIntOBJC)
+        return result
+    }
+    
+    /**
+     Sets the value of the number to the gcd of the number and the given number.
+     
+     - parameter bigInt: The number to take the gcd with
+     */
+    public mutating func gcdInPlace(_ bigInt: BigInt) {
+        BigInt_OBJC.set(self.bigIntOBJC, toGCDOf: self.bigIntOBJC, and: bigInt.bigIntOBJC)
     }
     
     
@@ -202,6 +303,17 @@ public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, M
     
     public var isInteger: Bool {
         return true
+    }
+    
+    
+    // MARK: Additional Properties
+    
+    public var numberOfDigits: Int {
+        return self.numberOfDigits()
+    }
+    
+    public func numberOfDigits(inBase base: Int32 = 10) -> Int {
+        return BigInt_OBJC.getSizeOf(self.bigIntOBJC, inBase: base)
     }
 }
 
@@ -272,6 +384,25 @@ public func / (left: BigInt, right: BigInt) -> BigInt {
 
 public func /= (left: inout BigInt, right: BigInt) {
     left.divideInPlace(right)
+}
+
+
+// MARK: Modulable
+
+public func % (left: BigInt, right: BigInt) -> BigInt {
+    return left.modulo(right)
+}
+
+public func % (left: BigInt, right: UInt) -> BigInt {
+    return left.modulo(right)
+}
+
+public func %= (left: inout BigInt, right: BigInt) {
+    left.moduloInPlace(right)
+}
+
+public func %= (left: inout BigInt, right: UInt) {
+    left.moduloInPlace(right)
 }
 
 

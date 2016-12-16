@@ -15,6 +15,7 @@ class DivisorsTests: XCTestCase {
     func testDivisors() {
         
         XCTAssertEqual([1, 5], divisors(5))
+        XCTAssertEqual([1, 2, 4], divisors(4))
         XCTAssertEqual([1, 2, 4, 5, 10, 20], divisors(20))
         XCTAssertEqual([1, 2, 4, 5, 8, 10, 20, 25, 40, 50, 100, 125, 200, 250, 500, 1000], divisors(1000))
     }
@@ -23,6 +24,7 @@ class DivisorsTests: XCTestCase {
     func testProperDivisors() {
         
         XCTAssertEqual([1], properDivisors(5))
+        XCTAssertEqual([1, 2], properDivisors(4))
         XCTAssertEqual([1, 2, 4, 5, 10], properDivisors(20))
         XCTAssertEqual([1, 2, 4, 5, 8, 10, 20, 25, 40, 50, 100, 125, 200, 250, 500], properDivisors(1000))
     }
@@ -114,7 +116,7 @@ class DivisorsTests: XCTestCase {
         XCTAssertTrue(isPower(4, 2, integersAllowed: false))
         XCTAssertTrue(isPower(4, 2, integersAllowed: true))
         XCTAssertTrue(isPower(8, 3, integersAllowed: false))
-        XCTAssertTrue(isPower(-8, 3, integersAllowed: true))
+//        XCTAssertTrue(isPower(-8, 3, integersAllowed: true))
         
         XCTAssertFalse(isPower(4, 3, integersAllowed: false))
         XCTAssertFalse(isPower(4, 3, integersAllowed: true))
