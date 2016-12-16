@@ -1,6 +1,6 @@
 # Swift-MathEagle
 
-![Travis](https://travis-ci.org/rugheid/Swift-MathEagle.svg?branch=development)
+![Travis](https://travis-ci.org/rugheid/Swift-MathEagle.svg?branch=master)
 
 MathEagle is named after the golden eagle, since this is the fastest bird in the world (in horizontal flight).
 
