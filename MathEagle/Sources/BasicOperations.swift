@@ -26,19 +26,19 @@ public protocol Negatable {
 }
 
 public prefix func - (x: UInt) -> UInt {
-    return x
+    return UInt(bitPattern:-Int(bitPattern:x))
 }
 public prefix func - (x: UInt8) -> UInt8 {
-    return x
+    return UInt8(bitPattern:-Int8(bitPattern:x))
 }
 public prefix func - (x: UInt16) -> UInt16 {
-    return x
+    return UInt16(bitPattern:-Int16(bitPattern:x))
 }
 public prefix func - (x: UInt32) -> UInt32 {
-    return x
+    return UInt32(bitPattern:-Int32(bitPattern:x))
 }
 public prefix func - (x: UInt64) -> UInt64 {
-    return x
+    return UInt64(bitPattern:-Int64(bitPattern:x))
 }
 
 

@@ -82,6 +82,7 @@
 		E108D54A21115919002EB275 /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E108D543211158F7002EB275 /* MatrixTests.swift */; };
 		E108D54B2111591D002EB275 /* PermutationMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E108D544211158F7002EB275 /* PermutationMatrixTests.swift */; };
 		E108D54C21115920002EB275 /* DiagonalMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E108D545211158F7002EB275 /* DiagonalMatrixTests.swift */; };
+		E175DDEC21115B9D008672C8 /* BasicOperationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E175DDEB21115B9D008672C8 /* BasicOperationsTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -183,6 +184,7 @@
 		E108D543211158F7002EB275 /* MatrixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixTests.swift; sourceTree = "<group>"; };
 		E108D544211158F7002EB275 /* PermutationMatrixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermutationMatrixTests.swift; sourceTree = "<group>"; };
 		E108D545211158F7002EB275 /* DiagonalMatrixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagonalMatrixTests.swift; sourceTree = "<group>"; };
+		E175DDEB21115B9D008672C8 /* BasicOperationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BasicOperationsTests.swift; path = Protocols/BasicOperationsTests.swift; sourceTree = "<group>"; };
 		E192290B21112D9200A1A10E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		E192290C21112D9200A1A10E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -444,6 +446,7 @@
 				98F598881A7B8C2A0058DF53 /* OptimizationTests.swift */,
 				98F558891B1B10C0009AECD5 /* Permutation */,
 				98E671741AA8C4B400C88DCE /* PrimeTests.swift */,
+				E175DDEA21115B16008672C8 /* Protocols */,
 				9843568E1ACC79F100B988CB /* RandomTests.swift */,
 				98B927451B277F70006C4C73 /* SequenceFunctionsTests.swift */,
 				98F598871A7B8C2A0058DF53 /* SolverTests.swift */,
@@ -525,6 +528,14 @@
 			name = "Linear Algebra";
 			path = "/Users/kellyroach/Fork/rugheid/Swift-MathEagle/MathEagleTests/Linear Algebra";
 			sourceTree = "<absolute>";
+		};
+		E175DDEA21115B16008672C8 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				E175DDEB21115B9D008672C8 /* BasicOperationsTests.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -693,6 +704,7 @@
 				98E671751AA8C4B400C88DCE /* PrimeTests.swift in Sources */,
 				989729431B18B0550046D951 /* PermutationTest.swift in Sources */,
 				9843568F1ACC79F100B988CB /* RandomTests.swift in Sources */,
+				E175DDEC21115B9D008672C8 /* BasicOperationsTests.swift in Sources */,
 				988882D21CDBC9C6007B0E19 /* GraphTests.swift in Sources */,
 				98DE55DF1C201B7D00DBD3D6 /* BigIntTests.swift in Sources */,
 				98F598A01A7B8C2A0058DF53 /* Helper.swift in Sources */,
