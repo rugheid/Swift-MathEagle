@@ -15,7 +15,7 @@ Returns an array containing the digits of the given number from most to least si
 public func digits(_ number: Int) -> [Int] {
     
     //TODO: Benchmark this method.
-    return "\(abs(number))".characters.map{ Int("\($0)")! }
+    return "\(abs(number))".map{ Int("\($0)")! }
 }
 
 /**
@@ -28,10 +28,10 @@ public func digits(_ bigInt: BigInt) -> [Int] {
     var stringValue = bigInt.stringValue
     
     if stringValue.hasPrefix("-") {
-        stringValue.remove(at: stringValue.characters.startIndex)
+        stringValue.remove(at: stringValue.startIndex)
     }
     
-    return stringValue.characters.map{ Int("\($0)")! }
+    return stringValue.map{ Int("\($0)")! }
 }
 
 

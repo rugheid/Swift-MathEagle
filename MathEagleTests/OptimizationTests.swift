@@ -16,17 +16,17 @@ class OptimizationTests: XCTestCase {
     func testGoldenSection() {
         
         var x = Optimization.goldenSection(-3.0, 3.0){ $0**2 + $0 - 4 }
-        XCTAssertEqualWithAccuracy(-0.5, x, accuracy: ACCURACY)
+        XCTAssertEqual(-0.5, x, accuracy: ACCURACY)
         
         let f = { (x: Double) -> Double in
             (log(x**2 + 1) + exp(x))/x
         }
         
         x = Optimization.goldenSection(0.5, 2.0, f: f)
-        XCTAssertEqualWithAccuracy(0.8754963230, x, accuracy: ACCURACY)
+        XCTAssertEqual(0.8754963230, x, accuracy: ACCURACY)
         
         x = Optimization.goldenSection(-2.0, 1.5){ -sin($0)/$0 }
-        XCTAssertEqualWithAccuracy(0.0, x, accuracy: ACCURACY)
+        XCTAssertEqual(0.0, x, accuracy: ACCURACY)
     }
     
     func testGoldenSectionPerformance() {

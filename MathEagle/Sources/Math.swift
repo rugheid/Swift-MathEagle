@@ -12,12 +12,12 @@ import Foundation
 
 // MARK: BasicMathValue Protocol
 
-public protocol BasicMathValue: Equatable, Comparable, Addable, Subtractable, Multiplicable, Dividable, SetCompliant, ExpressibleByIntegerLiteral {}
+public protocol BasicMathValue: Comparable, Addable, Subtractable, Multiplicable, Dividable, SetCompliant, ExpressibleByIntegerLiteral {}
 
 
 // MARK: FullMathValue Protocol
 
-public protocol FullMathValue: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, ExpressibleByIntegerLiteral {}
+public protocol FullMathValue: Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, ExpressibleByIntegerLiteral {}
 
 
 // MARK: Basic Type Protocol Adoptions
@@ -87,19 +87,24 @@ extension Float: Addable, Negatable, Subtractable, Multiplicable, Dividable, Mod
     public typealias NaturalPowerType = Float
     public typealias IntegerPowerType = Float
     public typealias RealPowerType = Double
+    public static func % (left: Float, right: Float) -> Float {
+        return left.truncatingRemainder(dividingBy:right)
+    }
 }
 extension Double: Addable, Negatable, Subtractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {
     
     public typealias NaturalPowerType = Double
     public typealias IntegerPowerType = Double
     public typealias RealPowerType = Double
+    public static func % (left: Double, right: Double) -> Double {
+        return left.truncatingRemainder(dividingBy:right)
+    }
 }
-extension CGFloat: Addable, Negatable, Subtractable, Multiplicable, Dividable, Modulable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {
+extension CGFloat: Addable, Negatable, Subtractable, Multiplicable, Dividable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, MatrixCompatible, BasicMathValue, FullMathValue {
     
     public typealias NaturalPowerType = CGFloat
     public typealias IntegerPowerType = CGFloat
     public typealias RealPowerType = CGFloat
-    
     public init(_ float: CGFloat) {
         self = CGFloat(float)
     }

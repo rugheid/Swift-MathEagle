@@ -8,7 +8,7 @@
 
 import Accelerate
 
-public struct Complex: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, Conjugatable, MatrixCompatible, ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral, CustomStringConvertible {
+public struct Complex: Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, NaturalPowerable, IntegerPowerable, RealPowerable, SetCompliant, Conjugatable, MatrixCompatible, ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral, CustomStringConvertible {
     
     public typealias NaturalPowerType = Complex
     public typealias IntegerPowerType = Complex
@@ -451,13 +451,11 @@ public enum Quadrant: Int {
 // MARK: DSPDoubleSplitComplex extension
 
 extension DSPDoubleSplitComplex {
-    
     init(_ complex: Complex) {
-        
-        self.realp = UnsafeMutablePointer<Double>.allocate(capacity: 1)
-        self.realp[0] = complex.real
-        
-        self.imagp = UnsafeMutablePointer<Double>.allocate(capacity: 1)
-        self.imagp[0] = complex.imaginary
+        let realp = UnsafeMutablePointer<Double>.allocate(capacity: 1)
+        let imagp = UnsafeMutablePointer<Double>.allocate(capacity: 1)
+        realp[0] = complex.real
+        imagp[0] = complex.imaginary
+        self.init(realp:realp, imagp:imagp)
     }
 }

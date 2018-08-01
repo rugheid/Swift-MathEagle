@@ -16,13 +16,13 @@ class IntegrationTests: XCTestCase {
     func testMidpoint() {
         
         var I = Integration.midpoint(0.0, 2.0){ $0 }
-        XCTAssertEqualWithAccuracy(I, 2.0, accuracy: ACCURACY)
+        XCTAssertEqual(I, 2.0, accuracy: ACCURACY)
         
-        I = Integration.midpoint(0.0, M_PI){ sin($0) }
-        XCTAssertEqualWithAccuracy(I, 2.0, accuracy: ACCURACY)
+        I = Integration.midpoint(0.0, Double.pi){ sin($0) }
+        XCTAssertEqual(I, 2.0, accuracy: ACCURACY)
         
         I = Integration.midpoint(1.0, 3.0){ log($0) }
-        XCTAssertEqualWithAccuracy(I, 1.295836867, accuracy: ACCURACY)
+        XCTAssertEqual(I, 1.295836867, accuracy: ACCURACY)
     }
     
     func testMidpointPerformance() {
@@ -40,13 +40,13 @@ class IntegrationTests: XCTestCase {
     func testTrapezoid() {
         
         var I = Integration.trapezoid(0.0, 2.0){ $0 }
-        XCTAssertEqualWithAccuracy(I, 2.0, accuracy: ACCURACY)
+        XCTAssertEqual(I, 2.0, accuracy: ACCURACY)
         
-        I = Integration.trapezoid(0.0, M_PI){ sin($0) }
-        XCTAssertEqualWithAccuracy(I, 2.0, accuracy: ACCURACY)
+        I = Integration.trapezoid(0.0, Double.pi){ sin($0) }
+        XCTAssertEqual(I, 2.0, accuracy: ACCURACY)
         
         I = Integration.trapezoid(1.0, 3.0){ log($0) }
-        XCTAssertEqualWithAccuracy(I, 1.295836867, accuracy: ACCURACY)
+        XCTAssertEqual(I, 1.295836867, accuracy: ACCURACY)
     }
     
     func testTrapezoidPerformance() {
@@ -64,13 +64,13 @@ class IntegrationTests: XCTestCase {
     func testSimpson() {
         
         var I = Integration.simpson(0.0, 2.0){ $0 }
-        XCTAssertEqualWithAccuracy(I, 2.0, accuracy: ACCURACY)
+        XCTAssertEqual(I, 2.0, accuracy: ACCURACY)
         
-        I = Integration.simpson(0.0, M_PI){ sin($0) }
-        XCTAssertEqualWithAccuracy(I, 2.0, accuracy: ACCURACY)
+        I = Integration.simpson(0.0, Double.pi){ sin($0) }
+        XCTAssertEqual(I, 2.0, accuracy: ACCURACY)
         
         I = Integration.simpson(1.0, 3.0){ log($0) }
-        XCTAssertEqualWithAccuracy(I, 1.295836867, accuracy: ACCURACY)
+        XCTAssertEqual(I, 1.295836867, accuracy: ACCURACY)
     }
     
     func testSimpsonPerformance() {
@@ -88,13 +88,13 @@ class IntegrationTests: XCTestCase {
     func testAdaptiveSimpson() {
         
         var I = Integration.adaptiveSimpson(0.0, 2.0){ $0 }
-        XCTAssertEqualWithAccuracy(I, 2.0, accuracy: ACCURACY)
+        XCTAssertEqual(I, 2.0, accuracy: ACCURACY)
         
-        I = Integration.adaptiveSimpson(0.0, M_PI){ sin($0) }
-        XCTAssertEqualWithAccuracy(I, 2.0, accuracy: ACCURACY)
+        I = Integration.adaptiveSimpson(0.0, Double.pi){ sin($0) }
+        XCTAssertEqual(I, 2.0, accuracy: ACCURACY)
         
         I = Integration.adaptiveSimpson(1.0, 3.0){ log($0) }
-        XCTAssertEqualWithAccuracy(I, 1.295836867, accuracy: ACCURACY)
+        XCTAssertEqual(I, 1.295836867, accuracy: ACCURACY)
     }
     
     func testAdaptiveSimpsonPerformance() {

@@ -494,10 +494,10 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(1.0, matrix.determinant)
         
         matrix = Matrix([[2, 4], [3, 7]])
-        XCTAssertEqualWithAccuracy(2.0, matrix.determinant, accuracy: ACCURACY)
+        XCTAssertEqual(2.0, matrix.determinant, accuracy: ACCURACY)
         
         matrix = Matrix([[6, 7, -3, 2], [5, -2, -2, 3], [8, 6, 5, 5], [-8, -8, 0, 3]])
-        XCTAssertEqualWithAccuracy(-2759.0, matrix.determinant, accuracy: ACCURACY)
+        XCTAssertEqual(-2759.0, matrix.determinant, accuracy: ACCURACY)
         
         let i = Complex.imaginaryUnit
         XCTAssertTrue((-10.0 + 11.0 * i).equals(cmatrix.determinant, accuracy: ACCURACY))
@@ -685,7 +685,7 @@ class MatrixTests: XCTestCase {
             
             return timeBlock(){
                 
-                matrix.maxElement
+                matrix.maxElement as Any
             }
         }
     }

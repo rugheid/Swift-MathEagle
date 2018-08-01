@@ -45,7 +45,7 @@ func getCoefficients(n0: Int, numberOfIterations k: Int, timeBlock: (Int) -> Dou
     return (a, b)
 }
 
-func timeBlock(n: Int = 1, block: (Void) -> Any) -> Double {
+func timeBlock(n: Int = 1, block: () -> Any) -> Double {
     
     let start = Date()
     
@@ -59,7 +59,7 @@ func timeBlock(n: Int = 1, block: (Void) -> Any) -> Double {
     return Double(end.timeIntervalSince(start)) / Double(n)
 }
 
-func compareBaseline(_ baseline: Double, title: String = "", n: Int = 1, block: (Void) -> Any) {
+func compareBaseline(_ baseline: Double, title: String = "", n: Int = 1, block: () -> Any) {
     
     let time = timeBlock(n: n, block: block)
     
@@ -67,7 +67,7 @@ func compareBaseline(_ baseline: Double, title: String = "", n: Int = 1, block: 
     print("")
     if !title.isEmpty {
         print(title)
-        print(String(repeating: "-", count: title.characters.count))
+        print(String(repeating: "-", count: title.count))
     }
     print("Baseline:\t\t\t\t\t\(baseline)")
     print("Time:\t\t\t\t\t\t\(time)")
@@ -82,7 +82,7 @@ func calculateBenchmarkingTimes(_ base: Int, maxPower k: Int, title: String = ""
     print("")
     if !title.isEmpty {
         print(title)
-        print(String(repeating: "-", count: title.characters.count))
+        print(String(repeating: "-", count: title.count))
     }
     
     for i in 1 ... k {

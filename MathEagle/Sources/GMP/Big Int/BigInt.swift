@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct BigInt: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, Modulable, SetCompliant, CustomStringConvertible, Hashable, ExpressibleByIntegerLiteral {
+public struct BigInt: Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, Modulable, SetCompliant, CustomStringConvertible, Hashable, ExpressibleByIntegerLiteral {
     
     
     // MARK: Private Properties

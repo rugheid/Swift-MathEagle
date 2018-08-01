@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct BigFloat: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, SetCompliant, NaturalPowerable, CustomStringConvertible, Hashable, ExpressibleByIntegerLiteral {
+public struct BigFloat: Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, SetCompliant, NaturalPowerable, CustomStringConvertible, Hashable, ExpressibleByIntegerLiteral {
     
     
     // MARK: Private Properties

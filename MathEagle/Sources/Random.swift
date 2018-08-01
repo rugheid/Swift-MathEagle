@@ -25,8 +25,7 @@ extension Float: RangeType {}
 extension Double: RangeType {}
 extension CGFloat: RangeType {}
 
-public protocol CountableRangeType: Comparable, _Strideable {
-    associatedtype Stride: SignedInteger
+public protocol CountableRangeType: Strideable where Stride: SignedInteger {
 }
 extension Int: CountableRangeType {}
 extension Int8: CountableRangeType {}
@@ -436,7 +435,7 @@ extension Float: Randomizable {
         let interval = intervals[0]
         let length = interval.upperBound - interval.lowerBound
         
-        return interval.lowerBound + abs(random().truncatingRemainder(dividingBy: length))
+        return interval.lowerBound + Swift.abs(random().truncatingRemainder(dividingBy: length))
     }
     
     public static func randomInInterval(_ intervals: [ClosedRange<Float>]) -> Float {
@@ -444,7 +443,7 @@ extension Float: Randomizable {
         let interval = intervals[0]
         let length = interval.upperBound - interval.lowerBound
         
-        return interval.lowerBound + abs(random().truncatingRemainder(dividingBy: length))
+        return interval.lowerBound + Swift.abs(random().truncatingRemainder(dividingBy: length))
     }
     
     public static func randomInInterval(_ intervals: [CountableRange<Int>]) -> Float {
@@ -452,7 +451,7 @@ extension Float: Randomizable {
         let interval = intervals[0]
         let length = interval.upperBound - interval.lowerBound
         
-        return Float(interval.lowerBound) + abs(random().truncatingRemainder(dividingBy: Float(length)))
+        return Float(interval.lowerBound) + Swift.abs(random().truncatingRemainder(dividingBy: Float(length)))
     }
     
     public static func randomInInterval(_ intervals: [CountableClosedRange<Int>]) -> Float {
@@ -460,7 +459,7 @@ extension Float: Randomizable {
         let interval = intervals[0]
         let length = interval.upperBound - interval.lowerBound
         
-        return Float(interval.lowerBound) + abs(random().truncatingRemainder(dividingBy: Float(length)))
+        return Float(interval.lowerBound) + Swift.abs(random().truncatingRemainder(dividingBy: Float(length)))
     }
     
     public static func randomArrayOfLength(_ length: Int) -> [Float] {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class BigFrac: Equatable, Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, SetCompliant, CustomStringConvertible, Hashable, ExpressibleByIntegerLiteral {
+public final class BigFrac: Comparable, Addable, Negatable, Subtractable, Multiplicable, Dividable, SetCompliant, CustomStringConvertible, Hashable, ExpressibleByIntegerLiteral {
     
     
     // MARK: Private Properties

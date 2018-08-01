@@ -56,7 +56,7 @@ class RandomTests: XCTestCase {
         }
         
         print("Mean = \(mean)")
-        XCTAssertEqualWithAccuracy(Double(UInt8.max)/2.0, mean, accuracy: 10.0)
+        XCTAssertEqual(Double(UInt8.max)/2.0, mean, accuracy: 10.0)
     }
     
     func testUInt8RandomArrayOfLengthPermormance() {
@@ -84,7 +84,7 @@ class RandomTests: XCTestCase {
         }
         
         print("Mean = \(mean)")
-        XCTAssertEqualWithAccuracy(Double(UInt16.max)/2.0, mean, accuracy: 100.0)
+        XCTAssertEqual(Double(UInt16.max)/2.0, mean, accuracy: 100.0)
     }
     
     func testUInt16RandomArrayOfLengthPermormance() {
@@ -137,7 +137,7 @@ class RandomTests: XCTestCase {
         
         let positiveFraction = Double(positiveCount)/Double(length)
         print("Positive Fraction = \(positiveFraction)")
-        XCTAssertEqualWithAccuracy(0.5, Double(positiveCount)/Double(length), accuracy: 0.1)
+        XCTAssertEqual(0.5, Double(positiveCount)/Double(length), accuracy: 0.1)
     }
     
     func testIntRandomArrayOfLengthPerformance() {
@@ -165,7 +165,7 @@ class RandomTests: XCTestCase {
         }
         
         print("Mean = \(mean)")
-        XCTAssertEqualWithAccuracy(0.0, mean, accuracy: 10.0)
+        XCTAssertEqual(0.0, mean, accuracy: 10.0)
     }
     
     func testInt8RandomArrayOfLengthPermormance() {
@@ -193,7 +193,7 @@ class RandomTests: XCTestCase {
         }
         
         print("Mean = \(mean)")
-        XCTAssertEqualWithAccuracy(0.0, mean, accuracy: 100.0)
+        XCTAssertEqual(0.0, mean, accuracy: 100.0)
     }
     
     func testInt16RandomArrayOfLengthPermormance() {
