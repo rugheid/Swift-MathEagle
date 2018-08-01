@@ -1,7 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "group:/Users/kellyroach/Fork/rugheid/Swift-MathEagle/MathEagleTests/Linear Algebra"
+      name = "Linear Algebra">
+      <FileRef
+         location = "group:MatrixVectorTests.swift">
+      </FileRef>
+      <Group
+         location = "group:Numpy Times"
+         name = "Numpy Times">
+         <FileRef
+            location = "group:VectorAddition.py">
+         </FileRef>
+         <FileRef
+            location = "group:VectorScalarMultiplication.py">
+         </FileRef>
+         <FileRef
+            location = "group:VectorSubtraction.py">
+         </FileRef>
+         <FileRef
+            location = "group:VectorNegation.py">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Benchmarking Files"
+         name = "Benchmarking Files">
+         <Group
+            location = "group:Plot Images"
+            name = "Plot Images">
+            <FileRef
+               location = "group:VectorAdditionFloat.png">
+            </FileRef>
+            <FileRef
+               location = "group:VectorSubtractionDouble.png">
+            </FileRef>
+            <FileRef
+               location = "group:VectorSubtractionFloat.png">
+            </FileRef>
+            <FileRef
+               location = "group:VectorAdditionDouble.png">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:Vector Benchmarking.numbers">
+         </FileRef>
+         <FileRef
+            location = "group:Matrix Benchmarking.numbers">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:VectorTests.swift">
+      </FileRef>
+      <Group
+         location = "group:Matrix"
+         name = "Matrix">
+         <FileRef
+            location = "group:MatrixTests.swift">
+         </FileRef>
+         <FileRef
+            location = "group:PermutationMatrixTests.swift">
+         </FileRef>
+         <FileRef
+            location = "group:DiagonalMatrixTests.swift">
+         </FileRef>
+      </Group>
+   </Group>
    <FileRef
-      location = "self:MathEagle.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>
