@@ -94,4 +94,76 @@ class PermutationMatrixTests: XCTestCase {
         P = PermutationMatrix(permutation: [])
         XCTAssertEqual([], P.diagonalElements)
     }
+    
+    // MARK: Element Methods
+    
+    func testElement() {
+        
+        var P = PermutationMatrix<Int>(permutation: [1, 0, 3, 2])
+        XCTAssertEqual(P.element(0,0),0)
+        XCTAssertEqual(P.element(0,1),1)
+        XCTAssertEqual(P.element(1,0),1)
+        XCTAssertEqual(P.element(1,1),0)
+        
+        P = PermutationMatrix<Int>(permutation: [1, 3, 2, 0])
+        XCTAssertEqual(P.element(0,0),0)
+        XCTAssertEqual(P.element(0,1),1)
+        XCTAssertEqual(P.element(1,0),0)
+        XCTAssertEqual(P.element(1,1),0)
+    }
+    
+    
+    func testRow() {
+        
+        var P = PermutationMatrix<Int>(permutation: [1, 0, 3, 2])
+        XCTAssertEqual(P.row(0), [0, 1, 0, 0])
+        XCTAssertEqual(P.row(1), [1, 0, 0, 0])
+        XCTAssertEqual(P.row(2), [0, 0, 0, 1])
+        XCTAssertEqual(P.row(3), [0, 0, 1, 0])
+
+        P = PermutationMatrix<Int>(permutation: [1, 3, 2, 0])
+        XCTAssertEqual(P.row(0), [0, 1, 0, 0])
+        XCTAssertEqual(P.row(1), [0, 0, 0, 1])
+        XCTAssertEqual(P.row(2), [0, 0, 1, 0])
+        XCTAssertEqual(P.row(3), [1, 0, 0, 0])
+    }
+    
+    
+    func testSwitchRows() {
+
+        let P = PermutationMatrix<Int>(permutation: [1, 0, 3, 2])
+        P.switchRows(0,3)
+        XCTAssertEqual(P.row(0), [0, 0, 1, 0])
+        XCTAssertEqual(P.row(1), [1, 0, 0, 0])
+        XCTAssertEqual(P.row(2), [0, 0, 0, 1])
+        XCTAssertEqual(P.row(3), [0, 1, 0, 0])
+    }
+    
+    
+    func testColumn() {
+        
+        var P = PermutationMatrix<Int>(permutation: [1, 0, 3, 2])
+        XCTAssertEqual(P.column(0), [0, 1, 0, 0])
+        XCTAssertEqual(P.column(1), [1, 0, 0, 0])
+        XCTAssertEqual(P.column(2), [0, 0, 0, 1])
+        XCTAssertEqual(P.column(3), [0, 0, 1, 0])
+        
+        P = PermutationMatrix<Int>(permutation: [1, 3, 2, 0])
+        XCTAssertEqual(P.column(0), [0, 0, 0, 1])
+        XCTAssertEqual(P.column(1), [1, 0, 0, 0])
+        XCTAssertEqual(P.column(2), [0, 0, 1, 0])
+        XCTAssertEqual(P.column(3), [0, 1, 0, 0])
+    }
+    
+    
+    func testSwitchColumns() {
+        
+        let P = PermutationMatrix<Int>(permutation: [1, 0, 3, 2])
+        P.switchColumns(0,3)
+        XCTAssertEqual(P.column(0), [0, 0, 1, 0])
+        XCTAssertEqual(P.column(1), [1, 0, 0, 0])
+        XCTAssertEqual(P.column(2), [0, 0, 0, 1])
+        XCTAssertEqual(P.column(3), [0, 1, 0, 0])
+    }
+
 }

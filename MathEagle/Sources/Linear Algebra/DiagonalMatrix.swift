@@ -168,7 +168,7 @@ open class DiagonalMatrix <T: MatrixCompatible> : Matrix<T> {
     
     
     
-    // MARK: Basic Properties
+    // MARK: Properties
     
     /**
         Gives the rank of the matrix. This is not the tensor rank.

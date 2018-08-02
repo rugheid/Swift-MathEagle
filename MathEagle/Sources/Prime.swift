@@ -16,7 +16,16 @@ import Foundation
 
     - returns: true if the given number is prime.
 */
-public func isPrime <X: Equatable & Comparable & Addable & Modulable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> Bool {
+public func isPrime <X: Equatable & Comparable & Negatable & Addable & Modulable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> Bool {
+    
+    // NOTE: In abstract algebra, an element p of a commutative ring is said
+    // to be prime if it is not zero and whenever p divides xy, then p divides
+    // x or p divides y .  In this sense, we count -p as an integer prime if
+    // p is a positive integer prime. The caller is free to check the sign of
+    // input x first, before calling our isPrime .  This approach leads to
+    // pleasing answers for other questions such as isComposite(-1000000) etc.
+    
+    if x < 0 { return isPrime(-x) }
     
     if x <= 3 { return x >= 2 }
     
@@ -36,15 +45,16 @@ public func isPrime <X: Equatable & Comparable & Addable & Modulable & RealPower
 
 
 /**
- Returns true if the given number is composite. This means it's not prime.
+ Returns true if the given number is composite. A number is composite if it is
+ the product of two or more not necessarily distinct primes.
  
  - parameter x: The number to check.
  
- - returns: true if the given unsigned integer is composite.
+ - returns: true if the given integer is composite.
  */
-public func isComposite <X: Equatable & Comparable & Addable & Modulable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> Bool {
+public func isComposite <X: Equatable & Comparable & Negatable & Addable & Modulable & RealPowerable & ExpressibleByIntegerLiteral> (_ x: X) -> Bool {
     
-    return !isPrime(x)
+    return abs(x)>3 && !isPrime(x)
 }
 
 
@@ -114,13 +124,13 @@ public func primesUpTo <X: Comparable & Addable & Subtractable & Multiplicable &
 
     - returns: The prime factors of the given integer in ascending order.
 */
-public func primeFactors <X: Equatable & Comparable & Addable & Modulable & Dividable & ExpressibleByIntegerLiteral> (_ x: X) -> [X] {
+public func primeFactors <X: Equatable & Comparable & Addable & Modulable & Dividable & RealPowerable & ExpressibleByIntegerLiteral & IntCastable> (_ x: X) -> [X] {
     
     if x <= 1 { return [] }
     
     var i: X = 2
     
-    while i < x / 2 {
+    while i <= X(root(x, order: 2)) {
         
         if x % i == 0 {
             
@@ -149,12 +159,13 @@ public func primeFactors(_ x: Int) -> [Int] {
     if x <= 1 { return [] }
     
     if let factors = primeFactors[x] {
+        // Return cached answer calculated in prior call
         return factors
     }
     
     var i = 2
     
-    while i < x / 2 {
+    while i <= Int(root(x, order: 2)) {
         
         if x % i == 0 {
             

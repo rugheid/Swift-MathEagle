@@ -11,24 +11,82 @@ import XCTest
 import MathEagle
 
 class MathTests: XCTestCase {
-    
-    
-    // MARK: Constant Tests
-    
-    func testPi() {
-        
-        // Test to see if maximum accuracy in Double is reached
-        print(PI)
+    func testFloatModulable() {
+        repeat {
+            let x : Float = 9.0
+            let y : Float = 4.0
+            XCTAssertEqual(x % y,Float(1.0))
+            XCTAssert(((x % y) as Any) is Float)
+        } while false
+        repeat {
+            let x : Float = -9.0
+            let y : Float = 4.0
+            XCTAssertEqual(x % y,Float(-1.0))
+            XCTAssert(((x % y) as Any) is Float)
+        } while false
+        repeat {
+            let x : Float = 9.0
+            let y : Float = -4.0
+            XCTAssertEqual(x % y,Float(1.0))
+            XCTAssert(((x % y) as Any) is Float)
+        } while false
+        repeat {
+            let x : Float = -9.0
+            let y : Float = -4.0
+            XCTAssertEqual(x % y,Float(-1.0))
+            XCTAssert(((x % y) as Any) is Float)
+        } while false
     }
-    
-    
-    
-    // MARK: Powerable Tests
-    
-    func testRoot() {
-        
-//        XCTAssertEqual(root(4, 2), 2.0)
-        
+    func testDoubleModulable() {
+        repeat {
+            let x : Double = 9.0
+            let y : Double = 4.0
+            XCTAssertEqual(x % y,Double(1.0))
+            XCTAssert(((x % y) as Any) is Double)
+        } while false
+        repeat {
+            let x : Double = -9.0
+            let y : Double = 4.0
+            XCTAssertEqual(x % y,Double(-1.0))
+            XCTAssert(((x % y) as Any) is Double)
+        } while false
+        repeat {
+            let x : Double = 9.0
+            let y : Double = -4.0
+            XCTAssertEqual(x % y,Double(1.0))
+            XCTAssert(((x % y) as Any) is Double)
+        } while false
+        repeat {
+            let x : Double = -9.0
+            let y : Double = -4.0
+            XCTAssertEqual(x % y,Double(-1.0))
+            XCTAssert(((x % y) as Any) is Double)
+        } while false
     }
-    
+    func testCGFloatModulable() {
+        repeat {
+            let x : CGFloat = 9.0
+            let y : CGFloat = 4.0
+            XCTAssertEqual(x % y,CGFloat(1.0))
+            XCTAssert(((x % y) as Any) is CGFloat)
+        } while false
+        repeat {
+            let x : CGFloat = -9.0
+            let y : CGFloat = 4.0
+            XCTAssertEqual(x % y,CGFloat(-1.0))
+            XCTAssert(((x % y) as Any) is CGFloat)
+        } while false
+        repeat {
+            let x : CGFloat = 9.0
+            let y : CGFloat = -4.0
+            XCTAssertEqual(x % y,CGFloat(1.0))
+            XCTAssert(((x % y) as Any) is CGFloat)
+        } while false
+        repeat {
+            let x : CGFloat = -9.0
+            let y : CGFloat = -4.0
+            XCTAssertEqual(x % y,CGFloat(-1.0))
+            XCTAssert(((x % y) as Any) is CGFloat)
+        } while false
+    }
 }

@@ -90,8 +90,7 @@ public struct Complex: Comparable, Addable, Negatable, Subtractable, Multiplicab
         Returns the argument of the complex number.
     */
     public var argument: Double {
-        
-        return (self.real == 0.0 && self.imaginary == 0.0) ? 0 : atan(self.imaginary / self.real) + (self.quadrant.rawValue >= 3 ? PI : 0)
+        return (self.real == 0.0 && self.imaginary == 0.0) ? 0 : atan2(self.imaginary,self.real)
     }
     
     /**
@@ -106,14 +105,16 @@ public struct Complex: Comparable, Addable, Negatable, Subtractable, Multiplicab
         Returns the quadrant of the complex plane in which the complex number lies.
     */
     public var quadrant: Quadrant {
-        
-        if self.real >= 0 {
-            
-            return self.imaginary >= 0 ? .first : .fourth
-            
+        if self.real==0 && self.imaginary==0 {
+            return .first
+        } else if self.imaginary>=0 && self.real>0 {
+            return .first
+        } else if self.real<=0 && self.imaginary>0 {
+            return .second
+        } else if self.imaginary<=0 && self.real<0 {
+            return .third
         } else {
-            
-            return self.imaginary >= 0 ? .second : .third
+            return .fourth
         }
     }
     
@@ -126,7 +127,7 @@ public struct Complex: Comparable, Addable, Negatable, Subtractable, Multiplicab
     }
     
     
-    // MARK: Set Conformance
+    // MARK: SetCompliant Protocol
     
     public var isNatural: Bool {
         
@@ -162,7 +163,7 @@ public struct Complex: Comparable, Addable, Negatable, Subtractable, Multiplicab
     
     
     
-    // MARK: Randomizable Conformance
+    // MARK: Randomizable Protocol
     
     public typealias RandomRangeType = Double
     public typealias RandomCountableRangeType = Int
@@ -261,7 +262,7 @@ public func log(_ z: Complex) -> Complex {
 
 
 
-// MARK: Equatable Protocol Conformance
+// MARK: Equatable Protocol
 
 public func == (left: Complex, right: Complex) -> Bool {
     
@@ -280,7 +281,7 @@ public func == (left: Complex, right: Complex) -> Bool {
 
 
 
-// MARK: Comparable Protocol Conformance
+// MARK: Comparable Protocol
 
 public func < (left: Complex, right: Complex) -> Bool {
     
@@ -294,7 +295,7 @@ public func > (left: Complex, right: Complex) -> Bool {
 
 
 
-// MARK: Addable Protocol Conformance
+// MARK: Addable Protocol
 
 public func + (left: Complex, right: Complex) -> Complex {
     
@@ -320,7 +321,7 @@ public func += (left: inout Complex, right: Complex) {
 
 
 
-// MARK: Negatable Protocol Conformance
+// MARK: Negatable Protocol
 
 public prefix func - (z: Complex) -> Complex {
     
@@ -329,7 +330,7 @@ public prefix func - (z: Complex) -> Complex {
 
 
 
-// MARK: Subtractable Protocol Conformance
+// MARK: Subtractable Protocol
 
 public func - (left: Complex, right: Complex) -> Complex {
     
@@ -348,7 +349,7 @@ public func - (left: Complex, right: Double) -> Complex {
 
 
 
-// MARK: Multiplicable Protocol Conformance
+// MARK: Multiplicable Protocol
 
 public func * (left: Complex, right: Complex) -> Complex {
     
@@ -387,7 +388,7 @@ public func * (left: Complex, right: Int) -> Complex {
 
 
 
-// MARK: Dividable Protocol Conformance
+// MARK: Dividable Protocol
 
 public func / (left: Complex, right: Complex) -> Complex {
     
@@ -411,8 +412,17 @@ public func / (left: Complex, right: Double) -> Complex {
 // MARK: Powers
 
 public func ** (left: Complex, right: Complex) -> Complex {
-    
-    return Complex(0, 0)
+    // The basic principle is x^y = exp(y*log(x)) where log is the
+    // the principal branch that makes log(r*exp(i*theta)) = log(r)+i*theta
+    // for real r and theta where theta is in the half-open interval
+    // (-PI,PI] .  Case x==0, especially when also y==0, is controversial.
+    // The def of exp is the well known Maclaurin series from calculus.
+    if (left==0) {
+        // Some error checking provision for Re(right)<0 could be done here.
+        return Complex(0,0)
+    } else {
+        return exp(right*log(left))
+    }
 }
 
 public func ** (left: Double, right: Complex) -> Complex {

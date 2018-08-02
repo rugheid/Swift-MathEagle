@@ -26,7 +26,7 @@ class MatrixTests: XCTestCase {
     
     
     
-    // MARK: Initialisation Tests
+    // MARK: Initialisation
     
     func testElementsInit() {
         
@@ -145,7 +145,7 @@ class MatrixTests: XCTestCase {
     }
     
     
-    // MARK: Subscript Tests
+    // MARK: Subscript
     
     func testElementsSubscript() {
         
@@ -289,7 +289,7 @@ class MatrixTests: XCTestCase {
     }
     
     
-    // MARK: Sequence Type Tests
+    // MARK: Sequence Type
     
     func testMatrixSequenceTypeGenerator() {
         
@@ -406,7 +406,7 @@ class MatrixTests: XCTestCase {
     }
     
     
-    // MARK: Computed Properties Tests
+    // MARK: Computed Properties
     
     func testDescription() {
         
@@ -1004,7 +1004,7 @@ class MatrixTests: XCTestCase {
     
     
     
-    // MARK: Method tests
+    // MARK: Method Tests
     
     func testElement() {
         
@@ -1179,7 +1179,7 @@ class MatrixTests: XCTestCase {
     
     
     
-    // MARK: Factorisation Tests
+    // MARK: Factorisation
     
     func testLUDecomposition() {
         
@@ -1225,7 +1225,7 @@ class MatrixTests: XCTestCase {
     
     
     
-    // MARK: Operator Tests
+    // MARK: Operator
     
     func testMatrixEquality() {
         
@@ -1361,7 +1361,7 @@ class MatrixTests: XCTestCase {
     }
     
     
-    // MARK: High Performance Function Tests
+    // MARK: High Performance Function
     
     func testTransposeFloat() {
         
@@ -1406,7 +1406,7 @@ class MatrixTests: XCTestCase {
     
     
     
-    // MARK: - Objective-C Bridged Function Tests
+    // MARK: - Objective-C Bridged Function
     
     func testBridgedLUDecompositionFloat() {
         
@@ -1432,7 +1432,7 @@ class MatrixTests: XCTestCase {
     
     
     
-    // MARK: - Dimension Tests
+    // MARK: - Dimension
     
     func testDimensionsSizeInit() {
         

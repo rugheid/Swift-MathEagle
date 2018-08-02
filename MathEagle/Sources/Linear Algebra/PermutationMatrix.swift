@@ -82,7 +82,7 @@ open class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
     
     
     
-    // MARK: Basic Properties
+    // MARK: Properties
     
     /**
         Returns a row major ordered list of all elements in the array.
@@ -222,7 +222,7 @@ open class PermutationMatrix <T: MatrixCompatible> : Matrix<T> {
         
         var elementsList = [T](repeating: 0, count: self.size!)
         
-        elementsList[index] = 1
+        elementsList[self.permutation[index]] = 1
         
         return Vector(elementsList)
     }

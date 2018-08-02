@@ -12,7 +12,7 @@ import MathEagle
 
 class VectorTests: XCTestCase {
     
-    // MARK: Initialisation Tests
+    // MARK: Initialisation
     
     func testElementsInit() {
     
@@ -78,7 +78,7 @@ class VectorTests: XCTestCase {
     }
     
     
-    // MARK: Subscript Tests
+    // MARK: Subscript
     
     func testSubscriptGet() {
         
@@ -103,7 +103,7 @@ class VectorTests: XCTestCase {
     }
     
     
-    // MARK: SequenceType Tests
+    // MARK: SequenceType
     
     func testVectorSequenceTypeGenerator() {
         
@@ -148,7 +148,7 @@ class VectorTests: XCTestCase {
     }
     
     
-    // MARK: Sort Tests
+    // MARK: Sort
     
     func testVectorSort() {
         
@@ -161,7 +161,7 @@ class VectorTests: XCTestCase {
     }
     
     
-    // MARK: Computed Properties Tests
+    // MARK: Computed Properties
     
     func testLength() {
         
@@ -188,7 +188,7 @@ class VectorTests: XCTestCase {
     }
     
     
-    // MARK: Operator Tests
+    // MARK: Operator
     
     func testVectorEquality() {
         

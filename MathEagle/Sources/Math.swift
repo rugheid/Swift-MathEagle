@@ -105,8 +105,8 @@ extension CGFloat: Addable, Negatable, Subtractable, Multiplicable, Dividable, N
     public typealias NaturalPowerType = CGFloat
     public typealias IntegerPowerType = CGFloat
     public typealias RealPowerType = CGFloat
-    public init(_ float: CGFloat) {
-        self = CGFloat(float)
+    public static func % (left: CGFloat, right: CGFloat) -> CGFloat {
+        return left.truncatingRemainder(dividingBy:right)
     }
 }
 extension String: Addable {}

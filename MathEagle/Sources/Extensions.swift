@@ -23,7 +23,7 @@ extension Double {
     
     public var isPositive: Bool {
         
-        return self >= 0
+        return self > 0
     }
     
     
@@ -70,7 +70,7 @@ extension Float {
     
     public var isPositive: Bool {
         
-        return self >= 0
+        return self > 0
     }
     
     
@@ -103,7 +103,7 @@ extension CGFloat {
     
     public var isPositive: Bool {
         
-        return self >= 0
+        return self > 0
     }
     
     
@@ -136,7 +136,7 @@ extension Int {
     
     public var isPositive: Bool {
         
-        return self >= 0
+        return self > 0
     }
     
     
@@ -169,7 +169,7 @@ extension Int8 {
     
     public var isPositive: Bool {
         
-        return self >= 0
+        return self > 0
     }
     
     
@@ -202,7 +202,7 @@ extension Int16 {
     
     public var isPositive: Bool {
         
-        return self >= 0
+        return self > 0
     }
     
     
@@ -235,7 +235,7 @@ extension Int32 {
     
     public var isPositive: Bool {
         
-        return self >= 0
+        return self > 0
     }
     
     
@@ -268,7 +268,7 @@ extension Int64 {
     
     public var isPositive: Bool {
         
-        return self >= 0
+        return self > 0
     }
     
     
@@ -301,7 +301,7 @@ extension UInt {
     
     public var isPositive: Bool {
         
-        return true
+        return self > 0
     }
     
     
@@ -334,7 +334,7 @@ extension UInt8 {
     
     public var isPositive: Bool {
         
-        return true
+        return self > 0
     }
     
     
@@ -367,7 +367,7 @@ extension UInt16 {
     
     public var isPositive: Bool {
         
-        return true
+        return self > 0
     }
     
     
@@ -400,7 +400,7 @@ extension UInt32 {
     
     public var isPositive: Bool {
         
-        return true
+        return self > 0
     }
     
     
@@ -433,7 +433,7 @@ extension UInt64 {
     
     public var isPositive: Bool {
         
-        return true
+        return self > 0
     }
     
     

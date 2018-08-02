@@ -14,7 +14,7 @@ import MathEagle
 class BigIntTests: XCTestCase {
     
     
-    // MARK: Init tests
+    // MARK: Init
     
     func testInit() {
         let bigInt = BigInt()
@@ -34,7 +34,7 @@ class BigIntTests: XCTestCase {
     }
     
     
-    // MARK: Conversion Tests
+    // MARK: Conversion
     
     func testIntValue() {
         var bigInt = BigInt(string: "-4321")
@@ -69,7 +69,7 @@ class BigIntTests: XCTestCase {
     }
     
     
-    // MARK: Comparison Tests
+    // MARK: Comparison
     
     func testCompareBigInt() {
         let a = BigInt(int: 53103)
@@ -139,7 +139,7 @@ class BigIntTests: XCTestCase {
     }
     
     
-    // MARK: Operation Tests
+    // MARK: Operation
     
     func testAdd() {
         let a = BigInt(int: 53103)
@@ -544,7 +544,7 @@ class BigIntTests: XCTestCase {
     }
     
     
-    // MARK: SetCompliant tests
+    // MARK: SetCompliant
     
     func testIsNatural() {
         let a = BigInt(int: 53103)

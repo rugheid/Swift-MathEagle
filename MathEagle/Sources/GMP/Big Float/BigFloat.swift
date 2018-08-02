@@ -121,8 +121,13 @@ public struct BigFloat: Comparable, Addable, Negatable, Subtractable, Multiplica
             exponentReference: &exponent,
             maxNumberOfDigits: maxNumberOfDigits),
                             encoding: String.Encoding.utf8)!
-        string.insert(".", at: string.index(after: string.startIndex))
-        string.append("e\(exponent)")
+        if (string=="") {
+            string="0.0"
+        } else {
+            let signOffset = string.hasPrefix("-") ? 1 : 0
+            string.insert(".", at: string.index(after: string.index(string.startIndex, offsetBy:signOffset)))
+            string.append("e\(exponent-1)")
+        }
         return string
     }
     

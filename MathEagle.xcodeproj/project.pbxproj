@@ -83,6 +83,13 @@
 		E108D54B2111591D002EB275 /* PermutationMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E108D544211158F7002EB275 /* PermutationMatrixTests.swift */; };
 		E108D54C21115920002EB275 /* DiagonalMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E108D545211158F7002EB275 /* DiagonalMatrixTests.swift */; };
 		E175DDEC21115B9D008672C8 /* BasicOperationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E175DDEB21115B9D008672C8 /* BasicOperationsTests.swift */; };
+		E1DFFD842112B97100653D81 /* BigFloatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DFFD832112B97100653D81 /* BigFloatTests.swift */; };
+		E1DFFD862112B98800653D81 /* BigFracTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DFFD852112B98800653D81 /* BigFracTests.swift */; };
+		E1E59D57211234F500A4F277 /* PowerableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E59D56211234F500A4F277 /* PowerableTests.swift */; };
+		E1E59D5921123C3B00A4F277 /* ParityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E59D5821123C3B00A4F277 /* ParityTests.swift */; };
+		E1EAD7732111682C00815437 /* CastableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAD7722111682C00815437 /* CastableTests.swift */; };
+		E1EAD77521116DE800815437 /* ConjugatableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAD77421116DE800815437 /* ConjugatableTests.swift */; };
+		E1EAD77721116F7400815437 /* FractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EAD77621116F7400815437 /* FractionTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,6 +194,13 @@
 		E175DDEB21115B9D008672C8 /* BasicOperationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BasicOperationsTests.swift; path = Protocols/BasicOperationsTests.swift; sourceTree = "<group>"; };
 		E192290B21112D9200A1A10E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		E192290C21112D9200A1A10E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		E1DFFD832112B97100653D81 /* BigFloatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigFloatTests.swift; sourceTree = "<group>"; };
+		E1DFFD852112B98800653D81 /* BigFracTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigFracTests.swift; sourceTree = "<group>"; };
+		E1E59D56211234F500A4F277 /* PowerableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerableTests.swift; sourceTree = "<group>"; };
+		E1E59D5821123C3B00A4F277 /* ParityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParityTests.swift; sourceTree = "<group>"; };
+		E1EAD7722111682C00815437 /* CastableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CastableTests.swift; path = Protocols/CastableTests.swift; sourceTree = "<group>"; };
+		E1EAD77421116DE800815437 /* ConjugatableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConjugatableTests.swift; path = Protocols/ConjugatableTests.swift; sourceTree = "<group>"; };
+		E1EAD77621116F7400815437 /* FractionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FractionTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,6 +301,8 @@
 			isa = PBXGroup;
 			children = (
 				98DE55DE1C201B7D00DBD3D6 /* BigIntTests.swift */,
+				E1DFFD832112B97100653D81 /* BigFloatTests.swift */,
+				E1DFFD852112B98800653D81 /* BigFracTests.swift */,
 			);
 			path = GMP;
 			sourceTree = "<group>";
@@ -431,25 +447,19 @@
 		98F5985A1A7B8BD20058DF53 /* MathEagleTests */ = {
 			isa = PBXGroup;
 			children = (
-				98F5588E1B1B94AE009AECD5 /* ArrayGeneratorsTests.swift */,
+				E1D0CC0B2113C486009C3C51 /* Analysis */,
 				98E671791AA99AB500C88DCE /* ComplexTests.swift */,
-				98109D1D1B23818E002AD5C0 /* DivisorsTests.swift */,
 				98F598851A7B8C2A0058DF53 /* ExtensionsTests.swift */,
-				98F598861A7B8C2A0058DF53 /* FunctionsTests.swift */,
+				E1EAD77621116F7400815437 /* FractionTests.swift */,
+				E1D0CC0A2113C42F009C3C51 /* Functions */,
 				98DE55DD1C201B0000DBD3D6 /* GMP */,
 				988882D01CDBC9A2007B0E19 /* Graphs */,
 				98F5988C1A7B8C2A0058DF53 /* Helper.swift */,
-				98F598891A7B8C2A0058DF53 /* IntegrationTests.swift */,
 				E108D547211158F7002EB275 /* Linear Algebra */,
 				98F598841A7B8C2A0058DF53 /* MathTests.swift */,
-				986AF3071C13858E00A186B4 /* NumberPropertiesTests.swift */,
-				98F598881A7B8C2A0058DF53 /* OptimizationTests.swift */,
+				E1E59D5821123C3B00A4F277 /* ParityTests.swift */,
 				98F558891B1B10C0009AECD5 /* Permutation */,
-				98E671741AA8C4B400C88DCE /* PrimeTests.swift */,
 				E175DDEA21115B16008672C8 /* Protocols */,
-				9843568E1ACC79F100B988CB /* RandomTests.swift */,
-				98B927451B277F70006C4C73 /* SequenceFunctionsTests.swift */,
-				98F598871A7B8C2A0058DF53 /* SolverTests.swift */,
 				98F5985B1A7B8BD20058DF53 /* Supporting Files */,
 			);
 			path = MathEagleTests;
@@ -533,8 +543,35 @@
 			isa = PBXGroup;
 			children = (
 				E175DDEB21115B9D008672C8 /* BasicOperationsTests.swift */,
+				E1EAD7722111682C00815437 /* CastableTests.swift */,
+				E1EAD77421116DE800815437 /* ConjugatableTests.swift */,
+				E1E59D56211234F500A4F277 /* PowerableTests.swift */,
+				9843568E1ACC79F100B988CB /* RandomTests.swift */,
 			);
 			name = Protocols;
+			sourceTree = "<group>";
+		};
+		E1D0CC0A2113C42F009C3C51 /* Functions */ = {
+			isa = PBXGroup;
+			children = (
+				98F5588E1B1B94AE009AECD5 /* ArrayGeneratorsTests.swift */,
+				98109D1D1B23818E002AD5C0 /* DivisorsTests.swift */,
+				98F598861A7B8C2A0058DF53 /* FunctionsTests.swift */,
+				986AF3071C13858E00A186B4 /* NumberPropertiesTests.swift */,
+				98E671741AA8C4B400C88DCE /* PrimeTests.swift */,
+				98B927451B277F70006C4C73 /* SequenceFunctionsTests.swift */,
+			);
+			name = Functions;
+			sourceTree = "<group>";
+		};
+		E1D0CC0B2113C486009C3C51 /* Analysis */ = {
+			isa = PBXGroup;
+			children = (
+				98F598891A7B8C2A0058DF53 /* IntegrationTests.swift */,
+				98F598881A7B8C2A0058DF53 /* OptimizationTests.swift */,
+				98F598871A7B8C2A0058DF53 /* SolverTests.swift */,
+			);
+			name = Analysis;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -704,6 +741,7 @@
 				98E671751AA8C4B400C88DCE /* PrimeTests.swift in Sources */,
 				989729431B18B0550046D951 /* PermutationTest.swift in Sources */,
 				9843568F1ACC79F100B988CB /* RandomTests.swift in Sources */,
+				E1EAD77521116DE800815437 /* ConjugatableTests.swift in Sources */,
 				E175DDEC21115B9D008672C8 /* BasicOperationsTests.swift in Sources */,
 				988882D21CDBC9C6007B0E19 /* GraphTests.swift in Sources */,
 				98DE55DF1C201B7D00DBD3D6 /* BigIntTests.swift in Sources */,
@@ -714,10 +752,16 @@
 				98F598981A7B8C2A0058DF53 /* OptimizationTests.swift in Sources */,
 				E108D5482111590D002EB275 /* MatrixVectorTests.swift in Sources */,
 				98B927461B277F70006C4C73 /* SequenceFunctionsTests.swift in Sources */,
+				E1EAD77721116F7400815437 /* FractionTests.swift in Sources */,
 				98F598921A7B8C2A0058DF53 /* ExtensionsTests.swift in Sources */,
+				E1E59D57211234F500A4F277 /* PowerableTests.swift in Sources */,
 				E108D54921115915002EB275 /* VectorTests.swift in Sources */,
+				E1DFFD842112B97100653D81 /* BigFloatTests.swift in Sources */,
+				E1E59D5921123C3B00A4F277 /* ParityTests.swift in Sources */,
+				E1DFFD862112B98800653D81 /* BigFracTests.swift in Sources */,
 				E108D54A21115919002EB275 /* MatrixTests.swift in Sources */,
 				98F598961A7B8C2A0058DF53 /* SolverTests.swift in Sources */,
+				E1EAD7732111682C00815437 /* CastableTests.swift in Sources */,
 				986AF3081C13858E00A186B4 /* NumberPropertiesTests.swift in Sources */,
 				98F5588F1B1B94AE009AECD5 /* ArrayGeneratorsTests.swift in Sources */,
 				98E6717A1AA99AB500C88DCE /* ComplexTests.swift in Sources */,
