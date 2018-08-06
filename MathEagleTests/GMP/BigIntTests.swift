@@ -443,16 +443,16 @@ class BigIntTests: XCTestCase {
     func testPowerModulo() {
         let a = BigInt(int: 53103)
         let b = BigInt(int: 234311)
-        let mod = BigInt(int: 1_000_000_000_000)
-        XCTAssertEqual(BigInt(uint: 919_447_180_047), a.power(b, modulo: mod))
+        let mod = BigInt(int: 1000000000000)
+        XCTAssertEqual(BigInt(uint: 919447180047), a.power(b, modulo: mod))
     }
     
     func testPowerModuloInPlace() {
         var a = BigInt(int: 53103)
         let b = BigInt(int: 234311)
-        let mod = BigInt(int: 1_000_000_000_000)
+        let mod = BigInt(int: 1000000000000)
         a.powerInPlace(b, modulo: mod)
-        XCTAssertEqual(BigInt(uint: 919_447_180_047), a)
+        XCTAssertEqual(BigInt(uint: 919447180047), a)
     }
     
     func testPower() {

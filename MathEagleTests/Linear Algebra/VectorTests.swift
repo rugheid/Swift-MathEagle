@@ -62,7 +62,7 @@ class VectorTests: XCTestCase {
     
     func testRandomWithLengthIntervals() {
         
-        let a = Vector<Int>(randomWithLength: 1000, intervals: -10...10)
+        let a = Vector<Int>(randomWithLength: 1000, range: -10...10)
         
         for element in a {
             XCTAssertTrue(element >= -10 && element <= 10)
@@ -71,9 +71,9 @@ class VectorTests: XCTestCase {
     
     func testRandomWithLengthFloatPerformance() {
         
-        compareBaseline(0.285181999206543, title: "Random 1_000_000 elements vector", n: 1){
+        compareBaseline(0.285181999206543, title: "Random 1000000 elements vector", n: 1){
             
-            Vector<Float>(randomWithLength: 1_000_000)
+            Vector<Float>(randomWithLength: 1000000)
         }
     }
     
@@ -179,7 +179,7 @@ class VectorTests: XCTestCase {
     
     func testNormPerformace() {
         
-        let vector = Vector<Double>(randomWithLength: 1000, intervals: -2...2)
+        let vector = Vector<Double>(randomWithLength: 1000, range: -2...2)
         
         self.measure(){
             
@@ -234,8 +234,8 @@ class VectorTests: XCTestCase {
     
     func testVectorAdditionFloatPerformance() {
         
-        let left = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
-        let right = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
+        let left = Vector(length: 1000, generator: {i in Float.random(-10...10)})
+        let right = Vector(length: 1000, generator: {i in Float.random(-10...10)})
         
         let timeWithoutAccelerate = 0.0103263401985168
         let time = timeBlock(n: 100){
@@ -250,10 +250,10 @@ class VectorTests: XCTestCase {
         
         calculateBenchmarkingTimes(10, maxPower: 7, title: "Vector Float Addition Benchmarking"){
             
-            let left = Vector<Float>(randomWithLength: $0, intervals: -10...10)
-            let right = Vector<Float>(randomWithLength: $0, intervals: -10...10)
+            let left = Vector<Float>(randomWithLength: $0, range: -10...10)
+            let right = Vector<Float>(randomWithLength: $0, range: -10...10)
             
-            return timeBlock(n: $0 <= 10_000 ? 10 : 1){
+            return timeBlock(n: $0 <= 10000 ? 10 : 1){
                 
                 left + right
             }
@@ -270,8 +270,8 @@ class VectorTests: XCTestCase {
 
     func testVectorAdditionDoublePerformance() {
         
-        let left = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
-        let right = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
+        let left = Vector(length: 1000, generator: {i in Double.random(-10...10)})
+        let right = Vector(length: 1000, generator: {i in Double.random(-10...10)})
         
         let timeWithoutAccelerate = 0.0100698000192642
         let time = timeBlock(n: 100){
@@ -286,10 +286,10 @@ class VectorTests: XCTestCase {
         
         calculateBenchmarkingTimes(10, maxPower: 7, title: "Vector Float Addition Benchmarking"){
             
-            let left = Vector<Double>(randomWithLength: $0, intervals: -10...10)
-            let right = Vector<Double>(randomWithLength: $0, intervals: -10...10)
+            let left = Vector<Double>(randomWithLength: $0, range: -10...10)
+            let right = Vector<Double>(randomWithLength: $0, range: -10...10)
             
-            return timeBlock(n: $0 <= 10_000 ? 10 : 1){
+            return timeBlock(n: $0 <= 10000 ? 10 : 1){
                 
                 left + right
             }
@@ -319,8 +319,8 @@ class VectorTests: XCTestCase {
     
     func testVectorAdditionComplexPerformance() {
         
-        let left = Vector(length: 1000, generator: {i in Complex.randomInInterval(-10...10)})
-        let right = Vector(length: 1000, generator: {i in Complex.randomInInterval(-10...10)})
+        let left = Vector(length: 1000, generator: {i in Complex.random(-10...10)})
+        let right = Vector(length: 1000, generator: {i in Complex.random(-10...10)})
         
         let timeWithoutAccelerate = 0.0100342969894409
         let time = timeBlock(n: 100){
@@ -351,7 +351,7 @@ class VectorTests: XCTestCase {
     
     func testVectorNegationFloatPerformance() {
         
-        let left = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
+        let left = Vector(length: 1000, generator: {i in Float.random(-10...10)})
         
         let timeWithoutAccelerate = 0.00241095960140228
         let time = timeBlock(n: 100){
@@ -368,7 +368,7 @@ class VectorTests: XCTestCase {
             
             let vector = Vector<Float>(randomWithLength: $0)
             
-            return timeBlock(n: $0 <= 100_000 ? 10 : 1){
+            return timeBlock(n: $0 <= 100000 ? 10 : 1){
                 
                 -vector
             }
@@ -386,7 +386,7 @@ class VectorTests: XCTestCase {
     
     func testVectorNegationDoublePerformance() {
         
-        let left = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
+        let left = Vector(length: 1000, generator: {i in Double.random(-10...10)})
         
         let timeWithoutAccelerate = 0.00239505052566528
         let time = timeBlock(n: 100){
@@ -403,7 +403,7 @@ class VectorTests: XCTestCase {
             
             let vector = Vector<Double>(randomWithLength: $0)
             
-            return timeBlock(n: $0 <= 100_000 ? 10 : 1){
+            return timeBlock(n: $0 <= 100000 ? 10 : 1){
                 
                 -vector
             }
@@ -421,7 +421,7 @@ class VectorTests: XCTestCase {
     
     func testVectorNegationComplexPerformance() {
         
-        let left = Vector(length: 1000, generator: {i in Complex.randomInInterval(-10...10)})
+        let left = Vector(length: 1000, generator: {i in Complex.random(-10...10)})
         
         let timeWithoutAccelerate = 0.00233272016048431
         let time = timeBlock(n: 100){
@@ -454,8 +454,8 @@ class VectorTests: XCTestCase {
     
     func testVectorSubstractionFloatPerformance() {
         
-        let left = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
-        let right = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
+        let left = Vector(length: 1000, generator: {i in Float.random(-10...10)})
+        let right = Vector(length: 1000, generator: {i in Float.random(-10...10)})
         
         let timeWithoutAccelerate = 0.0102450299263
         let time = timeBlock(n: 100){
@@ -470,8 +470,8 @@ class VectorTests: XCTestCase {
         
         calculateBenchmarkingTimes(10, maxPower: 7, title: "Vector Float Subtraction Benchmarking"){
             
-            let left = Vector<Float>(randomWithLength: $0, intervals: -10...10)
-            let right = Vector<Float>(randomWithLength: $0, intervals: -10...10)
+            let left = Vector<Float>(randomWithLength: $0, range: -10...10)
+            let right = Vector<Float>(randomWithLength: $0, range: -10...10)
             
             return timeBlock(n: $0 <= 1000 ? 10 : 1){
                 
@@ -492,8 +492,8 @@ class VectorTests: XCTestCase {
     
     func testVectorSubstractionDoublePerformance() {
         
-        let left = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
-        let right = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
+        let left = Vector(length: 1000, generator: {i in Double.random(-10...10)})
+        let right = Vector(length: 1000, generator: {i in Double.random(-10...10)})
         
         let timeWithoutAccelerate = 0.00998317956924438
         let time = timeBlock(n: 100){
@@ -508,8 +508,8 @@ class VectorTests: XCTestCase {
         
         calculateBenchmarkingTimes(10, maxPower: 7, title: "Vector Double Subtraction Benchmarking"){
             
-            let left = Vector<Double>(randomWithLength: $0, intervals: -10...10)
-            let right = Vector<Double>(randomWithLength: $0, intervals: -10...10)
+            let left = Vector<Double>(randomWithLength: $0, range: -10...10)
+            let right = Vector<Double>(randomWithLength: $0, range: -10...10)
             
             return timeBlock(n: $0 <= 1000 ? 10 : 1){
                 
@@ -536,8 +536,8 @@ class VectorTests: XCTestCase {
     
     func testVectorScalarMultiplicationFloatPerformance() {
         
-        let vector = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
-        let scalar = Float.randomInInterval(-10...10)
+        let vector = Vector(length: 1000, generator: {i in Float.random(-10...10)})
+        let scalar = Float.random(-10...10)
         
         let timeWithoutAccelerate = 0.00380656003952026
         let time = timeBlock(n: 100){
@@ -552,10 +552,10 @@ class VectorTests: XCTestCase {
         
         calculateBenchmarkingTimes(10, maxPower: 7, title: "Vector Float Scalar Multiplication Benchmarking"){
             
-            let vector = Vector<Float>(randomWithLength: $0, intervals: -10...10)
-            let scalar = Float.randomInInterval(-10...10)
+            let vector = Vector<Float>(randomWithLength: $0, range: -10...10)
+            let scalar = Float.random(-10...10)
             
-            return timeBlock(n: $0 <= 10_000 ? 10 : 1){
+            return timeBlock(n: $0 <= 10000 ? 10 : 1){
                 
                 scalar * vector
             }
@@ -572,8 +572,8 @@ class VectorTests: XCTestCase {
     
     func testVectorScalarMultiplicationDoublePerformance() {
         
-        let vector = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
-        let scalar = Double.randomInInterval(-10...10)
+        let vector = Vector(length: 1000, generator: {i in Double.random(-10...10)})
+        let scalar = Double.random(-10...10)
         
         let timeWithoutAccelerate = 0.00379452049732208
         let time = timeBlock(n: 100){
@@ -588,10 +588,10 @@ class VectorTests: XCTestCase {
         
         calculateBenchmarkingTimes(10, maxPower: 7, title: "Vector Double Scalar Multiplication Benchmarking"){
             
-            let vector = Vector<Double>(randomWithLength: $0, intervals: -10...10)
-            let scalar = Double.randomInInterval(-10...10)
+            let vector = Vector<Double>(randomWithLength: $0, range: -10...10)
+            let scalar = Double.random(-10...10)
             
-            return timeBlock(n: $0 <= 10_000 ? 10 : 1){
+            return timeBlock(n: $0 <= 10000 ? 10 : 1){
                 
                 scalar * vector
             }
@@ -614,8 +614,8 @@ class VectorTests: XCTestCase {
     
     func testVectorScalarDivisionFloatPerformance() {
         
-        let vector = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
-        let scalar = Float.randomInInterval(-10...10)
+        let vector = Vector(length: 1000, generator: {i in Float.random(-10...10)})
+        let scalar = Float.random(-10...10)
         
         let timeWithoutAccelerate = 0.00381205022335052
         let time = timeBlock(n: 100){
@@ -635,8 +635,8 @@ class VectorTests: XCTestCase {
     
     func testVectorScalarDivisionDoublePerformance() {
         
-        let vector = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
-        let scalar = Double.randomInInterval(-10...10)
+        let vector = Vector(length: 1000, generator: {i in Double.random(-10...10)})
+        let scalar = Double.random(-10...10)
         
         let timeWithoutAccelerate = 0.00373631000518799
         let time = timeBlock(n: 100){
@@ -671,8 +671,8 @@ class VectorTests: XCTestCase {
     
     func testVectorDotProductFloatPerformance() {
         
-        let left = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
-        let right = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
+        let left = Vector(length: 1000, generator: {i in Float.random(-10...10)})
+        let right = Vector(length: 1000, generator: {i in Float.random(-10...10)})
         
         compareBaseline(1.01983547210693e-06, title: "Vector dot product of 2 1000 element vectors (Float)", n: 100){
             
@@ -693,8 +693,8 @@ class VectorTests: XCTestCase {
     
     func testVectorDotProductDoublePerformance() {
         
-        let left = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
-        let right = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
+        let left = Vector(length: 1000, generator: {i in Double.random(-10...10)})
+        let right = Vector(length: 1000, generator: {i in Double.random(-10...10)})
         
         compareBaseline(1.11997127532959e-06, title: "Vector dot product of 2 1000 element vectors (Double)", n: 100){
             
@@ -748,8 +748,8 @@ class VectorTests: XCTestCase {
     
     func testVectorDirectProductFloatPerformance() {
         
-        let left = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
-        let right = Vector(length: 1000, generator: {i in Float.randomInInterval(-10...10)})
+        let left = Vector(length: 1000, generator: {i in Float.random(-10...10)})
+        let right = Vector(length: 1000, generator: {i in Float.random(-10...10)})
         
         let timeWithoutAccelerate = 2.53886300325394
         let time = timeBlock(n: 1){
@@ -784,8 +784,8 @@ class VectorTests: XCTestCase {
     
     func testVectorDirectProductDoublePerformance() {
         
-        let left = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
-        let right = Vector(length: 1000, generator: {i in Double.randomInInterval(-10...10)})
+        let left = Vector(length: 1000, generator: {i in Double.random(-10...10)})
+        let right = Vector(length: 1000, generator: {i in Double.random(-10...10)})
         
         let timeWithoutAccelerate = 440.336444020271
         let time = timeBlock(n: 1){

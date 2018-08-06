@@ -33,16 +33,16 @@ class SequenceFunctionsTests: XCTestCase {
     
     func testSumFloatVector() {
         
-        let vector = Vector<Float>(randomWithLength: 10_000, intervals: -10.0...10.0)
-        XCTAssertEqual(vector.reduce(0, +), sum(vector), accuracy: 1e-7)
+        let vector = Vector<Float>(randomWithLength: 10000, range: -10.0...10.0)
+        XCTAssertEqual(vector.reduce(0, +), sum(vector), accuracy: 1e-02)
     }
     
     
     func testSumFloatVectorPerformance() {
         
-        let seq = Vector<Float>(randomWithLength: 10_000)
+        let seq = Vector<Float>(randomWithLength: 10000)
         
-        compareBaseline(0.00408849716186523, title: "10_000 Sequence Sum (Float)", n: 10){
+        compareBaseline(0.00408849716186523, title: "10000 Sequence Sum (Float)", n: 10){
             
             sum(seq)
         }
@@ -65,16 +65,16 @@ class SequenceFunctionsTests: XCTestCase {
     
     func testSumDoubleVector() {
         
-        let vector = Vector<Double>(randomWithLength: 10_000, intervals: -10.0 ... 10.0)
-        XCTAssertEqual(vector.reduce(0, +), sum(vector))
+        let vector = Vector<Double>(randomWithLength: 10000, range: -10.0 ... 10.0)
+        XCTAssertEqual(vector.reduce(0, +), sum(vector), accuracy: ACCURACY)
     }
     
     
     func testSumDoubleVectorPerformance() {
         
-        let seq = Vector<Double>(randomWithLength: 10_000)
+        let seq = Vector<Double>(randomWithLength: 10000)
         
-        compareBaseline(0.00408849716186523, title: "10_000 Sequence Sum (Double)", n: 10){
+        compareBaseline(0.00408849716186523, title: "10000 Sequence Sum (Double)", n: 10){
             
             sum(seq)
         }
@@ -139,8 +139,8 @@ class SequenceFunctionsTests: XCTestCase {
     
     func testMinFloatVectorPerformance() {
         
-        let vector = Vector<Float>(randomWithLength: 10_000)
-        compareBaseline(0.00356079936027527, title: "10_000 vector minimum (Float)", n: 10){
+        let vector = Vector<Float>(randomWithLength: 10000)
+        compareBaseline(0.00356079936027527, title: "10000 vector minimum (Float)", n: 10){
             min(vector)
         }
     }

@@ -10,17 +10,70 @@
 
 @interface Random_OBJC : NSObject
 
-+ (void) randomUIntArrayOfLength:(long)length inArray:(unsigned long*)array;
-+ (void) randomUInt8ArrayOfLength:(long)length inArray:(unsigned char*)array;
-+ (void) randomUInt16ArrayOfLength:(long)length inArray:(unsigned short*)array;
-+ (void) randomUInt32ArrayOfLength:(long)length inArray:(unsigned int*)array;
-+ (void) randomUInt64ArrayOfLength:(long)length inArray:(unsigned long long*)array;
-+ (void) randomIntArrayOfLength:(long)length inArray:(long*)array;
-+ (void) randomInt8ArrayOfLength:(long)length inArray:(char*)array;
-+ (void) randomInt16ArrayOfLength:(long)length inArray:(short*)array;
-+ (void) randomInt32ArrayOfLength:(long)length inArray:(int*)array;
-+ (void) randomInt64ArrayOfLength:(long)length inArray:(long long*)array;
-+ (void) randomFloatArrayOfLength:(long)length inArray:(float*)array;
-+ (void) randomDoubleArrayOfLength:(long)length inArray:(double*)array;
++ (void)randomUIntArray:(long)length
+             lowerBound:(unsigned long)lowerBound
+             upperBound:(unsigned long)upperBound
+                 closed:(bool)closed
+                inArray:(unsigned long*)array;
++ (void)randomUInt8Array:(long)length
+              lowerBound:(unsigned char)lowerBound
+              upperBound:(unsigned char)upperBound
+                  closed:(bool)closed
+                 inArray:(unsigned char*)array;
++ (void)randomUInt16Array:(long)length
+               lowerBound:(unsigned short)lowerBound
+               upperBound:(unsigned short)upperBound
+                   closed:(bool)closed
+                  inArray:(unsigned short*)array;
++ (void)randomUInt32Array:(long)length
+               lowerBound:(unsigned int)lowerBound
+               upperBound:(unsigned int)upperBound
+                   closed:(bool)closed
+                  inArray:(unsigned int*)array;
++ (void)randomUInt64Array:(long)length
+               lowerBound:(unsigned long long)lowerBound
+               upperBound:(unsigned long long)upperBound
+                   closed:(bool)closed
+                  inArray:(unsigned long long*)array;
++ (void)randomIntArray:(long)length
+            lowerBound:(long)lowerBound
+            upperBound:(long)upperBound
+                closed:(bool)closed
+               inArray:(long*)array;
++ (void)randomInt8Array:(long)length
+             lowerBound:(char)lowerBound
+             upperBound:(char)upperBound
+                 closed:(bool)closed
+                inArray:(char*)array;
++ (void)randomInt16Array:(long)length
+              lowerBound:(short)lowerBound
+              upperBound:(short)upperBound
+                  closed:(bool)closed
+                 inArray:(short*)array;
++ (void)randomInt32Array:(long)length
+              lowerBound:(int)lowerBound
+              upperBound:(int)upperBound
+                  closed:(bool)closed
+                 inArray:(int*)array;
++ (void)randomInt64Array:(long)length
+              lowerBound:(long long)lowerBound
+              upperBound:(long long)upperBound
+                  closed:(bool)closed
+                 inArray:(long long*)array;
++ (void)randomFloatArray:(long)length
+              lowerBound:(float)lowerBound
+              upperBound:(float)upperBound
+                  closed:(bool)closed
+                 inArray:(float*)array;
++ (void)randomDoubleArray:(long)length
+               lowerBound:(double)lowerBound
+               upperBound:(double)upperBound
+                   closed:(bool)closed
+                  inArray:(double*)array;
++ (void)randomCGFloatArray:(long)length
+              lowerBound:(CGFloat)lowerBound
+              upperBound:(CGFloat)upperBound
+                  closed:(bool)closed
+                 inArray:(CGFloat*)array;
 
 @end

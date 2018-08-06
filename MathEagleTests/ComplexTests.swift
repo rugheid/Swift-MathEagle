@@ -185,10 +185,10 @@ class ComplexTests: XCTestCase {
         XCTAssertNotEqual(u,z)
     }
     func testComplexRandom2() {
-        let a = Complex.randomArrayOfLength(0)
-        let b = Complex.randomArrayOfLength(1)
-        let c = Complex.randomArrayOfLength(2)
-        let d = Complex.randomArrayOfLength(3)
+        let a = Complex.randomArray(0)
+        let b = Complex.randomArray(1)
+        let c = Complex.randomArray(2)
+        let d = Complex.randomArray(3)
         XCTAssert((a as Any) is [Complex])
         XCTAssert((b as Any) is [Complex])
         XCTAssert((c as Any) is [Complex])
@@ -230,8 +230,8 @@ class ComplexTests: XCTestCase {
     func testComplexComparable() {
         let z = Complex(1, 2)
         let x = Complex(3, -5)
-        XCTAssert(z < x)
-        XCTAssert(x > z)
+        XCTAssertFalse(z < x)
+        XCTAssertFalse(x > z)
         XCTAssertFalse(z > z)
     }
     // MARK: Addable Protocol

@@ -49,13 +49,13 @@ public func numberOfDigits(_ number: Int) -> Int {
     
     while n > 10 {
         
-        if n > 100_000_000 {
+        if n > 100000000 {
             nr += 8
-            n /= 100_000_000
+            n /= 100000000
         }
-        if n > 10_000 {
+        if n > 10000 {
             nr += 4
-            n /= 10_000
+            n /= 10000
         }
         if n > 100 {
             nr += 2

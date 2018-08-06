@@ -80,3 +80,4 @@ extension CGFloat: IntCastable {
         return Int(self)
     }
 }
+

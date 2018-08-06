@@ -104,10 +104,10 @@ class DivisorsTests: XCTestCase {
         XCTAssertEqual(0, lcm(5, 0))
         XCTAssertEqual(60, lcm(10, 12))
         XCTAssertEqual(65, lcm(13, 5))
-        XCTAssertEqual(2_976_107_890, lcm(34510, 431195))
+        XCTAssertEqual(2976107890, lcm(34510, 431195))
         XCTAssertEqual(60, lcm(-10, 12))
         XCTAssertEqual(65, lcm(13, -5))
-        XCTAssertEqual(2_976_107_890, lcm(-34510, -431195))
+        XCTAssertEqual(2976107890, lcm(-34510, -431195))
     }
     
     

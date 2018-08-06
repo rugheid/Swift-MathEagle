@@ -54,7 +54,7 @@ class MatrixTests: XCTestCase {
     
     func testRandowWithDimensionsIntervalGeneratorInit() {
         
-        let matrix = Matrix<Int>(randomWithDimensions: Dimensions(20, 30), intervals: -10...10)
+        let matrix = Matrix<Int>(randomWithDimensions: Dimensions(20, 30), range: -10...10)
         
         for element in matrix {
             XCTAssertTrue(element <= 10 && element >= -10)
@@ -320,7 +320,7 @@ class MatrixTests: XCTestCase {
         
         let (_, b) = getCoefficients(n0: 2, numberOfIterations: 5){
             
-            let matrix = Matrix<Int>(randomWithSize: $0, intervals: 0 ... 10)
+            let matrix = Matrix<Int>(randomWithSize: $0, range: 0 ... 10)
             
             return timeBlock(){
                 
@@ -330,7 +330,7 @@ class MatrixTests: XCTestCase {
         
         print("\nb for matrix map = \(b)")
         
-        let matrix = Matrix<Int>(randomWithSize: 100, intervals: 0 ... 10)
+        let matrix = Matrix<Int>(randomWithSize: 100, range: 0 ... 10)
         
         compareBaseline(0.0023840069770813, title: "Mapping 100x100 matrix", n: 10){
             
@@ -351,7 +351,7 @@ class MatrixTests: XCTestCase {
         
         let (_, b) = getCoefficients(n0: 2, numberOfIterations: 5){
             
-            let matrix = Matrix<Int>(randomWithSize: $0, intervals: -2 ... 2)
+            let matrix = Matrix<Int>(randomWithSize: $0, range: -2 ... 2)
             
             return timeBlock(){
                 
@@ -361,7 +361,7 @@ class MatrixTests: XCTestCase {
         
         print("\nb for matrix reduce = \(b)")
         
-        let matrix = Matrix<Int>(randomWithSize: 100, intervals: -2 ... 2)
+        let matrix = Matrix<Int>(randomWithSize: 100, range: -2 ... 2)
         
         compareBaseline(0.00280898809432983, title: "Reducing 100x100 matrix using +", n: 10){
             
@@ -385,8 +385,8 @@ class MatrixTests: XCTestCase {
         
         let (_, b) = getCoefficients(n0: 2, numberOfIterations: 5){
             
-            let left = Matrix<Int>(randomWithSize: $0, intervals: 0 ... 10)
-            let right = Matrix<Int>(randomWithSize: $0, intervals: -10 ... 0)
+            let left = Matrix<Int>(randomWithSize: $0, range: 0 ... 10)
+            let right = Matrix<Int>(randomWithSize: $0, range: -10 ... 0)
             
             return timeBlock(){
                 
@@ -396,8 +396,8 @@ class MatrixTests: XCTestCase {
         
         print("\nb for matrix reduce = \(b)")
         
-        let left = Matrix<Int>(randomWithSize: 100, intervals: 0 ... 10)
-        let right = Matrix<Int>(randomWithSize: 100, intervals: -10 ... 0)
+        let left = Matrix<Int>(randomWithSize: 100, range: 0 ... 10)
+        let right = Matrix<Int>(randomWithSize: 100, range: -10 ... 0)
         
         compareBaseline(0.00611197948455811, title: "Combining 2 100x100 matrices using +", n: 10){
             
@@ -589,7 +589,7 @@ class MatrixTests: XCTestCase {
     
     func testGetUpperTriangleFunctionPerformance() {
         
-        let matrix = Matrix<Int>(randomWithSize: 100, intervals: -10...10)
+        let matrix = Matrix<Int>(randomWithSize: 100, range: -10...10)
         
         let diagonalBaseline = 0.00145101547241211
         let diagonalTime = timeBlock(){
@@ -639,7 +639,7 @@ class MatrixTests: XCTestCase {
     
     func testGetLowerTriangleFunctionPerformance() {
         
-        let matrix = Matrix<Int>(randomWithSize: 100, intervals: -10...10)
+        let matrix = Matrix<Int>(randomWithSize: 100, range: -10...10)
         
         let diagonalBaseline = 0.001708984375
         let diagonalTime = timeBlock(){
@@ -681,7 +681,7 @@ class MatrixTests: XCTestCase {
         
         let _ = getCoefficients(n0: 10, numberOfIterations: 5){
             
-            let matrix = Matrix<Int>(randomWithSize: $0, intervals: -1000 ... 1000)
+            let matrix = Matrix<Int>(randomWithSize: $0, range: -1000 ... 1000)
             
             return timeBlock(){
                 
@@ -692,7 +692,7 @@ class MatrixTests: XCTestCase {
     
     func testMaxValueTime() {
         
-        let matrix = Matrix<Int>(randomWithSize: 100, intervals: -1000 ... 1000)
+        let matrix = Matrix<Int>(randomWithSize: 100, range: -1000 ... 1000)
         
         self.measure(){
             
@@ -1350,8 +1350,8 @@ class MatrixTests: XCTestCase {
         
         let _ = getCoefficients(n0: 3, numberOfIterations: 3){
             
-            let left = Matrix<Int>(randomWithSize: $0, intervals: 0 ... 10)
-            let right = Matrix<Int>(randomWithSize: $0, intervals: 0 ... 10)
+            let left = Matrix<Int>(randomWithSize: $0, range: 0 ... 10)
+            let right = Matrix<Int>(randomWithSize: $0, range: 0 ... 10)
             
             return timeBlock(){
                 
@@ -1375,9 +1375,9 @@ class MatrixTests: XCTestCase {
     
     func testTransposeFloatPerformance() {
         
-        let A = Matrix<Float>(randomWithSize: 10_000)
+        let A = Matrix<Float>(randomWithSize: 10000)
         
-        compareBaseline(0.612118005752563, title: "10_000x10_000 Float Matrix Tranpose Performance", n: 1){
+        compareBaseline(0.612118005752563, title: "10000x10000 Float Matrix Tranpose Performance", n: 1){
             
             transpose(A)
         }
@@ -1396,9 +1396,9 @@ class MatrixTests: XCTestCase {
     
     func testTransposeDoublePerformance() {
         
-        let A = Matrix<Double>(randomWithSize: 10_000)
+        let A = Matrix<Double>(randomWithSize: 10000)
         
-        compareBaseline(2.12320303916931, title: "10_000x10_000 Float Matrix Tranpose Performance", n: 1){
+        compareBaseline(2.12320303916931, title: "10000x10000 Float Matrix Tranpose Performance", n: 1){
             
             transpose(A)
         }

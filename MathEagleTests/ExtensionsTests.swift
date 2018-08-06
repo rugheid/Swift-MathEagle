@@ -43,288 +43,288 @@ class ExtensionsTests: XCTestCase {
         XCTAssertFalse((-2.12).isInteger)
     }
     func testExtensionsDouble() {
-        repeat {
+        do {
             let x : Double = 1.0
             XCTAssertFalse(x.isNegative)
             XCTAssertTrue(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : Double = -1.0
             XCTAssertTrue(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertFalse(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : Double = 3.14159
             XCTAssertFalse(x.isNegative)
             XCTAssertTrue(x.isPositive)
             XCTAssertFalse(x.isInteger)
             XCTAssertFalse(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : Double = 0.0
             XCTAssertFalse(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
+        }
     }
     func testExtensionsFloat() {
-        repeat {
+        do {
             let x : Float = 1.0
             XCTAssertFalse(x.isNegative)
             XCTAssertTrue(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : Float = -1.0
             XCTAssertTrue(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertFalse(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : Float = 3.14159
             XCTAssertFalse(x.isNegative)
             XCTAssertTrue(x.isPositive)
             XCTAssertFalse(x.isInteger)
             XCTAssertFalse(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : Float = 0.0
             XCTAssertFalse(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
+        }
     }
     func testExtensionsCGFloat() {
-        repeat {
+        do {
             let x : CGFloat = 1.0
             XCTAssertFalse(x.isNegative)
             XCTAssertTrue(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : CGFloat = -1.0
             XCTAssertTrue(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertFalse(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : CGFloat = 3.14159
             XCTAssertFalse(x.isNegative)
             XCTAssertTrue(x.isPositive)
             XCTAssertFalse(x.isInteger)
             XCTAssertFalse(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : CGFloat = 0.0
             XCTAssertFalse(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
+        }
     }
     func testExtensionsInt() {
-        repeat {
+        do {
             let x : Int = 1
             XCTAssertFalse(x.isNegative)
             XCTAssertTrue(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : Int = -1
             XCTAssertTrue(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertFalse(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : Int = 0
             XCTAssertFalse(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
+        }
     }
     func testExtensionsInt8() {
-        repeat {
+        do {
             let x : Int8 = 1
             XCTAssertFalse(x.isNegative)
             XCTAssertTrue(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : Int8 = -1
             XCTAssertTrue(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertFalse(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : Int8 = 0
             XCTAssertFalse(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
+        }
     }
     func testExtensionsInt16() {
-        repeat {
+        do {
             let x : Int16 = 1
             XCTAssertFalse(x.isNegative)
             XCTAssertTrue(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : Int16 = -1
             XCTAssertTrue(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertFalse(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : Int16 = 0
             XCTAssertFalse(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
+        }
     }
     func testExtensionsInt32() {
-        repeat {
+        do {
             let x : Int32 = 1
             XCTAssertFalse(x.isNegative)
             XCTAssertTrue(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : Int32 = -1
             XCTAssertTrue(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertFalse(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : Int32 = 0
             XCTAssertFalse(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
+        }
     }
     func testExtensionsInt64() {
-        repeat {
+        do {
             let x : Int64 = 1
             XCTAssertFalse(x.isNegative)
             XCTAssertTrue(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : Int64 = -1
             XCTAssertTrue(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertFalse(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : Int64 = 0
             XCTAssertFalse(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
+        }
     }
     func testExtensionsUInt() {
-        repeat {
+        do {
             let x : UInt = 1
             XCTAssertFalse(x.isNegative)
             XCTAssertTrue(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : UInt = 0
             XCTAssertFalse(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
+        }
     }
     func testExtensionsUInt8() {
-        repeat {
+        do {
             let x : UInt8 = 1
             XCTAssertFalse(x.isNegative)
             XCTAssertTrue(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : UInt8 = 0
             XCTAssertFalse(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
+        }
     }
     func testExtensionsUInt16() {
-        repeat {
+        do {
             let x : UInt16 = 1
             XCTAssertFalse(x.isNegative)
             XCTAssertTrue(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : UInt16 = 0
             XCTAssertFalse(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
+        }
     }
     func testExtensionsUInt32() {
-        repeat {
+        do {
             let x : UInt32 = 1
             XCTAssertFalse(x.isNegative)
             XCTAssertTrue(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : UInt32 = 0
             XCTAssertFalse(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
+        }
     }
     func testExtensionsUInt64() {
-        repeat {
+        do {
             let x : UInt64 = 1
             XCTAssertFalse(x.isNegative)
             XCTAssertTrue(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
-        repeat {
+        }
+        do {
             let x : UInt64 = 0
             XCTAssertFalse(x.isNegative)
             XCTAssertFalse(x.isPositive)
             XCTAssertTrue(x.isInteger)
             XCTAssertTrue(x.isNatural)
-        } while false
+        }
     }
 }

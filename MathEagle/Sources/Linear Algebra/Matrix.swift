@@ -266,7 +266,7 @@ open class Matrix <T: MatrixCompatible> : ExpressibleByArrayLiteral, Equatable, 
     */
     public convenience init(randomWithDimensions dimensions: Dimensions) {
         
-        self.init(elementsList: T.randomArrayOfLength(dimensions.product), dimensions: dimensions)
+        self.init(elementsList: T.randomArray(dimensions.product), dimensions: dimensions)
     }
     
     /**
@@ -285,166 +285,134 @@ open class Matrix <T: MatrixCompatible> : ExpressibleByArrayLiteral, Equatable, 
     
     /**
         Creates a random matrix with the given dimensions. The values lie in
-        the given interval. This uses the `randomInInterval` function of the
+        the given range. This uses the `randomIn` function of the
         type of the matrix. Note that for this initialiser to work the type must
         be known to the compiler. So you can either state the type of the
         variable explicitly or call the initialiser with the specific type
         like Matrix<Type>(...).
     
         - parameter dimensions:  The dimensions the matrix should have.
-        - parameter intervals:   The interval in which the values can lie. You should
-                                only pass multiple intervals for Complex matrices.
-                                Here the first interval represents the interval
-                                for the real part and the second interval represents
-                                the interval for the imaginary part.
+        - parameter range:   The range in which the values can lie.
     */
-    public convenience init(randomWithDimensions dimensions: Dimensions, intervals: Range<T.RandomRangeType>...) {
+    public convenience init(randomWithDimensions dimensions: Dimensions, range: Range<T.RandomRangeType>) {
         
         //TODO: Improve this implementation.
-        self.init(dimensions: dimensions, generator: { i in T.randomInInterval(intervals) })
+        self.init(dimensions: dimensions, generator: { i in T.random(range) })
     }
     
     /**
      Creates a random matrix with the given dimensions. The values lie in
-     the given interval. This uses the `randomInInterval` function of the
+     the given range. This uses the `randomIn` function of the
      type of the matrix. Note that for this initialiser to work the type must
      be known to the compiler. So you can either state the type of the
      variable explicitly or call the initialiser with the specific type
      like Matrix<Type>(...).
      
      - parameter dimensions:  The dimensions the matrix should have.
-     - parameter intervals:   The interval in which the values can lie. You should
-     only pass multiple intervals for Complex matrices.
-     Here the first interval represents the interval
-     for the real part and the second interval represents
-     the interval for the imaginary part.
+     - parameter range:   The range in which the values can lie.
      */
-    public convenience init(randomWithDimensions dimensions: Dimensions, intervals: ClosedRange<T.RandomRangeType>...) {
+    public convenience init(randomWithDimensions dimensions: Dimensions, range: ClosedRange<T.RandomRangeType>) {
         
         //TODO: Improve this implementation.
-        self.init(dimensions: dimensions, generator: { i in T.randomInInterval(intervals) })
+        self.init(dimensions: dimensions, generator: { i in T.random(range) })
     }
     
     /**
      Creates a random matrix with the given dimensions. The values lie in
-     the given interval. This uses the `randomInInterval` function of the
+     the given range. This uses the `randomIn` function of the
      type of the matrix. Note that for this initialiser to work the type must
      be known to the compiler. So you can either state the type of the
      variable explicitly or call the initialiser with the specific type
      like Matrix<Type>(...).
      
      - parameter dimensions:  The dimensions the matrix should have.
-     - parameter intervals:   The interval in which the values can lie. You should
-     only pass multiple intervals for Complex matrices.
-     Here the first interval represents the interval
-     for the real part and the second interval represents
-     the interval for the imaginary part.
+     - parameter range:   The range in which the values can lie.
      */
-    public convenience init(randomWithDimensions dimensions: Dimensions, intervals: CountableRange<T.RandomCountableRangeType>...) {
+    public convenience init(randomWithDimensions dimensions: Dimensions, range: CountableRange<T.RandomCountableRangeType>) {
         
         //TODO: Improve this implementation.
-        self.init(dimensions: dimensions, generator: { i in T.randomInInterval(intervals) })
+        self.init(dimensions: dimensions, generator: { i in T.random(range) })
     }
     
     /**
      Creates a random matrix with the given dimensions. The values lie in
-     the given interval. This uses the `randomInInterval` function of the
+     the given range. This uses the `randomIn` function of the
      type of the matrix. Note that for this initialiser to work the type must
      be known to the compiler. So you can either state the type of the
      variable explicitly or call the initialiser with the specific type
      like Matrix<Type>(...).
      
      - parameter dimensions:  The dimensions the matrix should have.
-     - parameter intervals:   The interval in which the values can lie. You should
-     only pass multiple intervals for Complex matrices.
-     Here the first interval represents the interval
-     for the real part and the second interval represents
-     the interval for the imaginary part.
+     - parameter range:   The range in which the values can lie.
      */
-    public convenience init(randomWithDimensions dimensions: Dimensions, intervals: CountableClosedRange<T.RandomCountableRangeType>...) {
+    public convenience init(randomWithDimensions dimensions: Dimensions, range: CountableClosedRange<T.RandomCountableRangeType>) {
         
         //TODO: Improve this implementation.
-        self.init(dimensions: dimensions, generator: { i in T.randomInInterval(intervals) })
+        self.init(dimensions: dimensions, generator: { i in T.random(range) })
     }
     
     /**
         Creates a random square matrix with the given size. The values lie in
-        the given interval. This uses the `randomInInterval` function of the
+        the given range. This uses the `randomIn` function of the
         type of the matrix. Note that for this initialiser to work the type must
         be known to the compiler. So you can either state the type of the
         variable explicitly or call the initialiser with the specific type
         like Matrix<Type>(...).
     
         - parameter size:  The dimensions the matrix should have.
-        - parameter intervals:   The interval in which the values can lie. You should
-                                only pass multiple intervals for Complex matrices.
-                                Here the first interval represents the interval
-                                for the real part and the second interval represents
-                                the interval for the imaginary part.
+        - parameter range:   The range in which the values can lie.
     */
-    public convenience init(randomWithSize size: Int, intervals: Range<T.RandomRangeType>...) {
+    public convenience init(randomWithSize size: Int, range: Range<T.RandomRangeType>) {
         
-        self.init(size: size, generator: { i in T.randomInInterval(intervals) })
+        self.init(size: size, generator: { i in T.random(range) })
     }
     
     /**
      Creates a random square matrix with the given size. The values lie in
-     the given interval. This uses the `randomInInterval` function of the
+     the given range. This uses the `randomIn` function of the
      type of the matrix. Note that for this initialiser to work the type must
      be known to the compiler. So you can either state the type of the
      variable explicitly or call the initialiser with the specific type
      like Matrix<Type>(...).
      
      - parameter size:  The dimensions the matrix should have.
-     - parameter intervals:   The interval in which the values can lie. You should
-     only pass multiple intervals for Complex matrices.
-     Here the first interval represents the interval
-     for the real part and the second interval represents
-     the interval for the imaginary part.
+     - parameter range:   The range in which the values can lie.
      */
-    public convenience init(randomWithSize size: Int, intervals: ClosedRange<T.RandomRangeType>...) {
+    public convenience init(randomWithSize size: Int, range: ClosedRange<T.RandomRangeType>) {
         
-        self.init(size: size, generator: { i in T.randomInInterval(intervals) })
+        self.init(size: size, generator: { i in T.random(range) })
     }
     
     /**
      Creates a random square matrix with the given size. The values lie in
-     the given interval. This uses the `randomInInterval` function of the
+     the given range. This uses the `randomIn` function of the
      type of the matrix. Note that for this initialiser to work the type must
      be known to the compiler. So you can either state the type of the
      variable explicitly or call the initialiser with the specific type
      like Matrix<Type>(...).
      
      - parameter size:  The dimensions the matrix should have.
-     - parameter intervals:   The interval in which the values can lie. You should
-     only pass multiple intervals for Complex matrices.
-     Here the first interval represents the interval
-     for the real part and the second interval represents
-     the interval for the imaginary part.
+     - parameter range:   The range in which the values can lie.
      */
-    public convenience init(randomWithSize size: Int, intervals: CountableRange<T.RandomCountableRangeType>...) {
+    public convenience init(randomWithSize size: Int, range: CountableRange<T.RandomCountableRangeType>) {
         
-        self.init(size: size, generator: { i in T.randomInInterval(intervals) })
+        self.init(size: size, generator: { i in T.random(range) })
     }
     
     /**
      Creates a random square matrix with the given size. The values lie in
-     the given interval. This uses the `randomInInterval` function of the
+     the given range. This uses the `randomIn` function of the
      type of the matrix. Note that for this initialiser to work the type must
      be known to the compiler. So you can either state the type of the
      variable explicitly or call the initialiser with the specific type
      like Matrix<Type>(...).
      
      - parameter size:  The dimensions the matrix should have.
-     - parameter intervals:   The interval in which the values can lie. You should
-     only pass multiple intervals for Complex matrices.
-     Here the first interval represents the interval
-     for the real part and the second interval represents
-     the interval for the imaginary part.
+     - parameter range:   The range in which the values can lie.
      */
-    public convenience init(randomWithSize size: Int, intervals: CountableClosedRange<T.RandomCountableRangeType>...) {
+    public convenience init(randomWithSize size: Int, range: CountableClosedRange<T.RandomCountableRangeType>) {
         
-        self.init(size: size, generator: { i in T.randomInInterval(intervals) })
+        self.init(size: size, generator: { i in T.random(range) })
     }
     
     
@@ -2462,7 +2430,7 @@ public func LUDecomposition(_ matrix: Matrix<Float>) -> (Matrix<Float>, Matrix<F
     L.resize(Dimensions(size: matrix.dimensions.rows))
     L.fillDiagonal(1)
     
-    let permutation = Permutation(identityOfLength: matrix.dimensions.minimum)
+    let permutation = Permutation(identity: matrix.dimensions.minimum)
     
     for (index, element) in pivotArray.enumerated() {
         permutation.switchElements(Int(element-1), index)
@@ -2501,7 +2469,7 @@ public func LUDecomposition(_ matrix: Matrix<Double>) -> (Matrix<Double>, Matrix
     L.resize(Dimensions(size: matrix.dimensions.rows))
     L.fillDiagonal(1)
     
-    let permutation = Permutation(identityOfLength: matrix.dimensions.minimum)
+    let permutation = Permutation(identity: matrix.dimensions.minimum)
     
     for (index, element) in pivotArray.enumerated() {
         permutation.switchElements(Int(element-1), index)

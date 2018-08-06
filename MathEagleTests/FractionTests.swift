@@ -16,118 +16,118 @@ class FractionTests: XCTestCase {
         XCTAssertEqual(fraction.denominator,2)
     }
     func testFractionInit2() {
-        repeat {
+        do {
             let fraction : Fraction = Fraction(string:"1")
             XCTAssertEqual(fraction.numerator,1)
             XCTAssertEqual(fraction.denominator,1)
-        } while false
-        repeat {
+        }
+        do {
             let fraction : Fraction = Fraction(string:"1/2")
             XCTAssertEqual(fraction.numerator,1)
             XCTAssertEqual(fraction.denominator,2)
-        } while false
-        repeat {
+        }
+        do {
             let fraction : Fraction = Fraction(string:"0")
             XCTAssertEqual(fraction.numerator,0)
             XCTAssertEqual(fraction.denominator,1)
-        } while false
-        repeat {
+        }
+        do {
             let fraction : Fraction = Fraction(string:"-1")
             XCTAssertEqual(fraction.numerator,-1)
             XCTAssertEqual(fraction.denominator,1)
-        } while false
+        }
     }
     func testFractionCanonicalize() {
-        repeat {
+        do {
             var fraction : Fraction = Fraction(numerator:2, denominator:4)
             XCTAssertEqual(fraction.numerator,2)
             XCTAssertEqual(fraction.denominator,4)
             fraction.canonicalize()
             XCTAssertEqual(fraction.numerator,1)
             XCTAssertEqual(fraction.denominator,2)
-        } while false
-        repeat {
+        }
+        do {
             var fraction : Fraction = Fraction(numerator:-2, denominator:4)
             XCTAssertEqual(fraction.numerator,-2)
             XCTAssertEqual(fraction.denominator,4)
             fraction.canonicalize()
             XCTAssertEqual(fraction.numerator,-1)
             XCTAssertEqual(fraction.denominator,2)
-        } while false
-        repeat {
+        }
+        do {
             var fraction : Fraction = Fraction(numerator:2, denominator:-4)
             XCTAssertEqual(fraction.numerator,2)
             XCTAssertEqual(fraction.denominator,-4)
             fraction.canonicalize()
             XCTAssertEqual(fraction.numerator,-1)
             XCTAssertEqual(fraction.denominator,2)
-        } while false
-        repeat {
+        }
+        do {
             var fraction : Fraction = Fraction(numerator:-2, denominator:-4)
             XCTAssertEqual(fraction.numerator,-2)
             XCTAssertEqual(fraction.denominator,-4)
             fraction.canonicalize()
             XCTAssertEqual(fraction.numerator,1)
             XCTAssertEqual(fraction.denominator,2)
-        } while false
-        repeat {
+        }
+        do {
             var fraction : Fraction = Fraction(numerator:0, denominator:-4)
             XCTAssertEqual(fraction.numerator,0)
             XCTAssertEqual(fraction.denominator,-4)
             fraction.canonicalize()
             XCTAssertEqual(fraction.numerator,0)
             XCTAssertEqual(fraction.denominator,1)
-        } while false
+        }
     }
     func testFractionDescription() {
         // Test documents tests and documents the current behavior
-        repeat {
+        do {
             let fraction : Fraction = Fraction(numerator:1, denominator:2)
             XCTAssertEqual(fraction.description,"1/2")
-        } while false
+        }
         // The current behavior
-        repeat {
+        do {
             let fraction : Fraction = Fraction(numerator:0, denominator:1)
             XCTAssertEqual(fraction.description,"0/1")
-        } while false
-        repeat {
+        }
+        do {
             let fraction : Fraction = Fraction(numerator:1, denominator:1)
             XCTAssertEqual(fraction.description,"1/1")
-        } while false
-        repeat {
+        }
+        do {
             let fraction : Fraction = Fraction(numerator:2, denominator:-4)
             XCTAssertEqual(fraction.description,"2/-4")
-        } while false
-        repeat {
+        }
+        do {
             let fraction : Fraction = Fraction(numerator:-2, denominator:-4)
             XCTAssertEqual(fraction.description,"-2/-4")
-        } while false
+        }
     }
     func testFractionDoubleValue() {
-        repeat {
+        do {
             let fraction : Fraction = Fraction(numerator:1, denominator:2)
             XCTAssertEqual(fraction.doubleValue,0.5)
             XCTAssert((fraction.doubleValue as Any) is Double)
-        } while false
-        repeat {
+        }
+        do {
             let fraction : Fraction = Fraction(numerator:0, denominator:1)
             XCTAssertEqual(fraction.doubleValue,0.0)
             XCTAssert((fraction.doubleValue as Any) is Double)
-        } while false
-        repeat {
+        }
+        do {
             let fraction : Fraction = Fraction(numerator:1, denominator:1)
             XCTAssertEqual(fraction.doubleValue,1.0)
             XCTAssert((fraction.doubleValue as Any) is Double)
-        } while false
-        repeat {
+        }
+        do {
             let fraction : Fraction = Fraction(numerator:2, denominator:-4)
             XCTAssertEqual(fraction.doubleValue,-0.5)
             XCTAssert((fraction.doubleValue as Any) is Double)
-        } while false
-        repeat {
+        }
+        do {
             let fraction : Fraction = Fraction(numerator:-2, denominator:-4)
             XCTAssertEqual(fraction.doubleValue,0.5)
             XCTAssert((fraction.doubleValue as Any) is Double)
-        } while false
+        }
     }
 }

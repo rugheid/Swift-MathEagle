@@ -82,6 +82,7 @@
 		E108D54A21115919002EB275 /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E108D543211158F7002EB275 /* MatrixTests.swift */; };
 		E108D54B2111591D002EB275 /* PermutationMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E108D544211158F7002EB275 /* PermutationMatrixTests.swift */; };
 		E108D54C21115920002EB275 /* DiagonalMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E108D545211158F7002EB275 /* DiagonalMatrixTests.swift */; };
+		E1180C2321178A4D000C41B6 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1180C2221178A4D000C41B6 /* Statistics.swift */; };
 		E175DDEC21115B9D008672C8 /* BasicOperationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E175DDEB21115B9D008672C8 /* BasicOperationsTests.swift */; };
 		E1DFFD842112B97100653D81 /* BigFloatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DFFD832112B97100653D81 /* BigFloatTests.swift */; };
 		E1DFFD862112B98800653D81 /* BigFracTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DFFD852112B98800653D81 /* BigFracTests.swift */; };
@@ -191,6 +192,7 @@
 		E108D543211158F7002EB275 /* MatrixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixTests.swift; sourceTree = "<group>"; };
 		E108D544211158F7002EB275 /* PermutationMatrixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermutationMatrixTests.swift; sourceTree = "<group>"; };
 		E108D545211158F7002EB275 /* DiagonalMatrixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagonalMatrixTests.swift; sourceTree = "<group>"; };
+		E1180C2221178A4D000C41B6 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
 		E175DDEB21115B9D008672C8 /* BasicOperationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BasicOperationsTests.swift; path = Protocols/BasicOperationsTests.swift; sourceTree = "<group>"; };
 		E192290B21112D9200A1A10E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		E192290C21112D9200A1A10E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -431,6 +433,7 @@
 				9885B2C31B1C47600028FC9A /* Parity.swift */,
 				98F558851B1AFBCA009AECD5 /* Permutation */,
 				98B546F01B3330CB00360F0D /* Protocols */,
+				E1180C21211789D3000C41B6 /* Statistics */,
 				98F5984E1A7B8BD20058DF53 /* Supporting Files */,
 			);
 			path = MathEagle;
@@ -538,6 +541,14 @@
 			name = "Linear Algebra";
 			path = "/Users/kellyroach/Fork/rugheid/Swift-MathEagle/MathEagleTests/Linear Algebra";
 			sourceTree = "<absolute>";
+		};
+		E1180C21211789D3000C41B6 /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				E1180C2221178A4D000C41B6 /* Statistics.swift */,
+			);
+			name = Statistics;
+			sourceTree = "<group>";
 		};
 		E175DDEA21115B16008672C8 /* Protocols */ = {
 			isa = PBXGroup;
@@ -717,6 +728,7 @@
 				982E014D1B3403750009E6C7 /* Castable.swift in Sources */,
 				98B546F81B3331E500360F0D /* Conjugatable.swift in Sources */,
 				9808C8C71B1502BD00D82572 /* Dimensions.swift in Sources */,
+				E1180C2321178A4D000C41B6 /* Statistics.swift in Sources */,
 				98E671771AA8F00600C88DCE /* Complex.swift in Sources */,
 				986AF3061C13783E00A186B4 /* NumberProperties.swift in Sources */,
 				98F598801A7B8BED0058DF53 /* Vector.swift in Sources */,

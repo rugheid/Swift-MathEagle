@@ -35,6 +35,11 @@ public struct Complex: Comparable, Addable, Negatable, Subtractable, Multiplicab
     
     // MARK: Initialisation
     
+    public init(_ real: Int) {
+        self.real=Double(real)
+        self.imaginary=0.0
+    }
+    
     public init(_ complex: Complex) {
         self.real = complex.real
         self.imaginary = complex.imaginary
@@ -165,79 +170,84 @@ public struct Complex: Comparable, Addable, Negatable, Subtractable, Multiplicab
     
     // MARK: Randomizable Protocol
     
-    public typealias RandomRangeType = Double
+    public typealias RandomRangeType = Complex
     public typealias RandomCountableRangeType = Int
-    
-    /**
-        Returns a random complex number.
-    */
+
     public static func random() -> Complex {
-        
+        // Complex random() returns random Complex in unit square
+        // between 0 and 1+i .
         return Complex(Double.random(), Double.random())
     }
-    
-    /**
-        Returns a random complex number in the given interval(s). When no interval is provided, random() will be used.
-        When one interval is provided this interval will be used to restrict the real part, and the imaginary part will be zero.
-        When two intervals are provided the first will be used for the real part, the second for the imaginary part.
-    */
-    public static func randomInInterval(_ intervals: [Range<Double>]) -> Complex {
-        
-        if intervals.isEmpty { return self.random() }
-        if intervals.count == 1 { return Complex(Double.randomInInterval([intervals[0]]), Double.randomInInterval([intervals[0]])) }
-        return Complex(Double.randomInInterval([intervals[0]]), Double.randomInInterval([intervals[1]]))
+
+    public static func random(_ upperBound: Complex) -> Complex {
+        return Complex(Double.random(upperBound.real), Double.random(upperBound.imaginary))
     }
     
-    /**
-     Returns a random complex number in the given interval(s). When no interval is provided, random() will be used.
-     When one interval is provided this interval will be used to restrict the real part, and the imaginary part will be zero.
-     When two intervals are provided the first will be used for the real part, the second for the imaginary part.
-     */
-    public static func randomInInterval(_ intervals: [ClosedRange<Double>]) -> Complex {
-        
-        if intervals.isEmpty { return self.random() }
-        if intervals.count == 1 { return Complex(Double.randomInInterval([intervals[0]]), Double.randomInInterval([intervals[0]])) }
-        return Complex(Double.randomInInterval([intervals[0]]), Double.randomInInterval([intervals[1]]))
-    }
-    
-    /**
-     Returns a random complex number in the given interval(s). When no interval is provided, random() will be used.
-     When one interval is provided this interval will be used to restrict the real part, and the imaginary part will be zero.
-     When two intervals are provided the first will be used for the real part, the second for the imaginary part.
-     */
-    public static func randomInInterval(_ intervals: [CountableRange<Int>]) -> Complex {
-        
-        if intervals.isEmpty { return self.random() }
-        if intervals.count == 1 { return Complex(Double.randomInInterval([intervals[0]]), 0) }
-        return Complex(Double.randomInInterval([intervals[0]]), Double.randomInInterval([intervals[1]]))
-    }
-    
-    /**
-     Returns a random complex number in the given interval(s). When no interval is provided, random() will be used.
-     When one interval is provided this interval will be used to restrict the real part, and the imaginary part will be zero.
-     When two intervals are provided the first will be used for the real part, the second for the imaginary part.
-     */
-    public static func randomInInterval(_ intervals: [CountableClosedRange<Int>]) -> Complex {
-        
-        if intervals.isEmpty { return self.random() }
-        if intervals.count == 1 { return Complex(Double.randomInInterval([intervals[0]]), Double.randomInInterval([intervals[0]])) }
-        return Complex(Double.randomInInterval([intervals[0]]), Double.randomInInterval([intervals[1]]))
-    }
-    
-    /**
-        Returns an array of random complex numbers of the given length.
-    */
-    public static func randomArrayOfLength(_ length: Int) -> [Complex] {
-        
-        var array = [Complex]()
-        
-        for _ in 0 ..< length {
-            array.append(self.random())
+    public static func random(_ range: Range<Complex>) -> Complex {
+        let lowerBound=range.lowerBound
+        let upperBound=range.upperBound
+        var x_0=lowerBound.real
+        var x_1=upperBound.real
+        var y_0=lowerBound.imaginary
+        var y_1=upperBound.imaginary
+        if (x_1<x_0) {
+            swap(&x_0,&x_1)
         }
-        
+        if (y_1<y_0) {
+            swap(&y_0,&y_1)
+        }
+        return Complex(Double.random(x_0..<x_1),
+                       Double.random(y_0..<y_1))
+    }
+    
+    public static func random(_ range: ClosedRange<Complex>) -> Complex {
+        let lowerBound=range.lowerBound
+        let upperBound=range.upperBound
+        var x_0=lowerBound.real
+        var x_1=upperBound.real
+        var y_0=lowerBound.imaginary
+        var y_1=upperBound.imaginary
+        if (x_1<x_0) {
+            swap(&x_0,&x_1)
+        }
+        if (y_1<y_0) {
+            swap(&y_0,&y_1)
+        }
+        return Complex(Double.random(x_0...x_1),
+                       Double.random(y_0...y_1))
+    }
+
+    public static func random(_ range: CountableRange<Int>) -> Complex {
+        return Complex(Double.random(Double(range.lowerBound)...Double(range.upperBound)),0.0)
+    }
+    
+    public static func random(_ range: CountableClosedRange<Int>) -> Complex {
+        return Complex(Double.random(Double(range.lowerBound)..<Double(range.upperBound)),0.0)
+    }
+    
+    public static func randomArray(_ length: Int, upperBound: Complex) -> [Complex] {
+        var array = [Complex](repeating: 0, count: length)
+        for i in 0..<length {
+            array[i] = random(upperBound)
+        }
+        return array
+    }
+
+    public static func randomArray(_ length: Int, range: Range<RandomRangeType>) -> [Complex] {
+        var array = [Complex](repeating: 0, count: length)
+        for i in 0..<length {
+            array[i] = random(range)
+        }
         return array
     }
     
+    public static func randomArray(_ length: Int, range: ClosedRange<RandomRangeType>) -> [Complex] {
+        var array = [Complex](repeating: 0, count: length)
+        for i in 0..<length {
+            array[i] = random(range)
+        }
+        return array
+    }
 }
 
 
@@ -284,13 +294,14 @@ public func == (left: Complex, right: Complex) -> Bool {
 // MARK: Comparable Protocol
 
 public func < (left: Complex, right: Complex) -> Bool {
-    
-    return left.modulus < right.modulus
+    // Returning false allows MathEagle to create Swift ranges
+    // of Complex's such as Complex(0.0,0.0)..<Complex(1.0,1.0)
+    // that can be passed to Complex.randomArray(N,range:range)
+    return false
 }
 
 public func > (left: Complex, right: Complex) -> Bool {
-    
-    return right < left
+    return false
 }
 
 

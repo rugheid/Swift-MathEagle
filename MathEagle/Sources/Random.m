@@ -8,196 +8,295 @@
 
 #import "Random.h"
 
+////////////////////////////////////////////////////////////////
+//
+//    Swift and Objective-C numeric types
+//
+// Swift     Objective-C
+// -------------------------------------------------------------
+// UInt      unsigned long
+//     On 32-bit platforms, UInt is the same size as UInt32, and on
+//     64-bit platforms, UInt is the same size as UInt64. (4/8 bytes)
+// UInt8     unsigned char
+// UInt16    unsigned short
+// UInt32    unsigned int
+// UInt64    unsigned long long
+// Int       long
+//     On 32-bit platforms, Int is the same size as Int32, and on
+//     64-bit platforms, Int is the same size as Int64. (4/8 bytes)
+// Int8      char
+// Int16     short
+// Int32     int
+// Int64     long long
+// Float     float
+// Double    double
+////////////////////////////////////////////////////////////////
+
 @implementation Random_OBJC
 
+#pragma C Functions
 
-#pragma mark Unions
+static double randomNext(void) {
+    // Return random double in [0,1] .
+    return ((double)arc4random())/((double)UINT32_MAX);
+}
 
-typedef union {
-    float f;            // Float
-    int i;              // Int32
-    unsigned int ui;    // UInt32
-} single_precision_generator;
-
-typedef union {
-    double d;               // Double
-    long l;                 // Int
-    long long ll;           // Int64
-    unsigned long ul;       // UInt
-    unsigned long long ull; // UInt64
-    struct {
-        unsigned int a;
-        unsigned int b;
-    } integers;             // UInt32
-} double_precision_generator;
-
-typedef union {
-    char c;             // Int8
-    unsigned char uc;   // UInt8
-} char_generator;
-
-typedef union {
-    short s;             // Int16
-    unsigned short us;   // UInt16
-} short_generator;
-
-
+// arc4random_uniform is limited to unsigned 32 bit integers.
+// We define our own unsigned 64 bit integer randomUInt64 here.
+// Unlike arc4random_uniform , our randomUInt64 can return its input.
+static unsigned long long randomUInt64(unsigned long long upperBound) {
+    // Return random integer in [0,upperBound] .
+    if (upperBound<UINT32_MAX) {
+        return arc4random_uniform((uint32_t)(upperBound+1));
+    } else {
+        // limit divisble by upperBound to avoid modulo bias
+        unsigned long long limit = UINT64_MAX-UINT64_MAX%upperBound;
+        // Discover n<limit
+        unsigned long long n = 0;
+        while (YES) {
+            arc4random_buf(&n,sizeof(n));
+            if (n>=limit) break;
+        };
+        // Return answer < upperBound
+        return n % upperBound;
+    }
+}
 
 #pragma mark - Array Functions
 
-+ (void)randomUIntArrayOfLength:(long)length inArray:(unsigned long *)array {
-    
-    double_precision_generator g;
-    
++ (void)randomUIntArray:(long)length
+             lowerBound:(unsigned long)lowerBound
+             upperBound:(unsigned long)upperBound
+                 closed:(bool)closed
+                inArray:(unsigned long*)array {
+    unsigned long delta = upperBound-lowerBound;
+    if (closed) delta++;
+    if (delta==0) {
+        // The half-open range is empty.  Error or return best answer.
+        delta=1;
+    }
     for (long k = 0; k < length; k++) {
-        
-        g.integers.a = arc4random();
-        g.integers.b = arc4random();
-        
-        array[k] = g.ul;
+        unsigned long offset = (unsigned long)randomUInt64(delta-1);
+        array[k] = lowerBound+offset;
     }
 }
 
-
-+ (void)randomUInt8ArrayOfLength:(long)length inArray:(unsigned char *)array {
-    
++ (void)randomUInt8Array:(long)length
+              lowerBound:(unsigned char)lowerBound
+              upperBound:(unsigned char)upperBound
+                  closed:(bool)closed
+                 inArray:(unsigned char*)array {
+    unsigned char delta = upperBound-lowerBound;
+    if (closed) delta++;
+    if (delta==0) {
+        // The half-open range is empty.  Error or return best answer.
+        delta=1;
+    }
     for (long k = 0; k < length; k++) {
-        
-        array[k] = (unsigned char) arc4random_uniform(UCHAR_MAX);
+        unsigned char offset = arc4random_uniform(delta);
+        array[k] = lowerBound+offset;
     }
 }
 
-
-+ (void)randomUInt16ArrayOfLength:(long)length inArray:(unsigned short *)array {
-    
++ (void)randomUInt16Array:(long)length
+               lowerBound:(unsigned short)lowerBound
+               upperBound:(unsigned short)upperBound
+                   closed:(bool)closed
+                  inArray:(unsigned short*)array {
+    unsigned short delta = upperBound-lowerBound;
+    if (closed) delta++;
+    if (delta==0) {
+        // The half-open range is empty.  Error or return best answer.
+        delta=1;
+    }
     for (long k = 0; k < length; k++) {
-        
-        array[k] = (unsigned short) arc4random_uniform(USHRT_MAX);
+        unsigned short offset = arc4random_uniform(delta);
+        array[k] = lowerBound+offset;
     }
 }
 
-
-+ (void)randomUInt32ArrayOfLength:(long)length inArray:(unsigned int *)array {
-    
++ (void)randomUInt32Array:(long)length
+               lowerBound:(unsigned int)lowerBound
+               upperBound:(unsigned int)upperBound
+                   closed:(bool)closed
+                  inArray:(unsigned int*)array {
+    unsigned int delta = upperBound-lowerBound;
+    if (closed) delta++;
+    if (delta==0) {
+        // The half-open range is empty.  Error or return best answer.
+        delta=1;
+    }
     for (long k = 0; k < length; k++) {
-        
-        array[k] = arc4random();
+        unsigned int offset = arc4random_uniform(delta);
+        array[k] = lowerBound+offset;
     }
 }
 
-
-+ (void)randomUInt64ArrayOfLength:(long)length inArray:(unsigned long long *)array {
-    
-    double_precision_generator g;
-    
++ (void)randomUInt64Array:(long)length
+               lowerBound:(unsigned long long)lowerBound
+               upperBound:(unsigned long long)upperBound
+                   closed:(bool)closed
+                  inArray:(unsigned long long*)array {
+    unsigned long long delta = upperBound-lowerBound;
+    if (closed) delta++;
+    if (delta==0) {
+        // The half-open range is empty.  Error or return best answer.
+        delta=1;
+    }
     for (long k = 0; k < length; k++) {
-        
-        g.integers.a = arc4random();
-        g.integers.b = arc4random();
-        
-        array[k] = g.ull;
+        unsigned long long offset = randomUInt64(delta-1);
+        array[k] = lowerBound+offset;
     }
 }
 
-
-+ (void)randomIntArrayOfLength:(long)length inArray:(long *)array {
-    
-    double_precision_generator g;
-    
++ (void)randomIntArray:(long)length
+            lowerBound:(long)lowerBound
+            upperBound:(long)upperBound
+                closed:(bool)closed
+               inArray:(long*)array {
+    unsigned long delta = (unsigned long)(upperBound-lowerBound);
+    if (closed) delta++;
+    if (delta==0) {
+        // The half-open range is empty.  Error or return best answer.
+        delta=1;
+    }
     for (long k = 0; k < length; k++) {
-        
-        g.integers.a = arc4random();
-        g.integers.b = arc4random();
-        
-        array[k] = g.l;
+        unsigned long offset = (unsigned long)randomUInt64(delta-1);
+        array[k] = lowerBound+offset;
     }
 }
 
-
-+ (void)randomInt8ArrayOfLength:(long)length inArray:(char *)array {
-    
-    char_generator g;
-    
++ (void)randomInt8Array:(long)length
+             lowerBound:(char)lowerBound
+             upperBound:(char)upperBound
+                 closed:(bool)closed
+                inArray:(char*)array {
+    unsigned char delta = upperBound-lowerBound;
+    if (closed) delta++;
+    if (delta==0) {
+        // The half-open range is empty.  Error or return best answer.
+        delta=1;
+    }
     for (long k = 0; k < length; k++) {
-        
-        g.uc = arc4random_uniform(UCHAR_MAX);
-        
-        array[k] = g.c;
+        unsigned char offset = arc4random_uniform(delta);
+        array[k] = lowerBound+offset;
     }
 }
 
-
-+ (void)randomInt16ArrayOfLength:(long)length inArray:(short *)array {
-    
-    short_generator g;
-    
++ (void)randomInt16Array:(long)length
+              lowerBound:(short)lowerBound
+              upperBound:(short)upperBound
+                  closed:(bool)closed
+                 inArray:(short*)array {
+    unsigned short delta = upperBound-lowerBound;
+    if (closed) delta++;
+    if (delta==0) {
+        // The half-open range is empty.  Error or return best answer.
+        delta=1;
+    }
     for (long k = 0; k < length; k++) {
-        
-        g.us = arc4random_uniform(USHRT_MAX);
-        
-        array[k] = g.s;
+        unsigned short offset = arc4random_uniform(delta);
+        array[k] = lowerBound+offset;
     }
 }
 
-
-+ (void)randomInt32ArrayOfLength:(long)length inArray:(int *)array {
-    
-    single_precision_generator g;
-    
++ (void)randomInt32Array:(long)length
+              lowerBound:(int)lowerBound
+              upperBound:(int)upperBound
+                  closed:(bool)closed
+                 inArray:(int*)array {
+    unsigned int delta = upperBound-lowerBound;
+    if (closed) delta++;
+    if (delta==0) {
+        // The half-open range is empty.  Error or return best answer.
+        delta=1;
+    }
     for (long k = 0; k < length; k++) {
-        
-        g.ui = arc4random();
-        
-        array[k] = g.i;
+        unsigned int offset = arc4random_uniform(delta);
+        array[k] = lowerBound+offset;
     }
 }
 
-
-+ (void)randomInt64ArrayOfLength:(long)length inArray:(long long *)array {
-    
-    double_precision_generator g;
-    
++ (void)randomInt64Array:(long)length
+              lowerBound:(long long)lowerBound
+              upperBound:(long long)upperBound
+                  closed:(bool)closed
+                 inArray:(long long*)array {
+    unsigned long long delta = upperBound-lowerBound;
+    if (closed) delta++;
+    if (delta==0) {
+        // The half-open range is empty.  Error or return best answer.
+        delta=1;
+    }
     for (long k = 0; k < length; k++) {
-        
-        g.integers.a = arc4random();
-        g.integers.b = arc4random();
-        
-        array[k] = g.ll;
+        unsigned long long offset = randomUInt64(delta-1);
+        array[k] = lowerBound+offset;
     }
 }
 
-
-+ (void)randomFloatArrayOfLength:(long)length inArray:(float*)array {
-    
-    single_precision_generator g;
-    
++ (void)randomFloatArray:(long)length
+              lowerBound:(float)lowerBound
+              upperBound:(float)upperBound
+                  closed:(bool)closed
+                 inArray:(float*)array {
+    float delta = upperBound-lowerBound;
     for (long k = 0; k < length; k++) {
-        
-        g.ui = arc4random();
-        
-        while (!isnormal(g.f)) {
-            g.ui = arc4random();
+        float a = lowerBound;
+        // This loop should iterate once in most cases.
+        for (int i=1;i<10;i++) {
+            float offset = ((float)randomNext())*delta;
+            a = lowerBound+offset;
+            if ((lowerBound<=a)
+                &&((a<upperBound)
+                   ||(closed&&(a==upperBound)))) {
+                    break;
+                }
         }
-        
-        array[k] = g.f;
+        array[k] = a;
     }
 }
 
-
-+ (void)randomDoubleArrayOfLength:(long)length inArray:(double*)array {
-    
-    double_precision_generator g;
-    
++ (void)randomDoubleArray:(long)length
+               lowerBound:(double)lowerBound
+               upperBound:(double)upperBound
+                   closed:(bool)closed
+                  inArray:(double*)array {
+    double delta = upperBound-lowerBound;
     for (long k = 0; k < length; k++) {
-        
-        g.integers.a = arc4random();
-        g.integers.b = arc4random();
-        
-        while (!isnormal(g.d)) {
-            g.integers.b = arc4random();
+        double a = lowerBound;
+        // This loop should iterate once in most cases.
+        for (int i=1;i<10;i++) {
+            double offset = randomNext()*delta;
+            a = lowerBound+offset;
+            if ((lowerBound<=a)
+                &&((a<upperBound)
+                   ||(closed&&(a==upperBound)))) {
+                break;
+            }
         }
-        
-        array[k] = g.d;
+        array[k] = a;
+    }
+}
+
++ (void)randomCGFloatArray:(long)length
+              lowerBound:(CGFloat)lowerBound
+              upperBound:(CGFloat)upperBound
+                  closed:(bool)closed
+                 inArray:(CGFloat*)array {
+    CGFloat delta = upperBound-lowerBound;
+    for (long k = 0; k < length; k++) {
+        CGFloat a = lowerBound;
+        // This loop should iterate once in most cases.
+        for (int i=1;i<10;i++) {
+            CGFloat offset = ((CGFloat)randomNext())*delta;
+            a = lowerBound+offset;
+            if ((lowerBound<=a)
+                &&((a<upperBound)
+                   ||(closed&&(a==upperBound)))) {
+                    break;
+                }
+        }
+        array[k] = a;
     }
 }
 

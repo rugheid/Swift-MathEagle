@@ -12,7 +12,7 @@ import MathEagle
 class BasicOperationsTests: XCTestCase {
     func testNegatable() {
         // Test protocol Negatable for unsigned integers
-        repeat {
+        do {
             // Expecting -n64 = -1 = 2^64-1 (mod 2^64) etc.
             let n : UInt = 1
             let n8 : UInt8 = 1
@@ -39,8 +39,8 @@ class BasicOperationsTests: XCTestCase {
             XCTAssert(-n16>=0)
             XCTAssert(-n32>=0)
             XCTAssert(-n64>=0)
-        } while false
-        repeat {
+        }
+        do {
             // Expecting -n64 = 1 (mod 2^64) etc.
             let n : UInt = UInt(bitPattern:-1)
             let n8 : UInt8 = UInt8(bitPattern:-1)
@@ -67,6 +67,6 @@ class BasicOperationsTests: XCTestCase {
             XCTAssert(-n16>=0)
             XCTAssert(-n32>=0)
             XCTAssert(-n64>=0)
-        } while false
+        }
    }
 }

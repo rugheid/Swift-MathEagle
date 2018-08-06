@@ -49,7 +49,7 @@ class FunctionsTests: XCTestCase {
     func testFactorial() {
         
         let fact = Vector(length: 10, generator: factorial)
-        let expected = Vector([1, 1, 2, 6, 24, 120, 720, 5_040, 40_320, 362_880])
+        let expected = Vector([1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880])
         
         XCTAssertEqual(expected, fact)
     }
@@ -57,8 +57,8 @@ class FunctionsTests: XCTestCase {
     
     func testFactorialsUpTo() {
         
-        XCTAssertEqual([1, 1, 2, 6, 24, 120, 720, 5_040, 40_320, 362_880], factorialsUpTo(9))
-        XCTAssertEqual([1.0, 1, 2, 6, 24, 120, 720, 5_040, 40_320, 362_880], factorialsUpTo(9.5))
+        XCTAssertEqual([1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880], factorialsUpTo(9))
+        XCTAssertEqual([1.0, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880], factorialsUpTo(9.5))
         XCTAssertEqual([1], factorialsUpTo(0))
         XCTAssertEqual([], factorialsUpTo(-1))
         XCTAssertEqual([], factorialsUpTo(-1.23))
@@ -72,7 +72,7 @@ class FunctionsTests: XCTestCase {
         
         XCTAssertEqual(expected, fibonacci)
         
-        XCTAssertEqual(832_040, fib(30))
+        XCTAssertEqual(832040, fib(30))
     }
     
     

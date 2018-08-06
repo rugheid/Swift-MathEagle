@@ -78,7 +78,7 @@ open class Permutation: ExpressibleByArrayLiteral, Equatable, CustomStringConver
     
         :exception: Throws an exception when the given length is negative.
     */
-    public init(identityOfLength length: Int) {
+    public init(identity length: Int) {
         
         if length < 0 {
             NSException(name: NSExceptionName(rawValue: "Negative Length"), reason: "A permutation can not have a negative length.", userInfo: nil).raise()

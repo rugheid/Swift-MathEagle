@@ -81,72 +81,72 @@ open class Vector <T: MatrixCompatible> : ExpressibleByArrayLiteral, Equatable, 
     */
     public convenience init(randomWithLength length: Int) {
         
-        self.init(T.randomArrayOfLength(length))
+        self.init(T.randomArray(length))
     }
     
     
     /**
         Creates a random vector with the given length.
         The elements in the vector are generated with
-        the randomInInterval function of the vector's
+        the randomIn function of the vector's
         type T. This means the generated values will
-        lie within the given interval(s).
+        lie within the given range.
     
         - parameter length: The number of elements the vector should have.
-        - parameter intervals: The intervals in which the random generated
+        - parameter range: The range in which the random generated
                     elements may lie.
     */
-    public convenience init(randomWithLength length: Int, intervals: Range<T.RandomRangeType>...) {
+    public convenience init(randomWithLength length: Int, range: Range<T.RandomRangeType>) {
         
-        self.init(length: length, generator: { _ in T.randomInInterval(intervals) })
+        self.init(length: length, generator: { _ in T.random(range) })
     }
     
     /**
      Creates a random vector with the given length.
      The elements in the vector are generated with
-     the randomInInterval function of the vector's
+     the randomIn function of the vector's
      type T. This means the generated values will
-     lie within the given interval(s).
+     lie within the given range.
      
      - parameter length: The number of elements the vector should have.
-     - parameter intervals: The intervals in which the random generated
+     - parameter range: The range in which the random generated
      elements may lie.
      */
-    public convenience init(randomWithLength length: Int, intervals: ClosedRange<T.RandomRangeType>...) {
+    public convenience init(randomWithLength length: Int, range: ClosedRange<T.RandomRangeType>) {
         
-        self.init(length: length, generator: { _ in T.randomInInterval(intervals) })
+        self.init(length: length, generator: { _ in T.random(range) })
     }
     
     /**
      Creates a random vector with the given length.
      The elements in the vector are generated with
-     the randomInInterval function of the vector's
+     the randomIn function of the vector's
      type T. This means the generated values will
-     lie within the given interval(s).
+     lie within the given range.
      
      - parameter length: The number of elements the vector should have.
-     - parameter intervals: The intervals in which the random generated
+     - parameter range: The range in which the random generated
      elements may lie.
      */
-    public convenience init(randomWithLength length: Int, intervals: CountableRange<T.RandomCountableRangeType>...) {
+    public convenience init(randomWithLength length: Int, range: CountableRange<T.RandomCountableRangeType>) {
         
-        self.init(length: length, generator: { _ in T.randomInInterval(intervals) })
+        self.init(length: length, generator: { _ in T.random(range) })
     }
     
     /**
      Creates a random vector with the given length.
      The elements in the vector are generated with
-     the randomInInterval function of the vector's
+     the randomIn function of the vector's
      type T. This means the generated values will
-     lie within the given interval(s).
+     lie within the given range.
      
      - parameter length: The number of elements the vector should have.
-     - parameter intervals: The intervals in which the random generated
+     - parameter range: The range in which the random generated
      elements may lie.
      */
-    public convenience init(randomWithLength length: Int, intervals: CountableClosedRange<T.RandomCountableRangeType>...) {
+    public convenience init(randomWithLength length: Int, range: CountableClosedRange<T.RandomCountableRangeType>) {
         
-        self.init(length: length, generator: { _ in T.randomInInterval(intervals) })
+        self.init(length: length, generator: { _ in T.random(range) })
     }
     
     
