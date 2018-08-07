@@ -14,7 +14,7 @@ import MathEagle
 class BigIntTests: XCTestCase {
     
     
-    // MARK: Init tests
+    // MARK: Init
     
     func testInit() {
         let bigInt = BigInt()
@@ -34,7 +34,7 @@ class BigIntTests: XCTestCase {
     }
     
     
-    // MARK: Conversion Tests
+    // MARK: Conversion
     
     func testIntValue() {
         var bigInt = BigInt(string: "-4321")
@@ -69,7 +69,7 @@ class BigIntTests: XCTestCase {
     }
     
     
-    // MARK: Comparison Tests
+    // MARK: Comparison
     
     func testCompareBigInt() {
         let a = BigInt(int: 53103)
@@ -139,7 +139,7 @@ class BigIntTests: XCTestCase {
     }
     
     
-    // MARK: Operation Tests
+    // MARK: Operation
     
     func testAdd() {
         let a = BigInt(int: 53103)
@@ -443,16 +443,16 @@ class BigIntTests: XCTestCase {
     func testPowerModulo() {
         let a = BigInt(int: 53103)
         let b = BigInt(int: 234311)
-        let mod = BigInt(int: 1_000_000_000_000)
-        XCTAssertEqual(BigInt(uint: 919_447_180_047), a.power(b, modulo: mod))
+        let mod = BigInt(int: 1000000000000)
+        XCTAssertEqual(BigInt(uint: 919447180047), a.power(b, modulo: mod))
     }
     
     func testPowerModuloInPlace() {
         var a = BigInt(int: 53103)
         let b = BigInt(int: 234311)
-        let mod = BigInt(int: 1_000_000_000_000)
+        let mod = BigInt(int: 1000000000000)
         a.powerInPlace(b, modulo: mod)
-        XCTAssertEqual(BigInt(uint: 919_447_180_047), a)
+        XCTAssertEqual(BigInt(uint: 919447180047), a)
     }
     
     func testPower() {
@@ -544,7 +544,7 @@ class BigIntTests: XCTestCase {
     }
     
     
-    // MARK: SetCompliant tests
+    // MARK: SetCompliant
     
     func testIsNatural() {
         let a = BigInt(int: 53103)

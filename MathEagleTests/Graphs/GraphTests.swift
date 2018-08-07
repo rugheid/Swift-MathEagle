@@ -41,7 +41,7 @@ class GraphTests: XCTestCase {
     }
     
     
-    // MARK: Basic Properties Tests
+    // MARK: Basic Properties
     
     func testVertexManagement() {
         
@@ -114,7 +114,7 @@ class GraphTests: XCTestCase {
     }
     
     
-    // MARK: Shortest Path Tests
+    // MARK: Shortest Path
     
     func testDijkstraUndirectedGraph() {
         
